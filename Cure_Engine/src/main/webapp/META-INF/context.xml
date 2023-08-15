@@ -1,0 +1,32 @@
+<Context>	
+	<Resource name="jdbc/cure_Engine" 
+	   auth="Container"
+	   type="javax.sql.DataSource" 
+	   
+	   username="system" 
+	   password="1234"
+	   driverClassName="oracle.jdbc.driver.OracleDriver"
+	   url="jdbc:oracle:thin:@127.0.0.1:1521:XE"
+	   
+	   factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+	   
+	   maxActive="500" 
+	   maxIdle="100"
+	   maxWait="1000"/> 
+	   
+	    <!-- MySQL용 -->
+ <!-- <Resource name="jdbc/MySQLDB" 
+	   auth="Container"
+	   type="javax.sql.DataSource" 
+	   
+	   url="jdbc:mysql://localhost:3306/testdb"
+	   username="java" 
+	   password="java"   
+	   driverClassName="com.mysql.cj.jdbc.Driver"
+	   
+	   factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+	  
+	   maxActive="500" 
+	   maxWait="1000"
+	   maxIdle="100"/>  -->
+</Context>
