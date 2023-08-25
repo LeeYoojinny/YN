@@ -32,7 +32,7 @@ select * from tbl_car;
 -- tbl_user : 사용자, 딜러, 관리자
 -- -----------------------------------------------------
 CREATE TABLE tbl_user (
-user_category VARCHAR(45) NOT NULL,
+user_category VARCHAR(45) NOT NULL COMMENT 'admin, dealer, customer',
 user_id VARCHAR(45) NOT NULL,
 user_pw VARCHAR(256) NOT NULL,
 user_name NVARCHAR(20) NOT NULL,
@@ -54,9 +54,17 @@ select * from testdb.tbl_user;
 insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_phone,user_zipcode,user_address1,user_address2,user_email) 
 values('admin','admin','BB8EF2DE6CF9EB9357AB2599BFE4B3BA7100EF50DB31F90086567663BD0FC1C9','관리자','1970-01-01','01000000000',42612,'대구 달서구 달구벌대로251안길 15','601호','admin@admin.com');
 
-/* 딜러 id:d230001 , pw:dl123456 */
+/* 딜러 id:d23000 , pw:dl123456 */
 insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_phone,user_zipcode,user_address1,user_address2,user_email) 
+values('dealer','d230001','3BC8ACF3556C6A5625520883F6479326F575D76C2129BB938990D9C8488CF22C','제임스','1980-07-01','01011223344',42612,'대구 달서구 달구벌대로251안길 15','601호','james@cureengine.com');
 
+/* 딜러 id:d230002 , pw:dl123456 */
+insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_phone,user_zipcode,user_address1,user_address2,user_email) 
+values('dealer','d230002','3BC8ACF3556C6A5625520883F6479326F575D76C2129BB938990D9C8488CF22C','앤드류','1990-03-26','01099998765',42612,'대구 달서구 달구벌대로251안길 15','601호','andew@cureengine.com');
+
+/* 딜러 id:d230003 , pw:dl123456 */
+insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_phone,user_zipcode,user_address1,user_address2,user_email) 
+values('dealer','d230003','3BC8ACF3556C6A5625520883F6479326F575D76C2129BB938990D9C8488CF22C','다니엘','1987-11-10','01012345666',42612,'대구 달서구 달구벌대로251안길 15','601호','daniel@cureengine.com');
 -- -----------------------------------------------------
 -- tbl_wishlist : 관심상품
 -- -----------------------------------------------------
