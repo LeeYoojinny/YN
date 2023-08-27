@@ -1,0 +1,67 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap');
+
+body{
+    font-size:14px;
+    background-color: #f5f6f7;
+    line-height: 1.5em;
+    color : #222;
+    margin: 0;
+}
+
+.wrap_login{
+    width: 400px;
+    /* border: 1px solid #000; */
+    margin: auto; /*중앙 정렬*/
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.wrap_login .field{
+    margin :10px 0; /*상하로 좀 띄워주기*/
+}
+
+.wrap_login b{
+    /* border: 1px solid #000; */
+    display: block; /*수직 정렬하기 */
+    margin-bottom: 5px;
+}
+
+/*input 중 radio 는 width 가 100%면 안되니까 */
+.wrap_login input {
+    border: 1px solid #dadada;
+    padding: 15px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.wrap_login input[type=text]:focus, 
+.wrap_login input[type=password]:focus {
+	box-shadow: 0px 0px 2px 2px skyblue;
+}
+
+.wrap_login input[type=submit]{
+	background-color: #486AAE;
+	color:#fff;
+	cursor: pointer;
+}
+
+.wrap_login input[type=submit]:hover{
+	background-color: #36589C;
+	color:#fff;
+}
+
+
+.login_another {
+	padding-left: 55px;
+}
+
+.login_another a {
+	text-decoration: none;
+	color: black;
+}
+
+.login_another a:hover {
+	text-decoration: underline;
+	color: blue;
+}
