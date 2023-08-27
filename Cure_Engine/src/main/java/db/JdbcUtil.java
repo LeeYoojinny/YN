@@ -22,7 +22,7 @@ public class JdbcUtil {
 		try {
 			Context initCtx = new InitialContext();
 			Context envCtx = (Context)initCtx.lookup("java:comp/env");
-			DataSource ds = (DataSource)envCtx.lookup("jdbc/cure_Engine");
+			DataSource ds = (DataSource)envCtx.lookup("jdbc/MySQLDB");
 			con = ds.getConnection();
 			
 			con.setAutoCommit(false);//★★Connection객체에 트랜잭션을 완료하지 못하도록 false로 적용

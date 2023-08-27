@@ -31,12 +31,15 @@ select * from tbl_car;
 -- -----------------------------------------------------
 -- tbl_user : 사용자, 딜러, 관리자
 -- -----------------------------------------------------
+drop table tbl_user;
+
 CREATE TABLE tbl_user (
 user_category VARCHAR(45) NOT NULL COMMENT 'admin, dealer, customer',
 user_id VARCHAR(45) NOT NULL,
 user_pw VARCHAR(256) NOT NULL,
 user_name NVARCHAR(20) NOT NULL,
 user_birth CHAR(10) NOT NULL COMMENT '생년월일 : 입력형식 YYYY-MM-DD',
+user_gender char(1) not null comment 'M:남성 , F:여성',
 user_phone VARCHAR(11) NOT NULL COMMENT '휴대폰번호 : (-)없이 숫자만',
 user_zipcode INT NOT NULL,
 user_address1 VARCHAR(100) NOT NULL,
@@ -48,7 +51,6 @@ user_expiredate TIMESTAMP NOT NULL DEFAULT 0,
 PRIMARY KEY (user_id));
 
 select * from tbl_user;
-select * from testdb.tbl_user;
 
 /* 관리자 id:admin , pw:adm!Q2w#E4r */
 insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_phone,user_zipcode,user_address1,user_address2,user_email) 
