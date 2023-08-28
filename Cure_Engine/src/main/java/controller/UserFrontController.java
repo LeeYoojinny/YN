@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.user.UserFindIdAction;
 import action.user.UserJoinAction;
+import action.user.UserLogOutAction;
+import action.user.UserLoginAction;
 import vo.ActionForward;
 
 /**
@@ -85,7 +88,6 @@ public class UserFrontController extends HttpServlet {
 		
 
 		else if(command.equals("/userJoinAction.usr")) {//'회원가입 처리'요청하면
-			//action:부모인터페이스 = UserLoginAction:구현한자식객체;
 			action = new UserJoinAction();
 			try {
 				forward = action.execute(request, response);
@@ -95,15 +97,14 @@ public class UserFrontController extends HttpServlet {
 			}
 		}
 		
-		/*------- '회원가입 폼 보기' → 처리 ---------------------------------------------------------*/
+		/*------- '로그인 폼 보기' → 처리 ---------------------------------------------------------*/
 		else if(command.equals("/userLogin.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
 			request.setAttribute("showPage", "user/loginForm.jsp");
 			forward = new ActionForward("userTemplate.jsp",false); //반드시 디스패치 방식으로 포워딩
 		}
 		
-		/*
+
 		else if(command.equals("/userLoginAction.usr")) {//'로그인 처리'요청하면
-			//action:부모인터페이스 = UserLoginAction:구현한자식객체;
 			action = new UserLoginAction();
 			try {
 				forward = action.execute(request, response);
@@ -112,7 +113,52 @@ public class UserFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		*/
+		
+		/*------- '로그아웃' 요청 ---------------------------------------------------------*/
+		else if(command.equals("/userLogout.usr")) {//'로그아웃' 요청이면
+			action = new UserLogOutAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		
+		/*------- '아이디찾기 폼' → 처리 ---------------------------------------------------------*/
+		else if(command.equals("/userFindIdForm.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
+			request.setAttribute("showPage", "user/findIdForm.jsp");
+			forward = new ActionForward("userTemplate.jsp",false); //반드시 디스패치 방식으로 포워딩
+		}
+		
+		
+		else if(command.equals("/userFindIdAction.usr")) {//'로그인 처리'요청하면
+			action = new UserFindIdAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		
+		/*------- '비밀번호 찾기 폼' → 처리 ---------------------------------------------------------*/
+		else if(command.equals("/userFindPwForm.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
+			request.setAttribute("showPage", "user/findPwForm.jsp");
+			forward = new ActionForward("userTemplate.jsp",false); //반드시 디스패치 방식으로 포워딩
+		}
+		
+		
+		else if(command.equals("/userFindIdAction.usr")) {//'로그인 처리'요청하면
+			action = new UserFindIdAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)
 		 *********************************************************************/

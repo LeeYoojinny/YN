@@ -17,6 +17,10 @@ body{
     margin-bottom: 20px;
 }
 
+#loginForm {
+	margin-top: 40px;
+}
+
 .wrap_login .field{
     margin :10px 0; /*상하로 좀 띄워주기*/
 }
@@ -27,7 +31,6 @@ body{
     margin-bottom: 5px;
 }
 
-/*input 중 radio 는 width 가 100%면 안되니까 */
 .wrap_login input {
     border: 1px solid #dadada;
     padding: 15px;

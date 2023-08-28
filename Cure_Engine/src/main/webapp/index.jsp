@@ -13,22 +13,33 @@
 
 <nav>
 	<ul>
-	    <li><a href="index.jsp">Home</a></li>
-	    <li><a href="#">Cars</a></li>
-	    <li><a href="#">Services</a></li>
-	    <li><a href="#">Contact</a></li>
-	    <c:choose>
-			<c:when test="${sessionScope.u_id eq null}">
-				<li><a href="<%=request.getContextPath()%>/userLogin.usr">LogIn</a></li>
-				 | 
-				<li><a href="<%=request.getContextPath()%>/userJoin.usr">Join</a></li>
-			</c:when>
-			<c:otherwise>
-				${sessionScope.u_name}님 환영합니다<br>
-				<li><a href="<%=request.getContextPath()%>/userMyInfo.usr">나의정보</a></li>
-				| 
-				<li><a href="<%=request.getContextPath()%>/myOrder.kiosk">로그아웃</a></li>
-			</c:otherwise>
+	<c:choose>
+		<c:when test="${sessionScope.user_id eq null}">
+		    <li><a href="index.jsp">Home</a></li>
+		    <li><a href="#">Cars</a></li>
+		    <li><a href="#">Services</a></li>
+		    <li><a href="#">Contact</a></li>
+		    <li><a href="<%=request.getContextPath()%>/userLogin.usr">LogIn</a></li>
+			<li><a href="<%=request.getContextPath()%>/userJoin.usr">Join</a></li>
+		</c:when>
+		<c:when test="${sessionScope.user_category eq 'customer'}">
+			<li><a href="index.jsp">Home</a></li>
+		    <li><a href="#">Cars</a></li>
+		    <li><a href="#">Services</a></li>
+		    <li><a href="#">Contact</a></li>
+		    ${sessionScope.user_name} 환영합니다<br>
+			<li><a href="<%=request.getContextPath()%>/userMyInfo.usr">My Info</a></li>
+			<li><a href="<%=request.getContextPath()%>/userLogout.usr">LogOut</a></li>
+		</c:when>
+		<c:otherwise>
+			<li><a href="index.jsp">Home</a></li>
+		    <li><a href="#">Cars</a></li>
+		    <li><a href="#">Status</a></li>
+		    <li><a href="#">Board</a></li>
+		    ${sessionScope.user_name}(${sessionScope.user_category})님 환영합니다<br>
+			<li><a href="<%=request.getContextPath()%>/userMyInfo.usr">My Info</a></li>
+			<li><a href="<%=request.getContextPath()%>/userLogout.usr">LogOut</a></li>
+		</c:otherwise>
 		</c:choose>
   	</ul>
 </nav>

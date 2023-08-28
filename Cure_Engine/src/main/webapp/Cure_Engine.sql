@@ -41,32 +41,36 @@ user_name NVARCHAR(20) NOT NULL,
 user_birth CHAR(10) NOT NULL COMMENT '생년월일 : 입력형식 YYYY-MM-DD',
 user_gender char(1) not null comment 'M:남성 , F:여성',
 user_phone VARCHAR(11) NOT NULL COMMENT '휴대폰번호 : (-)없이 숫자만',
+user_email VARCHAR(50) NOT NULL,
 user_zipcode INT NOT NULL,
 user_address1 VARCHAR(100) NOT NULL,
 user_address2 VARCHAR(60) NULL,
-user_email VARCHAR(50) NOT NULL,
 user_joindate TIMESTAMP NOT NULL DEFAULT now(),
 use_YN CHAR(1) NOT NULL DEFAULT 'Y' COMMENT '탈퇴유무',
-user_expiredate TIMESTAMP NOT NULL DEFAULT 0,
+user_expiredate TIMESTAMP NULL,
 PRIMARY KEY (user_id));
+
+ALTER TABLE tbl_user
+MODIFY COLUMN user_expiredate TIMESTAMP NULL;
+
 
 select * from tbl_user;
 
 /* 관리자 id:admin , pw:adm!Q2w#E4r */
-insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_phone,user_zipcode,user_address1,user_address2,user_email) 
-values('admin','admin','BB8EF2DE6CF9EB9357AB2599BFE4B3BA7100EF50DB31F90086567663BD0FC1C9','관리자','1970-01-01','01000000000',42612,'대구 달서구 달구벌대로251안길 15','601호','admin@admin.com');
+insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_gender,user_phone,user_zipcode,user_address1,user_address2,user_email) 
+values('admin','admin','BB8EF2DE6CF9EB9357AB2599BFE4B3BA7100EF50DB31F90086567663BD0FC1C9','관리자','1970-01-01','M','01000000000',42612,'대구 달서구 달구벌대로251안길 15','601호','admin@admin.com');
 
 /* 딜러 id:d23000 , pw:dl123456 */
-insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_phone,user_zipcode,user_address1,user_address2,user_email) 
-values('dealer','d230001','3BC8ACF3556C6A5625520883F6479326F575D76C2129BB938990D9C8488CF22C','제임스','1980-07-01','01011223344',42612,'대구 달서구 달구벌대로251안길 15','601호','james@cureengine.com');
+insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_gender,user_phone,user_zipcode,user_address1,user_address2,user_email) 
+values('dealer','d230001','3BC8ACF3556C6A5625520883F6479326F575D76C2129BB938990D9C8488CF22C','제임스','1980-07-01','M','01011223344',42612,'대구 달서구 달구벌대로251안길 15','601호','james@cureengine.com');
 
 /* 딜러 id:d230002 , pw:dl123456 */
-insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_phone,user_zipcode,user_address1,user_address2,user_email) 
-values('dealer','d230002','3BC8ACF3556C6A5625520883F6479326F575D76C2129BB938990D9C8488CF22C','앤드류','1990-03-26','01099998765',42612,'대구 달서구 달구벌대로251안길 15','601호','andew@cureengine.com');
+insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_gender,user_phone,user_zipcode,user_address1,user_address2,user_email) 
+values('dealer','d230002','3BC8ACF3556C6A5625520883F6479326F575D76C2129BB938990D9C8488CF22C','앤드류','1990-03-26','M','01099998765',42612,'대구 달서구 달구벌대로251안길 15','601호','andew@cureengine.com');
 
 /* 딜러 id:d230003 , pw:dl123456 */
-insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_phone,user_zipcode,user_address1,user_address2,user_email) 
-values('dealer','d230003','3BC8ACF3556C6A5625520883F6479326F575D76C2129BB938990D9C8488CF22C','다니엘','1987-11-10','01012345666',42612,'대구 달서구 달구벌대로251안길 15','601호','daniel@cureengine.com');
+insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_gender,user_phone,user_zipcode,user_address1,user_address2,user_email) 
+values('dealer','d230003','3BC8ACF3556C6A5625520883F6479326F575D76C2129BB938990D9C8488CF22C','다니엘','1987-11-10','M','01012345666',42612,'대구 달서구 달구벌대로251안길 15','601호','daniel@cureengine.com');
 -- -----------------------------------------------------
 -- tbl_wishlist : 관심상품
 -- -----------------------------------------------------
