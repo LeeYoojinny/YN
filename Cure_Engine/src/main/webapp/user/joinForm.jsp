@@ -103,7 +103,7 @@
 		
 		//비밀번호 확인 체크
 		if(!document.f.check_pw.value.trim()) {
-			alert("비밀번호 재확인 헤주세요.");
+			alert("비밀번호 재확인 해주세요.");
 			document.f.check_pw.focus();
 			return false;
 		}else if(document.f.user_pw.value != document.f.check_pw.value) {

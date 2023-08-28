@@ -8,7 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Cure Engine</title>
+<style type="text/css">
+	main {
+		margin-top : 1.5rem;
+	}
 
+</style>
 </head>
 <body>
 	<!-- header -->

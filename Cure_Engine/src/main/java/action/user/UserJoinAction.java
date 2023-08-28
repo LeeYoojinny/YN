@@ -50,7 +50,7 @@ public class UserJoinAction implements Action {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('회원가입에 실패하였습니다.');");
+			out.println("alert('회원가입에 실패하였습니다. 다시 시도해주세요.');");
 			out.println("history.back();"); //로그인폼보기 다시 요청
 			out.println("</script>");
 		}else {//회원가입 성공 알림창 → '로그인 폼보기' 요청(리다이렉트 방식)
