@@ -48,7 +48,7 @@ public class UserFindIdAction implements Action {
 			System.out.println("받아온 id값 : " + getId);
 			
 			request.setAttribute("showPage","user/findIdComplete.jsp");
-			forward = new ActionForward("userTemplate.jsp", false);
+			forward = new ActionForward("template.jsp", false);
 		}
 		
 		

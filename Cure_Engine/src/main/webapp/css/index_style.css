@@ -1,30 +1,62 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Roboto:wght@300;400;500;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Ubuntu&display=swap');
+@import url('https://webfontworld.github.io/yangheeryu/GowunDodum.css');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital@1&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
 }
 
-/* Menu Styles */
+/* 배경화면 -----------------------------------------------------*/
+/* 비디오 컨테이너 스타일 */
+.video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* 비디오 스타일 */
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/*-------------------------------------------------------------*/
+
+/* 메뉴바 ------------------------------------------------------*/
 nav {
+  display: flex;
   background-color: #333;
-  padding: 1rem 0;
+  justify-content: space-between;
+  padding: 0.8rem 0;
 }
 
 nav ul {
   list-style: none;
   display: flex;
-  justify-content: center;
 }
 
+/* 기본 메뉴 */
 nav ul li {
+  position: relative;
   margin: 0 3rem;
+  font-family:'Ubuntu';
+  display: block;
+  width: 5.56rem;
+  text-align: center;
 }
 
+/* 기본메뉴의 글씨 */
 nav ul li a {
+  display: block; 
+  padding: 0.55rem 1rem;
   text-decoration: none;
   color: #fff;
   font-weight: 600;
@@ -35,7 +67,107 @@ nav ul li a:hover {
   color: #00aaff;
 }
 
+/* 홈 버튼 */
+.gotoMain {
+	justify-content: flex-start; /* 메뉴바 제일 앞으로 가도록 */
+}
 
+/* 쇼핑 관련 메뉴들 */
+.shoppingMenu {
+	justify-content: center; /* 메뉴바 중간에 오도록 */
+	margin-left: 2rem;
+}
+
+/* 나의정보 및 로그아웃 ul */
+.myInfoMenu {
+	justify-content: flex-end; /* 메뉴바 제일 뒤로 보내기 */	
+}
+
+.myInfoMenu li{
+	width: 5.45rem; /* 다른 메뉴들 보다 크기를 작게 */
+	margin: 0 0.55rem;
+}
+
+li.wish {
+    width: 2rem;
+}
+
+.wish img {
+  	vertical-align: middle;
+  	width: 1.2rem;
+}
+
+
+/* '***님 환영합니다' 부분 */
+/*
+.welcome {
+	font-family: 'GowunDodum';
+    color: white;
+    font-weight: bold;
+    max-height: 4rem;
+    text-align: center;
+    max-width: 5.5rem;
+    font-size: 0.75rem;
+}
+*/
+
+
+
+/* Dropdown Menu Styles -------------------------------------------------*/
+nav ul ul {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  border-top: 2px solid #00aaff;
+  z-index: 1; 
+  transform: translateX(-7%);
+  width: 6.56rem;/* 드롭다운 메뉴의 폭 조절 자동 */
+}
+
+nav ul li:hover > ul {
+  display: block;
+}
+
+/* 드롭다운 메뉴 기본설정 */
+nav ul ul li {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  position: relative;
+  font-family:'GowunDodum';
+}
+
+nav ul ul li a {
+  padding: 0.75rem 1rem; /* 조정된 패딩 */ 
+  display: block; /* 너비를 채우기 위해 블록으로 표시 */
+  white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+  border-bottom: 1px solid #444; /* 각 항목 하단에 테두리 추가 */
+}
+
+/* 드롭메뉴 중 이름의 길이가 긴 글자설정 */
+#inside_menu2 li a{
+	 padding: 1rem 0.2rem; 
+	 font-size: 0.9rem;
+}
+
+nav ul ul li a:hover {
+  background-color: #00aaff;
+  color: #fff;
+}
+
+/* 더 큰 화면에 대한 조정 */
+@media screen and (min-width: 48rem) {
+  nav ul li {
+    margin: 0 1.5rem; /* 더 큰 화면을 위한 마진 증가 */
+  }
+  
+nav ul ul {
+  top: auto; /* 더 큰 화면에 대한 위치 재설정 */
+  left: 0;
+}
+/*----------------------------------------------------------------------*/
+
+/* Contents ------------------------------------------------------------*/
 /* Styles */
 main {
   position: relative;
@@ -69,16 +201,17 @@ main > div span {
   letter-spacing: 1.5px;
   font-size: 1rem;
   color: #717171;
+  font-family:'GowunDodum';
 }
 
 main > div h1 {
   text-transform: capitalize;
   letter-spacing: 0.8px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Black Ops One', cursive;
   font-weight: 900;
   font-size: clamp(3.4375rem, 3.25rem + 0.75vw, 4rem);
-  background-color: #005baa;
-  background-image: linear-gradient(45deg, #005baa, #000000);
+  background-color: #E0ECF8;
+  background-image: linear-gradient(45deg, #E0ECF8, #070719);
   background-size: 100%;
   background-repeat: repeat;
   -webkit-background-clip: text;
@@ -98,6 +231,8 @@ main > div hr {
 
 main > div p {
   line-height: 1.6;
+  color: #FFFFFF;
+  font-family:'GowunDodum';
 }
 
 main a {
@@ -115,6 +250,7 @@ main > div > a {
   border: 2px solid #c2c2c2;
   margin-top: 2.188rem;
   padding: 0.625rem 1.875rem;
+  font-family:'GowunDodum';
 }
 
 main > div > a:hover {
@@ -125,6 +261,14 @@ main > div > a:hover {
 .swiper {
   width: 100%;
   padding-top: 3.125rem;
+}
+
+.swiper div div a, .swiper div div p {
+	font-family:'GowunDodum';
+}
+
+.swiper div div h2 {
+	font-family: 'Ubuntu Italic', sans-serif;
 }
 
 .swiper-pagination-bullet,
@@ -195,6 +339,10 @@ main > div > a:hover {
   linear-gradient(to top, #0f2027, #203a4300, #2c536400), 
   url("../image/index/car1.jpg") 
   no-repeat 50% 50%/cover;
+  
+  border: 2px solid #ccc; /* 테두리 스타일과 색상을 조절합니다 */
+  border-radius: 0.625rem; /* 테두리의 모서리를 둥글게 만듭니다 */
+  overflow: hidden; /* 내용이 테두리를 넘어가지 않도록 설정합니다 */
 }
 
 .swiper-slide--two {
@@ -202,6 +350,10 @@ main > div > a:hover {
   linear-gradient(to top, #0f2027, #203a4300, #2c536400), 
   url("../image/index/car2.jpg") 
   no-repeat 50% 50%/cover;
+  
+  border: 2px solid #ccc; /* 테두리 스타일과 색상을 조절합니다 */
+  border-radius: 0.625rem; /* 테두리의 모서리를 둥글게 만듭니다 */
+  overflow: hidden; /* 내용이 테두리를 넘어가지 않도록 설정합니다 */
 }
 
 .swiper-slide--three {
@@ -209,6 +361,10 @@ main > div > a:hover {
   linear-gradient(to top, #0f2027, #203a4300, #2c536400), 
   url("../image/index/car3.jpg") 
   no-repeat 50% 50%/cover;
+  
+  border: 2px solid #ccc; /* 테두리 스타일과 색상을 조절합니다 */
+  border-radius: 0.625rem; /* 테두리의 모서리를 둥글게 만듭니다 */
+  overflow: hidden; /* 내용이 테두리를 넘어가지 않도록 설정합니다 */
 }
 
 .swiper-slide--four {
@@ -216,6 +372,10 @@ main > div > a:hover {
   linear-gradient(to top, #0f2027, #203a4300, #2c536400), 
   url("../image/index/car4.jpg") 
   no-repeat 50% 50%/cover;
+  
+  border: 2px solid #ccc; /* 테두리 스타일과 색상을 조절합니다 */
+  border-radius: 0.625rem; /* 테두리의 모서리를 둥글게 만듭니다 */
+  overflow: hidden; /* 내용이 테두리를 넘어가지 않도록 설정합니다 */
 }
 
 .swiper-slide--five {
@@ -223,7 +383,10 @@ main > div > a:hover {
   linear-gradient(to top, #0f2027, #203a4300, #2c536400), 
   url("../image/index/car5.jpg") 
   no-repeat 50% 50%/cover;
-	
+  
+  border: 2px solid #ccc; /* 테두리 스타일과 색상을 조절합니다 */
+  border-radius: 0.625rem; /* 테두리의 모서리를 둥글게 만듭니다 */
+  overflow: hidden; /* 내용이 테두리를 넘어가지 않도록 설정합니다 */
 }
 
 .swiper-slide--Six {
@@ -231,7 +394,10 @@ main > div > a:hover {
   linear-gradient(to top, #0f2027, #203a4300, #2c536400), 
   url("../image/index/car6.jpg") 
   no-repeat 50% 50%/cover;
-	
+  
+  border: 2px solid #ccc; /* 테두리 스타일과 색상을 조절합니다 */
+  border-radius: 0.625rem; /* 테두리의 모서리를 둥글게 만듭니다 */
+  overflow: hidden; /* 내용이 테두리를 넘어가지 않도록 설정합니다 */
 }
 
 .swiper-slide--Seven {
@@ -240,6 +406,9 @@ main > div > a:hover {
   url("../image/index/car7.jpg") 
   no-repeat 50% 50%/cover;
 	
+  border: 2px solid #ccc; /* 테두리 스타일과 색상을 조절합니다 */
+  border-radius: 0.625rem; /* 테두리의 모서리를 둥글게 만듭니다 */
+  overflow: hidden; /* 내용이 테두리를 넘어가지 않도록 설정합니다 */
 }
 
 .swiper-slide--Eight {
@@ -248,8 +417,10 @@ main > div > a:hover {
   url("../image/index/car8.jpg") 
   no-repeat 50% 50%/cover;
 	
+  border: 2px solid #ccc; /* 테두리 스타일과 색상을 조절합니다 */
+  border-radius: 0.625rem; /* 테두리의 모서리를 둥글게 만듭니다 */
+  overflow: hidden; /* 내용이 테두리를 넘어가지 않도록 설정합니다 */	
 }
-
 .swiper-3d .swiper-slide-shadow-left,
 .swiper-3d .swiper-slide-shadow-right {
   background-image: none;
@@ -271,4 +442,44 @@ main > div > a:hover {
     width: 85%;
   }
 }
+/*----------------------------------------------------------------------*/
 
+/* footer --------------------------------------------------------------*/
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 0.4rem 0;
+  text-align: center;
+}
+
+footer div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 1rem;
+}
+
+footer p {
+  margin-bottom: 0.5rem;
+  font-family:'Ubuntu';
+}
+
+footer ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+footer ul li a {
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s;
+  font-family:'GowunDodum';
+}
+
+footer ul li a:hover {
+  color: #00aaff;
+}
+
+/*-------------------------------------------------------------*/

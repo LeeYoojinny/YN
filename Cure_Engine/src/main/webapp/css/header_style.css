@@ -1,0 +1,166 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Ubuntu&display=swap');
+@import url('https://webfontworld.github.io/yangheeryu/GowunDodum.css');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* 메뉴바 ------------------------------------------------------*/
+nav {
+  display: flex;
+  background-color: #333;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+}
+
+/* 기본 메뉴 */
+nav ul li {
+  position: relative;
+  margin: 0 3rem;
+  font-family:'Ubuntu';
+  display: block;
+  width: 5.56rem;
+  text-align: center;
+}
+
+/* 기본메뉴의 글씨 */
+nav ul li a {
+  display: block; 
+  padding: 0.55rem 1rem;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #00aaff;
+}
+
+/* 홈 버튼 */
+.gotoMain {
+	justify-content: flex-start; /* 메뉴바 제일 앞으로 가도록 */
+}
+
+/* 쇼핑 관련 메뉴들 */
+.shoppingMenu {
+	justify-content: center; /* 메뉴바 중간에 오도록 */
+	margin-left: 2rem;
+}
+
+/* 나의정보 및 로그아웃 ul */
+.myInfoMenu {
+	justify-content: flex-end; /* 메뉴바 제일 뒤로 보내기 */	
+}
+
+.myInfoMenu li{
+	width: 5.45rem; /* 다른 메뉴들 보다 크기를 작게 */
+	margin: 0 0.55rem;
+}
+
+li.wish {
+    width: 2rem;
+}
+
+.wish img {
+  	vertical-align: middle;
+  	width: 1.2rem;
+}
+
+
+/* '***님 환영합니다' 부분 */
+/*
+.welcome {
+	font-family: 'GowunDodum';
+    color: white;
+    font-weight: bold;
+    max-height: 4rem;
+    text-align: center;
+    max-width: 5.5rem;
+    font-size: 0.75rem;
+}
+*/
+
+
+
+/* Dropdown Menu Styles -------------------------------------------------*/
+nav ul ul {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  border-top: 2px solid #00aaff;
+  z-index: 1; 
+  transform: translateX(-7%);
+  width: 6.56rem;/* 드롭다운 메뉴의 폭 조절 자동 */
+}
+
+nav ul li:hover > ul {
+  display: block;
+}
+
+/* 드롭다운 메뉴 기본설정 */
+nav ul ul li {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  position: relative;
+  font-family:'GowunDodum';
+}
+
+nav ul ul li a {
+  padding: 0.75rem 1rem; /* 조정된 패딩 */ 
+  display: block; /* 너비를 채우기 위해 블록으로 표시 */
+  white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+  border-bottom: 1px solid #444; /* 각 항목 하단에 테두리 추가 */
+}
+
+/* 드롭메뉴 중 이름의 길이가 긴 글자설정 */
+#inside_menu2 li a{
+	 padding: 0.7rem 0.2rem; 
+	 font-size: 0.9rem;
+}
+
+nav ul ul li a:hover {
+  background-color: #00aaff;
+  color: #fff;
+}
+
+/* 더 큰 화면에 대한 조정 */
+@media screen and (min-width: 48rem) {
+  nav ul li {
+    margin: 0 1.5rem; /* 더 큰 화면을 위한 마진 증가 */
+  }
+  
+nav ul ul {
+  top: auto; /* 더 큰 화면에 대한 위치 재설정 */
+  left: 0;
+}
+
+@media screen and (max-width: 49.25rem) {
+  .gotoMain, .shoppingMenu, .myInfoMenu {
+    justify-content: space-between;
+  }
+  
+  .gotoMain li, .shoppingMenu li, .myInfoMenu li {
+  	width: 3rem;
+    margin: 0 1rem;
+  }
+  
+  .shoppingMenu {
+  	margin-left: 0;
+  }
+  
+/* nav ul ul {
+  top: auto; 더 큰 화면에 대한 위치 재설정
+  left: 0;
+}
+ */
+
+/*----------------------------------------------------------------------*/

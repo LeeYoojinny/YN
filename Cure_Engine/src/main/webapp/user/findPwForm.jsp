@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Cure Engine Find PW</title>
-<link rel="stylesheet" href="css/user/user_findIdForm_style.css">
+<link rel="stylesheet" href="css/user/user_findPwForm_style.css">
 </head>
 <script type="text/javascript">
 
@@ -27,8 +27,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /* 폼 넘기기 전 입력값 확인 */
 function check() {
-	//이름 정규화 공식
-	const regName = /^[가-힣a-zA-Z]{2,}$/;
 
 	//생년월일
 	const regYear = /^(19[0-9][0-9]|20[0-2][0-3])$/;
@@ -39,14 +37,10 @@ function check() {
 	//email 정규화 공식
 	const regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	
-	//이름 체크
-	if(!document.f.user_name.value.trim()){
+	//아이디 체크
+	if(!document.f.user_id.value.trim()){
 		alert("이름을 입력해주세요.");
-		document.f.user_name.focus();
-		return false;
-	}else if(!regName.test(document.f.user_name.value.trim())){
-		alert("이름을 한글 또는 영문으로만 입력해주세요.");
-		document.f.user_name.select();
+		document.f.user_id.focus();
 		return false;
 	}
 	
@@ -96,10 +90,11 @@ function check() {
 }
 </script>
 <body>
-	<div class="wrap_findId">
-	  <form action="userFindIdAction.usr" method="post" name="f" id="findIdForm">
+	<div class="wrap_findPw">
+	<div class="subject">비밀번호 찾기</div>
+	  <form action="userFindPwAction.usr" method="post" name="f" id="findPwForm">
 	    	<div class="field">
-				<b>이름</b> <input type="text" name="user_name" >
+				<b>ID</b> <input type="text" name="user_id" >
 			</div>
 			<div class="field birth">
 				<b>생년월일(YYYY-MM-DD)</b>
@@ -112,12 +107,9 @@ function check() {
 			<div class="field">
 				<b>이메일</b> <input type="text"  name="user_email" placeholder="(예)test@cureengine.com">
 			</div>
-			<div class="field login_submit"><input type="submit" value="아이디찾기" onclick="check(); return false;"></div>   
-	  		<!-- <div class="field login_idSave">
-	  			<input type="checkbox" name="login_idSave" value="save"><label for="login_idSave">아이디기억하기</label>
-	  		</div> -->
+			<div class="field login_submit"><input type="submit" value="비밀번호찾기" onclick="check(); return false;"></div>   
 	  </form>
-	  	 <div class="findId_another"><a href="userFindPwForm.usr">비밀번호 찾기</a> | <a href="userJoin.usr">회원가입</a></div>
+	  	 <div class="findPw_another"><a href="userFindIdForm.usr">아이디 찾기</a> | <a href="userJoin.usr">회원가입</a></div>
 	</div>
 </body>
 </html>

@@ -9,7 +9,36 @@
 <link rel="stylesheet" href="css/user/user_joinForm_style.css">
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript">
+<script type="text/javascript">	
+	//아이디 중복체크
+	function idCheck() { 
+		const regIdPass = /^[a-zA-Z0-9]{8,12}$/;
+		
+		if(document.f.user_id.value.trim() =="") {
+			alert("아이디를 입력 해주세요.");
+			document.f.user_id.focus();
+			return false;
+		}
+		
+		if(!regIdPass.test(document.f.user_id.value.trim())){
+			alert("아이디를 8~12자 사이의 영문과 숫자로 조합해주세요");
+			document.f.user_id.select();
+			return false;
+		}
+		
+		var url = "user/joinIdCheck.jsp?user_id="+document.f.user_id.value;
+		window.open(url, "check_ID", "width=500, height=300, left=450, top=200");
+		
+	}
+
+	//아이디 입력태그에서 키보드를 누를 때 호출되는 함수
+	function idCheckInit() {
+		if(document.f.idCheckYN.value == "Y") {
+			document.f.idCheckYN.value = "N";
+			document.f.user_id.select();
+		}
+		
+	}
 
 	/* 생년월일 입력에서 숫자를 다 적으면 자동으로 다음칸 넘어가게 해주는 함수 */
 	document.addEventListener("DOMContentLoaded", function() {
@@ -88,7 +117,11 @@
 		}
 		
 		//아이디 중복체크 여부확인
-		
+		if(document.f.idCheckYN.value == "N"){
+			alert("아이디 중복확인 해주세요.");
+			document.f.user_id.focus();
+			return false;
+		}
 		
 		//비밀번호 체크
 		if(!document.f.user_pw.value.trim()){
@@ -191,14 +224,15 @@
 </script>
 <body>
 	<div class="wrap_join">
-	<div class="field subject"></div>
+	<div class="subject">회원가입<div class="smallfont">(딜러 등록은 관리자에게 문의하세요.)</div></div>
 		<form action="userJoinAction.usr" name="f" method="post">
 		<input type="hidden" name="user_category" id="user_category" value="customer">
 			<div class="field id">
 				<b>아이디<small>(8~12자 이내 영어 대소문자 및 숫자로 조합) </small></b>
 				<div>
-				<input type="text" name="user_id" id="user_id">
-				<input type="button" onclick="return false;" value="중복확인">
+				<input type="text" name="user_id" id="user_id" onkeyup="idCheckInit();">
+				<input type="button" onclick="idCheck();" value="중복확인">
+				<input type="hidden" name="idCheckYN" id="idCheckYN" value="N">
 				</div>
 			</div>
 			<div class="field">
@@ -235,7 +269,7 @@
 			
 
 			<div class="field">
-				<b>이메일 &ensp;<small>(비밀번호 분실 시 필요)</small></b> 
+				<b>이메일 &ensp;<small>(고객정보 분실 시 필요)</small></b> 
 				<input type="text" name="user_email" id="user_email" placeholder="(예)test@cureengine.com">
 			</div>
 

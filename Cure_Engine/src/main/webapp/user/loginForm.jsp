@@ -31,6 +31,7 @@ function check() {
 </script>
 <body>
 	<div class="wrap_login">
+	<div class="subject">User Login</div>
 	  <form action="userLoginAction.usr" method="post" name="f" id="loginForm">
 	    	<div class="field">
 				<b>아이디</b> <input type="text" name="user_id" id="user_id">

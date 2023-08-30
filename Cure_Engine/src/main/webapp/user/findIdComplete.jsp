@@ -19,6 +19,9 @@
 	function findPw() {
 		window.location.href="userFindPwForm.usr";		
 	}
+	function gotologin() {
+		window.location.href="userLogin.usr";		
+	}
 
 </script>
 <body>
@@ -29,7 +32,7 @@
 		</div>
 		<div class="field button">
 			<button onclick="findPw(); return false; return false;">비밀번호찾기</button>
-			<button onclick="location.href='index.jsp'; return false;">메인으로</button>
+			<button onclick="gotologin(); return false;">로그인</button>
 		</div>
 	</div>	
 </div>		

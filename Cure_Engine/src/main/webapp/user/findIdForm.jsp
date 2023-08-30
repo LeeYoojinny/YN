@@ -97,6 +97,7 @@ function check() {
 </script>
 <body>
 	<div class="wrap_findId">
+	<div class="subject">ID 찾기</div>
 	  <form action="userFindIdAction.usr" method="post" name="f" id="findIdForm">
 	    	<div class="field">
 				<b>이름</b> <input type="text" name="user_name" >
