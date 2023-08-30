@@ -29,6 +29,7 @@ public class UserJoinAction implements Action {
 		String user_birth_m = request.getParameter("user_birth_m");
 		String user_birth_d = request.getParameter("user_birth_d");
 		
+		//넘어온 년,월,일을 '-'으로 연결해준 후 insert
 		String user_birth = user_birth_y+"-"+user_birth_m+"-"+user_birth_d;
 		
 		String user_gender = request.getParameter("user_gender");

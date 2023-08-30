@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.user.UserFindIdAction;
+import action.user.UserFindPwAction;
 import action.user.UserJoinAction;
+import action.user.UserJoinIdCheckAction;
 import action.user.UserLogOutAction;
 import action.user.UserLoginAction;
 import vo.ActionForward;
@@ -83,7 +85,7 @@ public class UserFrontController extends HttpServlet {
 		/*------- '회원가입 폼 보기' → 처리 ---------------------------------------------------------*/
 		else if(command.equals("/userJoin.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
 			request.setAttribute("showPage", "user/joinForm.jsp");
-			forward = new ActionForward("userTemplate.jsp",false); //반드시 디스패치 방식으로 포워딩
+			forward = new ActionForward("template.jsp",false); //반드시 디스패치 방식으로 포워딩
 		}
 		
 
@@ -96,11 +98,22 @@ public class UserFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+
+		else if(command.equals("/user/userJoinIdCheck.usr")) {//'아이디 중복확인'요청하면
+			action = new UserJoinIdCheckAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		
 		
 		/*------- '로그인 폼 보기' → 처리 ---------------------------------------------------------*/
 		else if(command.equals("/userLogin.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
 			request.setAttribute("showPage", "user/loginForm.jsp");
-			forward = new ActionForward("userTemplate.jsp",false); //반드시 디스패치 방식으로 포워딩
+			forward = new ActionForward("template.jsp",false); //반드시 디스패치 방식으로 포워딩
 		}
 		
 
@@ -113,6 +126,7 @@ public class UserFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		
 		
 		/*------- '로그아웃' 요청 ---------------------------------------------------------*/
 		else if(command.equals("/userLogout.usr")) {//'로그아웃' 요청이면
@@ -128,7 +142,7 @@ public class UserFrontController extends HttpServlet {
 		/*------- '아이디찾기 폼' → 처리 ---------------------------------------------------------*/
 		else if(command.equals("/userFindIdForm.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
 			request.setAttribute("showPage", "user/findIdForm.jsp");
-			forward = new ActionForward("userTemplate.jsp",false); //반드시 디스패치 방식으로 포워딩
+			forward = new ActionForward("template.jsp",false); //반드시 디스패치 방식으로 포워딩
 		}
 		
 		
@@ -145,12 +159,12 @@ public class UserFrontController extends HttpServlet {
 		/*------- '비밀번호 찾기 폼' → 처리 ---------------------------------------------------------*/
 		else if(command.equals("/userFindPwForm.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
 			request.setAttribute("showPage", "user/findPwForm.jsp");
-			forward = new ActionForward("userTemplate.jsp",false); //반드시 디스패치 방식으로 포워딩
+			forward = new ActionForward("template.jsp",false); //반드시 디스패치 방식으로 포워딩
 		}
 		
 		
-		else if(command.equals("/userFindIdAction.usr")) {//'로그인 처리'요청하면
-			action = new UserFindIdAction();
+		else if(command.equals("/userFindPwAction.usr")) {//'로그인 처리'요청하면
+			action = new UserFindPwAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

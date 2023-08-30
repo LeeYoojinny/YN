@@ -53,6 +53,7 @@ PRIMARY KEY (user_id));
 ALTER TABLE tbl_user
 MODIFY COLUMN user_expiredate TIMESTAMP NULL;
 
+update tbl_user set user_email='lljinny@naver.com' where user_id='test12345';
 
 select * from tbl_user;
 
@@ -60,7 +61,7 @@ select * from tbl_user;
 insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_gender,user_phone,user_zipcode,user_address1,user_address2,user_email) 
 values('admin','admin','BB8EF2DE6CF9EB9357AB2599BFE4B3BA7100EF50DB31F90086567663BD0FC1C9','관리자','1970-01-01','M','01000000000',42612,'대구 달서구 달구벌대로251안길 15','601호','admin@admin.com');
 
-/* 딜러 id:d23000 , pw:dl123456 */
+/* 딜러 id:d230001 , pw:dl123456 */
 insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_gender,user_phone,user_zipcode,user_address1,user_address2,user_email) 
 values('dealer','d230001','3BC8ACF3556C6A5625520883F6479326F575D76C2129BB938990D9C8488CF22C','제임스','1980-07-01','M','01011223344',42612,'대구 달서구 달구벌대로251안길 15','601호','james@cureengine.com');
 

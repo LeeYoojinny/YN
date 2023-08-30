@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import util.SHA256;
 import vo.User;
 
 public class UserDAO {
@@ -127,7 +128,7 @@ public class UserDAO {
 			return userInfo;
 		}
 
-
+		/*---- 아이디 찾기 -----------------------------------------------------------------------------------------------*/
 		public String findId(User findIdInfo) {
 			String getId = null;
 			
@@ -153,6 +154,54 @@ public class UserDAO {
 			}
 			
 			return getId;
+		}
+
+		/*---- 비밀번호 찾기 -----------------------------------------------------------------------------------------------*/
+		public int findPw(User findPwInfo) {
+			int userYN = 0; 
+			
+			String sql = "select count(user_pw) from tbl_user where user_id=? and user_birth=? and user_email=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, findPwInfo.getUser_id());
+				pstmt.setString(2, findPwInfo.getUser_birth());
+				pstmt.setString(3, findPwInfo.getUser_email());
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					userYN = rs.getInt(1);
+				}
+
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 findPw()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			
+			return userYN;
+		}
+
+		/*---- 임시비밀번호 업데이트 -----------------------------------------------------------------------------------------------*/
+		public int updateTmpPw(String user_id, String random_password) {
+			int updateTmpPw = 0;
+
+			String sql = "update tbl_user set user_pw=? where user_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, SHA256.encodeSHA256(random_password));
+				pstmt.setString(2, user_id);
+				updateTmpPw = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 updateTmpPw()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return updateTmpPw;
 		}
 
 
