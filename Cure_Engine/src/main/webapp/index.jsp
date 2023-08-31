@@ -24,7 +24,7 @@
 	<c:choose>
 		<%-- 로그인 하기 전 --%>
 		<c:when test="${sessionScope.user_id eq null}">
-		    <li><a href="#">Cars</a></li>
+		    <li><a href="allCarListView.usr">Cars</a></li>
 		    <li><a href="#">Board</a>
 			    <ul id="inside_menu">
 			     	<li><a href="qnaView.usr">문의게시판</a></li>
@@ -39,7 +39,7 @@
 		</c:when>
 		<%-- 고객이 로그인을 했을 떄 --%>
 		<c:when test="${sessionScope.user_category eq 'customer'}">
-		    <li><a href="#">Cars</a></li>
+		    <li><a href="allCarListView.usr">Cars</a></li>
 		    <li><a href="#">Board</a>
 			    <ul id="inside_menu1">
 			     	<li><a href="qnaView.cust">문의게시판</a></li>
@@ -54,9 +54,10 @@
 		</c:when>
 		<%-- 딜러 혹은 관리자가 로그인 했을 떄 --%>
 		<c:otherwise>
-		    <li><a href="#">Cars</a>
+		    <li><a href="allCarListView.usr">Cars</a>
 		    	<ul id="inside_menu2">
-			     	<li><a href="productView.adm">상품보기/등록</a></li>
+			     	<li><a href="carRegistForm.adm">상품등록</a></li>
+			     	<li><a href="#">나의판매차량</a></li>
 			    </ul>		    
 		    </li>
 		    <li><a href="#">Status</a>
@@ -127,7 +128,7 @@
     <h1>Cure Engine</h1>
     <hr>
     <p>다양한 브랜드와 신뢰할 수 있는 판매자 중에서 귀하에가 딱 맞는 중고차를 찾아보세요. 다양한 모델과 가격을 살펴보세요.</p>
-    <a href="carMain.jsp">자동차 찾아보기</a>
+    <a href="allCarListView.usr">자동차 찾아보기</a>
   </div>
   <div class="swiper">
   

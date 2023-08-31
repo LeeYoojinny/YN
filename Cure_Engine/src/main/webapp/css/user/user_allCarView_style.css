@@ -1,0 +1,47 @@
+@charset "UTF-8";
+@import url('https://webfontworld.github.io/yangheeryu/GowunDodum.css');
+
+body{
+    font-family: 'GowunDodum';
+    background-color: #f5f6f7;
+    line-height: 1.5em;
+    color : #222;
+    margin: 0;
+    width:100%;
+}
+
+.wrap_allCarList{
+    width: 75rem;
+    margin: auto; /*중앙 정렬*/
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.container {
+	width: 33%;	
+	background-color: #fff;
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+}
+
+.mainImg img{
+	max-width: 100%;
+	height: 280px; /* 원하는 높이로 조정 */
+	object-fit: cover;
+}
+
+.likeQty {
+	float: right;
+}
+
+.likeQty img {
+	width: 2rem;
+}

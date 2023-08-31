@@ -9,13 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import action.user.UserAllCarViewAction;
-import action.user.UserFindIdAction;
-import action.user.UserFindPwAction;
-import action.user.UserJoinAction;
-import action.user.UserJoinIdCheckAction;
-import action.user.UserLogOutAction;
-import action.user.UserLoginAction;
+import action.adm.AdminCarIdCheckAction;
+import action.adm.AdminCarRegistAction;
 import vo.ActionForward;
 
 /**
@@ -23,14 +18,14 @@ import vo.ActionForward;
  */
 
 //확장자가 dog이면 무조건 DogFrontController로 이동하여 doProcess(request, response);메서드 실행함
-@WebServlet("*.usr")
-public class UserFrontController extends HttpServlet {
+@WebServlet("*.adm")
+public class AdminFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserFrontController() {
+    public AdminFrontController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -76,22 +71,17 @@ public class UserFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		System.out.println("[User]command : " + command); //어떤 요청인지 확인하기 위해 출력
+		System.out.println("[Customer]command : " + command); //어떤 요청인지 확인하기 위해 출력
 		
-		if(command.equals("/userMain.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
-			forward = new ActionForward("userMain.jsp",false);
-		}
-		
-		
-		/*------- '회원가입 폼 보기' → 처리 ---------------------------------------------------------*/
-		else if(command.equals("/userJoin.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
-			request.setAttribute("showPage", "user/joinForm.jsp");
-			forward = new ActionForward("template.jsp",false); //반드시 디스패치 방식으로 포워딩
-		}
-		
+		/*------- '상품등록' 클릭 → 상품등록 폼 → 상품등록 처리 ------------------------------------*/
 
-		else if(command.equals("/userJoinAction.usr")) {//'회원가입 처리'요청하면
-			action = new UserJoinAction();
+		if(command.equals("/carRegistForm.adm")) {//'관심상품 페이지 보기' 요청이면
+			request.setAttribute("showPage", "adm/productRegistForm.jsp");
+			forward = new ActionForward("template.jsp",false);
+		}
+		
+		else if(command.equals("/adm/carIdCheck.adm")) {//'차량 등록 중복확인' 요청이면
+			action = new AdminCarIdCheckAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -100,26 +90,9 @@ public class UserFrontController extends HttpServlet {
 			}
 		}
 
-		else if(command.equals("/user/userJoinIdCheck.usr")) {//'아이디 중복확인'요청하면
-			action = new UserJoinIdCheckAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
-				e.printStackTrace();
-			}
-		}
-		
-		
-		/*------- '로그인 폼 보기' → 처리 ---------------------------------------------------------*/
-		else if(command.equals("/userLogin.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
-			request.setAttribute("showPage", "user/loginForm.jsp");
-			forward = new ActionForward("template.jsp",false); //반드시 디스패치 방식으로 포워딩
-		}
-		
 
-		else if(command.equals("/userLoginAction.usr")) {//'로그인 처리'요청하면
-			action = new UserLoginAction();
+		else if(command.equals("/carRegist.adm")) {//'상품등록' 요청이면
+			action = new AdminCarRegistAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -127,67 +100,11 @@ public class UserFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
-		
-		/*------- '로그아웃' 요청 ---------------------------------------------------------*/
-		else if(command.equals("/userLogout.usr")) {//'로그아웃' 요청이면
-			action = new UserLogOutAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
-				e.printStackTrace();
-			}
-		}
-		
-		/*------- '아이디찾기 폼' → 처리 ---------------------------------------------------------*/
-		else if(command.equals("/userFindIdForm.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
-			request.setAttribute("showPage", "user/findIdForm.jsp");
-			forward = new ActionForward("template.jsp",false); //반드시 디스패치 방식으로 포워딩
-		}
-		
-		
-		else if(command.equals("/userFindIdAction.usr")) {//'로그인 처리'요청하면
-			action = new UserFindIdAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
-				e.printStackTrace();
-			}
-		}
-		
-		/*------- '비밀번호 찾기 폼' → 처리 ---------------------------------------------------------*/
-		else if(command.equals("/userFindPwForm.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
-			request.setAttribute("showPage", "user/findPwForm.jsp");
-			forward = new ActionForward("template.jsp",false); //반드시 디스패치 방식으로 포워딩
-		}
-		
-		
-		else if(command.equals("/userFindPwAction.usr")) {//'로그인 처리'요청하면
-			action = new UserFindPwAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
-				e.printStackTrace();
-			}
-		}
-		
-		/*------- '상품 전체 리스트 보기 폼' → 처리 ---------------------------------------------------------*/
-		else if(command.equals("/allCarListView.usr")) {//Car 메뉴나 index에서 '자동차 찾아보기' 요청이면
-			action = new UserAllCarViewAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
-				e.printStackTrace();
-			}
-		}
-		
+
+		/*------- '예약보기' → 처리 ---------------------------------------------------------*/
 		/*
-		else if(command.equals("/userFindPwAction.usr")) {//'로그인 처리'요청하면
-			action = new UserFindPwAction();
+		else if(command.equals("/myReservation.cust")) {//'예약페이지 보기' 요청이면
+			action = new CustomerReservationListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -195,6 +112,46 @@ public class UserFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		*/
+		
+		/*------- '주문보기' → 처리 ---------------------------------------------------------*/
+		/*
+		else if(command.equals("/myOrder.cust")) {//'주문페이지 보기' 요청이면
+			action = new CustomerOrderListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		*/
+		
+		/*------- '회원정보관리 폼 보기' → 처리 ---------------------------------------------------------*/
+		
+		/*else if(command.equals("/myInfoView.cust")) {//'회원정보가 셋팅된 회원정보관리 폼 보기' 요청이면
+			//action:부모인터페이스 = UserViewAction:구현한자식객체;
+			action = new CustomerInfoViewAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		
+		
+		else if(command.equals("/myInfoUpdate.cust")) {//'회원정보수정 처리'요청하면
+			//action:부모인터페이스 = UserLoginAction:구현한자식객체;
+			action = new CustomerInfoUpdateAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		
 		*/
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)

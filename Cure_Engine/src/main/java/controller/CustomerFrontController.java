@@ -112,18 +112,12 @@ public class CustomerFrontController extends HttpServlet {
 		
 		/*------- '회원정보관리 폼 보기' → 처리 ---------------------------------------------------------*/
 		
-		/*else if(command.equals("/myInfoView.cust")) {//'회원정보가 셋팅된 회원정보관리 폼 보기' 요청이면
-			//action:부모인터페이스 = UserViewAction:구현한자식객체;
-			action = new CustomerInfoViewAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
-				e.printStackTrace();
-			}
+		if(command.equals("/myInfoView.cust")) {//'회원정보가 셋팅된 회원정보관리 폼 보기' 요청이면
+			request.setAttribute("showPage", "user/userView.jsp");
+			forward = new ActionForward("template.jsp",false);
 		}
 		
-		
+		/*
 		else if(command.equals("/myInfoUpdate.cust")) {//'회원정보수정 처리'요청하면
 			//action:부모인터페이스 = UserLoginAction:구현한자식객체;
 			action = new CustomerInfoUpdateAction();

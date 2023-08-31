@@ -12,11 +12,10 @@ body{
 }
 
 .wrap_findId{
-    width: 400px;
-    /* border: 1px solid #000; */
-    margin: auto; /*중앙 정렬*/
-    padding: 10px 20px;
-    margin-bottom: 20px;
+    display: flex;
+  	flex-direction: column;
+  	height: 100vh;
+  	margin : auto;
 }
 
 .subject {
@@ -27,7 +26,9 @@ body{
 }
 
 #findIdForm {
-	margin-top: 40px;
+	width: 25rem;
+	margin: 1rem auto;
+	font-family: 'GowunDodum';
 }
 
 .wrap_findId .field{
@@ -57,6 +58,7 @@ body{
 }
 
 .wrap_findId input[type=submit]{
+	font-family: 'GowunDodum';
 	background-color: #486AAE;
 	color:#fff;
 	cursor: pointer;
@@ -68,7 +70,8 @@ body{
 }
 
 .findId_another {
-	padding-left: 95px;
+	margin: 0 auto;
+	font-family: 'GowunDodum';
 }
 
 .findId_another a {

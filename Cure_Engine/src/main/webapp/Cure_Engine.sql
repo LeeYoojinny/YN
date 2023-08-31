@@ -12,22 +12,32 @@ car_capacity INT NOT NULL COMMENT '배기량(cc)',
 car_fuel VARCHAR(45) NOT NULL COMMENT '가솔린,디젤,하이브리드,전기,수소',
 car_transmission VARCHAR(45) NOT NULL COMMENT '오토, 수동',
 car_type VARCHAR(45) NOT NULL COMMENT '경차, 세단, SUV',
-car_size VARCHAR(45) NOT NULL COMMENT '경형,소형,중형,대형',
-car_year INT NOT NULL COMMENT '연식',
+/*car_size VARCHAR(45) NOT NULL COMMENT '경형,소형,중형,대형',*/
 car_accident CHAR(1) NULL DEFAULT 'N' COMMENT '사고차량(Y) 무사고(N)',
+car_year INT NOT NULL COMMENT '연식',
 car_distance INT NOT NULL COMMENT '주행거리',
-car_image1 NVARCHAR(20) NOT NULL,
-car_image2 NVARCHAR(20),
-car_image3 NVARCHAR(20),
-car_image4 NVARCHAR(20),
-car_image5 NVARCHAR(20),
-saleQty INT NOT NULL,
-car_content VARCHAR(500) NULL COMMENT '간단한 차량설명:사고이력, 옵션 등 체크박스로 처리',
+car_image1 NVARCHAR(100) NOT NULL,
+car_image2 NVARCHAR(200),
+saleQty INT NOT NULL DEFAULT 1,
+car_content VARCHAR(500) NULL COMMENT '간단한 차량설명 : 옵션 체크박스로 처리',
+car_accident_detail VARCHAR(500),
 car_like INT NULL COMMENT '관심',
 sale_YN CHAR(1) NOT NULL DEFAULT 'Y',
 PRIMARY KEY (car_id));
 
+
+ALTER TABLE tbl_car DROP COLUMN car_image5;
+alter table tbl_car alter column saleQty set default 1;
+alter table tbl_car alter column car_like set default 0;
+alter table tbl_car add column car_accident_detail VARCHAR(500) after car_content;
+alter table tbl_car modify car_image2 NVARCHAR(200);
+alter table tbl_car modify car_image1 NVARCHAR(100);
+
+update tbl_car set car_like=0 where car_id='111마1004';
+
 select * from tbl_car;
+
+
 -- -----------------------------------------------------
 -- tbl_user : 사용자, 딜러, 관리자
 -- -----------------------------------------------------
