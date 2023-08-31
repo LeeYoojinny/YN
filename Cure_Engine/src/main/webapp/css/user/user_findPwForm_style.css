@@ -13,11 +13,11 @@ body{
 }
  
 .wrap_findPw{
-    width: 400px;
-    /* border: 1px solid #000; */
-    margin: auto; /*중앙 정렬*/
-    padding: 10px 20px;
-    margin-bottom: 20px;
+	display: flex;
+  	flex-direction: column;
+  	height: 100vh;
+  	margin : auto;
+
 }
 
 .subject {
@@ -30,7 +30,9 @@ body{
 }
 
 #findPwForm {
-	margin-top: 40px;
+	width: 25rem;
+	margin: 1rem auto;
+	font-family: 'GowunDodum';
 }
 
 .wrap_findPw .field{
@@ -60,6 +62,7 @@ body{
 }
 
 .wrap_findPw input[type=submit]{
+	font-family: 'GowunDodum';
 	background-color: #486AAE;
 	color:#fff;
 	cursor: pointer;
@@ -71,10 +74,11 @@ body{
 }
 
 .findPw_another {
-	padding-left: 95px;
+	margin: 0 auto;
 }
 
 .findPw_another a {
+	font-family: 'GowunDodum';
 	text-decoration: none;
 	color: black;
 }

@@ -1,0 +1,176 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@1,300&display=swap');
+@import url('https://webfontworld.github.io/yangheeryu/GowunDodum.css');
+
+body{
+    font-family: 'GowunDodum';
+    background-color: #f5f6f7;
+    line-height: 1.5em;
+    color : #222;
+    margin: 0;
+}
+
+.wrap_regist {
+	width: 50rem;
+    margin: auto; /*중앙 정렬*/
+    padding: 10px 20px;
+}
+
+.subject {
+	font-family: 'GowunDodum';
+	font-size: 2rem;
+	text-align: center;
+	margin-top: 20px;
+}
+
+form {
+	margin: 1.5rem auto;
+}
+
+.field_row {
+	display: flex;	
+	flex-direction: row;
+}
+
+.field_column {
+	display: flex;	
+	flex-direction: column;
+}
+
+.field_row.item b{
+	/* display: block; */
+	width: 5rem;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-right: 0.5rem;
+}
+
+.field_row.item{
+	width: 100%;
+	margin: 0.5rem 1rem; 
+}
+
+.field_row_file.item_file {
+	width: 100%;
+	margin: 2rem 1rem; 
+}
+
+.field_row_file.item_file b {
+	margin-right: 0.5rem;
+}
+
+/*----- 옵션항목 스타일 --------------------------------------*/
+/* '옵션' 글자 스타일 */
+.field_column.item b{
+	display: block;
+	width: 7rem;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin: 0.5rem 1rem 0 1rem;
+}
+
+/* 옵션 항목명 스타일 */
+.field_column.item div span {
+	display: block;
+	padding-left: 5px;
+	font-size: 0.9rem;
+}
+
+/* 옵션 체크박스 스타일 */
+.field_column.item div{
+	margin: 0.3rem 1rem;
+	border: 1px solid #848484;
+	border-radius: 5px;
+	padding-left: 0.3rem;
+}
+
+.field_column.item label {
+	margin-right: 0.4rem;
+}
+
+/*--------------------------------------------------------*/
+
+input#car_name {
+	width: 16.2rem;
+}
+
+.field_row.item label{
+	margin-right: 1.5rem; 
+}
+
+
+/* 클릭시 테두리 스타일 */
+.wrap_regist input:focus,
+.wrap_regist select:focus {
+	box-shadow: 0px 0px 2px 2px skyblue;
+}
+
+input::placeholder {
+  font-family: 'GowunDodum';
+  font-style: italic;
+}
+
+.wrap_regist select {
+	font-family: 'GowunDodum';
+	-webkit-appearance:none; /* 크롬 화살표 없애기 */
+    -moz-appearance:none; /* 파이어폭스 화살표 없애기 */
+    appearance:none; /* 화살표 없애기 */
+    text-align-last: center;
+	text-align: center;
+	-ms-text-align-last: center;
+	-moz-text-align-last: center;
+}
+
+select#car_type {
+	font-family: 'GowunDodum';
+	-webkit-appearance:none; /* 크롬 화살표 없애기 */
+    -moz-appearance:none; /* 파이어폭스 화살표 없애기 */
+    appearance:none; /* 화살표 없애기 */
+}
+
+.wrap_regist input:focus, .wrap_regist select:focus{
+    border: 1px solid #486AAE;
+    cursor: pointer;
+}
+
+
+/* number 타입 증감화살표 제거 */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* 버튼 스타일 */
+.wrap_regist input[type=button],
+.wrap_regist input[type=submit]{
+	background-color: #486AAE;
+	color:#fff;
+	cursor: pointer;
+	font-family: 'GowunDodum';
+	border: 1px solid #dadada;
+	padding: 0 0.3rem;
+}
+
+.wrap_regist input[type=button]:hover,
+.wrap_regist input[type=submit]:hover{
+	background-color: #36589C;
+	color:#fff;
+}
+
+#radio_accident {
+	padding-top: 5px;
+	
+}
+
+.productSubmit {
+	margin-top : 2rem;
+}
+
+.productSubmit input{
+	display: block;
+    margin: auto;
+    width: 10rem;
+    line-height: 2rem;
+    font-weight: bold;
+}
