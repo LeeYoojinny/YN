@@ -37,13 +37,30 @@ public class AdminCarRegistAction implements Action {
 		
 		//선택사항이였던 항목에 대해 null값 처리
 		String car_image2 = "";
+		String car_image3 = "";
+		String car_image4 = "";
+		String car_image5 = "";
 		String car_content = "";
 		String car_accident_detail = "";
 
-		String valueCheck = multi.getParameter("car_image2"); //car_image2로 넘어오는 값이
-		if(valueCheck != null) {// null값이 아니면 (값이 1개 이상이면)
-			String[] multiImage = multi.getParameterValues("car_image2"); //배열로 받아서
-			car_image2 = String.join(",", multiImage); //,(콤마)를 이용해 하나의 문자열로 만들기
+		String valueCheck = multi.getFilesystemName("car_image2");
+		if(valueCheck != null) {
+			car_image2 = multi.getFilesystemName("car_image2");
+		}
+		
+		valueCheck = multi.getFilesystemName("car_image3");
+		if(valueCheck != null) {
+			car_image3 = multi.getFilesystemName("car_image3");
+		}
+		
+		valueCheck = multi.getFilesystemName("car_image4");
+		if(valueCheck != null) {
+			car_image4 = multi.getFilesystemName("car_image4");
+		}
+		
+		valueCheck = multi.getFilesystemName("car_image5");
+		if(valueCheck != null) {
+			car_image5 = multi.getFilesystemName("car_image5");
 		}
 		
 		valueCheck = multi.getParameter("car_content");
@@ -75,6 +92,9 @@ public class AdminCarRegistAction implements Action {
 					Integer.parseInt(multi.getParameter("car_distance")),
 					multi.getFilesystemName("car_image1"),
 					car_image2,
+					car_image3,
+					car_image4,
+					car_image5,
 					car_content,
 					car_accident_detail
 				);
@@ -86,7 +106,13 @@ public class AdminCarRegistAction implements Action {
 		
 		if(isRegistSuccess) {
 			System.out.println("Car insert 성공");
-			forward = new ActionForward("/allCarListView.usr",true);
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('상품 등록 되었습니다.');");
+			out.println("location.href='allCarListView.usr';"); //out.println("history.go(-1);");
+			out.println("</script>");
+			forward = new ActionForward("allCarListView.usr", false);	
 		}else {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();

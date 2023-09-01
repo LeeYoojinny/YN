@@ -12,7 +12,7 @@
 	
 	//차량등록 중복체크 버튼 눌렀을 때 값 먼저 확인 후 체크보내기
 	function carIdCheck() {
-		const regCarIdPass = /\d{2,3}[가-힣]{1}\d{4}/gm;
+		const regCarIdPass = /^[0-9]{2,3}[가-힣]{1}[0-9]{4}$/;
 		
 		if(document.f.car_id.value.trim() =="") {
 			alert("차량정보를 입력해주세요.");
@@ -161,14 +161,14 @@
 					<b>제조사</b>
 					<select name="car_brand" id="car_brand" required>
 						<option value="" disabled selected>&nbsp;==== 선택하세요 ====&nbsp;</option>
-						<option value="Benz">벤츠</option>
-						<option value="Tesla">테슬라</option>
-						<option value="Ferrari">페라리</option>
-						<option value="BMW">BMW</option>
-						<option value="Audi">아우디</option>
-						<option value="Maserati">마세라티</option>
-						<option value="Bentley">벤틀리</option>
-						<option value="Cadillac">캐딜락</option>
+						<option value="benz">벤츠</option>
+						<option value="tesla">테슬라</option>
+						<option value="ferrari">페라리</option>
+						<option value="bmw">BMW</option>
+						<option value="audi">아우디</option>
+						<option value="maserati">마세라티</option>
+						<option value="bentley">벤틀리</option>
+						<option value="cadillac">캐딜락</option>
 					</select>
 				</div>
 				<div class="field_row item">
@@ -212,10 +212,10 @@
 					<select name="car_type" id="car_type" required>
 						<option value="" disabled selected>&nbsp;==== 선택하세요 ====&nbsp;</option>
 							<optgroup label="일반">
-								<option value="compact">경차</option>
-								<option value="semimid">소/준중형</option>
-								<option value="mid">중형</option>
-								<option value="large">대형</option>
+								<option value="compactCar">경차</option>
+								<option value="semimidCar">소/준중형</option>
+								<option value="midCar">중형</option>
+								<option value="largeCar">대형</option>
 								<option value="sports">스포츠카</option>
 							</optgroup>
 							<optgroup label="SUV">
@@ -319,9 +319,25 @@
 					<b>메인이미지(필수)</b>
 					<input type="file" name="car_image1" id="car_image1">
 				</div>
-				<div class="field_row_file item_file">
-					<b>상세이미지(선택)</b>
-					<input type="file" name="car_image2" id="car_image2" multiple/>
+			</div>
+			<div class="field_row">
+				<div class="field_row item_file">
+					<b>상세이미지1(선택)</b>
+					<input type="file" name="car_image2" id="car_image2">
+				</div>
+				<div class="field_row item_file">
+					<b>상세이미지2(선택)</b>
+					<input type="file" name="car_image3" id="car_image3">
+				</div>
+			</div>
+			<div class="field_row">
+				<div class="field_row item_file">
+					<b>상세이미지3(선택)</b>
+					<input type="file" name="car_image4" id="car_image4">
+				</div>
+				<div class="field_row item_file">
+					<b>상세이미지4(선택)</b>
+					<input type="file" name="car_image5" id="car_image5">
 				</div>
 			</div>
 			<div class="productSubmit"><input type="submit" value="상품등록" onclick="carCheck(); return false;"></div>

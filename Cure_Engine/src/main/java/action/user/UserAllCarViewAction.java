@@ -27,7 +27,6 @@ public class UserAllCarViewAction implements Action {
 		request.setAttribute("showPage", "user/allCarListForm.jsp");
 		forward = new ActionForward("template.jsp", false);	
 
-		
 		return forward;
 	}
 

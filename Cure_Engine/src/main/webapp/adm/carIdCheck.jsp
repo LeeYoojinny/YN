@@ -9,7 +9,7 @@
 </head>
 <script type="text/javascript">
 	function inputIdCheck() {
-		const regCarIdPass = /\d{2,3}[가-힣]{1}\d{4}/gm;
+		const regCarIdPass = /^[0-9]{2,3}[가-힣]{1}[0-9]{4}$/;
 		
 		if(document.f.car_id.value.trim() =="") {
 			alert("차량정보를 입력해주세요.");

@@ -140,6 +140,115 @@ public class CarDAO {
 			return allCarList;
 		}
 
+		/*---- '차량 검색 결과' 보기용 ------------------------------------------------------------------------------*/
+		public ArrayList<Car> selectSearchCar(String car_brand, String car_color, String car_type, int car_distance) {
+			ArrayList<Car> searchCar = null;
+			
+			String[] car_brand_arr = car_brand.split(",");
+			String where_brand = "";
+			if(!car_brand.equals("X")) {
+				for(int i=0; i<car_brand_arr.length; i++) {
+					if(i == 0) {
+						where_brand += " (car_brand='"+car_brand_arr[i]+"'";
+					}else {
+						where_brand += " or car_brand='"+car_brand_arr[i]+"'";
+					}
+				}
+				where_brand += ")";
+			}
+			
+			
+			
+			String[] car_color_arr = car_color.split(",");
+			String where_color = "";
+			if(!car_color.equals("X")) {
+				for(int i=0; i<car_color_arr.length; i++) {
+					if(i == 0) {
+						where_color += " (car_color='"+car_color_arr[i]+"'";
+					}else {
+						where_color += " or car_color='"+car_color_arr[i]+"'";
+					}
+				}
+				where_color += ")";
+			}
+			
+			String[] car_type_arr = car_type.split(",");
+			String where_type = "";
+			if(!car_type.equals("X")) {
+				for(int i=0; i<car_type_arr.length; i++) {
+					if(i == 0) {
+						where_type += " (car_type like '%"+car_type_arr[i]+"%'";
+					}else {
+						where_type += " or car_type like '%"+car_type_arr[i]+"%'";
+					}	
+				}
+				where_type += ")";
+			}
+			
+			System.out.println("car_brand dao에서 만들어진 쿼리문 : " +where_brand);
+			System.out.println("car_color dao에서 만들어진 쿼리문 : " +where_color);
+			System.out.println("car_type dao에서 만들어진 쿼리문 : " +where_type);
+					
+			
+			String where = ""; // 최종 조건절 문자열
+
+			if (!where_brand.isEmpty()) {
+			    where += where_brand;
+			}
+
+			if (!where_color.isEmpty()) {
+			    if (!where.isEmpty()) {
+			        where += " and ";
+			    }
+			    where += where_color;
+			}
+
+			if (!where_type.isEmpty()) {
+			    if (!where.isEmpty()) {
+			        where += " and ";
+			    }
+			    where += where_type;
+			}
+			
+			if(car_distance > 0) {
+				if (!where.isEmpty()) {
+			        where += " and ";
+			    }
+				where += "car_distance <="+car_distance;
+			}
+			
+			String sql = "select * from tbl_car where"+where;
+			
+			System.out.println("만들어진 sql문 : "+sql);
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					searchCar = new ArrayList<Car>();
+					do {
+						searchCar.add(new Car(
+								rs.getString("dealer_id"),
+								rs.getString("car_id"),
+								rs.getString("car_brand"),
+								rs.getString("car_name"),
+								rs.getInt("car_price"),
+								rs.getInt("car_year"),
+								rs.getString("car_image1"),
+								rs.getInt("car_like"),
+								rs.getString("sale_YN")
+								));
+					}while(rs.next());
+				}
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 selectSearchCar()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}			
+			return searchCar;
+		}
+
 		
 		
 		
