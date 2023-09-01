@@ -16,6 +16,9 @@ public class Car {
 	private int car_distance;
 	private String car_image1;
 	private String car_image2;
+	private String car_image3;
+	private String car_image4;
+	private String car_image5;
 	private String car_content;
 	private String car_accident_detail;
 	private int car_like;
@@ -25,7 +28,8 @@ public class Car {
 	
 	public Car(String dealer_id, String car_id, String car_brand, String car_name, String car_color, int car_price,
 			int car_capacity, String car_fuel, String car_transmission, String car_type, String car_accident,
-			int car_year, int car_distance, String car_image1, String car_image2, String car_content,
+			int car_year, int car_distance, String car_image1, String car_image2, String car_image3, String car_image4,
+			String car_image5,String car_content,
 			String car_accident_detail) {
 		super();
 		this.dealer_id = dealer_id;
@@ -43,6 +47,9 @@ public class Car {
 		this.car_distance = car_distance;
 		this.car_image1 = car_image1;
 		this.car_image2 = car_image2;
+		this.car_image3 = car_image3;
+		this.car_image4 = car_image4;
+		this.car_image5 = car_image5;
 		this.car_content = car_content;
 		this.car_accident_detail = car_accident_detail;
 	}
@@ -62,6 +69,8 @@ public class Car {
 		this.sale_YN = sale_YN;
 	}
 
+	
+	
 	public String getDealer_id() {
 		return dealer_id;
 	}

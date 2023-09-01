@@ -17,7 +17,10 @@ car_accident CHAR(1) NULL DEFAULT 'N' COMMENT '사고차량(Y) 무사고(N)',
 car_year INT NOT NULL COMMENT '연식',
 car_distance INT NOT NULL COMMENT '주행거리',
 car_image1 NVARCHAR(100) NOT NULL,
-car_image2 NVARCHAR(200),
+car_image2 NVARCHAR(100),
+car_image3 NVARCHAR(100),
+car_image4 NVARCHAR(100),
+car_image5 NVARCHAR(100),
 saleQty INT NOT NULL DEFAULT 1,
 car_content VARCHAR(500) NULL COMMENT '간단한 차량설명 : 옵션 체크박스로 처리',
 car_accident_detail VARCHAR(500),
@@ -25,19 +28,28 @@ car_like INT NULL COMMENT '관심',
 sale_YN CHAR(1) NOT NULL DEFAULT 'Y',
 PRIMARY KEY (car_id));
 
-
-ALTER TABLE tbl_car DROP COLUMN car_image5;
 alter table tbl_car alter column saleQty set default 1;
 alter table tbl_car alter column car_like set default 0;
 alter table tbl_car add column car_accident_detail VARCHAR(500) after car_content;
-alter table tbl_car modify car_image2 NVARCHAR(200);
+alter table tbl_car modify car_image2 NVARCHAR(100);
 alter table tbl_car modify car_image1 NVARCHAR(100);
 
 update tbl_car set car_like=0 where car_id='111마1004';
+update tbl_car set car_brand='maserati' where car_brand='Maserati' ;
 
 select * from tbl_car;
 
+select car_id from tbl_car where car_brand='maserati' ;
+select car_id from tbl_car where car_type like 
 
+/* 차량검색 Test */
+select *
+from tbl_car
+where (car_brand='benz' or car_brand='tesla') and (car_color='black' or car_color='white') and (car_type like '%SUV%');
+
+select * from tbl_car where car_type like '%SUV%'
+select * from tbl_car where (car_brand='tesla' or car_brand='maserati') and  (car_color='black' or car_color='white') and  (car_type like '%SUV%')
+select * from tbl_car where (car_brand='benz' or car_brand='tesla' or car_brand='ferrari' or car_brand='maserati') and  (car_color='black' or car_color='white' or car_color='red') and  (car_type like '%SUV%')
 -- -----------------------------------------------------
 -- tbl_user : 사용자, 딜러, 관리자
 -- -----------------------------------------------------

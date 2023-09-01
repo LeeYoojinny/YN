@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.user.UserAllCarViewAction;
+import action.user.UserCarSearchAction;
 import action.user.UserFindIdAction;
 import action.user.UserFindPwAction;
 import action.user.UserJoinAction;
@@ -185,9 +186,9 @@ public class UserFrontController extends HttpServlet {
 			}
 		}
 		
-		/*
-		else if(command.equals("/userFindPwAction.usr")) {//'로그인 처리'요청하면
-			action = new UserFindPwAction();
+		/*------- '상품 검색 하면' → 처리 ---------------------------------------------------------*/
+		else if(command.equals("/carSearch.usr")) {//'로그인 처리'요청하면
+			action = new UserCarSearchAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -195,7 +196,7 @@ public class UserFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		*/
+
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)
 		 *********************************************************************/

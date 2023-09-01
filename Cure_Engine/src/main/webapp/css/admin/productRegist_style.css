@@ -50,13 +50,27 @@ form {
 	margin: 0.5rem 1rem; 
 }
 
+/* 메인이미지 부분 */
 .field_row_file.item_file {
 	width: 100%;
-	margin: 2rem 1rem; 
+	margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    margin-left: 1rem;
 }
 
 .field_row_file.item_file b {
-	margin-right: 0.5rem;
+	margin-right: 0.7rem;
+}
+
+/* 상세이미지 부분 */
+.field_row.item_file {
+	width: 100%;
+	margin: 0.5rem 1rem; 
+}
+
+.field_row.item_file b{
+	width: 8rem;
+	font-size: 0.95rem;
 }
 
 /*----- 옵션항목 스타일 --------------------------------------*/

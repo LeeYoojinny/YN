@@ -76,7 +76,7 @@
 		<c:if test="${user_category eq 'dealer' || user_category eq 'admin'}">
 			<div class="rgstButton"><button onclick="location.href='carRegistForm.adm'; return false;">상품등록</button></div>
 		</c:if>
-		<c:if test="${allCarList != null }">
+		<c:if test="${resultCar != null }">
 		<form action="carSearch.usr" method="post" name="f">
 			<div class="searchPart">
 				<!-- <div class="searchBar">
@@ -182,18 +182,18 @@
 			</div>
 			</form>
 			<div class="container">
-				<c:forEach var="car" items="${allCarList}" varStatus="status">
+				<c:forEach var="result" items="${resultCar}" varStatus="status">
 					<div class="items">
-						<div class="mainImg"><a href="carView.usr?car_id=${car.car_id}"><img src="upload/carRegist_images/${car.car_image1}"></a></div>
-						<div class="title">${car.car_brand}&nbsp;${car.car_year}연식 ${car.car_name}</div>
-	       	 			<div class="price">${car.car_price}만원</div>
-	       	 			<div class="likeQty"><img src="image/carList/like_icon.png">&ensp;${car.car_like}</div>
+						<div class="mainImg"><a href="carView.usr?car_id=${result.car_id}"><img src="upload/carRegist_images/${result.car_image1}"></a></div>
+						<div class="title">${result.car_brand}&nbsp;${result.car_year}연식 ${result.car_name}</div>
+	       	 			<div class="price">${result.car_price}만원</div>
+	       	 			<div class="likeQty"><img src="image/carList/like_icon.png">&ensp;${result.car_like}</div>
 					</div>
 				</c:forEach>
 			</div>
 		</c:if>
-		<c:if test="${allCarList == null }">
-			<div>등록된 상품이 없습니다.</div>
+		<c:if test="${resultCar == null }">
+			<div>조회된 상품이 없습니다.</div>
 		</c:if>
 	</div>
 </body>
