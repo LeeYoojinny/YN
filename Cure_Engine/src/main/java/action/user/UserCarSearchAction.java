@@ -45,13 +45,19 @@ public class UserCarSearchAction implements Action {
 		
 		
 		//주행거리 null값 처리
-		int car_distance = 0;
 		String tpm_car_distance = request.getParameter("car_distance");
+		int car_distance = 0;
 		
-		if(tpm_car_distance != null) {
-			car_distance = Integer.parseInt(tpm_car_distance);
+		System.out.println("action에 넘어온 파라미터값 : " +tpm_car_distance);
+		
+		if (tpm_car_distance != null && !tpm_car_distance.isEmpty()) {
+		    try {
+		    	car_distance = Integer.parseInt(tpm_car_distance); // 문자열을 정수로 변환
+		    } catch (NumberFormatException e) {
+		        System.out.println("주행거리 입력부분 예외발생"+e);
+		    }
 		}
-		
+
 		System.out.println("car_distance action에 넘어온 값 : " +car_distance);
 		
 		UserCarSearchService userCarSearchService = new UserCarSearchService();

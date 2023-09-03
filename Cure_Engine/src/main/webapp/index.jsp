@@ -57,7 +57,7 @@
 		    <li><a href="allCarListView.usr">Cars</a>
 		    	<ul id="inside_menu2">
 			     	<li><a href="carRegistForm.adm">상품등록</a></li>
-			     	<li><a href="#">나의판매차량</a></li>
+			     	<li><a href="mySaleCar.adm">나의판매차량</a></li>
 			    </ul>		    
 		    </li>
 		    <li><a href="#">Status</a>
@@ -127,7 +127,7 @@
     <span>국내 1위 수입중고차 쇼핑몰</span>
     <h1>Cure Engine</h1>
     <hr>
-    <p>다양한 브랜드와 신뢰할 수 있는 판매자 중에서 귀하에가 딱 맞는 중고차를 찾아보세요. 다양한 모델과 가격을 살펴보세요.</p>
+    <p>다양한 브랜드와 신뢰할 수 있는 판매자 중에서 귀하에게 딱 맞는 중고차를 찾아보세요. 등록된 다양한 모델과 가격을 살펴보세요.</p>
     <a href="allCarListView.usr">자동차 찾아보기</a>
   </div>
   <div class="swiper">

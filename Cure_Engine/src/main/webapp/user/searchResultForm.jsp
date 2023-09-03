@@ -74,7 +74,11 @@
 	<div class="wrap_allCarList">
 		<div class="subject"></div>
 		<c:if test="${user_category eq 'dealer' || user_category eq 'admin'}">
+			<div class="rgstButton"><button onclick="location.href='allCarListView.usr'; return false;">검색초기화</button></div>
 			<div class="rgstButton"><button onclick="location.href='carRegistForm.adm'; return false;">상품등록</button></div>
+		</c:if>
+		<c:if test="${user_category eq null || user_category eq 'customer'}">
+			<div class="rgstButton"><button onclick="location.href='allCarListView.usr'; return false;">검색초기화</button></div>
 		</c:if>
 		<c:if test="${resultCar != null }">
 		<form action="carSearch.usr" method="post" name="f">

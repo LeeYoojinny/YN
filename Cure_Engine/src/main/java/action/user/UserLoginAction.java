@@ -2,6 +2,7 @@
 package action.user;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import svc.user.UserLoginService;
 import util.SHA256;
 import vo.ActionForward;
 import vo.User;
+import vo.Wishlist;
 
 public class UserLoginAction implements Action {
 
@@ -66,6 +68,7 @@ public class UserLoginAction implements Action {
 
 			//입력한 id로 회원정보 가져오기(이유? session에 저장 해 공유하기 위해)
 			User userInfo = userLoginService.getUserInfo(user_id);
+			ArrayList<Wishlist> userWish = userLoginService.getWishInfo(user_id);
 			
 			System.out.println("user의 카테고리 : " + userInfo.getUser_category());
 			
@@ -79,6 +82,10 @@ public class UserLoginAction implements Action {
 			session.setAttribute("user_name", userInfo.getUser_name()); //구매할 때 등급으로 세일비율 얻어와 사용
 			session.setAttribute("user_email", userInfo.getUser_email());
 			session.setAttribute("user_phone", userInfo.getUser_phone());
+			
+			if(userWish != null) {
+				session.setAttribute("wishlist", userWish);
+			}
 			
 			session.setMaxInactiveInterval(2*60*60); //session 유지시간을 1시간으로 설정
 			
