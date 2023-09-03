@@ -52,7 +52,7 @@
 		    <li><a href="allCarListView.usr">Cars</a>
 		    	<ul id="inside_menu2">
 			     	<li><a href="carRegistForm.adm">상품등록</a></li>
-			     	<li><a href="#">나의판매차량</a></li>
+			     	<li><a href="mySaleCar.adm">나의판매차량</a></li>
 			    </ul>		    
 		    </li>
 		    <li><a href="#">Status</a>

@@ -4,8 +4,11 @@ import static db.JdbcUtil.close;
 import static db.JdbcUtil.getConnection;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
+import vo.Wishlist;
 import dao.UserDAO;
+import dao.WishlistDAO;
 import vo.User;
 
 public class UserLoginService {
@@ -45,6 +48,17 @@ public class UserLoginService {
 		close(con);
 		return userInfo;
 		
+	}
+
+	public ArrayList<Wishlist> getWishInfo(String user_id) {
+		Connection con = getConnection();
+		WishlistDAO wishlistDAO = WishlistDAO.getInstance();
+		wishlistDAO.setConnection(con);
+		
+		ArrayList<Wishlist> userWish = wishlistDAO.getWishList(user_id);
+		
+		close(con);
+		return userWish;
 	}
 	
 	

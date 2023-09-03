@@ -36,6 +36,8 @@ alter table tbl_car modify car_image1 NVARCHAR(100);
 
 update tbl_car set car_like=0 where car_id='111마1004';
 update tbl_car set car_brand='maserati' where car_brand='Maserati' ;
+update tbl_car set car_like=(car_like+1) where car_id='107허6655';
+
 
 select * from tbl_car;
 
@@ -107,7 +109,11 @@ PRIMARY KEY (user_id, car_id),
 CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id),
 CONSTRAINT fk_car_id FOREIGN KEY (car_id) REFERENCES tbl_car (car_id));
 
+
 select * from tbl_wishlist;
+
+select * from tbl_wishlist where user_id='test11111';
+
 
 -- -----------------------------------------------------
 -- tbl_reservation : 시승예약

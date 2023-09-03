@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/user/user_allCarView_style.css">
 </head>
+<c:set var="user_id" value="${sessionScope.user_id}" />
 <script type="text/javascript">
 
 	//상세검색 열고 닫을 수 있게 해주는 기능
@@ -48,8 +49,7 @@
 	       const brandInputs = document.querySelectorAll('input[name="car_brand"]');
 	       const typeInputs = document.querySelectorAll('input[name="car_type"]');
 	       const colorInputs = document.querySelectorAll('input[name="car_color"]');
-	       const maxDistanceInput = document.querySelector('input[name="max_distance"]');
-	       const contentInputs = document.querySelectorAll('input[name="car_content"]');
+	       const carDistanceInput = document.querySelector('input[name="car_distance"]');
 	
 	       brandInputs.forEach(input => {
 	           input.checked = false;
@@ -63,12 +63,26 @@
 	           input.checked = false;
 	       });
 	
-	       maxDistanceInput.value = ''; // 주행거리 input 초기화
+	       carDistanceInput.value = ''; // 주행거리 input 초기화
+	}
 	
-	       contentInputs.forEach(input => {
-	           input.checked = false;
-	       });
-	   }
+	
+	function likeThis(like,car_id,car_price,car_image1) {
+		var user_id = '<c:out value="${user_id}" />'
+		
+		if(!user_id) {
+			alert("로그인 후 관심상품 등록이 가능합니다.");
+			location.href="userLogin.usr";
+			return false;
+		}else {
+			if(like == 0){
+				location.href="userLikeThis.usr?car_id="+car_id+"&car_price="+car_price+"&car_image1="+car_image1;
+			}else {
+				location.href="userHateThis.usr?car_id="+car_id;
+			}
+		}
+	}
+	
 </script>
 <body>
 	<div class="wrap_allCarList">
@@ -128,7 +142,7 @@
 					<div class="detailItem_row">
 						<b>주행거리</b>
 						<div>
-							<input type="number" name="max_distance">&nbsp;km 이하
+							<input type="number" name="car_distance">&nbsp;km 이하
 						</div>
 					</div>
 					<!-- <div class="detailItem_option">
@@ -187,7 +201,19 @@
 						<div class="mainImg"><a href="carView.usr?car_id=${car.car_id}"><img src="upload/carRegist_images/${car.car_image1}"></a></div>
 						<div class="title">${car.car_brand}&nbsp;${car.car_year}연식 ${car.car_name}</div>
 	       	 			<div class="price">${car.car_price}만원</div>
-	       	 			<div class="likeQty"><img src="image/carList/like_icon.png">&ensp;${car.car_like}</div>
+	       	 			<c:if test="${user_category eq null || user_category eq 'customer'}">
+	       	 			<div class="likeQty">
+	       	 				<c:if test="${car.car_id eq wish_car_id}">
+	       	 					<img src="image/carList/red_like_icon.png" id="likeImage" 
+	       	 					onclick="likeThis(1,'${car.car_id}','${car.car_price}','${car.car_image1}')">
+	       	 				</c:if>
+	       	 				<c:if test="${car.car_id ne wish_car_id}">
+	       	 					<img src="image/carList/black_like_icon.png" id="likeImage" 
+	       	 					onclick="likeThis(0,'${car.car_id}','${car.car_price}','${car.car_image1}')">
+	       	 				</c:if>
+	       	 				${car.car_like}
+	       	 			</div>
+	       	 			</c:if>
 					</div>
 				</c:forEach>
 			</div>

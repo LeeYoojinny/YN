@@ -112,7 +112,7 @@ public class AdminCarRegistAction implements Action {
 			out.println("alert('상품 등록 되었습니다.');");
 			out.println("location.href='allCarListView.usr';"); //out.println("history.go(-1);");
 			out.println("</script>");
-			forward = new ActionForward("allCarListView.usr", false);	
+			//forward = new ActionForward("allCarListView.usr", false);	
 		}else {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();

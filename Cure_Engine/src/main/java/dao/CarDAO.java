@@ -212,9 +212,9 @@ public class CarDAO {
 			
 			if(car_distance > 0) {
 				if (!where.isEmpty()) {
-			        where += " and ";
+			        where += " and";
 			    }
-				where += "car_distance <="+car_distance;
+				where += " car_distance <="+car_distance;
 			}
 			
 			String sql = "select * from tbl_car where"+where;
@@ -247,6 +247,64 @@ public class CarDAO {
 				close(pstmt);
 			}			
 			return searchCar;
+		}
+
+		/*---- '나의판매차량' 보기용 ------------------------------------------------------------------------------*/
+		public ArrayList<Car> selectmySaleCar(String user_id) {
+			ArrayList<Car> mySaleCar = null;
+			
+			String sql = "select * from tbl_car where dealer_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,user_id);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					mySaleCar = new ArrayList<Car>();
+					do {
+						mySaleCar.add(new Car(
+								rs.getString("dealer_id"),
+								rs.getString("car_id"),
+								rs.getString("car_brand"),
+								rs.getString("car_name"),
+								rs.getInt("car_price"),
+								rs.getInt("car_year"),
+								rs.getString("car_image1"),
+								rs.getInt("car_like"),
+								rs.getString("sale_YN")
+								));
+					}while(rs.next());
+				}
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 selectmySaleCar()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return mySaleCar;
+		}
+
+		/*---- 관심상품 등록 후 like 숫자 올리기 ------------------------------------------------------------------------------*/
+		public int likeUpdate(String car_id) {
+			int likeUpResult = 0;
+			
+			String sql = "update tbl_car set car_like=(car_like+1) where car_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,car_id);
+				
+				likeUpResult = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 likeUpdate()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			
+			return likeUpResult;
 		}
 
 		

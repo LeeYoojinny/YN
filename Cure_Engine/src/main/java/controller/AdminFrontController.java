@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.adm.AdminCarIdCheckAction;
 import action.adm.AdminCarRegistAction;
+import action.adm.AdminMySaleCarAction;
 import vo.ActionForward;
 
 /**
@@ -101,10 +102,9 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}
 
-		/*------- '예약보기' → 처리 ---------------------------------------------------------*/
-		/*
-		else if(command.equals("/myReservation.cust")) {//'예약페이지 보기' 요청이면
-			action = new CustomerReservationListAction();
+		/*------- '나의판매차량 보기' → 처리 ---------------------------------------------------------*/
+		else if(command.equals("/mySaleCar.adm")) {//'나의판매차량 보기' 요청이면
+			action = new AdminMySaleCarAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -112,7 +112,7 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		*/
+
 		
 		/*------- '주문보기' → 처리 ---------------------------------------------------------*/
 		/*
