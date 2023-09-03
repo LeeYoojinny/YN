@@ -83,11 +83,13 @@ public class UserLoginAction implements Action {
 			session.setAttribute("user_email", userInfo.getUser_email());
 			session.setAttribute("user_phone", userInfo.getUser_phone());
 			
+			
 			if(userWish != null) {
 				session.setAttribute("wishlist", userWish);
+				System.out.println("wishlist 세션 저장");
 			}
 			
-			session.setMaxInactiveInterval(2*60*60); //session 유지시간을 1시간으로 설정
+			session.setMaxInactiveInterval(12*60*60); //session 유지시간을 12시간으로 설정
 			
 			forward = new ActionForward("index.jsp",true);
 		}

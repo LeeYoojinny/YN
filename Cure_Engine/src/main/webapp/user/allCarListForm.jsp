@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,9 +78,9 @@
 			return false;
 		}else {
 			if(like == 0){
-				location.href="userLikeThis.usr?car_id="+car_id+"&car_price="+car_price+"&car_image1="+car_image1;
+				location.href="userLikeThis.cust?car_id="+car_id+"&car_price="+car_price+"&car_image1="+car_image1;
 			}else {
-				location.href="userHateThis.usr?car_id="+car_id;
+				location.href="userUnlikeThis.cust?car_id="+car_id;
 			}
 		}
 	}
@@ -142,7 +144,16 @@
 					<div class="detailItem_row">
 						<b>주행거리</b>
 						<div>
-							<input type="number" name="car_distance">&nbsp;km 이하
+							<input type="number" name="car_distance">km 이하
+						</div>
+					</div>
+					<div class="detailItem_row">
+						<b>금액</b>
+						<div>
+							<input type="number" name="start_price" placeholder=" 최소금액">
+							<span id="won">만원 &nbsp;<b>~</b>&nbsp;</span>
+							<input type="number" name="end_price" placeholder=" 최대금액">
+							<span id=won>만원</span>
 						</div>
 					</div>
 					<!-- <div class="detailItem_option">
@@ -198,21 +209,41 @@
 			<div class="container">
 				<c:forEach var="car" items="${allCarList}" varStatus="status">
 					<div class="items">
-						<div class="mainImg"><a href="carView.usr?car_id=${car.car_id}"><img src="upload/carRegist_images/${car.car_image1}"></a></div>
-						<div class="title">${car.car_brand}&nbsp;${car.car_year}연식 ${car.car_name}</div>
-	       	 			<div class="price">${car.car_price}만원</div>
-	       	 			<c:if test="${user_category eq null || user_category eq 'customer'}">
-	       	 			<div class="likeQty">
-	       	 				<c:if test="${car.car_id eq wish_car_id}">
-	       	 					<img src="image/carList/red_like_icon.png" id="likeImage" 
-	       	 					onclick="likeThis(1,'${car.car_id}','${car.car_price}','${car.car_image1}')">
-	       	 				</c:if>
-	       	 				<c:if test="${car.car_id ne wish_car_id}">
-	       	 					<img src="image/carList/black_like_icon.png" id="likeImage" 
-	       	 					onclick="likeThis(0,'${car.car_id}','${car.car_price}','${car.car_image1}')">
-	       	 				</c:if>
-	       	 				${car.car_like}
+						<div class="mainImg">
+							<a href="carView.usr?car_id=${car.car_id}">
+							<img src="upload/carRegist_images/${car.car_image1}"></a>
+						</div>
+						<div class="title">
+						<c:choose>
+							<c:when test="${car.car_brand == 'benz'}">벤츠</c:when>
+							<c:when test="${car.car_brand == 'tesla'}">테슬라</c:when>
+							<c:when test="${car.car_brand == 'ferrari'}">페라리</c:when>
+							<c:when test="${car.car_brand == 'bmw'}">BMW</c:when>
+							<c:when test="${car.car_brand == 'audi'}">아우디</c:when>
+							<c:when test="${car.car_brand == 'maserati'}">마세라티	</c:when>
+							<c:when test="${car.car_brand == 'bentley'}">벤틀리</c:when>
+							<c:when test="${car.car_brand == 'cadillac'}">캐딜락</c:when>
+						</c:choose>
+						&nbsp;${car.car_year}연식 ${car.car_name}</div>
+	       	 			<div class="price">
+	       	 			<fmt:formatNumber value="${car.car_price}" pattern="#,###" />만원
 	       	 			</div>
+	       	 			<c:if test="${user_category eq null || user_category eq 'customer'}">
+		       	 			<div class="likeQty">
+		       	 			<c:set var="found" value="false" />
+	                    	<c:forEach var="wish" items="${wishlist}">
+	                        	<c:if test="${car.car_id eq wish.car_id}">
+	                            	<img src="image/carList/red_like_icon.png" id="likeImage" 
+	                                 onclick="likeThis(1,'${car.car_id}','${car.car_price}','${car.car_image1}')">
+	                                 <c:set var="found" value="true"/>
+	                        	</c:if>
+	                    	</c:forEach>
+	                    	<c:if test="${not found}">
+	                        	<img src="image/carList/black_like_icon.png" id="likeImage" 
+	                             onclick="likeThis(0,'${car.car_id}','${car.car_price}','${ car.car_image1}')">
+	                   		</c:if>
+		       	 				${car.car_like}
+		       	 			</div>
 	       	 			</c:if>
 					</div>
 				</c:forEach>

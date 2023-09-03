@@ -51,17 +51,33 @@ public class UserCarSearchAction implements Action {
 		System.out.println("action에 넘어온 파라미터값 : " +tpm_car_distance);
 		
 		if (tpm_car_distance != null && !tpm_car_distance.isEmpty()) {
-		    try {
 		    	car_distance = Integer.parseInt(tpm_car_distance); // 문자열을 정수로 변환
-		    } catch (NumberFormatException e) {
-		        System.out.println("주행거리 입력부분 예외발생"+e);
-		    }
 		}
 
 		System.out.println("car_distance action에 넘어온 값 : " +car_distance);
 		
+		//주행거리 null값 처리
+		String tpm_start_price = request.getParameter("start_price");
+		String tpm_end_price = request.getParameter("end_price");
+		int start_price = 0;
+		int end_price = 0;
+		
+		System.out.println("action에 넘어온 파라미터값 : " +tpm_start_price);
+		System.out.println("action에 넘어온 파라미터값 : " +tpm_end_price);
+		
+		if (tpm_start_price != null && !tpm_start_price.isEmpty()
+				&& tpm_end_price != null && !tpm_end_price.isEmpty()) {
+				//파라미터로 넘어온 문자열을 정수로 변환
+		    	start_price = Integer.parseInt(tpm_start_price);
+		    	end_price = Integer.parseInt(tpm_end_price);
+		}
+
+		System.out.println("start_price action에 넘어온 값 : " +start_price);
+		System.out.println("end_price action에 넘어온 값 : " +end_price);
+				
 		UserCarSearchService userCarSearchService = new UserCarSearchService();
-		ArrayList<Car> resultCar = userCarSearchService.searchResult(car_brand,car_color,car_type,car_distance);
+		ArrayList<Car> resultCar = userCarSearchService.searchResult
+				(car_brand,car_color,car_type,car_distance,start_price,end_price);
 		
 		//받아온 Car 객체들을 속성에 담기
 		request.setAttribute("resultCar", resultCar);

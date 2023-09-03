@@ -141,7 +141,8 @@ public class CarDAO {
 		}
 
 		/*---- '차량 검색 결과' 보기용 ------------------------------------------------------------------------------*/
-		public ArrayList<Car> selectSearchCar(String car_brand, String car_color, String car_type, int car_distance) {
+		public ArrayList<Car> selectSearchCar(String car_brand, String car_color, String car_type, 
+				int car_distance, int start_price, int end_price) {
 			ArrayList<Car> searchCar = null;
 			
 			String[] car_brand_arr = car_brand.split(",");
@@ -215,6 +216,20 @@ public class CarDAO {
 			        where += " and";
 			    }
 				where += " car_distance <="+car_distance;
+			}
+			
+			if(start_price > 0) {
+				if (!where.isEmpty()) {
+					where += " and";
+				}
+				where += " (car_price >="+start_price+")";
+			}
+			
+			if(end_price > 0) {
+				if (!where.isEmpty()) {
+					where += " and";
+				}
+				where += " (car_price<="+end_price+")";
 			}
 			
 			String sql = "select * from tbl_car where"+where;
@@ -306,7 +321,77 @@ public class CarDAO {
 			
 			return likeUpResult;
 		}
+		
+		/*---- 관심상품 등록 후 like 숫자 내리기 ------------------------------------------------------------------------------*/
+		public int likeDown(String car_id) {
+			int likeDownResult = 0;
+			
+			String sql = "update tbl_car set car_like=(car_like-1) where car_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,car_id);
+				
+				likeDownResult = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 likeDown()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			
+			return likeDownResult;
+		}
 
+		
+		
+		
+		/*---- 관심상품보기 -------------------------------------------------------------------*/
+		public ArrayList<Car> selectmyWishCar(String[] all_car_id) {
+			ArrayList<Car> wishCar = new ArrayList<Car>();
+			
+			String sql = "select * from tbl_car where car_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				
+				for(int i=0; i<all_car_id.length; i++) {
+					System.out.println("car_id에 대입 : "+all_car_id[i]);
+					pstmt.setString(1,all_car_id[i]);
+					rs = pstmt.executeQuery();
+					
+					if(rs.next()) {
+						do {
+							wishCar.add(new Car(
+									rs.getString("dealer_id"),
+									rs.getString("car_id"),
+									rs.getString("car_brand"),
+									rs.getString("car_name"),
+									rs.getInt("car_price"),
+									rs.getInt("car_year"),
+									rs.getString("car_image1"),
+									rs.getInt("car_like"),
+									rs.getString("sale_YN")
+									));
+						}while(rs.next());
+					}
+				}
+				
+				for(Car car_brand : wishCar) {
+					System.out.println("wishCar 안의 브랜드 확인 : "+car_brand.getCar_brand());
+				}
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 selectmyWishCar()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+						
+			return wishCar;
+		}
+
+
+		
 		
 		
 		

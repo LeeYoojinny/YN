@@ -103,15 +103,16 @@ input::placeholder {
 
 .detailItem_row {
 	display: flex;
-	margin: 0.8rem 1rem 0 1rem;
+	margin: 0.7rem 1rem 0.2rem 1rem;
 }
 
 .detailItem_row b{
-	padding-right: 1rem;
+	width: 5rem;
 }
 
 .detailItem_row div input{
-	line-height: 1.2rem;
+	line-height: 1.4rem;
+	margin-right: 0.2rem;
 }
 
 .detailItem b{
@@ -173,6 +174,7 @@ input::placeholder {
 .container {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 
 
@@ -181,7 +183,7 @@ input::placeholder {
 	display: flex;
 	flex-direction: column;
 	width: 30%;	
-	max-width: 1200px;
+	min-width: 350px;
 	background-color: #fff;
 	border: 1px solid #ddd;
 	margin: 0.5rem;

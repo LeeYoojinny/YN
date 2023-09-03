@@ -118,6 +118,15 @@
 							<input type="number" name="car_distance">&nbsp;km 이하
 						</div>
 					</div>
+					<div class="detailItem_row">
+						<b>금액</b>
+						<div>
+							<input type="number" name="start_price" placeholder=" 최소금액">
+							<span id="won">만원 &nbsp;<b>~</b>&nbsp;</span>
+							<input type="number" name="end_price" placeholder=" 최대금액">
+							<span id=won>만원</span>
+						</div>
+					</div>
 					<div class="searchButton">
 						<div class="searchButton bt">
 							<button onclick="allReset(); return false;">검색조건초기화</button>
@@ -145,7 +154,18 @@
 						<td rowspan="3" id="check_remove"><input type="checkbox" name="remove" value="${myCar.car_id}"></td>
 						<td rowspan="3" id="item_no">${status.count}</td>
 						<td rowspan="3" id="main_img"><a href="carView.usr?car_id=${myCar.car_id}"><img src="upload/carRegist_images/${myCar.car_image1}"></a></td>
-						<td id="explain1">${myCar.car_brand}&nbsp;${myCar.car_year}연식 ${myCar.car_name}</td>
+						<td id="explain1">
+						<c:choose>
+							<c:when test="${myCar.car_brand == 'benz'}">벤츠</c:when>
+							<c:when test="${myCar.car_brand == 'tesla'}">테슬라</c:when>
+							<c:when test="${myCar.car_brand == 'ferrari'}">페라리</c:when>
+							<c:when test="${myCar.car_brand == 'bmw'}">BMW</c:when>
+							<c:when test="${myCar.car_brand == 'audi'}">아우디</c:when>
+							<c:when test="${myCar.car_brand == 'maserati'}">마세라티</c:when>
+							<c:when test="${myCar.car_brand == 'bentley'}">벤틀리</c:when>
+							<c:when test="${myCar.car_brand == 'cadillac'}">캐딜락</c:when>
+						</c:choose>						
+						&nbsp;${myCar.car_year}연식 ${myCar.car_name}</td>
 						<td rowspan="3" id="bt">
 							<button onclick="location.href='carUpdate.adm'; return false;">수정하기</button>
 							<button onclick="removeCheck(); return false;">삭제하기</button>

@@ -10,7 +10,7 @@ body{
     width:100%;
 }
 
-.wrap_allCarList{
+.wrap_allWish{
     width: 100%;
     margin: auto; /*중앙 정렬*/
     padding: 10px 20px;
@@ -22,113 +22,7 @@ input::placeholder {
   font-style: italic;
 }
 
-/* 관리자용 상품등록 버튼 */
-.rgstButton button{
-	float: right;
-	width: 7rem;
-	margin-bottom: 1rem;
-	padding: 10px;
-	color:#fff;
-	font-family: 'GowunDodum';
-	background-color: #486AAE;
-	border: 1px solid #dadada;
-	cursor: pointer;
-}
-
-
-.rgstButton button:hover{
-	background-color: #36589C;
-	color:#fff;
-}
-
-/* 검색 부분 --------------------------------------------------------*/
-.searchPart {
-	display: flex;
-	clear: both;
-	flex-direction: column;
-	margin-bottom: 3rem;
-}
-
-.showDetail {
-	padding-top: 1rem;
-	text-align: center;
-	cursor: pointer;
-}
-
-/* 상세검색 버튼 */
-.showDetail img {
-	width: 2rem;
-	height: 16px;
-}
-
-.showDetail span {
-	padding-left: 16px;
-    padding-right: 16px;
-}
-
-/* 상세 검색 부분 */
-.wrap_detailItem {
-	display: none;
-	width: 80%;
-	margin: 0.3rem auto;
-	border: 1px solid #848484;
-	border-radius: 5px;
-	padding-left: 0.3rem;
-}
-
-.detailItem_row {
-	display: flex;
-	margin: 0.7rem 1rem 0.2rem 1rem;
-}
-
-.detailItem_row b{
-	width: 5rem;
-}
-
-.detailItem_row div input{
-	line-height: 1.4rem;
-	margin-right: 0.2rem;
-}
-
-.detailItem b{
-	display: block;
-	width: 7rem;
-	margin: 0.5rem 1rem 0 1rem;
-}
-
-/* 옵션 체크박스 스타일 */
-.detailItem div {
-	margin: 0.3rem 1rem;
-}
-
-.detailItem label{
-	margin-right: 0.4rem;
-}
-
-.searchButton {
-	display: flex;
-}
-
-.searchButton.bt {
-	margin: 0.5rem auto;
-}
-
-.searchButton.bt button{
-	width: 10rem;
-    padding: 0.5rem;
-    margin-right: 0.5rem;
-	color:#fff;
-	font-family: 'GowunDodum';
-	background-color: #486AAE;
-	border: 1px solid #dadada;
-	cursor: pointer;
-}
-
-.searchButton.bt button:hover, #bt button, #allRemove button{
-	background-color: #36589C;
-	color:#fff;
-}
-
+/* 삭제 체크박스 */
 #allRemove {
 	width: 80%;
 	margin-left:10%;
