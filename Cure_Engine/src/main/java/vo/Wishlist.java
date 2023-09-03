@@ -1,6 +1,5 @@
 package vo;
 
-
 public class Wishlist {
 	private String car_id;
 	private String car_image;

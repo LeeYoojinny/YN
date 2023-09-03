@@ -61,28 +61,56 @@ public class WishlistDAO {
 			}
 			return insertResult;
 		}
+		
+		/*---- 관심상품 삭제하기 -------------------------------------------------------------------------------------------*/
+		public int deleteWish(String car_id, String user_id) {
+			int deleteResult = 0;
+			
+			String sql = "delete from tbl_wishlist where car_id=? and user_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, car_id);
+				pstmt.setString(2, user_id);
+				
+				deleteResult = pstmt.executeUpdate();
 
+			}catch(Exception e) {
+				System.out.println("wishListDAO 클래스의 deleteWish()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return deleteResult;
+		}
+		
+		
 		/*---- 로그인 시 관심상품 목록 가져오기 --------------------------------------------------------*/
 		public ArrayList<Wishlist> getWishList(String user_id) {
 			ArrayList<Wishlist> userWish = null;
 			
 			String sql = "select * from tbl_wishlist where user_id=?";
-			
 			try {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, user_id);
 
 				rs = pstmt.executeQuery();
 				
+				/*
+				rs.last();				
+				System.out.println("rs count : " + rs.getRow());
+				rs.beforeFirst();				
+				*/
+				
 				if(rs.next()) {
 					userWish = new ArrayList<Wishlist>();
 					do {
-						userWish.add(new Wishlist(
-								rs.getString("car_id"),
-								rs.getString("car_image"),
-								rs.getInt("car_price"),
-								rs.getString("user_id")
-								));
+						Wishlist wish = new Wishlist();
+
+						wish.setCar_id(rs.getString("car_id"));
+						wish.setCar_image(rs.getString("car_image"));
+						wish.setCar_price(rs.getInt("car_price"));
+						wish.setUser_id(rs.getString("user_id"));
+						userWish.add(wish);
 					}while(rs.next());
 				}
 			}catch(Exception e) {
@@ -93,6 +121,9 @@ public class WishlistDAO {
 			}
 			return userWish;
 		}
+
+
+		
 
 		
 }

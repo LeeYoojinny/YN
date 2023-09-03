@@ -15,7 +15,6 @@ import action.user.UserFindIdAction;
 import action.user.UserFindPwAction;
 import action.user.UserJoinAction;
 import action.user.UserJoinIdCheckAction;
-import action.user.UserLikeThisAction;
 import action.user.UserLogOutAction;
 import action.user.UserLoginAction;
 import vo.ActionForward;
@@ -197,18 +196,7 @@ public class UserFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
-		/*------- '상품에 하트누르면' → 관심아이템 넣기 ---------------------------------------------------------*/
-		else if(command.equals("/userLikeThis.usr")) {//'로그인 처리'요청하면
-			action = new UserLikeThisAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
-				e.printStackTrace();
-			}
-		}
-		
+
 
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)

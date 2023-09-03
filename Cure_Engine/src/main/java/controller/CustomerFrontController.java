@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.cust.CustomerLikeThisAction;
+import action.cust.CustomerUnlikeThisAction;
+import action.cust.CustomerWishlistAction;
 import vo.ActionForward;
 
 /**
@@ -71,10 +74,12 @@ public class CustomerFrontController extends HttpServlet {
 		
 		System.out.println("[Customer]command : " + command); //어떤 요청인지 확인하기 위해 출력
 		
+		
+		
+		
 		/*------- '관심상품' → 처리 ---------------------------------------------------------*/
-		/*
-		if(command.equals("/myWishList.cust")) {//'관심상품 페이지 보기' 요청이면
-			action = new CustomerWishListAction();
+		if(command.equals("/myWishlist.cust")) {//'관심상품 페이지 보기' 요청이면
+			action = new CustomerWishlistAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -82,7 +87,28 @@ public class CustomerFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		*/
+		
+		/*------- '상품에 하트누르면' → 관심아이템 넣기 ---------------------------------------------------------*/
+		else if(command.equals("/userLikeThis.cust")) {//'로그인 처리'요청하면
+			action = new CustomerLikeThisAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		
+		/*------- '상품에 하트누르면' → 관심아이템 넣기 ---------------------------------------------------------*/
+		else if(command.equals("/userUnlikeThis.cust")) {//'로그인 처리'요청하면
+			action = new CustomerUnlikeThisAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
 		
 		/*------- '예약보기' → 처리 ---------------------------------------------------------*/
 		/*

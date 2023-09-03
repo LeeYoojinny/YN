@@ -28,6 +28,7 @@ ActionForward forward = null;
 		session.removeAttribute("user_name");
 		session.removeAttribute("user_phone");
 		session.removeAttribute("user_email");
+		session.removeAttribute("wishlist");
 		
 		forward = new ActionForward("index.jsp", true);
 		

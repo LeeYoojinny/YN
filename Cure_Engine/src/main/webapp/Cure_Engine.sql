@@ -38,11 +38,12 @@ update tbl_car set car_like=0 where car_id='111마1004';
 update tbl_car set car_brand='maserati' where car_brand='Maserati' ;
 update tbl_car set car_like=(car_like+1) where car_id='107허6655';
 
+update tbl_car set car_like=1 where car_id='111마1004';
 
 select * from tbl_car;
 
 select car_id from tbl_car where car_brand='maserati' ;
-select car_id from tbl_car where car_type like 
+select * from tbl_car where (car_price >=5000) and (car_price<=10000);
 
 /* 차량검색 Test */
 select *
@@ -112,8 +113,7 @@ CONSTRAINT fk_car_id FOREIGN KEY (car_id) REFERENCES tbl_car (car_id));
 
 select * from tbl_wishlist;
 
-select * from tbl_wishlist where user_id='test11111';
-
+select * from tbl_wishlist where user_id='test7778';
 
 -- -----------------------------------------------------
 -- tbl_reservation : 시승예약

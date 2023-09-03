@@ -52,12 +52,34 @@
 		    	</ul>	
 		    </li>
 		</c:when>
-		<%-- 딜러 혹은 관리자가 로그인 했을 떄 --%>
-		<c:otherwise>
+		<%-- 딜러가 로그인 했을 떄 --%>
+		<c:when test="${sessionScope.user_category eq 'dealer'}">
 		    <li><a href="allCarListView.usr">Cars</a>
 		    	<ul id="inside_menu2">
 			     	<li><a href="carRegistForm.adm">상품등록</a></li>
 			     	<li><a href="mySaleCar.adm">나의판매차량</a></li>
+			    </ul>		    
+		    </li>
+		    <li><a href="#">Status</a>
+		    	<ul id="inside_menu1">
+			     	<li><a href="reservationView.adm">예약현황</a></li>
+			     	<li><a href="orderView.adm">주문현황</a></li>
+			    </ul>
+		    </li>
+		    <li><a href="#">Board</a>
+		    	<ul id="inside_menu2">
+			     	<li><a href="noticeView.adm">공지사항</a></li>
+			     	<li><a href="qnaManage.adm">문의게시판관리</a></li>
+			     	<li><a href="reviewManage.adm">리뷰게시판관리</a></li>
+			    </ul>		    
+		    </li>    
+		</c:when>
+		<%-- 관리자가 로그인 했을 떄 --%>
+		<c:otherwise>
+		    <li><a href="allCarListView.usr">Cars</a>
+		    	<ul id="inside_menu2">
+			     	<li><a href="carRegistForm.adm">상품등록</a></li>
+			     	<li><a href="allSaleCar.adm">전체상품관리</a></li>
 			    </ul>		    
 		    </li>
 		    <li><a href="#">Status</a>
@@ -85,7 +107,7 @@
 	  		<c:when test="${sessionScope.user_category eq 'customer'}">
 	  			<%-- <div class="welcome">${sessionScope.user_name}님 환영합니다</div> --%>
 	  			<li class="wish">
-		  			<a href="<%=request.getContextPath()%>/myWishList.cust">
+		  			<a href="<%=request.getContextPath()%>/myWishlist.cust">
 		  			<img src="image/customer/icon_wishlist.png" alt="관심상품" id="wishIcon">
 		  			</a>
 	  			</li>

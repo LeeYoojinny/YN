@@ -1,4 +1,4 @@
-package svc.user;
+package svc.cust;
 
 import static db.JdbcUtil.close;
 import static db.JdbcUtil.commit;
@@ -12,35 +12,31 @@ import dao.CarDAO;
 import dao.WishlistDAO;
 import vo.Wishlist;
 
-public class UserLikeThisService {
+public class CustomerUnlikeThisService {
 
-	public int carLikeThis(String car_id) {
+	public int carUnlikeThis(String car_id) {
 		Connection con = getConnection();
 		CarDAO carDAO = CarDAO.getInstance();
 		carDAO.setConnection(con);
-
-		int likeUp = carDAO.likeUpdate(car_id);
 		
-		System.out.println("car테이블에 좋아요 숫자 업 : "+likeUp);
+		int likeDown = carDAO.likeDown(car_id);
 		
-		if(likeUp > 0 ) {
+		if(likeDown > 0 ) {
 			commit(con);
 		}else {
 			rollback(con);
 		}
 
 		close(con);
-		return likeUp;
+		return likeDown;
 	}
 
-	public int wishInsert(String car_id, String car_image1, int car_price, String user_id) {
+	public int wishDelete(String car_id, String user_id) {
 		Connection con = getConnection();
 		WishlistDAO wishlistDAO = WishlistDAO.getInstance();
 		wishlistDAO.setConnection(con);
 		
-		int wishResult = wishlistDAO.insertWish(car_id,car_image1,car_price,user_id);
-		
-		System.out.println("wish테이블에 insert성공? : "+wishResult);
+		int wishResult = wishlistDAO.deleteWish(car_id,user_id);
 		
 		if(wishResult > 0 ) {
 			commit(con);
@@ -49,7 +45,9 @@ public class UserLikeThisService {
 		}
 		
 		close(con);
+		
 		return wishResult;
+
 	}
 
 	public ArrayList<Wishlist> getWishInfo(String user_id) {
