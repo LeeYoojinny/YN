@@ -54,6 +54,37 @@ public class Car {
 		this.car_accident_detail = car_accident_detail;
 	}
 	
+	
+	//상세보기용
+	public Car(String dealer_id, String car_id, String car_brand, String car_name, String car_color, int car_price,
+			int car_capacity, String car_fuel, String car_transmission, String car_type, String car_accident,
+			int car_year, int car_distance, String car_image1, String car_image2, String car_image3, String car_image4,
+			String car_image5, String car_content, String car_accident_detail, int car_like, String sale_YN) {
+		super();
+		this.dealer_id = dealer_id;
+		this.car_id = car_id;
+		this.car_brand = car_brand;
+		this.car_name = car_name;
+		this.car_color = car_color;
+		this.car_price = car_price;
+		this.car_capacity = car_capacity;
+		this.car_fuel = car_fuel;
+		this.car_transmission = car_transmission;
+		this.car_type = car_type;
+		this.car_accident = car_accident;
+		this.car_year = car_year;
+		this.car_distance = car_distance;
+		this.car_image1 = car_image1;
+		this.car_image2 = car_image2;
+		this.car_image3 = car_image3;
+		this.car_image4 = car_image4;
+		this.car_image5 = car_image5;
+		this.car_content = car_content;
+		this.car_accident_detail = car_accident_detail;
+		this.car_like = car_like;
+		this.sale_YN = sale_YN;
+	}
+
 	//'등록된 차량 뷰'용 생성자
 	public Car(String dealer_id, String car_id, String car_brand, String car_name, int car_price, int car_year,
 			String car_image1, int car_like, String sale_YN) {
@@ -189,6 +220,30 @@ public class Car {
 
 	public void setCar_image2(String car_image2) {
 		this.car_image2 = car_image2;
+	}
+	
+	public String getCar_image3() {
+		return car_image3;
+	}
+	
+	public void setCar_image3(String car_image3) {
+		this.car_image3 = car_image3;
+	}
+	
+	public String getCar_image4() {
+		return car_image4;
+	}
+	
+	public void setCar_image4(String car_image4) {
+		this.car_image4 = car_image4;
+	}
+	
+	public String getCar_image5() {
+		return car_image5;
+	}
+	
+	public void setCar_image5(String car_image5) {
+		this.car_image5 = car_image5;
 	}
 
 	public String getCar_content() {

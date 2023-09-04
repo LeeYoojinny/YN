@@ -65,11 +65,14 @@ public class UserCarSearchAction implements Action {
 		System.out.println("action에 넘어온 파라미터값 : " +tpm_start_price);
 		System.out.println("action에 넘어온 파라미터값 : " +tpm_end_price);
 		
-		if (tpm_start_price != null && !tpm_start_price.isEmpty()
-				&& tpm_end_price != null && !tpm_end_price.isEmpty()) {
+		if (tpm_start_price != null && !tpm_start_price.isEmpty()) {
 				//파라미터로 넘어온 문자열을 정수로 변환
 		    	start_price = Integer.parseInt(tpm_start_price);
-		    	end_price = Integer.parseInt(tpm_end_price);
+		}
+		
+		if(tpm_end_price != null && !tpm_end_price.isEmpty()) {
+			//파라미터로 넘어온 문자열을 정수로 변환
+			end_price = Integer.parseInt(tpm_end_price);
 		}
 
 		System.out.println("start_price action에 넘어온 값 : " +start_price);

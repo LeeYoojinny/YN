@@ -146,7 +146,7 @@ nav ul ul li a {
 
 /* 드롭메뉴 중 이름의 길이가 긴 글자설정 */
 #inside_menu2 li a{
-	 padding: 1rem 0.2rem; 
+	 padding: 0.75rem 0.2rem; 
 	 font-size: 0.9rem;
 }
 
@@ -160,7 +160,7 @@ nav ul ul li a:hover {
   nav ul li {
     margin: 0 1.5rem; /* 더 큰 화면을 위한 마진 증가 */
   }
-  
+}  
 nav ul ul {
   top: auto; /* 더 큰 화면에 대한 위치 재설정 */
   left: 0;

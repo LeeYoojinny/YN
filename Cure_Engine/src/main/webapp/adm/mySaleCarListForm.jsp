@@ -153,7 +153,7 @@
 					<tr class="contents">
 						<td rowspan="3" id="check_remove"><input type="checkbox" name="remove" value="${myCar.car_id}"></td>
 						<td rowspan="3" id="item_no">${status.count}</td>
-						<td rowspan="3" id="main_img"><a href="carView.usr?car_id=${myCar.car_id}"><img src="upload/carRegist_images/${myCar.car_image1}"></a></td>
+						<td rowspan="3" id="main_img"><a href="carDetailView.usr?car_id=${myCar.car_id}"><img src="upload/carRegist_images/${myCar.car_image1}"></a></td>
 						<td id="explain1">
 						<c:choose>
 							<c:when test="${myCar.car_brand == 'benz'}">벤츠</c:when>
@@ -183,7 +183,7 @@
 			</form>
 		</c:if>
 		<c:if test="${mySaleCarList == null }">
-			<div>${user_id}님의 판매차량이 없습니다.</div>
+			<div class="nothing">${user_id}님의 판매차량이 없습니다.</div>
 		</c:if>
 	</div>
 </body>

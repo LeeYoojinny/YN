@@ -36,7 +36,7 @@ public class CarDAO {
 			this.con = con;
 		}
 
-		/*---- 차량 정보 가져오기 -------------------------------------------------------------------------------------------*/
+		/*---- 차량 정보 중복체크용 -------------------------------------------------------------------------------------------*/
 		public Car selectCarInfo(String inputCarId) {
 			Car carInfo = null;
 			
@@ -71,8 +71,8 @@ public class CarDAO {
 			
 			String sql = "insert into tbl_car(dealer_id,car_id,car_brand,car_name,car_color,car_price,"
 					+ "car_capacity,car_fuel,car_transmission,car_type,car_accident,car_year,car_distance,"
-					+ "car_image1,car_image2,car_content,car_accident_detail) values"
-					+ " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					+ "car_image1,car_image2,car_image3,car_image4,car_image5,car_content,car_accident_detail) values"
+					+ " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			
 			try {
 				pstmt = con.prepareStatement(sql);
@@ -91,8 +91,11 @@ public class CarDAO {
 				pstmt.setInt(13, car.getCar_distance());
 				pstmt.setString(14, car.getCar_image1());
 				pstmt.setString(15, car.getCar_image2());
-				pstmt.setString(16, car.getCar_content());
-				pstmt.setString(17, car.getCar_accident_detail());
+				pstmt.setString(16, car.getCar_image3());
+				pstmt.setString(17, car.getCar_image4());
+				pstmt.setString(18, car.getCar_image5());
+				pstmt.setString(19, car.getCar_content());
+				pstmt.setString(20, car.getCar_accident_detail());
 				
 				insertResult = pstmt.executeUpdate();
 				
@@ -390,8 +393,53 @@ public class CarDAO {
 			return wishCar;
 		}
 
+		/*---- 차량상세정보 -------------------------------------------------------------------*/
+		public Car selectDetail(String car_id) {
+			Car detail = null;
+			
+			String sql = "select * from tbl_car where car_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, car_id);
 
-		
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					detail = new Car();
+					detail.setDealer_id(rs.getString("dealer_id"));
+					detail.setCar_id(rs.getString("car_id"));
+					detail.setCar_brand(rs.getString("car_brand"));
+					detail.setCar_name(rs.getString("car_name"));
+					detail.setCar_color(rs.getString("car_color"));
+					detail.setCar_price(rs.getInt("car_price"));
+					detail.setCar_capacity(rs.getInt("car_capacity"));
+					detail.setCar_fuel(rs.getString("car_fuel"));
+					detail.setCar_transmission(rs.getString("car_transmission"));
+					detail.setCar_type(rs.getString("car_type"));
+					detail.setCar_accident(rs.getString("car_accident"));
+					detail.setCar_year(rs.getInt("car_year"));
+					detail.setCar_distance(rs.getInt("car_distance"));
+					detail.setCar_image1(rs.getString("car_image1"));
+					detail.setCar_image2(rs.getString("car_image2"));
+					detail.setCar_image3(rs.getString("car_image3"));
+					detail.setCar_image4(rs.getString("car_image4"));
+					detail.setCar_image5(rs.getString("car_image5"));
+					detail.setCar_content(rs.getString("car_content"));
+					detail.setCar_accident_detail(rs.getString("car_accident_detail"));
+					detail.setCar_like(rs.getInt("car_like"));
+					detail.setSale_YN(rs.getString("sale_YN"));
+				}
+				
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 selectCarInfo()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return detail;
+		}
 		
 		
 		

@@ -102,6 +102,7 @@ table {
 	display: inline;
     vertical-align: middle;
 	padding-bottom: 0.3rem;
+	margin-right: 0.5rem;
 }
 
 #bt button{
@@ -114,4 +115,8 @@ table {
 	background-color: #486AAE;
 	border: 1px solid #dadada;
 	cursor: pointer;
+}
+
+.nothing {
+	text-align: center;
 }

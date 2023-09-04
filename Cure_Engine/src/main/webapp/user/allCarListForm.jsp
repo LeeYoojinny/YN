@@ -210,7 +210,7 @@
 				<c:forEach var="car" items="${allCarList}" varStatus="status">
 					<div class="items">
 						<div class="mainImg">
-							<a href="carView.usr?car_id=${car.car_id}">
+							<a href="carDetailView.usr?car_id=${car.car_id}">
 							<img src="upload/carRegist_images/${car.car_image1}"></a>
 						</div>
 						<div class="title">
@@ -250,7 +250,7 @@
 			</div>
 		</c:if>
 		<c:if test="${allCarList == null }">
-			<div>등록된 상품이 없습니다.</div>
+			<div class="nothing">등록된 상품이 없습니다.</div>
 		</c:if>
 	</div>
 </body>

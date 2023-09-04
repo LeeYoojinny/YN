@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.user.UserAllCarViewAction;
+import action.user.UserCarDetailViewAction;
 import action.user.UserCarSearchAction;
 import action.user.UserFindIdAction;
 import action.user.UserFindPwAction;
@@ -196,7 +197,17 @@ public class UserFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
+		
+		/*------- '상품 상세보기' → 처리 ---------------------------------------------------------*/
+		else if(command.equals("/carDetailView.usr")) {//'로그인 처리'요청하면
+			action = new UserCarDetailViewAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
 
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)
