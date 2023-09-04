@@ -28,6 +28,7 @@ car_like INT NULL COMMENT '관심',
 sale_YN CHAR(1) NOT NULL DEFAULT 'Y',
 PRIMARY KEY (car_id));
 
+alter table tbl_car drop column car_size;
 alter table tbl_car alter column saleQty set default 1;
 alter table tbl_car alter column car_like set default 0;
 alter table tbl_car add column car_accident_detail VARCHAR(500) after car_content;
@@ -38,7 +39,8 @@ update tbl_car set car_like=0 where car_id='111마1004';
 update tbl_car set car_brand='maserati' where car_brand='Maserati' ;
 update tbl_car set car_like=(car_like+1) where car_id='107허6655';
 
-update tbl_car set car_like=1 where car_id='111마1004';
+update tbl_car set car_color='blue' where car_id='104오1000';
+update tbl_car set car_image5='X';
 
 select * from tbl_car;
 

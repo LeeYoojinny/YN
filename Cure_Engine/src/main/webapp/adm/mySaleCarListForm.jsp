@@ -183,7 +183,7 @@
 			</form>
 		</c:if>
 		<c:if test="${mySaleCarList == null }">
-			<div>${user_id}님의 판매차량이 없습니다.</div>
+			<div class="nothing">${user_id}님의 판매차량이 없습니다.</div>
 		</c:if>
 	</div>
 </body>

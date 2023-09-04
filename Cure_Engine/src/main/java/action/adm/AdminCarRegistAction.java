@@ -36,30 +36,30 @@ public class AdminCarRegistAction implements Action {
 		MultipartRequest multi = new MultipartRequest(request, uploadPath,size,"utf-8", new DefaultFileRenamePolicy());
 		
 		//선택사항이였던 항목에 대해 null값 처리
-		String car_image2 = "";
-		String car_image3 = "";
-		String car_image4 = "";
-		String car_image5 = "";
-		String car_content = "";
+		String car_image2 = "X";
+		String car_image3 = "X";
+		String car_image4 = "X";
+		String car_image5 = "X";
+		String car_content = "X";
 		String car_accident_detail = "";
 
 		String valueCheck = multi.getFilesystemName("car_image2");
-		if(valueCheck != null) {
+		if(!valueCheck.equals("X")) {
 			car_image2 = multi.getFilesystemName("car_image2");
 		}
 		
 		valueCheck = multi.getFilesystemName("car_image3");
-		if(valueCheck != null) {
+		if(!valueCheck.equals("X")) {
 			car_image3 = multi.getFilesystemName("car_image3");
 		}
 		
 		valueCheck = multi.getFilesystemName("car_image4");
-		if(valueCheck != null) {
+		if(!valueCheck.equals("X")) {
 			car_image4 = multi.getFilesystemName("car_image4");
 		}
 		
 		valueCheck = multi.getFilesystemName("car_image5");
-		if(valueCheck != null) {
+		if(!valueCheck.equals("X")) {
 			car_image5 = multi.getFilesystemName("car_image5");
 		}
 		

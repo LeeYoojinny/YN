@@ -160,7 +160,7 @@ nav ul ul li a:hover {
   nav ul li {
     margin: 0 1.5rem; /* 더 큰 화면을 위한 마진 증가 */
   }
-  
+}  
 nav ul ul {
   top: auto; /* 더 큰 화면에 대한 위치 재설정 */
   left: 0;

@@ -59,7 +59,7 @@
 						</c:choose>						
 						&nbsp;${wish.car_year}연식 ${wish.car_name}</td>
 						<td rowspan="3" id="bt">
-							<button onclick="#">예약하기</button>
+							<button onclick="#">시승예약</button>
 							<button onclick="#">주문하기</button>
 						</td>
 					</tr>
@@ -77,7 +77,7 @@
 		</form>
 	</c:if>
 	<c:if test="${wishlist == null }">
-		<div>${user_id}님의 관심상품이 없습니다.</div>
+		<div class="nothing">${user_id}님의 관심상품이 없습니다.</div>
 	</c:if>
 </div>
 

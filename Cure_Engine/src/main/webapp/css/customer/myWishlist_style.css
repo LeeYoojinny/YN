@@ -115,3 +115,7 @@ table {
 	border: 1px solid #dadada;
 	cursor: pointer;
 }
+
+.nothing {
+	text-align: center;
+}
