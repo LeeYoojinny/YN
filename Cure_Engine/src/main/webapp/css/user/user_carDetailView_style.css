@@ -17,49 +17,103 @@ h2 {
 }
 
 .wrap_allCarList {
-	width: 100%;
 	display: flex;
+	width: 100%;
+	flex-direction: column;
+	max-width: 1200px;
+	margin: 1rem auto;
 }
 
 /* 이미지 슬라이드 ----------------------------------------------------*/
-.part{
-  width: 50%; 
-  margin-left: 0.5rem;
+.part.explain {
+	width: 50%; 
+	position: relative;
 }
 
 /**사진**/
-.button_img{ /**이만큼의 크기로 보이겠다는 의미**/
-  width:100%; /*height:300px;*/ /**사진보다 크면 다음 사진까지 표시되어 img와 slide크기를 맞춘다.**/
-  overflow: fill;/**이미지는 내장이라 overflow:hidden을 사용해 넘친 사진들을 안보이게 한다.**/
-  position: relative;
-  display: inline-block; 
+/* slider__wrap */
+.slider__wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
-.images{
-  display: flex; /**좌우 슬라이드를 위해 flex로 사진을 가로정렬한다.**/
-  /* height:333px; */ /**slide와 images의 높이가 다르면 부자연스럽게 표시돼 slide의 높이에 맞게 높이를 바꾼다.**/
-  transition: transform 0.5s;
-/**어떤 속성에 대해 애니메이션 효과를 주는 속성이다. 
-tranform속성에 0.5초의 듀레이션(동작의 시작해서 끝나는 시간)을 준다.**/
+.slider__img { /* 이미지가 보이는 영역 */
+    position: relative;
+    width: 800px;
+    height: 450px;
+    overflow: hidden;
 }
-
-img{
-  width:100%; /*height:333px;*//**slide 크기에 맞춘다.**/
+.slider__inner { /* 이미지 움직이는 영역 */
+    display: flex;
+    flex-wrap: wrap;
+    width: 4800px;  /*총이미지4800복사까지*/
+    height: 450px;
 }
-
-/**버튼위치**/
-.next{
-  right: 0;
+.slider { /* 개별적인 이미지 */
+    position: relative;
+    width: 800px;
+    height: 450px;
 }
-
+.slider__inner img { /* 개별적인 이미지 */
+	width: 100%;
+}
+.slider__btn a{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: all 0.6s;
+}
+.slider__btn a:hover {
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+.slider__btn a.prev {
+    left: 0;
+}
+.slider__btn a.next{
+    right: 0;
+}
+.slider__dot {
+    position: absolute;
+    left: 50%;
+    top: 400px;
+    transform: translateX(-50%);
+}
+.slider__dot .dot{
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 255, 255,0.3);
+    display: inline-block;
+    text-indent: -9999px;
+    transition: all 0.3s;
+    margin: 2px;
+    border-radius: 50px;
+}
+.slider__dot .dot.active {
+    background-color: rgba(255, 255, 255, 1)
+}
 /**버튼디자인**/
-button{
+/*
+.button_img button{
 	width: 30px; height: 30px;
 	position: absolute;
     top: 50%;
     transform: translateY(-50%);
  	background-color: transparent;
- 	border: 0;
+ 	border: 0; 	
 }
+
+.next{
+  right: 0;
+}
+
 
 #back_img, #next_img {
 	opacity: 0.5;
@@ -68,7 +122,8 @@ button{
 #back_img:hover, #next_img:hover {
 	opacity: 0.9;
 }
-
+*/
+/* 반응형 만들 때 864px 기준으로~~~ */
 /* 차량기본정보(id,제조사,차량명,금액) ----------------------------------------------------*/
 .basic_info {
 	display: flex;
@@ -83,20 +138,27 @@ button{
 .basic_info.detail {
 	display: flex;
 	flex-direction: row;
+	margin-bottom: 1rem;
 }
 
 .basic_info.detail table {
 	display: block;
-	width: 50%;
+	width: 100%;
 }
 
-#subject {
+#subject1,#subject2,#subject3,
+#subject4,#subject5,#subject6{
 	color: #A4A4A4; 
-	width: 50%;
+	width: 20%;
+}
+
+#subject2,#subject3,
+#subject5,#subject6{
+	margin-left: 1.2rem;
 }
 
 #contents {
-	width: 50%;
+	width: 13%;
 }
 
 /* 자동차 금액 */
@@ -125,39 +187,52 @@ button{
   
 }
 
-/* 관심상품 버튼 */
+/* 시승예약, 주문하기, 관심상품 버튼 */
+.basic_info.button {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	margin-top: 1rem;
+	position: absolute;
+    bottom: 0;
+}
+
+#resv_order {
+	width: 80%;
+	margin-bottom: 0;
+    text-align: center;
+}
+
+#resv_order button {
+	width: 7rem;
+	padding: 0.5rem;
+	margin-right: 0.5rem;
+	font-family: 'GowunDodum';
+	color:#fff;
+	background-color: #486AAE;
+	border: 1px solid #dadada;
+	cursor: pointer;
+}
+
+#resv_order button:hover {
+	background-color: #36589C;
+	color:#fff;
+}
+
 .basic_info.likeQty img {
 	width: 1.5rem;
 	display: inline;
     vertical-align: middle;
-	padding-bottom: 0.3rem;
+	margin-right: 0.5rem;
 	cursor: pointer;
 }
 
 .basic_info.likeQty {
 	display: flex;
     flex-direction: row;
-    justify-content: end;
+    padding-top: 0.5rem;
+    text-align: right;
 }
 
-.basic_info.button {
-	display: flex;
-	flex-direction: row;
-	margin-top: 1rem;
-}
 
-.basic_info.button button {
-	width: 10rem;
-    padding: 0.5rem;
-    margin-right: 0.5rem;
-	color:#fff;
-	font-family: 'GowunDodum';
-	background-color: #486AAE;
-	border: 1px solid #dadada;
-	cursor: pointer;
-}
 
-.basic_info.button button:hover {
-	background-color: #36589C;
-	color:#fff;
-}

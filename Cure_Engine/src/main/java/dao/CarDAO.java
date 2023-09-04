@@ -71,8 +71,8 @@ public class CarDAO {
 			
 			String sql = "insert into tbl_car(dealer_id,car_id,car_brand,car_name,car_color,car_price,"
 					+ "car_capacity,car_fuel,car_transmission,car_type,car_accident,car_year,car_distance,"
-					+ "car_image1,car_image2,car_content,car_accident_detail) values"
-					+ " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					+ "car_image1,car_image2,car_image3,car_image4,car_image5,car_content,car_accident_detail) values"
+					+ " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			
 			try {
 				pstmt = con.prepareStatement(sql);
@@ -91,8 +91,11 @@ public class CarDAO {
 				pstmt.setInt(13, car.getCar_distance());
 				pstmt.setString(14, car.getCar_image1());
 				pstmt.setString(15, car.getCar_image2());
-				pstmt.setString(16, car.getCar_content());
-				pstmt.setString(17, car.getCar_accident_detail());
+				pstmt.setString(16, car.getCar_image3());
+				pstmt.setString(17, car.getCar_image4());
+				pstmt.setString(18, car.getCar_image5());
+				pstmt.setString(19, car.getCar_content());
+				pstmt.setString(20, car.getCar_accident_detail());
 				
 				insertResult = pstmt.executeUpdate();
 				

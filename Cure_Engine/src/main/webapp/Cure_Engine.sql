@@ -40,12 +40,14 @@ update tbl_car set car_brand='maserati' where car_brand='Maserati' ;
 update tbl_car set car_like=(car_like+1) where car_id='107허6655';
 
 update tbl_car set car_color='blue' where car_id='104오1000';
-update tbl_car set car_image5='X';
+update tbl_car set car_image2='X';
 
 select * from tbl_car;
 
 select car_id from tbl_car where car_brand='maserati' ;
 select * from tbl_car where (car_price >=5000) and (car_price<=10000);
+
+delete from tbl_car where car_id='106오3333';
 
 /* 차량검색 Test */
 select *
