@@ -139,7 +139,7 @@ public class CustomerFrontController extends HttpServlet {
 		/*------- '회원정보관리 폼 보기' → 처리 ---------------------------------------------------------*/
 		
 		if(command.equals("/myInfoView.cust")) {//'회원정보가 셋팅된 회원정보관리 폼 보기' 요청이면
-			request.setAttribute("showPage", "user/userView.jsp");
+			request.setAttribute("showPage", "customer/customerInfoView.jsp");
 			forward = new ActionForward("template.jsp",false);
 		}
 		
