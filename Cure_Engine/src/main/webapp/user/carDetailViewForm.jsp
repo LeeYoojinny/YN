@@ -75,16 +75,11 @@ String image5 = carDetail.getCar_image5();
 					<div><span id="subject4">차량번호 | </span>${carDetail.car_id}</div>
 					<div>
 					<span id="subject4">차량명&ensp;&nbsp; | </span>
-						<c:choose>
-							<c:when test="${carDetail.car_brand == 'benz'}">벤츠</c:when>
-							<c:when test="${carDetail.car_brand == 'tesla'}">테슬라</c:when>
-							<c:when test="${carDetail.car_brand == 'ferrari'}">페라리</c:when>
-							<c:when test="${carDetail.car_brand == 'bmw'}">BMW</c:when>
-							<c:when test="${carDetail.car_brand == 'audi'}">아우디</c:when>
-							<c:when test="${carDetail.car_brand == 'maserati'}">마세라티	</c:when>
-							<c:when test="${carDetail.car_brand == 'bentley'}">벤틀리</c:when>
-							<c:when test="${carDetail.car_brand == 'cadillac'}">캐딜락</c:when>
-						</c:choose>
+						<c:forEach var="code" items="${allCode}">
+							<c:if test="${code.code_category == 'car_brand'}">
+								<c:if test="${carDetail.car_brand == code.code_name}">${code.code_value}</c:if>
+							</c:if>
+						</c:forEach>
 						
 						${carDetail.car_year}연식 
 						${carDetail.car_name}
@@ -96,15 +91,11 @@ String image5 = carDetail.getCar_image5();
 								<td><span id="subject1">색상 |</span></td>
 								<td>
 									<span id="contents">
-									<c:choose>
-										<c:when test="${carDetail.car_color == 'black'}">검정색</c:when>
-										<c:when test="${carDetail.car_color == 'white'}">흰색</c:when>
-										<c:when test="${carDetail.car_color == 'silver'}">회색</c:when>
-										<c:when test="${carDetail.car_color == 'red'}">빨간색</c:when>
-										<c:when test="${carDetail.car_color == 'blue'}">파란색</c:when>
-										<c:when test="${carDetail.car_color == 'yellow'}">노란색</c:when>
-										<c:when test="${carDetail.car_color == 'etc'}">기타</c:when>
-									</c:choose>
+									<c:forEach var="code" items="${allCode}">
+										<c:if test="${code.code_category == 'car_color'}">
+											<c:if test="${carDetail.car_color == code.code_name}">${code.code_value}</c:if>
+										</c:if>
+									</c:forEach>	
 									</span>
 								</td>
 								<td><span id="subject2">배기량 | </span></td>
@@ -122,39 +113,31 @@ String image5 = carDetail.getCar_image5();
 								<td><span id="subject4">차종 |</span></td>
 								<td>
 									<span id="contents">
-									<c:choose>
-										<c:when test="${carDetail.car_type == 'compactCar'}">경차</c:when>
-										<c:when test="${carDetail.car_type == 'semimidCar'}">소/준중형</c:when>
-										<c:when test="${carDetail.car_type == 'midCar'}">중형</c:when>
-										<c:when test="${carDetail.car_type == 'largeCar'}">대형</c:when>
-										<c:when test="${carDetail.car_type == 'sports'}">스포츠카</c:when>
-										<c:when test="${carDetail.car_type == 'smallSUV'}">소형SUV</c:when>
-										<c:when test="${carDetail.car_type == 'midSUV'}">중형SUV</c:when>
-										<c:when test="${carDetail.car_type == 'largeSUV'}">대형SUV</c:when>
-										<c:when test="${carDetail.car_type == 'smallRV'}">소형RV</c:when>
-										<c:when test="${carDetail.car_type == 'largeRV'}">대형RV</c:when>
-									</c:choose>
+									<c:forEach var="code" items="${allCode}">
+										<c:if test="${code.code_category == 'car_type'}">
+											<c:if test="${carDetail.car_type == code.code_name}">${code.code_value}</c:if>
+										</c:if>
+									</c:forEach>	
 									</span>
 								</td>
 								<td><span id="subject5">연료&ensp;&nbsp; | </span></td>
 								<td>
 									<span id="contents">
-									<c:choose>
-										<c:when test="${carDetail.car_fuel == 'gasoline'}">가솔린</c:when>
-										<c:when test="${carDetail.car_fuel == 'diesel'}">디젤</c:when>
-										<c:when test="${carDetail.car_fuel == 'hybrid'}">하이브리드</c:when>
-										<c:when test="${carDetail.car_fuel == 'electric'}">전기</c:when>
-										<c:when test="${carDetail.car_fuel == 'hydrogen'}">수소</c:when>
-									</c:choose>
+									<c:forEach var="code" items="${allCode}">
+										<c:if test="${code.code_category == 'car_fuel'}">
+											<c:if test="${carDetail.car_fuel == code.code_name}">${code.code_value}</c:if>
+										</c:if>
+									</c:forEach>	
 									</span>
 								</td>
 								<td><span id="subject6">변속기&ensp;&nbsp; | </span></td>
 								<td>
 									<span id="contents">
-									<c:choose>
-										<c:when test="${carDetail.car_transmission == 'auto'}">오토</c:when>
-										<c:when test="${carDetail.car_transmission == 'manual'}">수동</c:when>
-									</c:choose>
+									<c:forEach var="code" items="${allCode}">
+										<c:if test="${code.code_category == 'car_transmission'}">
+											<c:if test="${carDetail.car_transmission == code.code_name}">${code.code_value}</c:if>
+										</c:if>
+									</c:forEach>	
 									</span>
 								</td>
 							</tr>					
@@ -252,77 +235,34 @@ String image5 = carDetail.getCar_image5();
 				</table>
 			</div>
 		</div>
-		<div class="part options">
+		<div class="wrap_thirdLine">
+			<h3>해당 차량의 옵션과 사고이력을 알려드립니다!</h3>
 			<c:set var="carContent" value="${carDetail.car_content}" />
 			<c:set var="carContentArray" value="${fn:split(carContent, ',')}" />
-			<div class="field_column">
-				<div class="field_column item">
-					<b>옵션</b>
-					<div>
-						<span>외관/내장</span>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option1">선루프</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option2">HID헤드램프</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option3">전동 트렁크</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option4">전동 사이드미러</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option5">알루미늄휠</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option6">열선핸들</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option7">하이패스	</label>
-					</div>
-					<div>
-						<span>안전</span>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option8">에어백(운전석,동승석)</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option9">ABS</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option10">차선이탈경보</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option11">후방카메라</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option12">전방센서</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option13">측면센서</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option14">후방센서</label>
-					</div>
-					<div>
-						<span>편의/멀티미디어</span>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option15">크루즈 컨트롤</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option16">전자식 주차브레이크</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option17">HUD</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option18">스마트키</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option19">내비게이션</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option20">자동에어컨</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option21">블루투스</label>
-					</div>
-					<div>
-						<span>시트</span>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option22">가죽시트</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option23">전동시트</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option24">열선시트</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option25">통풍시트</label>
-						<label><input type="checkbox" name="car_content" id="car_content" value="option26">메모리시트</label>
-					</div>
-					
-				</div>
-			</div>
-			<div class="field_column">
-				<div class="field_column item">
-					<b>사고이력(선택)</b>
-					<div>
-						<span>구분</span>
-						<label><input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="detail1">내차 피해</label>
-						<label><input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="detail2">타차 가해</label>
-					</div>
-					<div>
-						<span>특수사고</span>	
-						<label><input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="detail3">전손</label>
-						<label><input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="detail4">침수(전손,분손)</label>
-						<label><input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="detail5">도난</label>
-					</div>
-					<div>
-						<span>수리이력</span>
-						<label><input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="detail7">전방</label>
-						<label><input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="detail8">도어(운전석측)</label>
-						<label><input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="detail9">도어(조수석측)</label>
-						<label><input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="detail10">후방</label>
-						<label><input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="detail11">루프</label>
-						<label><input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="detail12">플로워</label>
-						<label><input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="detail13">휠하우스</label>
-					</div>
+			<div class="part options">
+				<b>옵션</b>
+				<div>
+					<span>외관/내장</span>
+					<c:set var="isChecked" value="false" />
+					<c:forEach var="code" items="${allCode}">
+						<c:if test="${code.code_name == 'car_option_outIn'}">
+							<c:forEach var="item" items="${carContentArray}">							
+								<c:if test="${item eq code.code_name}">
+									<label>
+										<input type="checkbox" name="car_content" id="car_content" value="${code.code_name}" 
+										checked disabled><span class="option_Y">${code.code_value}</span>
+										<c:set var="isChecked" value="true" />
+									</label>
+								</c:if>
+							</c:forEach>
+							<c:if test="${not isChecked}">
+								<label>
+									<input type="checkbox" name="car_content" id="car_content" value="${code.code_name}" 
+									  disabled><span class="option_N">${code.code_value}</span>	
+								</label>							
+							</c:if>							
+						</c:if>	
+					</c:forEach>
 				</div>
 			</div>
 		</div>

@@ -44,31 +44,29 @@ public class AdminCarRegistAction implements Action {
 		String car_accident_detail = "";
 
 		String valueCheck = multi.getFilesystemName("car_image2");
-		if(!valueCheck.isEmpty()) {
-			car_image2 = multi.getFilesystemName("car_image2");
+		if(valueCheck != null && !valueCheck.isEmpty()) {
+			car_image2 = valueCheck;
 		}
 		
 		System.out.println("image2 넘어온 값 : "+car_image2);
 		
 		valueCheck = multi.getFilesystemName("car_image3");
-		if(!valueCheck.isEmpty()) {
-			car_image3 = multi.getFilesystemName("car_image3");
+		if(valueCheck != null && !valueCheck.isEmpty()) {
+			car_image3 = valueCheck;
 		}
 		
 		System.out.println("image3 넘어온 값 : "+car_image3);
 		
 		valueCheck = multi.getFilesystemName("car_image4");
-		if(!valueCheck.isEmpty()) {
-			car_image4 = multi.getFilesystemName("car_image4");
+		if(valueCheck != null && !valueCheck.isEmpty()) {
+			car_image4 = valueCheck;
 		}
-		
 		System.out.println("image4 넘어온 값 : "+car_image4);
 		
 		valueCheck = multi.getFilesystemName("car_image5");
-		if(!valueCheck.isEmpty()) {
-			car_image5 = multi.getFilesystemName("car_image5");
+		if(valueCheck != null && !valueCheck.isEmpty()) {
+			car_image5 = valueCheck;
 		}
-		
 		System.out.println("image5 넘어온 값 : "+car_image5);
 		
 		valueCheck = multi.getParameter("car_content");
