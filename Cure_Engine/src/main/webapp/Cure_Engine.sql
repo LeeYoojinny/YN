@@ -58,6 +58,95 @@ select * from tbl_car where car_type like '%SUV%'
 select * from tbl_car where (car_brand='tesla' or car_brand='maserati') and  (car_color='black' or car_color='white') and  (car_type like '%SUV%')
 select * from tbl_car where (car_brand='benz' or car_brand='tesla' or car_brand='ferrari' or car_brand='maserati') and  (car_color='black' or car_color='white' or car_color='red') and  (car_type like '%SUV%')
 -- -----------------------------------------------------
+-- tbl_code_master : 차량옵션, 사고내용 등 
+-- -----------------------------------------------------
+DROP TABLE tbl_code_master;
+
+CREATE TABLE tbl_code_master (
+code_category VARCHAR(45) NOT NULL COMMENT 'option,accident_detail',
+code_name VARCHAR(45) NOT NULL COMMENT 'option1,option2,option3...',
+code_value NVARCHAR(90) NOT NULL COMMENT '선루프,HID헤드램프,전동 트렁크...',
+PRIMARY KEY (code_category,code_name)
+);
+
+select * from tbl_code_master where code_category like '%option%';
+select * from tbl_code_master where code_category='car_accident'
+
+delet from tbl_code_master where code_category='car_accident'
+
+insert into tbl_code_master values('car_option_outIn','outIn1','선루프');
+insert into tbl_code_master values('car_option_outIn','outIn2','HID헤드램프');
+insert into tbl_code_master values('car_option_outIn','outIn3','전동 트렁크');
+insert into tbl_code_master values('car_option_outIn','outIn4','전동 사이드미러');
+insert into tbl_code_master values('car_option_outIn','outIn5','알루미늄휠');
+insert into tbl_code_master values('car_option_outIn','outIn6','열선핸들');
+insert into tbl_code_master values('car_option_outIn','outIn7','하이패스');
+insert into tbl_code_master values('car_option_safety','safety1','에어백(운전석,동승석)');
+insert into tbl_code_master values('car_option_safety','safety2','ABS');
+insert into tbl_code_master values('car_option_safety','safety3','차선이탈경보');
+insert into tbl_code_master values('car_option_safety','safety4','후방카메라');
+insert into tbl_code_master values('car_option_safety','safety5','전방센서');
+insert into tbl_code_master values('car_option_safety','safety6','측면센서');
+insert into tbl_code_master values('car_option_safety','safety7','후방센서');
+insert into tbl_code_master values('car_option_convi','convi1','크루즈컨트롤');
+insert into tbl_code_master values('car_option_convi','convi2','전자식 주차브레이크');
+insert into tbl_code_master values('car_option_convi','convi3','HUD');
+insert into tbl_code_master values('car_option_convi','convi4','스마트키');
+insert into tbl_code_master values('car_option_convi','convi5','내비게이션');
+insert into tbl_code_master values('car_option_convi','convi6','자동에어컨');
+insert into tbl_code_master values('car_option_convi','convi7','블루투스');
+insert into tbl_code_master values('car_option_seat','seat1','가죽시트');
+insert into tbl_code_master values('car_option_seat','seat2','전동시트');
+insert into tbl_code_master values('car_option_seat','seat3','열선시트');
+insert into tbl_code_master values('car_option_seat','seat4','통풍시트');
+insert into tbl_code_master values('car_option_seat','seat5','메모리시트');
+insert into tbl_code_master values('car_accident_dv','division1','내차피해');
+insert into tbl_code_master values('car_accident_dv','division2','타차가해');
+insert into tbl_code_master values('car_accident_sp','special1','전손');
+insert into tbl_code_master values('car_accident_sp','special2','침수(전손, 분손)');
+insert into tbl_code_master values('car_accident_sp','special3','도난');
+insert into tbl_code_master values('car_accident_rp','repair1','전방');
+insert into tbl_code_master values('car_accident_rp','repair2','후방');
+insert into tbl_code_master values('car_accident_rp','repair3','도어(운전석측)');
+insert into tbl_code_master values('car_accident_rp','repair4','도어(조수석측)');
+insert into tbl_code_master values('car_accident_rp','repair5','루프');
+insert into tbl_code_master values('car_accident_rp','repair6','플로어');
+insert into tbl_code_master values('car_accident_rp','repair7','휠하우스');
+insert into tbl_code_master values('car_type','regular1','경차');
+insert into tbl_code_master values('car_type','regular2','소/준중형');
+insert into tbl_code_master values('car_type','regular3','중형');
+insert into tbl_code_master values('car_type','regular4','대형');
+insert into tbl_code_master values('car_type','sports1','스포츠카');
+insert into tbl_code_master values('car_type','SUV1','소형SUV');
+insert into tbl_code_master values('car_type','SUV2','중형SUV');
+insert into tbl_code_master values('car_type','SUV3','대형SUV');
+insert into tbl_code_master values('car_type','RV1','소형RV');
+insert into tbl_code_master values('car_type','RV2','대형RV');
+insert into tbl_code_master values('car_transmission','tm1','오토');
+insert into tbl_code_master values('car_transmission','tm2','수동');
+insert into tbl_code_master values('car_fuel','fuel1','가솔린');
+insert into tbl_code_master values('car_fuel','fuel2','디젤');
+insert into tbl_code_master values('car_fuel','fuel3','하이브리드');
+insert into tbl_code_master values('car_fuel','fuel4','전기');
+insert into tbl_code_master values('car_fuel','fuel5','수소');
+insert into tbl_code_master values('car_color','color1','검정색');
+insert into tbl_code_master values('car_color','color2','흰색');
+insert into tbl_code_master values('car_color','color3','회색');
+insert into tbl_code_master values('car_color','color4','빨간색');
+insert into tbl_code_master values('car_color','color5','파란색');
+insert into tbl_code_master values('car_color','color6','노란색');
+insert into tbl_code_master values('car_color','color7','기타');
+insert into tbl_code_master values('car_brand','brand1','벤츠');
+insert into tbl_code_master values('car_brand','brand2','테슬라');
+insert into tbl_code_master values('car_brand','brand3','페라리');
+insert into tbl_code_master values('car_brand','brand4','BMW');
+insert into tbl_code_master values('car_brand','brand5','아우디');
+insert into tbl_code_master values('car_brand','brand6','마세라티');
+insert into tbl_code_master values('car_brand','brand7','벤틀리');
+insert into tbl_code_master values('car_brand','brand8','캐딜락');
+
+
+-- -----------------------------------------------------
 -- tbl_user : 사용자, 딜러, 관리자
 -- -----------------------------------------------------
 drop table tbl_user;

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.adm.AdminCarIdCheckAction;
 import action.adm.AdminCarRegistAction;
+import action.adm.AdminCarRegistFormAction;
 import action.adm.AdminMySaleCarAction;
 import vo.ActionForward;
 
@@ -77,8 +78,13 @@ public class AdminFrontController extends HttpServlet {
 		/*------- '상품등록' 클릭 → 상품등록 폼 → 상품등록 처리 ------------------------------------*/
 
 		if(command.equals("/carRegistForm.adm")) {//'관심상품 페이지 보기' 요청이면
-			request.setAttribute("showPage", "adm/productRegistForm.jsp");
-			forward = new ActionForward("template.jsp",false);
+			action = new AdminCarRegistFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
 		}
 		
 		else if(command.equals("/adm/carIdCheck.adm")) {//'차량 등록 중복확인' 요청이면
@@ -127,32 +133,7 @@ public class AdminFrontController extends HttpServlet {
 		}
 		*/
 		
-		/*------- '회원정보관리 폼 보기' → 처리 ---------------------------------------------------------*/
-		
-		/*else if(command.equals("/myInfoView.cust")) {//'회원정보가 셋팅된 회원정보관리 폼 보기' 요청이면
-			//action:부모인터페이스 = UserViewAction:구현한자식객체;
-			action = new CustomerInfoViewAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
-				e.printStackTrace();
-			}
-		}
-		
-		
-		else if(command.equals("/myInfoUpdate.cust")) {//'회원정보수정 처리'요청하면
-			//action:부모인터페이스 = UserLoginAction:구현한자식객체;
-			action = new CustomerInfoUpdateAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
-				e.printStackTrace();
-			}
-		}
-		
-		*/
+
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)
 		 *********************************************************************/

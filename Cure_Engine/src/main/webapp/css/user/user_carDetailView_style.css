@@ -418,3 +418,60 @@ h2 {
 	text-decoration: underline;
 	color: blue;
 }
+
+/* 옵션 및 사고이력 ----------------------------------------------------*/
+.wrap_thirdLine {
+	width: 80%;
+	max-width: 1024px;
+	margin: 1rem auto 0 auto;
+}
+
+.wrap_thirdLine h3{
+	text-align: center;
+}
+
+.part.option {
+	display: flex;
+	flex-direction: column;
+}
+
+/* 옵션 체크박스 스타일 */
+.part.option div {
+	width: 100%;
+	border: 1px solid #848484;
+	border-radius: 5px;
+	padding-left: 0.3rem;
+	
+	/* margin: 0.3rem 1rem; */
+}
+
+.part.option b{
+	display: block;
+	width: 7rem;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin: 0.5rem 1rem 0 1rem;
+}
+
+/* 옵션 항목명 스타일 */
+.part.option div span {
+	display: block;
+	padding-left: 5px;
+	font-size: 0.9rem;
+}
+
+.part.option label {
+	margin-right: 0.4rem;
+}
+
+/* 옵션에 체크가 되어있다면 */
+.option_Y {
+	display: inline;
+	font-weight: bold;
+}
+
+/* 옵션에 체크가 되어있지 않다면 */
+.option_N {
+	display: inline;
+	color: #E6E6E6;
+}

@@ -5,9 +5,12 @@ import static db.JdbcUtil.getConnection;
 
 import java.sql.Connection;
 
+import java.util.ArrayList;
 import dao.CarDAO;
+import dao.CodeDAO;
 import dao.UserDAO;
 import vo.Car;
+import vo.Code;
 import vo.User;
 
 public class UserCarDetailViewService {
@@ -32,6 +35,17 @@ public class UserCarDetailViewService {
 		
 		close(con);
 		return dealer;
+	}
+
+	public ArrayList<Code> getAllCode() {
+		Connection con = getConnection();
+		CodeDAO codeDAO = CodeDAO.getInstance();
+		codeDAO.setConnection(con);
+		
+		ArrayList<Code> allCode = codeDAO.selectAllCode();
+		
+		close(con);
+		return allCode;
 	}
 
 }
