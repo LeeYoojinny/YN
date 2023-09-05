@@ -204,6 +204,35 @@ public class UserDAO {
 			return updateTmpPw;
 		}
 
+		/*---- 차량상세보기 딜러정보 -----------------------------------------------------------------------------------------------*/
+		public User getDealerInfo(String dealer_id) {
+			User dealer = null;
+			
+			String sql = "select * from tbl_user where user_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, dealer_id);
+
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					dealer = new User();
+					dealer.setUser_name(rs.getString("user_name"));
+					dealer.setUser_phone(rs.getString("user_phone"));
+					dealer.setUser_email(rs.getString("user_email"));
+					dealer.setUser_gender(rs.getString("user_gender"));
+				}
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 getDealerInfo()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return dealer;
+		}
+
 
 		
 		

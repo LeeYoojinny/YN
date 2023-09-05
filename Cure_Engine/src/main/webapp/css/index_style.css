@@ -156,15 +156,41 @@ nav ul ul li a:hover {
 }
 
 /* 더 큰 화면에 대한 조정 */
-@media screen and (min-width: 48rem) {
+/* @media screen and (min-width: 48rem) {
   nav ul li {
-    margin: 0 1.5rem; /* 더 큰 화면을 위한 마진 증가 */
+    margin: 0 1.5rem; 더 큰 화면을 위한 마진 증가
   }
-}  
-nav ul ul {
+}   */
+
+@media screen and (max-width: 768px) {
+  /* 화면 너비가 768px 이하일 때 적용될 스타일 */
+  nav ul {
+    margin-left: 1rem;
+  }
+
+  nav ul li {
+    margin: 0 1rem;
+  }
+  
+  nav ul ul {
   top: auto; /* 더 큰 화면에 대한 위치 재설정 */
   left: 0;
 }
+}
+
+@media screen and (min-width: 992px) {
+  /* 화면 너비가 992px 이상일 때 적용될 스타일 */
+  nav ul {
+    margin-left: 3rem;
+  }
+
+  nav ul li {
+    margin: 0 2rem;
+  }
+}
+
+
+
 /*----------------------------------------------------------------------*/
 
 /* Contents ------------------------------------------------------------*/
