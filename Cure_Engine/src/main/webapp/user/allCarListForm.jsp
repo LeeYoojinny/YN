@@ -78,9 +78,9 @@
 			return false;
 		}else {
 			if(like == 0){
-				location.href="userLikeThis.cust?car_id="+car_id+"&car_price="+car_price+"&car_image1="+car_image1;
+				location.href="userLikeThis.cust?car_id="+car_id+"&car_price="+car_price+"&car_image1="+car_image1+"&displayNum=1";
 			}else {
-				location.href="userUnlikeThis.cust?car_id="+car_id;
+				location.href="userUnlikeThis.cust?car_id="+car_id+"&displayNum=1";
 			}
 		}
 	}
@@ -157,44 +157,6 @@
 					</div>
 					<!-- <div class="detailItem_option">
 						<b>옵션</b>
-						<div>
-							<span>외관/내장</span>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option1">선루프</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option2">HID헤드램프</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option3">전동 트렁크</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option4">전동 사이드미러</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option5">알루미늄휠</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option6">열선핸들</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option7">하이패스	</label>
-						</div>
-						<div>
-							<span>안전</span>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option8">에어백(운전석,동승석)</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option9">ABS</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option10">차선이탈경보</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option11">후방카메라</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option12">전방센서</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option13">측면센서</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option14">후방센서</label>
-						</div>
-						<div>
-							<span>편의/멀티미디어</span>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option15">크루즈 컨트롤</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option16">전자식 주차브레이크</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option17">HUD</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option18">스마트키</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option19">내비게이션</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option20">자동에어컨</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option21">블루투스</label>
-						</div>
-						<div>
-							<span>시트</span>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option22">가죽시트</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option23">전동시트</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option24">열선시트</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option25">통풍시트</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option26">메모리시트</label>
-						</div>
 					</div> -->
 					<div class="searchButton">
 						<div class="searchButton bt">
@@ -215,7 +177,7 @@
 						<div class="title">
 						<c:forEach var="code" items="${allCode}">
 							<c:if test="${code.code_category == 'car_brand'}">
-								<c:if test="${carDetail.car_brand == code.code_name}">${code.code_value}</c:if>
+								<c:if test="${car.car_brand == code.code_name}">${code.code_value}</c:if>
 							</c:if>
 						</c:forEach>
 						&nbsp;${car.car_year}연식 ${car.car_name}</div>

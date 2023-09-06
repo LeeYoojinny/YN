@@ -26,6 +26,7 @@ public class CustomerLikeThisAction implements Action {
 		String car_id = request.getParameter("car_id");
 		int car_price = Integer.parseInt(request.getParameter("car_price"));
 		String car_image1 = request.getParameter("car_image1");
+		String displayNum = request.getParameter("displayNum");
 		
 		//콘솔로 값 체크
 		System.out.println("로그인한 user_id : "+user_id);
@@ -48,12 +49,32 @@ public class CustomerLikeThisAction implements Action {
 				session.setAttribute("wishlist", userWish);
 				System.out.println("wishlist 세션 업데이트");
 			}
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('관심상품 등록 되었습니다.');");
-			out.println("location.href='allCarListView.usr';");
-			out.println("</script>");
+			
+			if(displayNum.equals("1")) {
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('관심상품 등록 되었습니다.');");
+				out.println("location.href='allCarListView.usr';");
+				out.println("</script>");
+			}else if(displayNum.equals("2")) {
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('관심상품 등록 되었습니다.');");
+				out.println("location.href='myWishlist.cust';");
+				out.println("</script>");
+			}else if(displayNum.equals("3")) {
+				String dealer_id = request.getParameter("dealer_id");
+				String dealer_name = request.getParameter("dealer_name");
+				
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('관심상품 등록 되었습니다.');");
+				out.println("location.href='otherCarView.usr?dealer_id=" + dealer_id + "&dealer_name=" + dealer_name + "';");
+				out.println("</script>");
+			}
 		}else {//서비스에서 메소드 실행 실패했다면
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();

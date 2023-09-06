@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import vo.Car;
 import vo.Wishlist;
 
 public class WishlistDAO {
@@ -120,6 +121,36 @@ public class WishlistDAO {
 				close(pstmt);
 			}
 			return userWish;
+		}
+
+
+		public int removeWish(String[] car_ids, String user_id) {	
+			int result = 0;
+						
+			String where_car_id = "";
+			for(int i=0; i<car_ids.length; i++) {
+				if(i == 0) {
+					where_car_id += " (car_id='"+car_ids[i]+"'";
+				}else {
+					where_car_id += " or car_id='"+car_ids[i]+"'";
+				}
+			}
+			where_car_id += ")";
+			
+			String sql = "delete from tbl_wishlist where user_id=? and"+where_car_id;
+			System.out.println("만들어진 sql문 : "+sql);
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, user_id);
+				result = pstmt.executeUpdate();
+
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 removeWish()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return result;
 		}
 
 

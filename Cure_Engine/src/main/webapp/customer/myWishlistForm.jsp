@@ -22,7 +22,48 @@
 	}
 	
 	function removeCheck() {
-		if
+		var checkboxes = document.getElementsByName('remove');		
+		var selectedCount = 0;
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedCount++;
+            }
+        }
+
+        if (selectedCount === 0) {
+            // 체크된 항목이 없으면 경고 메시지 표시 후 작업 취소
+            alert('선택된 항목이 없습니다.');
+            return false;
+        } else {
+            // 체크된 항목이 있으면 userRemoveWish.usr로 이동
+            // 이때 선택된 체크박스의 값을 param으로 넘겨줄 수 있습니다.
+            // 예: userRemoveWish.usr?car_ids=1,2,3 (선택된 car_id 값들)
+            var selectedCarIds = [];
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    selectedCarIds.push(checkboxes[i].value);
+                }
+            }
+            var param = 'car_ids=' + selectedCarIds.join(',');
+            location.href = 'userRemoveWish.cust?' + param;
+        }
+    }
+	
+	function likeThis(like,car_id,car_price,car_image1) {
+		var user_id = '<c:out value="${user_id}" />'
+		
+		if(!user_id) {
+			alert("로그인 후 관심상품 등록이 가능합니다.");
+			location.href="userLogin.usr";
+			return false;
+		}else {
+			if(like == 0){
+				location.href="userLikeThis.cust?car_id="+car_id+"&car_price="+car_price+"&car_image1="+car_image1+"&displayNum=2";
+			}else {
+				location.href="userUnlikeThis.cust?car_id="+car_id+"&displayNum=2";
+			}
+		}
 	}
 </script>
 <body>
@@ -47,16 +88,11 @@
 						<td rowspan="3" id="item_no">${status.count}</td>
 						<td rowspan="3" id="main_img"><a href="carView.usr?car_id=${wish.car_id}"><img src="upload/carRegist_images/${wish.car_image1}"></a></td>
 						<td id="explain1">
-						<c:choose>
-							<c:when test="${wish.car_brand == 'benz'}">벤츠</c:when>
-							<c:when test="${wish.car_brand == 'tesla'}">테슬라</c:when>
-							<c:when test="${wish.car_brand == 'ferrari'}">페라리</c:when>
-							<c:when test="${wish.car_brand == 'bmw'}">BMW</c:when>
-							<c:when test="${wish.car_brand == 'audi'}">아우디</c:when>
-							<c:when test="${wish.car_brand == 'maserati'}">마세라티</c:when>
-							<c:when test="${wish.car_brand == 'bentley'}">벤틀리</c:when>
-							<c:when test="${wish.car_brand == 'cadillac'}">캐딜락</c:when>
-						</c:choose>						
+						<c:forEach var="code" items="${allCode}">
+							<c:if test="${code.code_category == 'car_brand'}">
+								<c:if test="${wish.car_brand == code.code_name}">${code.code_value}</c:if>
+							</c:if>
+						</c:forEach>					
 						&nbsp;${wish.car_year}연식 ${wish.car_name}</td>
 						<td rowspan="3" id="bt">
 							<button onclick="#">시승예약</button>
@@ -69,7 +105,10 @@
 						</td>
 					</tr>
 					<tr class="contents">
-						<td id="explain3"><img src="image/carList/red_like_icon.png">${wish.car_like}</td>
+						<td id="explain3">
+                           	<img src="image/carList/red_like_icon.png" id="likeImage" 
+                                onclick="likeThis(1,'${wish.car_id}','${wish.car_price}','${wish.car_image1}')">${wish.car_like}
+	       	 			</td>
 					</tr>
 					<tr id="space"><td colspan="5"></td></tr>
 				</c:forEach>

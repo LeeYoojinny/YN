@@ -36,9 +36,9 @@ public class UserLoginAction implements Action {
 		System.out.println("암호화된 패스워드 : "+ user.getUser_pw());
 		
 		UserLoginService userLoginService= new UserLoginService();
-		boolean isLoginSuccess = userLoginService.login(user);
+		String use_YN = userLoginService.login(user);
 		
-		if(!isLoginSuccess) { //로그인 실패하면
+		if(use_YN == null || use_YN.equals("N")) { //로그인 실패하면
 			response.setContentType("text/html; charset=utf-8");
 			
 			PrintWriter out = response.getWriter();

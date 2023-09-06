@@ -9,6 +9,7 @@ import action.Action;
 import svc.user.UserAllCarViewService;
 import vo.ActionForward;
 import vo.Car;
+import vo.Code;
 
 public class UserAllCarViewAction implements Action {
 
@@ -19,9 +20,11 @@ public class UserAllCarViewAction implements Action {
 		//먼저 DB에서 등록 된 Car 정보 받아오기
 		UserAllCarViewService userAllCarViewService = new UserAllCarViewService();
 		ArrayList<Car> allCarList = userAllCarViewService.getAllCarList();
+		ArrayList<Code> allCode = userAllCarViewService.getAllCode();
 		
 		//받아온 Car 객체들을 속성에 담기
 		request.setAttribute("allCarList", allCarList);
+		request.setAttribute("allCode", allCode);
 		
 		//form에 뿌리기
 		request.setAttribute("showPage", "user/allCarListForm.jsp");

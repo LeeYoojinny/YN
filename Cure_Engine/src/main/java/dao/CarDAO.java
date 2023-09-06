@@ -440,6 +440,32 @@ public class CarDAO {
 			
 			return detail;
 		}
+
+		/*---관심상품을 1개이상 삭제할때 좋아요 숫자 다운 -------------------------------------------------------------------*/
+		public int likeManyDown(String[] car_ids) {
+			int result = 0;
+			
+			String where_car_id = "";
+			for(int i=0; i<car_ids.length; i++) {
+				if(i == 0) {
+					where_car_id += " (car_id='"+car_ids[i]+"'";
+				}else {
+					where_car_id += " or car_id='"+car_ids[i]+"'";
+				}
+			}
+			where_car_id += ")";
+			String sql = "update tbl_car set car_like=(car_like-1) where"+where_car_id;
+			try {
+				pstmt = con.prepareStatement(sql);
+				result = pstmt.executeUpdate();
+
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 removeWish()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
 		
 		
 		

@@ -1,4 +1,4 @@
-package svc.cust;
+package svc.user;
 
 import static db.JdbcUtil.close;
 import static db.JdbcUtil.getConnection;
@@ -11,17 +11,17 @@ import dao.CodeDAO;
 import vo.Car;
 import vo.Code;
 
-public class CustomerWishlistService {
+public class UserOtherCarViewService {
 
-	public ArrayList<Car> getWishCar(String[] all_car_id) {
+	public ArrayList<Car> getOtherCarList(String dealer_id) {
 		Connection con = getConnection();
 		CarDAO carDAO = CarDAO.getInstance();
 		carDAO.setConnection(con);
 		
-		ArrayList<Car> wishCar = carDAO.selectmyWishCar(all_car_id);
+		ArrayList<Car> otherCarList = carDAO.selectmySaleCar(dealer_id);
 		
 		close(con);
-		return wishCar;
+		return otherCarList;
 	}
 
 	public ArrayList<Code> getAllCode() {

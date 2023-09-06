@@ -41,7 +41,7 @@ update tbl_car set car_like=(car_like+1) where car_id='107허6655';
 
 update tbl_car set car_color='blue' where car_id='104오1000';
 update tbl_car set car_image2='X';
-
+update tbl_car set car_like=(car_like-1) where (car_id='126아8989' or car_id='355어1111')
 select * from tbl_car;
 
 select car_id from tbl_car where car_brand='maserati' ;
@@ -208,6 +208,8 @@ select * from tbl_wishlist;
 
 select * from tbl_wishlist where user_id='test7778';
 
+delete from tbl_wishlist where (car_id='111사7894' or car_id='355어1111') and user_id='test11111';
+delete from tbl_wishlist where user_id='test11111' and (car_id='41로9999' or car_id='123허6666')
 -- -----------------------------------------------------
 -- tbl_reservation : 시승예약
 -- -----------------------------------------------------
