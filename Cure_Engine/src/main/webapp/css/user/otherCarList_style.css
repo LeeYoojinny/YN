@@ -10,11 +10,17 @@ body{
     width:100%;
 }
 
-.wrap_allWish{
+.wrap_allCarList{
+	display: flex;
+    flex-direction: column;
     width: 100%;
     margin: auto; /*중앙 정렬*/
     padding: 10px 20px;
     margin-bottom: 20px;
+}
+
+h3 {
+	text-align: center;
 }
 
 input::placeholder {
@@ -22,16 +28,12 @@ input::placeholder {
   font-style: italic;
 }
 
-/* 삭제 체크박스 */
-#allRemove {
-	width: 80%;
-	margin-left:10%;
-}
-
-#allRemove button {
-	width: 5rem;
-    padding: 0.5rem;
-    margin-right: 0.5rem;
+/* 관리자용 상품등록 버튼 */
+.bt button{
+	float: right;
+	width: 7rem;
+	margin-bottom: 1rem;
+	padding: 10px;
 	color:#fff;
 	font-family: 'GowunDodum';
 	background-color: #486AAE;
@@ -40,9 +42,15 @@ input::placeholder {
 }
 
 
+.bt button:hover{
+	background-color: #36589C;
+	color:#fff;
+}
+
+
 /* 상품 리스트 부분 ---------------------------------------------------*/
 table {
-	margin-top: 0.2rem;
+	margin-top: 1rem;
 	margin-left: auto;
 	margin-right: auto;
 	width: 80%;
@@ -66,13 +74,13 @@ table {
 }
 
 /* 체크박스 및 넘버 너비설정 */
-#check_remove, #item_no{
+#item_no{
 	width: 5%;
 }
 
 /* 이미지 너비 설정 */
 #main_img {
-	width: 18%;
+	width: 12%;
 }
 
 #main_img img {
@@ -102,22 +110,6 @@ table {
 	display: inline;
     vertical-align: middle;
 	padding-bottom: 0.3rem;
-	margin-right: 0.5rem;
+	padding-right: 0.3rem;
 	cursor: pointer;
-}
-
-#bt button{
-	display: block;
-	margin: 0.5rem auto;
-	width: 7rem;
-    padding: 0.5rem;
-	color:#fff;
-	font-family: 'GowunDodum';
-	background-color: #486AAE;
-	border: 1px solid #dadada;
-	cursor: pointer;
-}
-
-.nothing {
-	text-align: center;
 }

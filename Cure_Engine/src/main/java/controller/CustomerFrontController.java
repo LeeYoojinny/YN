@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.cust.CustomerLikeThisAction;
+import action.cust.CustomerRemoveWishAction;
 import action.cust.CustomerUnlikeThisAction;
 import action.cust.CustomerWishlistAction;
 import vo.ActionForward;
@@ -99,9 +100,20 @@ public class CustomerFrontController extends HttpServlet {
 			}
 		}
 		
-		/*------- '상품에 하트누르면' → 관심아이템 넣기 ---------------------------------------------------------*/
+		/*------- '상품에 하트누르면' → 관심아이템 빼기 ---------------------------------------------------------*/
 		else if(command.equals("/userUnlikeThis.cust")) {//'로그인 처리'요청하면
 			action = new CustomerUnlikeThisAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		
+		/*------- '위시리스트 여러개 삭제' → 관심아이템 빼기 ---------------------------------------------------------*/
+		else if(command.equals("/userRemoveWish.cust")) {//'로그인 처리'요청하면
+			action = new CustomerRemoveWishAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

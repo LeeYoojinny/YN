@@ -11,6 +11,7 @@ import svc.cust.CustomerWishlistService;
 import vo.ActionForward;
 import vo.Wishlist;
 import vo.Car;
+import vo.Code;
 
 public class CustomerWishlistAction implements Action {
 
@@ -40,10 +41,12 @@ public class CustomerWishlistAction implements Action {
 		
 		CustomerWishlistService customerWishlistService = new CustomerWishlistService();
 		ArrayList<Car> wishCar = customerWishlistService.getWishCar(all_car_id);
+		ArrayList<Code> allCode = customerWishlistService.getAllCode();
 		
 		System.out.println("action으로 돌아옴");
 		
 		request.setAttribute("myWishCar", wishCar);
+		request.setAttribute("allCode", allCode);
 		
 		request.setAttribute("showPage", "customer/myWishlistForm.jsp");
 		forward = new ActionForward("template.jsp", false);	

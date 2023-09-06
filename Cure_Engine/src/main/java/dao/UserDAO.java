@@ -72,9 +72,9 @@ public class UserDAO {
 
 		/*----로그인-----------------------------------------------------------------------------------------------*/
 		public String selectLoginId(User user) {
-			String loginId = null;
+			String use_YN = null;
 			
-			String sql = "select user_id, user_pw from tbl_user where user_id=? and user_pw=?";
+			String sql = "select user_id, user_pw, use_YN  from tbl_user where user_id=? and user_pw=?";
 			
 			try {
 				pstmt = con.prepareStatement(sql);
@@ -84,7 +84,7 @@ public class UserDAO {
 				rs = pstmt.executeQuery();
 
 				if(rs.next()) {
-					loginId = rs.getString(1);
+					use_YN = rs.getString(3);
 				}
 				
 			}catch(Exception e) {
@@ -95,7 +95,7 @@ public class UserDAO {
 				//Connection 자원해제는 service에서 해줬기 때문에 여기서 하지 않음
 			}
 			
-			return loginId;
+			return use_YN;
 		}
 
 		/*----로그인 시 세션에 담을 고객정보------------------------------------------------------------------------------*/

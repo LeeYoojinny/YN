@@ -81,20 +81,19 @@
 					<div class="detailItem">
 						<b>브랜드</b>
 						<div>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="benz">벤츠</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="tesla">테슬라</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="ferrari">페라리</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="bmw">BMW</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="audi">아우디</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="maserati">마세라티</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="bentley">벤틀리</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="cadillac">캐딜락</label>
+							<c:forEach var="code" items="${allCode}">
+	    						<c:if test="${code.code_category eq 'car_brand'}">
+									<label>
+										<input type="checkbox" name="car_brand" id="car_brand" value="${code.code_name}">${code.code_value}
+									</label>
+								</c:if>
+							</c:forEach>
 						</div>
 					</div>
 					<div class="detailItem">
 						<b>차종</b>
 						<div>
-							<label><input type="checkbox" name="car_type" id="car_type" value="Car">세단</label>
+							<label><input type="checkbox" name="car_type" id="car_type" value="regular">세단</label>
 							<label><input type="checkbox" name="car_type" id="car_type" value="sports">스포츠카</label>
 							<label><input type="checkbox" name="car_type" id="car_type" value="SUV">SUV</label>
 							<label><input type="checkbox" name="car_type" id="car_type" value="RV">RV</label>
@@ -103,13 +102,13 @@
 					<div class="detailItem">
 						<b>색상</b>
 						<div>
-							<label><input type="checkbox" name="car_color" id="car_color" value="black">검정색</label>
-							<label><input type="checkbox" name="car_color" id="car_color" value="white">흰색</label>
-							<label><input type="checkbox" name="car_color" id="car_color" value="silver">회색</label>
-							<label><input type="checkbox" name="car_color" id="car_color" value="red">빨간색</label>
-							<label><input type="checkbox" name="car_color" id="car_color" value="blue">파란색</label>
-							<label><input type="checkbox" name="car_color" id="car_color" value="yellow">노란색</label>
-							<label><input type="checkbox" name="car_color" id="car_color" value="etc">기타</label>
+							<c:forEach var="code" items="${allCode}">
+	    						<c:if test="${code.code_category eq 'car_color'}">
+									<label>
+										<input type="checkbox" name="car_color" id="car_color" value="${code.code_name}">${code.code_value}
+									</label>
+								</c:if>
+							</c:forEach>
 						</div>
 					</div>
 					<div class="detailItem_row">
@@ -155,16 +154,11 @@
 						<td rowspan="3" id="item_no">${status.count}</td>
 						<td rowspan="3" id="main_img"><a href="carDetailView.usr?car_id=${myCar.car_id}"><img src="upload/carRegist_images/${myCar.car_image1}"></a></td>
 						<td id="explain1">
-						<c:choose>
-							<c:when test="${myCar.car_brand == 'benz'}">벤츠</c:when>
-							<c:when test="${myCar.car_brand == 'tesla'}">테슬라</c:when>
-							<c:when test="${myCar.car_brand == 'ferrari'}">페라리</c:when>
-							<c:when test="${myCar.car_brand == 'bmw'}">BMW</c:when>
-							<c:when test="${myCar.car_brand == 'audi'}">아우디</c:when>
-							<c:when test="${myCar.car_brand == 'maserati'}">마세라티</c:when>
-							<c:when test="${myCar.car_brand == 'bentley'}">벤틀리</c:when>
-							<c:when test="${myCar.car_brand == 'cadillac'}">캐딜락</c:when>
-						</c:choose>						
+						<c:forEach var="code" items="${allCode}">
+							<c:if test="${code.code_category == 'car_brand'}">
+								<c:if test="${myCar.car_brand == code.code_name}">${code.code_value}</c:if>
+							</c:if>
+						</c:forEach>					
 						&nbsp;${myCar.car_year}연식 ${myCar.car_name}</td>
 						<td rowspan="3" id="bt">
 							<button onclick="location.href='carUpdate.adm'; return false;">수정하기</button>

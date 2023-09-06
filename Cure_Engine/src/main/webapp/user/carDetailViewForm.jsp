@@ -224,8 +224,9 @@ String image5 = carDetail.getCar_image5();
 						</button></td>
 					</tr>
 					<tr>
-						<td colspan="2">
-							<a href="#">[<span id="bigFont">${dealerInfo.user_name}</span>딜러]의 다른상품 보러가기</a>
+						<td colspan="2" id="anotherCar">
+							<a href="otherCarView.usr?dealer_id=${carDetail.dealer_id}&dealer_name=${dealerInfo.user_name}">
+							[<span id="bigFont">${dealerInfo.user_name}</span>딜러]의 다른상품 보러가기</a>
 						</td>
 					</tr>
 					<tr>
@@ -243,27 +244,143 @@ String image5 = carDetail.getCar_image5();
 				<b>옵션</b>
 				<div>
 					<span>외관/내장</span>
-					<c:set var="isChecked" value="false" />
 					<c:forEach var="code" items="${allCode}">
-						<c:if test="${code.code_name == 'car_option_outIn'}">
-							<c:forEach var="item" items="${carContentArray}">							
-								<c:if test="${item eq code.code_name}">
-									<label>
-										<input type="checkbox" name="car_content" id="car_content" value="${code.code_name}" 
-										checked disabled><span class="option_Y">${code.code_value}</span>
-										<c:set var="isChecked" value="true" />
-									</label>
-								</c:if>
-							</c:forEach>
-							<c:if test="${not isChecked}">
-								<label>
-									<input type="checkbox" name="car_content" id="car_content" value="${code.code_name}" 
-									  disabled><span class="option_N">${code.code_value}</span>	
-								</label>							
-							</c:if>							
-						</c:if>	
+					    <c:if test="${code.code_category eq 'car_option_outIn'}">
+					        <label>
+					            <c:set var="isChecked" value="false" />
+					            <c:forEach var="item" items="${carContentArray}">
+					                <c:if test="${item eq code.code_name}">
+					                    <c:set var="isChecked" value="true" />
+					                </c:if>
+					            </c:forEach>
+					            <input type="checkbox" name="car_content" id="car_content" value="${code.code_name}" ${isChecked ? 'checked' : ''} disabled>
+					            <c:if test="${isChecked}"><span class="option_Y">${code.code_value}</span></c:if>
+					            <c:if test="${not isChecked}"><span class="option_N">${code.code_value}</span></c:if>
+					        </label>
+					    </c:if>
 					</c:forEach>
 				</div>
+				<div>
+					<span>안전</span>
+					<c:forEach var="code" items="${allCode}">
+					    <c:if test="${code.code_category eq 'car_option_safety'}">
+					        <label>
+					            <c:set var="isChecked" value="false" />
+					            <c:forEach var="item" items="${carContentArray}">
+					                <c:if test="${item eq code.code_name}">
+					                    <c:set var="isChecked" value="true" />
+					                </c:if>
+					            </c:forEach>
+					            <input type="checkbox" name="car_content" id="car_content" value="${code.code_name}" ${isChecked ? 'checked' : ''} disabled>
+					            <c:if test="${isChecked}"><span class="option_Y">${code.code_value}</span></c:if>
+					            <c:if test="${not isChecked}"><span class="option_N">${code.code_value}</span></c:if>
+					        </label>
+					    </c:if>
+					</c:forEach>				
+				</div>
+				<div>
+					<span>편의/멀티미디어</span>
+					<c:forEach var="code" items="${allCode}">
+					    <c:if test="${code.code_category eq 'car_option_convi'}">
+					        <label>
+					            <c:set var="isChecked" value="false" />
+					            <c:forEach var="item" items="${carContentArray}">
+					                <c:if test="${item eq code.code_name}">
+					                    <c:set var="isChecked" value="true" />
+					                </c:if>
+					            </c:forEach>
+					            <input type="checkbox" name="car_content" id="car_content" value="${code.code_name}" ${isChecked ? 'checked' : ''} disabled>
+					            <c:if test="${isChecked}"><span class="option_Y">${code.code_value}</span></c:if>
+					            <c:if test="${not isChecked}"><span class="option_N">${code.code_value}</span></c:if>
+					        </label>
+					    </c:if>
+					</c:forEach>				
+				</div>
+				<div>
+					<span>시트</span>
+					<c:forEach var="code" items="${allCode}">
+					    <c:if test="${code.code_category eq 'car_option_seat'}">
+					        <label>
+					            <c:set var="isChecked" value="false" />
+					            <c:forEach var="item" items="${carContentArray}">
+					                <c:if test="${item eq code.code_name}">
+					                    <c:set var="isChecked" value="true" />
+					                </c:if>
+					            </c:forEach>
+					            <input type="checkbox" name="car_content" id="car_content" value="${code.code_name}" ${isChecked ? 'checked' : ''} disabled>
+					            <c:if test="${isChecked}"><span class="option_Y">${code.code_value}</span></c:if>
+					            <c:if test="${not isChecked}"><span class="option_N">${code.code_value}</span></c:if>
+					        </label>
+					    </c:if>
+					</c:forEach>				
+				</div>				
+			</div>
+			<div class="part options">
+				<b>사고이력</b>
+				<div id="acci_YN">
+					<span>사고유무 | 
+						<c:if test="${carDetail.car_accident eq 'N' }"><b style="display:inline;">무사고</b></c:if>
+						<c:if test="${carDetail.car_accident eq 'Y' }"><b style="display:inline;">사고있음</b></c:if>
+					</span>
+				</div>
+				<c:set var="accidentDetail" value="${carDetail.car_accident_detail}" />
+				<c:set var="accidentDetailArr" value="${fn:split(accidentDetail, ',')}" />
+				<c:if test="${carDetail.car_accident eq 'Y'}">
+					<div>
+						<span>구분</span>
+						<c:forEach var="code" items="${allCode}">
+						    <c:if test="${code.code_category eq 'car_accident_dv'}">
+						        <label>
+						            <c:set var="isChecked" value="false" />
+						            <c:forEach var="item" items="${accidentDetailArr}">
+						                <c:if test="${item eq code.code_name}">
+						                    <c:set var="isChecked" value="true" />
+						                </c:if>
+						            </c:forEach>
+						            <input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="${code.code_name}" ${isChecked ? 'checked' : ''} disabled>
+						            <c:if test="${isChecked}"><span class="option_Y">${code.code_value}</span></c:if>
+						            <c:if test="${not isChecked}"><span class="option_N">${code.code_value}</span></c:if>
+						        </label>
+						    </c:if>
+						</c:forEach>	
+					</div>
+					<div>
+						<span>특수사고</span>
+						<c:forEach var="code" items="${allCode}">
+						    <c:if test="${code.code_category eq 'car_accident_sp'}">
+						        <label>
+						            <c:set var="isChecked" value="false" />
+						            <c:forEach var="item" items="${accidentDetailArr}">
+						                <c:if test="${item eq code.code_name}">
+						                    <c:set var="isChecked" value="true" />
+						                </c:if>
+						            </c:forEach>
+						            <input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="${code.code_name}" ${isChecked ? 'checked' : ''} disabled>
+						            <c:if test="${isChecked}"><span class="option_Y">${code.code_value}</span></c:if>
+						            <c:if test="${not isChecked}"><span class="option_N">${code.code_value}</span></c:if>
+						        </label>
+						    </c:if>
+						</c:forEach>	
+					</div>
+					<div>
+						<span>수리이력</span>
+						<c:forEach var="code" items="${allCode}">
+						    <c:if test="${code.code_category eq 'car_accident_rp'}">
+						        <label>
+						            <c:set var="isChecked" value="false" />
+						            <c:forEach var="item" items="${accidentDetailArr}">
+						                <c:if test="${item eq code.code_name}">
+						                    <c:set var="isChecked" value="true" />
+						                </c:if>
+						            </c:forEach>
+						            <input type="checkbox" name="car_accident_detail" id="car_accident_detail" value="${code.code_name}" ${isChecked ? 'checked' : ''} disabled>
+						            <c:if test="${isChecked}"><span class="option_Y">${code.code_value}</span></c:if>
+						            <c:if test="${not isChecked}"><span class="option_N">${code.code_value}</span></c:if>
+						        </label>
+						    </c:if>
+						</c:forEach>	
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>
