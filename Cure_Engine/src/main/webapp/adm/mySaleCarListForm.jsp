@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,6 +66,44 @@
 			}			
 		}		
 	}
+	
+	function removeCheck_1() {
+		var checkboxes = document.getElementsByName('remove');
+	    var selectedCount = 0;
+	    var selectedCarIds = [];
+
+	    for (var i = 0; i < checkboxes.length; i++) {
+	        if (checkboxes[i].checked) {
+	            selectedCount++;
+	            selectedCarIds.push(checkboxes[i].value);
+	        }
+	    }
+
+	    if (selectedCount === 0) {
+	        // 체크된 항목이 없으면 경고 메시지 표시 후 작업 취소
+	        alert('선택된 항목이 없습니다.');
+	        return false;
+	    } else {
+	        // 체크된 항목이 있으면 삭제 여부를 물어보고 삭제 작업 실행
+	        var confirmMessage = '선택된 ' + selectedCount + '개 항목을 삭제하시겠습니까?';
+
+	        if (confirm(confirmMessage)) {
+	            // 사용자가 확인을 누르면 선택된 항목 삭제
+	            var param = 'car_ids=' + selectedCarIds.join(',');
+	            location.href = 'myCarRemove.adm?' + param;
+	        }
+	    }
+	}
+	
+	function removeCheck_2(car_id) {
+		 var confirmMessage = car_id+ ' 차량을 삭제하시겠습니까?';
+		 
+		 if(confirm(confirmMessage)) {
+			 var param = 'car_ids=' + car_id;
+			 location.href = 'myCarRemove.adm?' + param;
+		 }
+	}
+	
 </script>
 <body>
 	<div class="wrap_allCarList">
@@ -138,7 +177,7 @@
 			<form method="post">
 			<table>
 				<tr id="allRemove">
-					<td colspan="2"><button onclick="removeCheck(); return false;">선택삭제</button></td>
+					<td colspan="2"><button onclick="removeCheck_1(); return false;">선택삭제</button></td>
 					<td colspan="3"></td>
 				</tr>
 				<tr id="firstLine">
@@ -161,12 +200,12 @@
 						</c:forEach>					
 						&nbsp;${myCar.car_year}연식 ${myCar.car_name}</td>
 						<td rowspan="3" id="bt">
-							<button onclick="location.href='carUpdate.adm'; return false;">수정하기</button>
-							<button onclick="removeCheck(); return false;">삭제하기</button>
+							<button onclick="location.href='carUpdateForm.adm?car_id=${myCar.car_id}'; return false;">수정하기</button>
+							<button onclick="removeCheck_2('${myCar.car_id}');return false;">삭제하기</button>
 						</td>
 					</tr>
 					<tr class="contents">
-						<td id="explain2">${myCar.car_price}만원</td>
+						<td id="explain2"><fmt:formatNumber value="${myCar.car_price}" pattern="#,###" />만원</td>
 					</tr>
 					<tr class="contents">
 						<td id="explain3"><img src="image/carList/red_like_icon.png">${myCar.car_like}</td>

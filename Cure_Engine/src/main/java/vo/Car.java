@@ -23,6 +23,7 @@ public class Car {
 	private String car_accident_detail;
 	private int car_like;
 	private String sale_YN;
+	private String car_delete;
 	
 	public Car() {}
 	
@@ -87,7 +88,7 @@ public class Car {
 
 	//'등록된 차량 뷰'용 생성자
 	public Car(String dealer_id, String car_id, String car_brand, String car_name, int car_price, int car_year,
-			String car_image1, int car_like, String sale_YN) {
+			String car_image1, int car_like, String sale_YN, String car_delete) {
 		super();
 		this.dealer_id = dealer_id;
 		this.car_id = car_id;
@@ -98,6 +99,8 @@ public class Car {
 		this.car_image1 = car_image1;
 		this.car_like = car_like;
 		this.sale_YN = sale_YN;
+		this.car_delete = car_delete;
+		
 	}
 
 	
@@ -276,6 +279,14 @@ public class Car {
 
 	public void setSale_YN(String sale_YN) {
 		this.sale_YN = sale_YN;
+	}
+
+	public String getCar_delete() {
+		return car_delete;
+	}
+
+	public void setCar_delete(String car_delete) {
+		this.car_delete = car_delete;
 	}
 	
 	

@@ -10,7 +10,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cure Engine 차량상세보기</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="css/user/user_carDetailView_style.css">
+
 </head>
 <%
 Car carDetail = (Car)request.getAttribute("carDetail");
@@ -31,44 +36,78 @@ String image5 = carDetail.getCar_image5();
 			return false;
 		}else {
 			if(like == 0){
-				location.href="userLikeThis.cust?car_id="+car_id+"&car_price="+car_price+"&car_image1="+car_image1;
+				location.href="userLikeThis.cust?car_id="+car_id+"&car_price="+car_price+"&car_image1="+car_image1+"&displayNum=4";
 			}else {
-				location.href="userUnlikeThis.cust?car_id="+car_id;
+				location.href="userUnlikeThis.cust?car_id="+car_id+"&displayNum=4";
 			}
 		}
 	}
-
+	
+	function removeCheck_2(car_id) {
+		 var confirmMessage = car_id+ ' 차량을 삭제하시겠습니까?';
+		 
+		 if(confirm(confirmMessage)) {
+			 var param = 'car_ids=' + car_id;
+			 location.href = 'myCarRemove.adm?' + param;
+		 }
+	}
+	
+	function qnaRequest(car_id) {
+		var user_id = '<c:out value="${user_id}" />'
+		var url = "customer/qnaForm.jsp?car_id="+car_id
+		
+		
+		if(!user_id) {
+			alert("로그인 후 문의 가능합니다.");
+			location.href="userLogin.usr";
+			return false;
+		}else {
+			window.open(url,"qna","width=400, height=600");		
+			
+		}
+	}
 </script>
 <body>
 <h2>${carDetail.car_id} 상세보기</h2>
 	<div class="wrap_allCarList">
-		<div class="slider__wrap">
-           <div class="slider__img">
-               <div class="slider__inner">
-	            <div class="slider s1"><img src="upload/carRegist_images/${carDetail.car_image1}"></div>
-	            <c:if test="${carDetail.car_image2 ne 'X'}">
-	            	<div class="slider s2"><img src="upload/carRegist_images/${carDetail.car_image2}"></div>
-				</c:if>
-	            <c:if test="${carDetail.car_image3 ne 'X'}">
-	            	 <div class="slider s3"><img src="upload/carRegist_images/${carDetail.car_image3}"></div>
-				</c:if>
-	            <c:if test="${carDetail.car_image4 ne 'X'}">
-	            	  <div class="slider s4"><img src="upload/carRegist_images/${carDetail.car_image4}"></div>
-				</c:if>
-	            <c:if test="${carDetail.car_image5 ne 'X'}">
-	            	 <div class="slider s5"><img src="upload/carRegist_images/${carDetail.car_image5}"></div>
-				</c:if>
-        	</div>
-        	<c:if test="${carDetail.car_image2 ne 'X' and carDetail.car_image3 ne 'X' and
-     					carDetail.car_image4 ne 'X' and carDetail.car_image5 ne 'X'}">
-	      		<div class="slider__btn">
-	      			<a href="#" class="prev"><img src="image/carDetailView/left_arrow.png"></a>
-	      			<a href="#" class="next"><img src="image/carDetailView/right_arrow.png"></a>
-	      		</div>
-      		</c:if>
-      		<div class="slider__dot"></div>
-	      </div>
-	   	</div>
+	   	<div id="carouselExampleIndicators" class="carousel slide">
+		  <div class="carousel-indicators"  id="carouselButtons">
+
+		  </div>
+		  <div class="carousel-inner">
+		    <div class="carousel-item active">
+		      <img src="upload/carRegist_images/${carDetail.car_image1}" class="d-block w-100 "  alt="${carDetail.car_id}이미지1">
+		    </div>
+		    <c:if test="${carDetail.car_image2 ne 'X'}">
+			    <div class="carousel-item">
+			      <img src="upload/carRegist_images/${carDetail.car_image2}" class="d-block w-100 img-fluid" alt="${carDetail.car_id}이미지2">
+			    </div>
+			</c:if>
+			<c:if test="${carDetail.car_image3 ne 'X'}">
+			    <div class="carousel-item">
+			      <img src="upload/carRegist_images/${carDetail.car_image3}" class="d-block w-100 " alt="${carDetail.car_id}이미지3">
+			    </div>
+		    </c:if>
+			<c:if test="${carDetail.car_image4 ne 'X'}" >
+			    <div class="carousel-item" >
+			      <img src="upload/carRegist_images/${carDetail.car_image4}" class="d-block w-100 " alt="${carDetail.car_id}이미지4">
+			    </div>
+		    </c:if>
+			<c:if test="${carDetail.car_image5 ne 'X'}" >
+			    <div class="carousel-item">
+			      <img src="upload/carRegist_images/${carDetail.car_image5}" class="d-block w-100 " alt="${carDetail.car_id}이미지5">
+			    </div>
+		    </c:if>
+		  </div>
+		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Previous</span>
+		  </button>
+		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Next</span>
+		  </button>
+		</div>
 	   	<div class="wrap_secLine">
 			<div class="part explain">
 				<div class="basic_info">
@@ -175,14 +214,12 @@ String image5 = carDetail.getCar_image5();
 						<div class="basic_info button">
 							<div id="resv_order">
 								<c:if test="${user_id eq carDetail.dealer_id || user_id eq 'admin'}">
-									<button onclick="#">수정하기</button>
-									<button onclick="#">삭제하기</button>
+									<button onclick="location.href='carUpdateForm.adm?car_id=${carDetail.car_id}'; return false;">수정하기</button>
+									<button onclick="removeCheck_2('${carDetail.car_id}');return false;">삭제하기</button>
 								</c:if>	
 							</div>
 		  	 				<div class="basic_info likeQty">
-								<img src="image/carList/red_like_icon.png" id="likeImage" 
-				                 onclick="likeThis(1,'${carDetail.car_id}','${carDetail.car_price}','${carDetail.car_image1}')">
-				                ${carDetail.car_like}
+								<img src="image/carList/red_like_icon.png" id="likeImage" >${carDetail.car_like}
 			   	 			</div>
 						</div>
 					</c:if>
@@ -219,7 +256,7 @@ String image5 = carDetail.getCar_image5();
 					</tr>
 					<tr>
 						<td colspan="2">
-						<button onclick="qnaThisCar.cust?car_id=${carDetail.car_id}">
+						<button onclick="qnaRequest('${carDetail.car_id}')">
 							'${carDetail.car_id}' 상품 문의글 남기기
 						</button></td>
 					</tr>
@@ -385,69 +422,40 @@ String image5 = carDetail.getCar_image5();
 		</div>
 	</div>
 	
-	 <script>
-        // 선택자
-        const sliderWrap = document.querySelector(".slider__wrap");
-        const sliderImg = sliderWrap.querySelector(".slider__img");       // 보여지는 영역
-        const sliderInner = sliderWrap.querySelector(".slider__inner");   // 움직이는 영역
-        const slider = sliderWrap.querySelectorAll(".slider");            // 개별 이미지
-        const sliderDot = sliderWrap.querySelector(".slider__dot");       // 닷메뉴
-        const sliderBtn = sliderWrap.querySelectorAll(".slider__btn a");  // 버튼
-
-        let currentIndex = 0;                           //현재 보이는 이미지
-        let sliderCount = slider.length;                //이미지 갯수
-        let sliderInterval = 3000;                      //이미지 변경 간격 시간
-        let sliderWidth = slider[0].offsetWidth;        //이미지의 가로값
-        let dotIndex = "";
-
-        //닷 메뉴 생성하기
-        function init(){
-        	if (sliderCount >= 2) {
-	            //이미지 갯수만큼 닷 메뉴 생성
-	            slider.forEach(() => dotIndex += "<a href='#' class='dot'><img src='image/carDetailView/dot.png'></a>");
-	            sliderDot.innerHTML = dotIndex;
+	<script>
+	  // 이미지 개수를 파악합니다.
+	  const imageCount = document.querySelectorAll('.carousel-item').length;
 	
-	            //첫 번째 닷 메뉴한테 활성화 표시하기
-	            sliderDot.firstChild.classList.add("active");
-        	}
-        }
-        init();
-        
-        //이미지 이동시키기
-        function gotoSlider(num){
-            sliderInner.style.transition = "all 400ms";
-            sliderInner.style.transform = "translateX("+ -sliderWidth * num +"px)";
-            currentIndex = num
-
-            //닷 메뉴 활성화 하기
-            let dotActive = document.querySelectorAll(".slider__dot .dot");
-            dotActive.forEach((active) => active.classList.remove("active"));
-            dotActive[num].classList.add("active");
-        };
-
-        //버튼을 클릭했을 때
-        sliderBtn.forEach((btn,index) => {
-            btn.addEventListener("click", () => {
-                let prevIndex = (currentIndex + (sliderCount-1)) % sliderCount; //432104321043210
-                let nextIndex = (currentIndex + 1) % sliderCount; //123401234012340
-
-                if(btn.classList.contains("prev")){
-                    gotoSlider(prevIndex);
-                } else {
-                    gotoSlider(nextIndex);
-                }
-            });
-        });
-        
-        //닷버튼 눌렀을 때 그값 가져오기
-        let dotClick = document.querySelectorAll(".slider__dot .dot");
-        dotClick.forEach((active, i) => {
-            active.addEventListener("click",() =>{
-                gotoSlider(i);
-            });
-        });
-        
-    </script>
+	  // 버튼을 생성합니다.
+	  const carouselButtons = document.getElementById('carouselButtons');
+	  for (let i = 0; i < imageCount; i++) {
+	    const button = document.createElement('button');
+	    button.type = 'button';
+	    button.setAttribute('data-bs-target', '#carouselExampl3reIndicators');
+	    button.setAttribute('data-bs-slide-to', i);
+	    if (i === 0) {
+	      button.classList.add('active');
+	      button.setAttribute('aria-current', 'true');
+	    }
+	    button.setAttribute('aria-label', `Slide ${i + 1}`);
+	    carouselButtons.appendChild(button);
+	  }
+	</script>
+	<script>
+	  // 첫 번째 이미지 요소를 가져옵니다.
+	  const firstImage = document.querySelector('.carousel-item:first-child img');
+	
+	  // 첫 번째 이미지의 높이를 700px로 설정하고 최대 가로 너비를 100%로 설정합니다.
+	  firstImage.style.height = '700px';
+	  firstImage.style.maxWidth = '100%';
+	
+	  // 모든 이미지에 첫 번째 이미지와 동일한 스타일을 적용합니다.
+	  const allImages = document.querySelectorAll('.carousel-item img');
+	  allImages.forEach((image) => {
+	    image.style.height = '700px';
+	    image.style.maxWidth = '100%';
+	  });
+	</script>
 	
 </body>
 </html>

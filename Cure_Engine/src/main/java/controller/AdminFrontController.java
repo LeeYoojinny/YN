@@ -12,6 +12,9 @@ import action.Action;
 import action.adm.AdminCarIdCheckAction;
 import action.adm.AdminCarRegistAction;
 import action.adm.AdminCarRegistFormAction;
+import action.adm.AdminCarUpdateAction;
+import action.adm.AdminCarUpdateFormAction;
+import action.adm.AdminMyCarRemoveAction;
 import action.adm.AdminMySaleCarAction;
 import vo.ActionForward;
 
@@ -82,7 +85,6 @@ public class AdminFrontController extends HttpServlet {
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
 				e.printStackTrace();
 			}
 		}
@@ -92,7 +94,6 @@ public class AdminFrontController extends HttpServlet {
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
 				e.printStackTrace();
 			}
 		}
@@ -103,7 +104,6 @@ public class AdminFrontController extends HttpServlet {
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
 				e.printStackTrace();
 			}
 		}
@@ -114,24 +114,38 @@ public class AdminFrontController extends HttpServlet {
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
 				e.printStackTrace();
 			}
 		}
 
-		
-		/*------- '주문보기' → 처리 ---------------------------------------------------------*/
-		/*
-		else if(command.equals("/myOrder.cust")) {//'주문페이지 보기' 요청이면
-			action = new CustomerOrderListAction();
+		/*------- '나의판매차량 삭제하기' → 처리 (보류) ---------------------------------------------------------*/
+		else if(command.equals("/myCarRemove.adm")) {//'나의판매차량 삭제' 요청이면
+			action = new AdminMyCarRemoveAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
 				e.printStackTrace();
 			}
 		}
-		*/
+
+		/*------- '차량정보수정' → 처리 ---------------------------------------------------------*/
+		else if(command.equals("/carUpdateForm.adm")) {//'차량정보수정' 요청이면
+			action = new AdminCarUpdateFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if(command.equals("/carUpdate.adm")) {//'차량정보수정' 처리
+			action = new AdminCarUpdateAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 
 		/*********************************************************************

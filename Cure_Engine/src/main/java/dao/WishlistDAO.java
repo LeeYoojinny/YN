@@ -42,7 +42,7 @@ public class WishlistDAO {
 		public int insertWish(String car_id, String car_image1, int car_price, String user_id) {
 			int insertResult = 0;
 			
-			String sql = "insert into tbl_wishlist values(?,?,?,?)";
+			String sql = "insert into tbl_wishlist(car_id,car_image,car_price,user_id) values(?,?,?,?)";
 			
 			try {
 				pstmt = con.prepareStatement(sql);
@@ -89,7 +89,7 @@ public class WishlistDAO {
 		public ArrayList<Wishlist> getWishList(String user_id) {
 			ArrayList<Wishlist> userWish = null;
 			
-			String sql = "select * from tbl_wishlist where user_id=?";
+			String sql = "select * from tbl_wishlist where car_delete='N' and user_id=?";
 			try {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, user_id);
@@ -123,7 +123,7 @@ public class WishlistDAO {
 			return userWish;
 		}
 
-
+		/*---- 관심상품 여러개 삭제하기 --------------------------------------------------------*/
 		public int removeWish(String[] car_ids, String user_id) {	
 			int result = 0;
 						
@@ -147,6 +147,26 @@ public class WishlistDAO {
 
 			}catch(Exception e) {
 				System.out.println("CarDAO 클래스의 removeWish()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
+
+		/*---- 판매차량 삭제 시 위시리스트에서 안보이게 하기 ---------------------------------------------*/
+		public int update_delete() {
+			int result = 0;
+			
+			String sql = "update tbl_wishlist set car_delete='Y' where "
+					+ "car_id IN (SELECT car_id FROM tbl_car WHERE car_delete = 'Y')";
+			System.out.println("만들어진 sql문 : "+sql);
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				result = pstmt.executeUpdate();
+
+			}catch(Exception e) {
+				System.out.println("WishlistDAO 클래스의 update_delete()에서 발생한 에러 : "+e);
 			}finally {
 				close(pstmt);
 			}

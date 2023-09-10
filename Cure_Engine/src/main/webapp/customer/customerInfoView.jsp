@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cure Engine 회원수정</title>
-
 <link rel="stylesheet" href="css/customer/infoModify_style.css">
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -107,42 +106,51 @@
         
         document.f.submit();
     }
-    
+
 </script>
 <body>
     <div class="wrap_join">
-        <div class="subject">회원정보 수정</div>
-        <form action="customerInfoModify.cust" name="f" method="post">
+        <div class="subject">회원정보 관리</div>
+        <form action="myInfoUpdate.cust" name="f" method="post">
+        <input type="hidden" name="user_category" value="customer">
             <div class="field">
                 <b>이름</b>
-                <input type="text" name="user_name" id="user_name" value="${user.name}" placeholder="한글 또는 영문만 입력하세요.(특수문자 제외)">
+                <input type="text" name="user_name" id="user_name" value="${userInfo.user_name}" placeholder="한글 또는 영문만 입력하세요.(특수문자 제외)">
             </div>
             <div class="field birth">
                 <b>생년월일(YYYY-MM-DD)</b>
                 <div>
-                    <input type="text" class="birth" name="user_birth_y" id="user_birth_y" value="${user.Year}" maxlength="4"> 
-                    <input type="text" class="birth" name="user_birth_m" id="user_birth_m" value="${user.Month}" maxlength="2">
-                    <input type="text" class="birth" name="user_birth_d" id="user_birth_d" value="${user.Day}" maxlength="2">
+                    <input type="text" class="birth" name="user_birth_y" id="user_birth_y" value="${user_birth_y}" maxlength="4"> 
+                    <input type="text" class="birth" name="user_birth_m" id="user_birth_m" value="${user_birth_m}" maxlength="2">
+                    <input type="text" class="birth" name="user_birth_d" id="user_birth_d" value="${user_birth_d}" maxlength="2">
                 </div>
             </div>
             <div class="field">
                 <b>휴대폰 번호</b> 
-                <input type="text" name="user_phone" id="user_phone" value="${user.phone}" placeholder="(-)없이 숫자만 입력하세요.">
+                <input type="text" name="user_phone" id="user_phone" value="${userInfo.user_phone}" placeholder="(-)없이 숫자만 입력하세요.">
             </div>
+            <div class="field gender">
+				<b>성별</b>
+				<div>
+					<label><input type="radio" name="user_gender" value="M" ${userInfo.user_gender =='M'? 'checked':''}>남자</label>
+					<label><input type="radio" name="user_gender" value="F" ${userInfo.user_gender =='F'? 'checked':''}>여자</label>
+				</div>
+			</div>
             <div class="field">
                 <b>이메일 &ensp;<small>(고객정보 분실 시 필요)</small></b> 
-                <input type="text" name="user_email" id="user_email" value="${user.email}" placeholder="(예)test@test.com" >
+                <input type="text" name="user_email" id="user_email" value="${userInfo.user_email}" placeholder="(예)test@test.com" >
             </div>
             <div class="field address">
                 <b>주소</b>
                 <div>
-                    <input type="text" name="user_zipcode" id="user_zipcode" value="${addr.postcode}" placeholder="우편번호만 입력" ><button onclick="findAddr(); return false;" >우편번호찾기</button><br> 
+                    <input type="text" name="user_zipcode" id="user_zipcode" value="${userInfo.user_zipcode}" placeholder="우편번호만 입력" ><button onclick="findAddr(); return false;" >우편번호찾기</button><br> 
                 </div>
-                <input type="text" name="user_address1" id="user_address1" value="${addr.address1}" size="50" placeholder="주소" readonly><br>
-                <input type="text" name="user_address2" id="user_address2" value="${addr.address2}" size="50" placeholder="상세주소">
+                <input type="text" name="user_address1" id="user_address1" value="${userInfo.user_address1}" size="50" placeholder="주소" readonly><br>
+                <input type="text" name="user_address2" id="user_address2" value="${userInfo.user_address2}" size="50" placeholder="상세주소">
             </div>
             <div class="field join_submit">
                 <input type="submit" value="수정하기" onclick="check(); return false;">
+                <input type="button" value="탈퇴하기" onclick="location.href='customerDeleteForm.cust';">
             </div>
         </form>
     </div>

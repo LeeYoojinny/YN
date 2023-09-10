@@ -25,140 +25,10 @@ h2 {
 }
 
 /* 이미지 슬라이드 ----------------------------------------------------*/
-/* slider__wrap */
-.slider__wrap {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+.carousel-inner img {
+  height: 300px; /* 원하는 높이로 설정하세요. */
+  object-fit: cover;
 }
-.slider__img { /* 이미지가 보이는 영역 */
-    position: relative;
-    width: 800px;
-    height: 450px;
-    overflow: hidden;
-}
-.slider__inner { /* 이미지 움직이는 영역 */
-    display: flex;
-    flex-wrap: wrap;
-    width: 4800px;  /*총이미지4800복사까지*/
-    height: 450px;
-}
-.slider { /* 개별적인 이미지 */
-    position: relative;
-    width: 800px;
-    height: 450px;
-}
-.slider__inner img { /* 개별적인 이미지 */
-	width: 100%;
-}
-.slider__btn a{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 30px;
-    height: 35px;
-    line-height: 50px;
-    background-color: #848484;
-    border-radius: 5px;
-    transition: all 0.6s;
-}
-
-.slider__btn img {
-	width: 30px; 
-	height: 30px;
-	opacity: 0.5;
-}
-
-.slider__btn img:hover {
-	opacity: 0.7;
-}
-
-.slider__btn a:hover {
-    background-color: #A4A4A4;
-}
-.slider__btn a.prev{
-    left: 0;
-}
-.slider__btn a.next{
-    right: 0;
-}
-.slider__dot {
-    position: absolute;
-    left: 50%;
-    top: 400px;
-    transform: translateX(-50%);
-}
-.slider__dot .dot{
-    width: 20px;
-    height: 20px;
-    background-color: rgba(255, 255, 255,0.3);
-    display: inline-block;
-    text-indent: -9999px;
-    transition: all 0.3s;
-    margin: 2px;
-    border-radius: 50px;
-}
-.slider__dot .dot.active {
-    background-color: rgba(255, 255, 255, 1)
-}
-
-@media screen and (min-width: 1024px){
-    .slider__img { /* 이미지가 보이는 영역 */
-	    position: relative;
-	    width: 800px;
-	    height: 450px;
-	    overflow: hidden;
-	}
-	.slider { /* 개별적인 이미지 */
-	    position: relative;
-	    width: 800px;
-	    height: 450px;
-	}
-}
-
-@media screen and (max-width: 767px){
-    .slider__img{ 
-		display: flex;
-		flex-direction: row;
-		width: 540px;
-		height: 300px;
-    	margin: auto;
-	}
-	.slider { /* 개별적인 이미지 */
-	    position: relative;
-	    width: 540px;
-	    height: 300px;
-	}
-	.slider__dot {
-	    position: absolute;
-	    left: 50%;
-	    top: 250px;
-	    transform: translateX(-50%);
-	}
-}
-
-@media screen and (max-width: 559px){
-    .slider__img{ 
-		display: flex;
-		flex-direction: row;
-		width: 360px;
-		height: 200px;
-    	margin: auto;
-	}
-	.slider { /* 개별적인 이미지 */
-	    position: relative;
-	    width: 360px;
-		height: 200px;
-	}
-	.slider__dot {
-	    position: absolute;
-	    left: 50%;
-	    top: 250px;
-	    transform: translateX(-50%);
-	}
-}
-
-
 
 /**버튼디자인**/
 /*
@@ -233,7 +103,7 @@ h2 {
 	.basic_info {
 		display: flex;
 		flex-direction: column;
-		margin-left: 1rem;
+		/* margin-left: 1rem; */
 	}
 }
 

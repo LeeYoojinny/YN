@@ -7,7 +7,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.CarDAO;
+import dao.CodeDAO;
 import vo.Car;
+import vo.Code;
 
 public class UserCarSearchService {
 
@@ -22,6 +24,17 @@ public class UserCarSearchService {
 		
 		close(con);
 		return searchCar;
+	}
+
+	public ArrayList<Code> getAllCode() {
+		Connection con = getConnection();
+		CodeDAO codeDAO = CodeDAO.getInstance();
+		codeDAO.setConnection(con);
+		
+		ArrayList<Code> allCode = codeDAO.selectAllCode();
+		
+		close(con);
+		return allCode;
 	}
 
 }

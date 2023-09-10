@@ -39,6 +39,19 @@ public class User {
 		this.user_address2 = user_address2;
 	}
 
+	public User(String user_id, String user_name, String user_birth, String user_gender, String user_phone,
+			String user_email, int user_zipcode, String user_address1, String user_address2) {
+		this.user_id = user_id;
+		this.user_name = user_name;
+		this.user_birth = user_birth;
+		this.user_gender = user_gender;
+		this.user_phone = user_phone;
+		this.user_email = user_email;
+		this.user_zipcode = user_zipcode;
+		this.user_address1 = user_address1;
+		this.user_address2 = user_address2;		
+	}
+
 	public String getUser_category() {
 		return user_category;
 	}

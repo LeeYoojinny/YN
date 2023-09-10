@@ -115,7 +115,13 @@ public class UserDAO {
 					userInfo.setUser_category(rs.getString("user_category"));
 					userInfo.setUser_id(rs.getString("user_id"));
 					userInfo.setUser_name(rs.getString("user_name"));
+					userInfo.setUser_birth(rs.getString("user_birth"));
+					userInfo.setUser_gender(rs.getString("user_gender"));
 					userInfo.setUser_phone(rs.getString("user_phone"));
+					userInfo.setUser_email(rs.getString("user_email"));
+					userInfo.setUser_zipcode(rs.getInt("user_zipcode"));
+					userInfo.setUser_address1(rs.getString("user_address1"));
+					userInfo.setUser_address2(rs.getString("user_address2"));
 				}
 				
 			}catch(Exception e) {
@@ -233,6 +239,37 @@ public class UserDAO {
 			return dealer;
 		}
 
+		/*------ 회원정보수정-기본정보 ----------------------------------------------------------------*/
+		public int updateUser(User user) {
+			int updateUserCount = 0;
+
+			String sql = "update tbl_user set user_name=?, user_birth=?, user_gender=?, user_phone=?, user_email=?, "
+					+ "user_zipcode=?, user_address1=? , user_address2=?"
+					+ " where user_id=?";
+
+			try {
+				//1. DB연결 (위에서 setConnection으로 연결 해놨으므로 생략가능)
+				pstmt = con.prepareStatement(sql);				
+				pstmt.setString(1, user.getUser_name());
+				pstmt.setString(2, user.getUser_birth());
+				pstmt.setString(3, user.getUser_gender());
+				pstmt.setString(4, user.getUser_phone());
+				pstmt.setString(5, user.getUser_email());
+				pstmt.setInt(6, user.getUser_zipcode());
+				pstmt.setString(7, user.getUser_address1());
+				pstmt.setString(8, user.getUser_address2());
+				pstmt.setString(9, user.getUser_id());
+				
+				updateUserCount = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 updateUser()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			
+			return updateUserCount;
+		}
 
 		
 		

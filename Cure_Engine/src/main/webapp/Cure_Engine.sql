@@ -26,6 +26,7 @@ car_content VARCHAR(500) NULL COMMENT '간단한 차량설명 : 옵션 체크박
 car_accident_detail VARCHAR(500),
 car_like INT NULL COMMENT '관심',
 sale_YN CHAR(1) NOT NULL DEFAULT 'Y',
+car_delete CHAR(1) NOT NULL DEFAULT 'N',
 PRIMARY KEY (car_id));
 
 alter table tbl_car drop column car_size;
@@ -34,6 +35,8 @@ alter table tbl_car alter column car_like set default 0;
 alter table tbl_car add column car_accident_detail VARCHAR(500) after car_content;
 alter table tbl_car modify car_image2 NVARCHAR(100);
 alter table tbl_car modify car_image1 NVARCHAR(100);
+alter table tbl_car add column car_delete CHAR(1) NOT NULL DEFAULT 'N' after sale_YN;
+
 
 update tbl_car set car_like=0 where car_id='111마1004';
 update tbl_car set car_brand='maserati' where car_brand='Maserati' ;
@@ -198,6 +201,7 @@ car_id VARCHAR(10) NOT NULL,
 car_image VARCHAR(45) NULL,
 car_price INT NULL,
 user_id VARCHAR(45) NOT NULL,
+car_delete CHAR(1) NOT NULL DEFAULT 'N',
 PRIMARY KEY (user_id, car_id),
 
 CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id),
@@ -210,6 +214,14 @@ select * from tbl_wishlist where user_id='test7778';
 
 delete from tbl_wishlist where (car_id='111사7894' or car_id='355어1111') and user_id='test11111';
 delete from tbl_wishlist where user_id='test11111' and (car_id='41로9999' or car_id='123허6666')
+alter table tbl_wishlist add column car_delete CHAR(1) NOT NULL DEFAULT 'N' after user_id;
+
+
+
+select distinct w.car_id
+from tbl_wishlist w inner join tbl_car c
+on w.car_id = c.car_id
+where car_like > 0 and (w.car_id='123허6666' or w.car_id='71가9797')
 -- -----------------------------------------------------
 -- tbl_reservation : 시승예약
 -- -----------------------------------------------------

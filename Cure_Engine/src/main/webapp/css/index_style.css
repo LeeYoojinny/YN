@@ -1,14 +1,9 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Ubuntu&display=swap');
-@import url('https://webfontworld.github.io/yangheeryu/GowunDodum.css');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital@1&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 
 /* 배경화면 -----------------------------------------------------*/
 /* 비디오 컨테이너 스타일 */
@@ -29,6 +24,7 @@ video {
   object-fit: cover;
 }
 /*-------------------------------------------------------------*/
+
 
 /* 메뉴바 ------------------------------------------------------*/
 nav {
