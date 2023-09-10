@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import vo.Car;
+import vo.User;
+import vo.Wishlist;
 
 public class CarDAO {
 		private Connection con = null;
@@ -40,7 +42,7 @@ public class CarDAO {
 		public Car selectCarInfo(String inputCarId) {
 			Car carInfo = null;
 			
-			String sql = "select * from tbl_car where car_id=?";
+			String sql = "select * from tbl_car where car_delete='N' and car_id=?";
 			
 			try {
 				pstmt = con.prepareStatement(sql);
@@ -112,7 +114,7 @@ public class CarDAO {
 		public ArrayList<Car> selectAllCarInfo() {
 			ArrayList<Car> allCarList = null;
 			
-			String sql = "select * from tbl_car";
+			String sql = "select * from tbl_car where car_delete='N'";
 			
 			try {
 				pstmt = con.prepareStatement(sql);
@@ -129,7 +131,8 @@ public class CarDAO {
 								rs.getInt("car_year"),
 								rs.getString("car_image1"),
 								rs.getInt("car_like"),
-								rs.getString("sale_YN")
+								rs.getString("sale_YN"),
+								rs.getString("car_delete")
 								));
 					}while(rs.next());
 				}
@@ -235,7 +238,7 @@ public class CarDAO {
 				where += " (car_price<="+end_price+")";
 			}
 			
-			String sql = "select * from tbl_car where"+where;
+			String sql = "select * from tbl_car where car_delete='N' and"+where;
 			
 			System.out.println("만들어진 sql문 : "+sql);
 			
@@ -254,7 +257,8 @@ public class CarDAO {
 								rs.getInt("car_year"),
 								rs.getString("car_image1"),
 								rs.getInt("car_like"),
-								rs.getString("sale_YN")
+								rs.getString("sale_YN"),
+								rs.getString("car_delete")
 								));
 					}while(rs.next());
 				}
@@ -271,7 +275,7 @@ public class CarDAO {
 		public ArrayList<Car> selectmySaleCar(String user_id) {
 			ArrayList<Car> mySaleCar = null;
 			
-			String sql = "select * from tbl_car where dealer_id=?";
+			String sql = "select * from tbl_car where car_delete='N' and dealer_id=?";
 			
 			try {
 				pstmt = con.prepareStatement(sql);
@@ -290,7 +294,8 @@ public class CarDAO {
 								rs.getInt("car_year"),
 								rs.getString("car_image1"),
 								rs.getInt("car_like"),
-								rs.getString("sale_YN")
+								rs.getString("sale_YN"),
+								rs.getString("car_delete")
 								));
 					}while(rs.next());
 				}
@@ -353,7 +358,7 @@ public class CarDAO {
 		public ArrayList<Car> selectmyWishCar(String[] all_car_id) {
 			ArrayList<Car> wishCar = new ArrayList<Car>();
 			
-			String sql = "select * from tbl_car where car_id=?";
+			String sql = "select * from tbl_car where car_delete='N' and car_id=?";
 			
 			try {
 				pstmt = con.prepareStatement(sql);
@@ -374,7 +379,8 @@ public class CarDAO {
 									rs.getInt("car_year"),
 									rs.getString("car_image1"),
 									rs.getInt("car_like"),
-									rs.getString("sale_YN")
+									rs.getString("sale_YN"),
+									rs.getString("car_delete")
 									));
 						}while(rs.next());
 					}
@@ -466,6 +472,128 @@ public class CarDAO {
 			}
 			return result;
 		}
+
+		/*--- 딜러가 자신이 등록한 차량 삭제 -------------------------------------------------------------------*/
+		public int removeMyCar(String[] car_ids, String user_id) {
+			int result = 0;
+			
+			String where_car_id = "";
+			for(int i=0; i<car_ids.length; i++) {
+				if(i == 0) {
+					where_car_id += " (car_id='"+car_ids[i]+"'";
+				}else {
+					where_car_id += " or car_id='"+car_ids[i]+"'";
+				}
+			}
+			where_car_id += ")";
+			
+			String sql = "update tbl_car set car_delete='Y' where dealer_id=? and"+where_car_id;
+			System.out.println("만들어진 sql문 : "+sql);
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, user_id);
+				result = pstmt.executeUpdate();
+
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 removeMyCar()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
+		
+		/*--- 등록된 차량 수정위해 정보가져오기 -------------------------------------------------------------------*/
+		public Car getCarInfo(String car_id) {
+			Car carInfo = null;
+			
+			String sql = "select * from tbl_car where car_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, car_id);
+
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					carInfo = new Car();
+					carInfo.setDealer_id(rs.getString("dealer_id"));
+					carInfo.setCar_id(rs.getString("car_id"));
+					carInfo.setCar_brand(rs.getString("car_brand"));
+					carInfo.setCar_name(rs.getString("car_name"));
+					carInfo.setCar_color(rs.getString("car_color"));
+					carInfo.setCar_price(rs.getInt("car_price"));
+					carInfo.setCar_capacity(rs.getInt("car_capacity"));
+					carInfo.setCar_fuel(rs.getString("car_fuel"));
+					carInfo.setCar_transmission(rs.getString("car_transmission"));
+					carInfo.setCar_type(rs.getString("car_type"));
+					carInfo.setCar_accident(rs.getString("car_accident"));
+					carInfo.setCar_year(rs.getInt("car_year"));
+					carInfo.setCar_distance(rs.getInt("car_distance"));
+					carInfo.setCar_image1(rs.getString("car_image1"));
+					carInfo.setCar_image2(rs.getString("car_image2"));
+					carInfo.setCar_image3(rs.getString("car_image3"));
+					carInfo.setCar_image4(rs.getString("car_image4"));
+					carInfo.setCar_image5(rs.getString("car_image5"));
+					carInfo.setCar_content(rs.getString("car_content"));
+					carInfo.setCar_accident_detail(rs.getString("car_accident_detail"));
+					carInfo.setCar_like(rs.getInt("car_like"));
+					carInfo.setSale_YN(rs.getString("sale_YN"));
+				}
+				
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 getCarInfo()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			
+			return carInfo;
+		}
+
+		/*--- 등록된 차량 수정하기 -------------------------------------------------------------------*/
+		public int updateCar(Car car) {
+			int updateResult = 0;
+			
+			String sql = "update tbl_car set car_brand=?, car_name=?, car_color=?, car_price=?, car_capacity=?, "
+					+ "car_fuel=?, car_transmission=?, car_type=?, car_accident=?, car_year=?, car_distance=?, "
+					+ "car_image1=?, car_image2=?, car_image3=?, car_image4=?, car_image5=?, car_content=?, "
+					+ "car_accident_detail=? where car_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, car.getCar_brand());
+				pstmt.setString(2, car.getCar_name());
+				pstmt.setString(3, car.getCar_color());
+				pstmt.setInt(4, car.getCar_price());
+				pstmt.setInt(5, car.getCar_capacity());
+				pstmt.setString(6, car.getCar_fuel());
+				pstmt.setString(7, car.getCar_transmission());
+				pstmt.setString(8, car.getCar_type());
+				pstmt.setString(9, car.getCar_accident());
+				pstmt.setInt(10, car.getCar_year());
+				pstmt.setInt(11, car.getCar_distance());
+				pstmt.setString(12, car.getCar_image1());
+				pstmt.setString(13, car.getCar_image2());
+				pstmt.setString(14, car.getCar_image3());
+				pstmt.setString(15, car.getCar_image4());
+				pstmt.setString(16, car.getCar_image5());
+				pstmt.setString(17, car.getCar_content());
+				pstmt.setString(18, car.getCar_accident_detail());
+				pstmt.setString(19, car.getCar_id());
+				
+				updateResult = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 updateCar()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			
+			return updateResult;
+		}
+
 		
 		
 		

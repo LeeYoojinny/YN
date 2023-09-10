@@ -209,22 +209,11 @@
 					<b>차종</b>
 					<select name="car_type" id="car_type" required>
 						<option value="" disabled selected>&nbsp;==== 선택하세요 ====&nbsp;</option>
-							<optgroup label="일반">
-								<option value="regular1">경차</option>
-								<option value="regular2">소/준중형</option>
-								<option value="regular3">중형</option>
-								<option value="regular4">대형</option>
-								<option value="sports">스포츠카</option>
-							</optgroup>
-							<optgroup label="SUV">
-								<option value="SUV1">소형SUV</option>
-								<option value="SUV2">중형SUV</option>
-								<option value="SUV3">대형SUV</option>
-							</optgroup>
-							<optgroup label="RV">
-								<option value="RV1">소형RV</option>
-								<option value="RV2">대형RV</option>
-							</optgroup>
+							<c:forEach var="code" items="${allCode}">
+    						<c:if test="${code.code_category eq 'car_type'}">
+								<option value="${code.code_name}">${code.code_value}</option>
+							</c:if>
+						</c:forEach>
 					</select>
 				</div>
 				<div class="field_row item">

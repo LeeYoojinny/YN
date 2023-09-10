@@ -83,12 +83,6 @@
 		<c:if test="${resultCar != null }">
 		<form action="carSearch.usr" method="post" name="f">
 			<div class="searchPart">
-				<!-- <div class="searchBar">
-					<div class="searchBar item">
-						<input type="text" name="search_input" id="search_input" placeholder="&ensp;원하는 차량명으로 검색해보세요">
-						<button onclick="searchCheck(); return false;">검색</button>
-					</div>
-				</div> -->
 				<div class="searchDetail">
     				<div class="showDetail">
     				<img src="image/carList/under_icon_2.png"><span>상세검색</span><img src="image/carList/under_icon_2.png">
@@ -98,20 +92,19 @@
 					<div class="detailItem">
 						<b>브랜드</b>
 						<div>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="benz">벤츠</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="tesla">테슬라</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="ferrari">페라리</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="bmw">BMW</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="audi">아우디</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="maserati">마세라티</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="bentley">벤틀리</label>
-							<label><input type="checkbox" name="car_brand" id="car_brand" value="cadillac">캐딜락</label>
+							<c:forEach var="code" items="${allCode}">
+	    						<c:if test="${code.code_category eq 'car_brand'}">
+									<label>
+										<input type="checkbox" name="car_brand" id="car_brand" value="${code.code_name}">${code.code_value}
+									</label>
+								</c:if>
+							</c:forEach>
 						</div>
 					</div>
 					<div class="detailItem">
 						<b>차종</b>
 						<div>
-							<label><input type="checkbox" name="car_type" id="car_type" value="Car">세단</label>
+							<label><input type="checkbox" name="car_type" id="car_type" value="regular">세단</label>
 							<label><input type="checkbox" name="car_type" id="car_type" value="sports">스포츠카</label>
 							<label><input type="checkbox" name="car_type" id="car_type" value="SUV">SUV</label>
 							<label><input type="checkbox" name="car_type" id="car_type" value="RV">RV</label>
@@ -120,61 +113,32 @@
 					<div class="detailItem">
 						<b>색상</b>
 						<div>
-							<label><input type="checkbox" name="car_color" id="car_color" value="black">검정색</label>
-							<label><input type="checkbox" name="car_color" id="car_color" value="white">흰색</label>
-							<label><input type="checkbox" name="car_color" id="car_color" value="silver">회색</label>
-							<label><input type="checkbox" name="car_color" id="car_color" value="red">빨간색</label>
-							<label><input type="checkbox" name="car_color" id="car_color" value="blue">파란색</label>
-							<label><input type="checkbox" name="car_color" id="car_color" value="yellow">노란색</label>
-							<label><input type="checkbox" name="car_color" id="car_color" value="etc">기타</label>
+							<c:forEach var="code" items="${allCode}">
+	    						<c:if test="${code.code_category eq 'car_color'}">
+									<label>
+										<input type="checkbox" name="car_color" id="car_color" value="${code.code_name}">${code.code_value}
+									</label>
+								</c:if>
+							</c:forEach>
 						</div>
 					</div>
 					<div class="detailItem_row">
 						<b>주행거리</b>
 						<div>
-							<input type="number" name="max_distance">&nbsp;km 이하
+							<input type="number" name="car_distance">km 이하
+						</div>
+					</div>
+					<div class="detailItem_row">
+						<b>금액</b>
+						<div>
+							<input type="number" name="start_price" placeholder=" 최소금액">
+							<span id="won">만원 &nbsp;<b>~</b>&nbsp;</span>
+							<input type="number" name="end_price" placeholder=" 최대금액">
+							<span id=won>만원</span>
 						</div>
 					</div>
 					<!-- <div class="detailItem_option">
 						<b>옵션</b>
-						<div>
-							<span>외관/내장</span>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option1">선루프</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option2">HID헤드램프</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option3">전동 트렁크</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option4">전동 사이드미러</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option5">알루미늄휠</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option6">열선핸들</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option7">하이패스	</label>
-						</div>
-						<div>
-							<span>안전</span>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option8">에어백(운전석,동승석)</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option9">ABS</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option10">차선이탈경보</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option11">후방카메라</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option12">전방센서</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option13">측면센서</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option14">후방센서</label>
-						</div>
-						<div>
-							<span>편의/멀티미디어</span>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option15">크루즈 컨트롤</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option16">전자식 주차브레이크</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option17">HUD</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option18">스마트키</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option19">내비게이션</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option20">자동에어컨</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option21">블루투스</label>
-						</div>
-						<div>
-							<span>시트</span>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option22">가죽시트</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option23">전동시트</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option24">열선시트</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option25">통풍시트</label>
-							<label><input type="checkbox" name="car_content" id="car_content" value="option26">메모리시트</label>
-						</div>
 					</div> -->
 					<div class="searchButton">
 						<div class="searchButton bt">
@@ -185,13 +149,33 @@
 				</div>
 			</div>
 			</form>
-			<div class="container">
+			<div class="container_carItem">
 				<c:forEach var="result" items="${resultCar}" varStatus="status">
 					<div class="items">
 						<div class="mainImg"><a href="carView.usr?car_id=${result.car_id}"><img src="upload/carRegist_images/${result.car_image1}"></a></div>
-						<div class="title">${result.car_brand}&nbsp;${result.car_year}연식 ${result.car_name}</div>
+						<div class="title">
+						<c:forEach var="code" items="${allCode}">
+							<c:if test="${code.code_category == 'car_brand'}">
+								<c:if test="${result.car_brand == code.code_name}">${code.code_value}</c:if>
+							</c:if>
+						</c:forEach>
+						${result.car_year}연식 ${result.car_name}</div>
 	       	 			<div class="price">${result.car_price}만원</div>
-	       	 			<div class="likeQty"><img src="image/carList/like_icon.png">&ensp;${result.car_like}</div>
+	       	 			<div class="likeQty">
+	       	 				<c:set var="found" value="false" />
+	                    	<c:forEach var="wish" items="${wishlist}">
+	                        	<c:if test="${car.car_id eq wish.car_id}">
+	                            	<img src="image/carList/red_like_icon.png" id="likeImage" 
+	                                 onclick="likeThis(1,'${car.car_id}','${car.car_price}','${car.car_image1}')">
+	                                 <c:set var="found" value="true"/>
+	                        	</c:if>
+	                    	</c:forEach>
+	                    	<c:if test="${not found}">
+	                        	<img src="image/carList/black_like_icon.png" id="likeImage" 
+	                             onclick="likeThis(0,'${car.car_id}','${car.car_price}','${ car.car_image1}')">
+	                   		</c:if>
+		       	 			${car.car_like}
+	       	 			</div>
 					</div>
 				</c:forEach>
 			</div>

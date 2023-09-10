@@ -1,8 +1,8 @@
 @charset "UTF-8";
-@import url('https://webfontworld.github.io/yangheeryu/GowunDodum.css');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 
 body{
-    font-family: 'GowunDodum';
+    font-family: 'Gowun Dodum', sans-serif;
     background-color: #f5f6f7;
     line-height: 1.5em;
     color : #222;
@@ -18,7 +18,7 @@ body{
 }
 
 input::placeholder {
-  font-family: 'GowunDodum';
+  font-family: 'Gowun Dodum', sans-serif;
   font-style: italic;
 }
 
@@ -29,7 +29,7 @@ input::placeholder {
 	margin-bottom: 1rem;
 	padding: 10px;
 	color:#fff;
-	font-family: 'GowunDodum';
+	font-family: 'Gowun Dodum', sans-serif;
 	background-color: #486AAE;
 	border: 1px solid #dadada;
 	cursor: pointer;
@@ -118,7 +118,7 @@ input::placeholder {
     padding: 0.5rem;
     margin-right: 0.5rem;
 	color:#fff;
-	font-family: 'GowunDodum';
+	font-family: 'Gowun Dodum', sans-serif;
 	background-color: #486AAE;
 	border: 1px solid #dadada;
 	cursor: pointer;
@@ -139,7 +139,7 @@ input::placeholder {
     padding: 0.5rem;
     margin-right: 0.5rem;
 	color:#fff;
-	font-family: 'GowunDodum';
+	font-family: 'Gowun Dodum', sans-serif;
 	background-color: #486AAE;
 	border: 1px solid #dadada;
 	cursor: pointer;
@@ -163,6 +163,7 @@ table {
 	border-top: 1px solid #848484;
 	border-bottom: 1px solid #848484;
 	height: 2rem; /*높이조절*/
+	text-align: center;
 }
 
 #space {
@@ -220,7 +221,7 @@ table {
 	width: 7rem;
     padding: 0.5rem;
 	color:#fff;
-	font-family: 'GowunDodum';
+	font-family: 'Gowun Dodum', sans-serif;
 	background-color: #486AAE;
 	border: 1px solid #dadada;
 	cursor: pointer;

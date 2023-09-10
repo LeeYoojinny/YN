@@ -9,6 +9,7 @@ import action.Action;
 import svc.user.UserCarSearchService;
 import vo.ActionForward;
 import vo.Car;
+import vo.Code;
 
 public class UserCarSearchAction implements Action {
 
@@ -82,8 +83,11 @@ public class UserCarSearchAction implements Action {
 		ArrayList<Car> resultCar = userCarSearchService.searchResult
 				(car_brand,car_color,car_type,car_distance,start_price,end_price);
 		
+		ArrayList<Code> allCode = userCarSearchService.getAllCode();
+		
 		//받아온 Car 객체들을 속성에 담기
 		request.setAttribute("resultCar", resultCar);
+		request.setAttribute("allCode", allCode);
 		
 		//form에 뿌리기
 		request.setAttribute("showPage", "user/searchResultForm.jsp");

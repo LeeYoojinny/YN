@@ -29,8 +29,7 @@
 	        });
 	    }
 	});
-	
-	
+
 	//검색 하기 전 값 확인
 	function searchCheck() {
 		var search_input = document.getElementById("search_input");
@@ -95,12 +94,6 @@
 		<c:if test="${allCarList != null }">
 		<form action="carSearch.usr" method="post" name="f">
 			<div class="searchPart">
-				<!-- <div class="searchBar">
-					<div class="searchBar item">
-						<input type="text" name="search_input" id="search_input" placeholder="&ensp;원하는 차량명으로 검색해보세요">
-						<button onclick="searchCheck(); return false;">검색</button>
-					</div>
-				</div> -->
 				<div class="searchDetail">
     				<div class="showDetail">
     				<img src="image/carList/under_icon_2.png"><span>상세검색</span><img src="image/carList/under_icon_2.png">
@@ -167,7 +160,7 @@
 				</div>
 			</div>
 			</form>
-			<div class="container">
+			<div class="container_carItem">
 				<c:forEach var="car" items="${allCarList}" varStatus="status">
 					<div class="items">
 						<div class="mainImg">

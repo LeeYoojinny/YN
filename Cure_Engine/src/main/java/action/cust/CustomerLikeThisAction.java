@@ -74,6 +74,13 @@ public class CustomerLikeThisAction implements Action {
 				out.println("alert('관심상품 등록 되었습니다.');");
 				out.println("location.href='otherCarView.usr?dealer_id=" + dealer_id + "&dealer_name=" + dealer_name + "';");
 				out.println("</script>");
+			}else if(displayNum.equals("4")) {
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('관심상품 등록 되었습니다.');");
+				out.println("location.href='carDetailView.usr?car_id=" + car_id + "';");
+				out.println("</script>");
 			}
 		}else {//서비스에서 메소드 실행 실패했다면
 			response.setContentType("text/html; charset=utf-8");

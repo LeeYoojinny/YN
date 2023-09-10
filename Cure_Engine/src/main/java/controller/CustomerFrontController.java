@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.cust.CustomerInfoViewAction;
 import action.cust.CustomerLikeThisAction;
 import action.cust.CustomerRemoveWishAction;
 import action.cust.CustomerUnlikeThisAction;
+import action.cust.CustomerUpdateAction;
 import action.cust.CustomerWishlistAction;
 import vo.ActionForward;
 
@@ -150,15 +152,8 @@ public class CustomerFrontController extends HttpServlet {
 		
 		/*------- '회원정보관리 폼 보기' → 처리 ---------------------------------------------------------*/
 		
-		if(command.equals("/myInfoView.cust")) {//'회원정보가 셋팅된 회원정보관리 폼 보기' 요청이면
-			request.setAttribute("showPage", "customer/customerInfoView.jsp");
-			forward = new ActionForward("template.jsp",false);
-		}
-		
-		/*
-		else if(command.equals("/myInfoUpdate.cust")) {//'회원정보수정 처리'요청하면
-			//action:부모인터페이스 = UserLoginAction:구현한자식객체;
-			action = new CustomerInfoUpdateAction();
+		else if(command.equals("/myInfoView.cust")) {//'회원정보가 셋팅된 회원정보관리 폼 보기' 요청이면
+			action = new CustomerInfoViewAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -167,6 +162,33 @@ public class CustomerFrontController extends HttpServlet {
 			}
 		}
 		
+		else if(command.equals("/myInfoUpdate.cust")) {//'회원정보수정 처리'요청하면
+			//action:부모인터페이스 = UserLoginAction:구현한자식객체;
+			action = new CustomerUpdateAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		
+		/*------- '회원탈퇴 폼 보기' → 처리 ---------------------------------------------------------*/
+		else if(command.equals("/customerDeleteForm.cust")) {//'회원탈퇴 폼' 보기 요청이면
+			request.setAttribute("showPage", "customer/custDeleteForm.jsp");
+			forward = new ActionForward("template.jsp",false);
+		}
+		
+		/*
+		else if(command.equals("/customerDelete.cust")) {//'회원탈퇴' 처리
+			action = new CustomerDeleteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
 		*/
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)
