@@ -9,14 +9,29 @@
 <title>문의글보기</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" href="css/user/qna/boardView_style.css">
 </head>
 <script type="text/javascript">
-	function secretCheck(secretYN,qna_num) {
+	function update_secretCheck(secretYN,qna_num) {
 		if(secretYN == 'Y') {
-			location.href = "qna_pwCheck.bo?qna_num="+qna_num;
+			location.href = "qna_pwCheckForm.bo?qna_num="+qna_num+"&display_num=1";
 		}else {
-			location.href = "qna_boardUpdate.bo?qna_num="+qna_num;
+			location.href = "qna_boardUpdateForm.bo?qna_num="+qna_num;
 		}		
+	}
+	
+	function delete_secretCheck(secretYN, qna_num) {
+		if(confirm("게시물을 삭제하시겠습니까?")){
+			if(secretYN == 'Y') {
+				location.href = "qna_pwCheckForm.bo?qna_num="+qna_num+"&display_num=2";
+			}else {
+				location.href = "qna_boardDelete.bo?qna_num="+qna_num;
+			}	
+		}else {
+			return false;
+		}
+		
+			
 	}
 
 </script>
@@ -60,17 +75,19 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 		<tr>
 			<th>첨부파일</th>
 			<td>
+				<c:if test="${board.qna_file ne null }">
 				<img src="upload/qna_file/${board.qna_file}" width="100px">
 				<a href="fileDown.bo?file_name=${board.qna_file}">${board.qna_file_origin}</a>
+				</c:if>
 			</td>
 		</tr>
 	</table>
 	<a class="btn btn-outline-secondary" href="qna_boardList.bo">목록</a>
 	<c:if test="${board.user_id eq sessionScope.user_id or user_category eq 'admin'}">
-		<a class="btn btn-outline-secondary" onclick="secretCheck('${board.secret_YN}','${board.qna_num}')">수정</a>
+		<a class="btn btn-outline-secondary" onclick="update_secretCheck('${board.secret_YN}','${board.qna_num}')">수정</a>
 	</c:if>
 	<c:if test="${board.user_id eq sessionScope.user_id or user_category eq 'admin'}">
-	<a class="btn btn-outline-secondary" href="qna_boardDelete.bo?qna_num=${board.qna_num}">삭제</a> 
+	<a class="btn btn-outline-secondary" onclick="delete_secretCheck('${board.secret_YN}','${board.qna_num}')">삭제</a> 
 	</c:if>
 </div>
 </body>

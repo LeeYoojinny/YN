@@ -86,7 +86,7 @@
 					<tr class="contents">
 						<td rowspan="3" id="check_remove"><input type="checkbox" name="remove" value="${wish.car_id}"></td>
 						<td rowspan="3" id="item_no">${status.count}</td>
-						<td rowspan="3" id="main_img"><a href="carView.usr?car_id=${wish.car_id}"><img src="upload/carRegist_images/${wish.car_image1}"></a></td>
+						<td rowspan="3" id="main_img"><a href="carDetailView.usr?car_id=${wish.car_id}"><img src="upload/carRegist_images/${wish.car_image1}"></a></td>
 						<td id="explain1">
 						<c:forEach var="code" items="${allCode}">
 							<c:if test="${code.code_category == 'car_brand'}">

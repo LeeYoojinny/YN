@@ -189,7 +189,7 @@ public class UserFrontController extends HttpServlet {
 		}
 		
 		/*------- '상품 검색 하면' → 처리 ---------------------------------------------------------*/
-		else if(command.equals("/carSearch.usr")) {//'로그인 처리'요청하면
+		else if(command.equals("/carSearch.usr")) {//'상품검색'요청하면
 			action = new UserCarSearchAction();
 			try {
 				forward = action.execute(request, response);
@@ -200,7 +200,7 @@ public class UserFrontController extends HttpServlet {
 		}
 		
 		/*------- '상품 상세보기' → 처리 ---------------------------------------------------------*/
-		else if(command.equals("/carDetailView.usr")) {//'로그인 처리'요청하면
+		else if(command.equals("/carDetailView.usr")) {//'차량상세보기'요청하면
 			action = new UserCarDetailViewAction();
 			try {
 				forward = action.execute(request, response);
@@ -211,7 +211,7 @@ public class UserFrontController extends HttpServlet {
 		}
 		
 		/*------- '딜러의 다른 차량보기' → 처리 ---------------------------------------------------------*/
-		else if(command.equals("/otherCarView.usr")) {//'로그인 처리'요청하면
+		else if(command.equals("/otherCarView.usr")) {//'딜러의 다른자동차보기'요청하면
 			action = new UserOtherCarViewAction();
 			try {
 				forward = action.execute(request, response);

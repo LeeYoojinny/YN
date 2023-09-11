@@ -9,10 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.board.BoardFileDownAction;
+import action.board.QnA_BoardDeleteAction;
+import action.board.QnA_BoardUpdateFormAction;
 import action.board.QnA_BoardListAction;
+import action.board.QnA_BoardUpdateAction;
 import action.board.QnA_BoardViewAction;
 import action.board.QnA_BoardWriteAction;
 import action.board.QnA_BoardWriteForm;
+import action.board.QnA_pwCheckAction;
 import vo.ActionForward;
 
 /**
@@ -123,41 +127,49 @@ public class BoardController extends HttpServlet {
 		}
 		
 		/*-- 글 수정하기 --*/
-		else if(command.equals("/qna_pwCheck.bo")) {
+		else if(command.equals("/qna_pwCheckForm.bo")) { //비밀번호가 있는 게시물이라면
 			request.setAttribute("showPage", "user/qna/qna_pwCheck.jsp");
 			forward = new ActionForward("template.jsp", false);	
-			System.out.println("boardUpdate 실행됨");	
+			System.out.println("qna_pwCheck 실행됨");	
 		}
-		else if(command.equals("/qna_boardUpdate.bo")) {
-			forward = new ActionForward("boardUpdate.jsp", false);
-			System.out.println("boardUpdate 실행됨");	
-		}
-		/*
-		else if(command.equals("/BoardUpdateAction.bo")) {
-			action = new BoardUpdateAction();
+		
+		else if(command.equals("/qna_pwCheck.bo")) {//비밀번호 확인
+			action = new QnA_pwCheckAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		*/
+		else if(command.equals("/qna_boardUpdateForm.bo")) { //수정하기 폼 보기
+			action = new QnA_BoardUpdateFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		else if(command.equals("/qna_boardUpdateAction.bo")) { //수정요청 처리
+			action = new QnA_BoardUpdateAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 		
 		/*-- 글 삭제하기 --*/
-		/*
-		else if(command.equals("/boardDelete.bo")) {
-			forward = new ActionForward("boardDelete.jsp", false);
-			System.out.println("boardDelete 실행됨");	
-		}
-		else if(command.equals("/BoardDeleteAction.bo")) {
-			action = new BoardDeleteAction();
+		else if(command.equals("/qna_boardDelete.bo")) {
+			action = new QnA_BoardDeleteAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		*/
+
 		
 		if(forward != null) {
 			if(forward.isRedirect() == true) {

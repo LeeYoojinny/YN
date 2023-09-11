@@ -34,12 +34,8 @@ public class CustomerUnlikeThisAction implements Action {
 		if(carResult > 0 && wishResult > 0) {
 			//현재 wishlist 가져오기
 			ArrayList<Wishlist> userWish = customerUnlikeThisService.getWishInfo(user_id);
-			
-			//세션에 업데이트
-			if(userWish != null) {
-				session.setAttribute("wishlist", userWish);
-				System.out.println("wishlist 세션 업데이트");
-			}
+			session.setAttribute("wishlist", userWish);
+			System.out.println("session에 wishlist 업데이트 완료");
 			
 			if(displayNum.equals("1")) {
 				response.setContentType("text/html; charset=utf-8");
@@ -64,6 +60,13 @@ public class CustomerUnlikeThisAction implements Action {
 				out.println("<script>");
 				out.println("alert('관심상품에서 삭제 되었습니다.');");
 				out.println("location.href='otherCarView.usr?dealer_id=" + dealer_id + "&dealer_name=" + dealer_name + "';");
+				out.println("</script>");
+			}else if(displayNum.equals("4")) {
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('관심상품에서 삭제 되었습니다.');");
+				out.println("location.href='carDetailView.usr?car_id=" + car_id +"';");
 				out.println("</script>");
 			}
 		}else {//서비스에서 메소드 실행 실패했다면
