@@ -54,15 +54,13 @@ String image5 = carDetail.getCar_image5();
 	
 	function qnaRequest(car_id) {
 		var user_id = '<c:out value="${user_id}" />'
-		var url = "customer/qnaForm.jsp?car_id="+car_id
-		
 		
 		if(!user_id) {
 			alert("로그인 후 문의 가능합니다.");
 			location.href="userLogin.usr";
 			return false;
 		}else {
-			window.open(url,"qna","width=400, height=600");		
+			location.href="qna_boardWrite.bo?car_id="+car_id;		
 			
 		}
 	}
