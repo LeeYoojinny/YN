@@ -189,7 +189,7 @@
 	                    	</c:forEach>
 	                    	<c:if test="${not found}">
 	                        	<img src="image/carList/black_like_icon.png" id="likeImage" 
-	                             onclick="likeThis(0,'${car.car_id}','${car.car_price}','${ car.car_image1}')">
+	                             onclick="likeThis(0,'${car.car_id}','${car.car_price}','${car.car_image1}')">
 	                   		</c:if>
 		       	 				${car.car_like}
 		       	 			</div>

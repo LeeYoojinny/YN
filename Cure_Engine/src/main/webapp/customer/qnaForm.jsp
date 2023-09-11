@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Cure Engine</title>
+<link rel="stylesheet" href="css/user/qna/s_writeForm.css">
 </head>
 <script type="text/javascript">
 	function writeCheck(){
@@ -32,14 +33,14 @@
 <body>
 	<h3>문의하기</h3>
 	<form action="custQnaRequest.cust" method="post" name="f">
-	<input type="hidden" name="qna_num">
+	<input type="hidden" name="car_id" value="${param.car_id}">
 		<table>	
 			<tr>
 				<td>제목</td>				
 			</tr>
 			<tr>
 				<td>
-					<input type="text" name="qna_title" value="${car_id} 문의합니다." readonly="readonly">
+					<input type="text" name="qna_title" value="${param.car_id} 문의합니다." readonly="readonly">
 				</td>
 			</tr>
 			<tr>

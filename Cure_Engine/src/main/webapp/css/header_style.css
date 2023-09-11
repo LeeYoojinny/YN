@@ -92,7 +92,7 @@ li.wish {
 /* '***님 환영합니다' 부분 */
 /*
 .welcome {
-	font-family: 'GowunDodum';
+	font-family: 'Gowun Dodum', sans-serif;
     color: white;
     font-weight: bold;
     max-height: 4rem;
@@ -125,7 +125,7 @@ nav ul ul li {
   text-align: center;
   margin: 0;
   position: relative;
-  font-family:'GowunDodum';
+  font-family:'Gowun Dodum', sans-serif;
 }
 
 nav ul ul li a {

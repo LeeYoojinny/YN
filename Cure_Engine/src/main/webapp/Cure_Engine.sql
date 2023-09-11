@@ -147,7 +147,11 @@ insert into tbl_code_master values('car_brand','brand5','아우디');
 insert into tbl_code_master values('car_brand','brand6','마세라티');
 insert into tbl_code_master values('car_brand','brand7','벤틀리');
 insert into tbl_code_master values('car_brand','brand8','캐딜락');
-
+insert into tbl_code_master values('qna_subject','q1','차량 관련 문의');
+insert into tbl_code_master values('qna_subject','q2','탁송 관련 문의');
+insert into tbl_code_master values('qna_subject','q3','딜러 관련 문의');
+insert into tbl_code_master values('qna_subject','q4','서비스 관련 문의');
+insert into tbl_code_master values('qna_subject','q5','기타 문의');
 
 -- -----------------------------------------------------
 -- tbl_user : 사용자, 딜러, 관리자
@@ -345,17 +349,23 @@ create table tpm_qnanum (
 CREATE TABLE tbl_qna (
 qna_num VARCHAR(8) NOT NULL DEFAULT '0',
 user_id VARCHAR(45) NOT NULL,
-car_id VARCHAR(10) NOT NULL,
+car_id VARCHAR(10),
 qna_pw VARCHAR(45) NULL,
 qna_title VARCHAR(100) NOT NULL,
 qna_content VARCHAR(1000) NOT NULL,
 qna_file NVARCHAR(20) NULL,
+qna_file_origin NVARCHAR(20) NULL,
 qna_date DATETIME DEFAULT CURRENT_TIMESTAMP,
 secret_YN CHAR(1) NOT NULL,
 qna_hit INT NOT NULL DEFAULT 0,
 PRIMARY KEY (qna_num),
 CONSTRAINT fk_qna_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id),
-CONSTRAINT fk_qna_car_id FOREIGN KEY (car_id) REFERENCES tbl_car (car_id));
+
+select * from tbl_qna;
+
+alter table tbl_qna modify column car_id VARCHAR(10);
+alter table tbl_qna add column qna_file_origin NVARCHAR(20) NULL after qna_file;
+
 
 /* qna_num 문자열+숫자 자동증가를 위한 trigger (trigger는 워크벤치로 생성) */
 DELIMITER $$

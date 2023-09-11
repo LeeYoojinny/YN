@@ -29,8 +29,8 @@
 			    <li><a href="allCarListView.usr">Cars</a></li>
 			    <li><a href="#">Board</a>
 				    <ul id="inside_menu" style="padding-left: 0;">
-				     	<li><a href="qnaView.usr">문의게시판</a></li>
-				     	<li><a href="reviewView.usr">리뷰게시판</a></li>
+				     	<li><a href="<%=request.getContextPath()%>/qna_boardList.bo">문의게시판</a></li>
+				     	<li><a href="#">리뷰게시판</a></li>
 				    </ul>
 				</li>
 			    <li><a href="#">Contact</a>
@@ -44,8 +44,8 @@
 			    <li><a href="allCarListView.usr">Cars</a></li>
 			    <li><a href="#">Board</a>
 				    <ul id="inside_menu1" style="padding-left: 0;">
-				     	<li><a href="qnaView.cust">문의게시판</a></li>
-				     	<li><a href="reviewView.cust">리뷰게시판</a></li>
+				     	<li><a href="<%=request.getContextPath()%>/qna_boardList.bo">문의게시판</a></li>
+				     	<li><a href="#">리뷰게시판</a></li>
 				    </ul>
 				</li>
 			    <li><a href="#">Contact</a>
