@@ -97,7 +97,7 @@ li.wish {
 /* '***님 환영합니다' 부분 */
 /*
 .welcome {
-	font-family: 'GowunDodum';
+	font-family: 'Gowun Dodum', sans-serif;
     color: white;
     font-weight: bold;
     max-height: 4rem;
@@ -130,7 +130,7 @@ nav ul ul li {
   text-align: center;
   margin: 0;
   position: relative;
-  font-family:'GowunDodum';
+  font-family:'Gowun Dodum', sans-serif;
 }
 
 nav ul ul li a {
@@ -223,7 +223,7 @@ main > div span {
   letter-spacing: 1.5px;
   font-size: 1rem;
   color: #717171;
-  font-family:'GowunDodum';
+  font-family:'Gowun Dodum', sans-serif;
 }
 
 main > div h1 {
@@ -254,7 +254,7 @@ main > div hr {
 main > div p {
   line-height: 1.6;
   color: #FFFFFF;
-  font-family:'GowunDodum';
+  font-family:'Gowun Dodum', sans-serif;
 }
 
 main a {
@@ -272,7 +272,7 @@ main > div > a {
   border: 2px solid #c2c2c2;
   margin-top: 2.188rem;
   padding: 0.625rem 1.875rem;
-  font-family:'GowunDodum';
+  font-family:'Gowun Dodum', sans-serif;
 }
 
 main > div > a:hover {
@@ -286,7 +286,7 @@ main > div > a:hover {
 }
 
 .swiper div div a, .swiper div div p {
-	font-family:'GowunDodum';
+	font-family:'Gowun Dodum', sans-serif;
 }
 
 .swiper div div h2 {
@@ -497,7 +497,7 @@ footer ul li a {
   text-decoration: none;
   color: #fff;
   transition: color 0.3s;
-  font-family:'GowunDodum';
+  font-family:'Gowun Dodum', sans-serif;
 }
 
 footer ul li a:hover {

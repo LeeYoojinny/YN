@@ -380,6 +380,9 @@ DELIMITER ;
 
 select * from tbl_qna;
 
+select count(*) from tbl_qna where qna_num='QNA00001' and qna_pw='1234';
+update tbl_qna 
+
 -- -----------------------------------------------------
 -- tbl_notice : 공지사항
 -- -----------------------------------------------------

@@ -46,7 +46,7 @@ public class BoardDAO {
 				listCount = rs.getInt(1);
 			}
 		}catch(Exception e) {
-			System.out.println("selectListCount() 에러 : " + e);
+			System.out.println("BoardDAO의 selectListCount() 에러 : " + e);
 		} finally {
 			close(rs);
 			close(pstmt);
@@ -88,7 +88,7 @@ public class BoardDAO {
 			}
 			
 		}catch(Exception e) {
-			System.out.println("selectBoardList() 에러 : " + e);
+			System.out.println("BoardDAO의 selectBoardList() 에러 : " + e);
 		} finally {
 			close(rs);
 			close(pstmt);
@@ -111,12 +111,12 @@ public class BoardDAO {
 			pstmt.setString(4, board.getQna_title());
 			pstmt.setString(5, board.getQna_content());
 			pstmt.setString(6, board.getQna_file());
-			pstmt.setString(6, board.getQna_file_origin());
-			pstmt.setString(7, board.getSecret_YN());
+			pstmt.setString(7, board.getQna_file_origin());
+			pstmt.setString(8, board.getSecret_YN());
 						
 			insertCount = pstmt.executeUpdate();
 		}catch(Exception e) {
-			System.out.println("insertBoard() 에러 : " + e);
+			System.out.println("BoardDAO의 insertBoard() 에러 : " + e);
 		} finally {
 			close(pstmt);
 		}
@@ -132,7 +132,7 @@ public class BoardDAO {
 			
 			updateCount = pstmt.executeUpdate();
 		}catch(Exception e) {
-			System.out.println("updateHit() 에러 : " + e);
+			System.out.println("BoardDAO의 updateHit() 에러 : " + e);
 		} finally {
 			//close(rs);
 			close(pstmt);
@@ -164,7 +164,7 @@ public class BoardDAO {
 								  );
 			}
 		}catch(Exception e) {
-			System.out.println("selectBoard() 에러 : " + e);
+			System.out.println("BoardDAO의 selectBoard() 에러 : " + e);
 		} finally {
 			close(rs);
 			close(pstmt);
@@ -186,7 +186,7 @@ public class BoardDAO {
 				isWriter = true;
 			}
 		}catch(Exception e) {
-			System.out.println("isBoardWriter() 에러 : " + e);
+			System.out.println("BoardDAO의 isBoardWriter() 에러 : " + e);
 			e.printStackTrace();
 		} finally {
 			close(rs);
@@ -205,32 +205,43 @@ public class BoardDAO {
 			
 			deleteCount = pstmt.executeUpdate();
 		}catch(Exception e) {
-			System.out.println("deleteBoard() 에러 : " + e);
+			System.out.println("BoardDAO의 deleteBoard() 에러 : " + e);
 		} finally {
-			//close(rs);
 			close(pstmt);
 		}
 		
 		return deleteCount;
 	}
 
-	public int updateBoard(Board board) {
+	public int updateBoard(Board board, String qna_num) {
 		int updateCount = 0;
-		String sql = "update tbl_qna SET qna_title=?, qna_content=?, secret_YN=? where qna_num=?";
+		String sql = "update tbl_qna SET qna_pw=?, qna_title=?, qna_content=?,"
+				+ " qna_file=?, qna_file_origin=?, secret_YN=? where qna_num=?";
+		
+		System.out.println("qna_pw : " +board.getQna_pw());
+		System.out.println("qna_title : " +board.getQna_title());
+		System.out.println("qna_content : " +board.getQna_content());
+		System.out.println("qna_file : " +board.getQna_file());
+		System.out.println("qna_file_origin : " +board.getQna_file_origin());
+		System.out.println("secret_YN : " +board.getSecret_YN());
+		System.out.println("qna_num : " +board.getQna_num());
 		
 		try {
-			pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement(sql);			
 			
-			pstmt.setString(1, board.getQna_title());
-			pstmt.setString(2, board.getQna_content());
-			pstmt.setString(3, board.getSecret_YN());
-			pstmt.setString(4, board.getQna_num());
+			pstmt.setString(1, board.getQna_pw());
+			pstmt.setString(2, board.getQna_title());
+			pstmt.setString(3, board.getQna_content());
+			pstmt.setString(4, board.getQna_file());
+			pstmt.setString(5, board.getQna_file_origin());
+			pstmt.setString(6, board.getSecret_YN());
+			pstmt.setString(7, qna_num);
 			
 			updateCount = pstmt.executeUpdate();
+			System.out.println("update성공유무 : "+updateCount);
 		}catch(Exception e) {
-			System.out.println("updateBoard() 에러 : " + e);
+			System.out.println("BoardDAO의 updateBoard() 에러 : " + e);
 		} finally {
-			//close(rs);
 			close(pstmt);
 		}
 		return updateCount;
@@ -271,13 +282,38 @@ public class BoardDAO {
 				}while(rs.next());
 			}
 		}catch(Exception e) {
-			System.out.println("searchBoardList() 에러 : " + e);
+			System.out.println("BoardDAO의 searchBoardList() 에러 : " + e);
 		} finally {
 			close(rs);
 			close(pstmt);
 		}
 		
 		return boardList;
+	}
+
+	public int pwCheck(String qna_num, String input_pw) {
+		int pwCheck = 0;
+		
+		String sql = "select count(*) from tbl_qna where qna_num=? and qna_pw=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, qna_num);
+			pstmt.setString(2, input_pw);
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) {
+				pwCheck = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			System.out.println("BoardDAO의 pwCheck() 에러 : " + e);
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return pwCheck;
 	}
 	
 
