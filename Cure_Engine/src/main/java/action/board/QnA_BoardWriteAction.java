@@ -15,9 +15,9 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import action.Action;
 import vo.ActionForward;
 
-import dao.BoardDAO;
+import dao.QnABoardDAO;
 import svc.board.QnA_BoardWriteService;
-import vo.Board;
+import vo.QnABoard;
 
 public class QnA_BoardWriteAction implements Action {
 
@@ -48,7 +48,7 @@ public class QnA_BoardWriteAction implements Action {
 		*/
 		
 		
-		Board board = new Board();		
+		QnABoard board = new QnABoard();		
 		board.setUser_id(multi.getParameter("user_id"));
 		board.setCar_id(multi.getParameter("car_id"));
 		board.setQna_pw(multi.getParameter("qna_pw"));

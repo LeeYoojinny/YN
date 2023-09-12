@@ -8,16 +8,17 @@ import static db.JdbcUtil.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import dao.BoardDAO;
+import dao.QnABoardDAO;
+import dao.CarDAO;
 import dao.CodeDAO;
-import vo.Board;
+import vo.QnABoard;
 import vo.Code;
 
 public class QnA_BoardViewService {
 
-	public Board getBoardView(String qna_num) {
+	public QnABoard getBoardView(String qna_num) {
 		Connection con = getConnection();
-		BoardDAO boardDAO = BoardDAO.getInstance();
+		QnABoardDAO boardDAO = QnABoardDAO.getInstance();
 		boardDAO.setConnection(con);
 		
 		int boardHitCount = boardDAO.updateHit(qna_num);
@@ -27,7 +28,7 @@ public class QnA_BoardViewService {
 		}else {
 			rollback(con);
 		}
-		Board board = boardDAO.selectBoard(qna_num);
+		QnABoard board = boardDAO.selectBoard(qna_num);
 		close(con);
 		return board;
 	}
@@ -41,6 +42,17 @@ public class QnA_BoardViewService {
 		
 		close(con);
 		return allCode;
+	}
+
+	public String getDealer_id(String car_id) {
+		Connection con = getConnection();
+		CarDAO carDAO = CarDAO.getInstance();
+		carDAO.setConnection(con);
+		
+		String dealer_id = carDAO.getDealer_id(car_id);
+		
+		close(con);
+		return dealer_id;
 	}
 
 

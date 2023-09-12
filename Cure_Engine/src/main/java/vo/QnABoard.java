@@ -2,7 +2,7 @@ package vo;
 
 import java.sql.Timestamp;
 
-public class Board {
+public class QnABoard {
 	private String qna_num;
 	private String user_id;
 	private String car_id;
@@ -15,9 +15,9 @@ public class Board {
 	private String secret_YN;
 	private int qna_hit;
 	
-	public Board() {}
+	public QnABoard() {}
 	
-	public Board(String qna_num, String user_id, String car_id, String qna_pw, String qna_title, String qna_content,
+	public QnABoard(String qna_num, String user_id, String car_id, String qna_pw, String qna_title, String qna_content,
 			String qna_file, String qna_file_origin, Timestamp qna_date, String secret_YN, int qna_hit) {
 		super();
 		this.qna_num = qna_num;

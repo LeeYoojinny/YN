@@ -1,37 +1,37 @@
 package svc.board;
 
-import static db.JdbcUtil.*;
+import static db.JdbcUtil.close;
+import static db.JdbcUtil.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import dao.QnABoardDAO;
 import dao.CodeDAO;
-import vo.QnABoard;
+import dao.NoticeBoardDAO;
 import vo.Code;
+import vo.NoticeBoard;
 
-public class QnA_BoardListService {
-	
+
+public class Notice_BoardListService {
+
 	public int getListCount() {
-		
 		Connection con = getConnection();
-		QnABoardDAO boardDAO = QnABoardDAO.getInstance();
-		boardDAO.setConnection(con);
+		NoticeBoardDAO noticeBoardDAO = NoticeBoardDAO.getInstance();
+		noticeBoardDAO.setConnection(con);
 		
 		int listCount = 0;
-		listCount = boardDAO.selectListCount();
+		listCount = noticeBoardDAO.selectListCount();
 		
 		close(con);
 		return listCount;
 	}
-	
-	public ArrayList<QnABoard> selectBoardList(int page, int limit) {
-		
+
+	public ArrayList<NoticeBoard> selectBoardList(int page, int limit) {
 		Connection con = getConnection();
-		QnABoardDAO boardDAO = QnABoardDAO.getInstance();
-		boardDAO.setConnection(con);
+		NoticeBoardDAO noticeBoardDAO = NoticeBoardDAO.getInstance();
+		noticeBoardDAO.setConnection(con);
 		
-		ArrayList<QnABoard> boardList = boardDAO.selectBoardList(page,limit);
+		ArrayList<NoticeBoard> boardList = noticeBoardDAO.selectBoardList(page,limit);
 
 		close(con);		
 		return boardList;

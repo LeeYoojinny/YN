@@ -1,17 +1,14 @@
 package action.board;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import svc.board.QnA_BoardUpdateFormService;
+import svc.board.QnA_BoardReplyFormService;
 import vo.ActionForward;
 import vo.QnABoard;
-import vo.Code;
 
-public class QnA_BoardUpdateFormAction implements Action {
+public class QnA_BoardReplyFormAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -19,14 +16,12 @@ public class QnA_BoardUpdateFormAction implements Action {
 		
 		String qna_num = request.getParameter("qna_num");
 		
-		QnA_BoardUpdateFormService qna_BoardUpdateFormService = new QnA_BoardUpdateFormService();
-		QnABoard board = qna_BoardUpdateFormService.getBoardInfo(qna_num);
-		ArrayList<Code> allCode = qna_BoardUpdateFormService.getAllCode();
+		QnA_BoardReplyFormService qna_BoardReplyFormService = new QnA_BoardReplyFormService();
+		QnABoard board = qna_BoardReplyFormService.getboardInfo(qna_num);
 		
 		request.setAttribute("board", board);
-		request.setAttribute("allCode", allCode);
 		
-		request.setAttribute("showPage", "user/qna/qna_updateForm.jsp");
+		request.setAttribute("showPage", "user/qna/qna_ReplyForm.jsp");
 		forward = new ActionForward("template.jsp", false);	
 		
 		return forward;

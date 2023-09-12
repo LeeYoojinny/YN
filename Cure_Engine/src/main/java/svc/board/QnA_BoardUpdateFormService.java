@@ -6,19 +6,19 @@ import static db.JdbcUtil.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import dao.BoardDAO;
+import dao.QnABoardDAO;
 import dao.CodeDAO;
-import vo.Board;
+import vo.QnABoard;
 import vo.Code;
 
 public class QnA_BoardUpdateFormService {
 
-	public Board getBoardInfo(String qna_num) {
+	public QnABoard getBoardInfo(String qna_num) {
 		Connection con = getConnection();
-		BoardDAO boardDAO = BoardDAO.getInstance();
+		QnABoardDAO boardDAO = QnABoardDAO.getInstance();
 		boardDAO.setConnection(con);
 		
-		Board board = boardDAO.selectBoard(qna_num);
+		QnABoard board = boardDAO.selectBoard(qna_num);
 		
 		close(con);
 		return board;

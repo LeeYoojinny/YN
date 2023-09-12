@@ -4,7 +4,7 @@
 
 
 body{
-    font-family: 'GowunDodum';
+    font-family: 'Gowun Dodum', sans-serif;
     background-color: #f5f6f7;
     line-height: 1.5em;
     color : #222;
@@ -18,7 +18,7 @@ body{
 }
 
 .subject {
-	font-family: 'GowunDodum';
+	font-family: 'Gowun Dodum', sans-serif;
 	font-size: 2rem;
 	text-align: center;
 	margin-top: 20px;
@@ -129,13 +129,13 @@ input#car_name {
 }
 
 input::placeholder {
-  font-family: 'GowunDodum';
+  font-family: 'Gowun Dodum', sans-serif;
   font-style: italic;
   padding-left: 0.2rem;
 }
 
 .wrap_regist select {
-	font-family: 'GowunDodum';
+	font-family: 'Gowun Dodum', sans-serif;
 	-webkit-appearance:none; /* 크롬 화살표 없애기 */
     -moz-appearance:none; /* 파이어폭스 화살표 없애기 */
     appearance:none; /* 화살표 없애기 */
@@ -146,7 +146,7 @@ input::placeholder {
 }
 
 select#car_type {
-	font-family: 'GowunDodum';
+	font-family: 'Gowun Dodum', sans-serif;
 	-webkit-appearance:none; /* 크롬 화살표 없애기 */
     -moz-appearance:none; /* 파이어폭스 화살표 없애기 */
     appearance:none; /* 화살표 없애기 */
@@ -171,7 +171,7 @@ input[type="number"]::-webkit-inner-spin-button {
 	background-color: #486AAE;
 	color:#fff;
 	cursor: pointer;
-	font-family: 'GowunDodum';
+	font-family: 'Gowun Dodum', sans-serif;
 	border: 1px solid #dadada;
 	padding: 0 0.3rem;
 }
