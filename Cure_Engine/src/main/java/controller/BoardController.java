@@ -18,6 +18,7 @@ import action.board.Notice_BoardWriteAction;
 import action.board.QnA_BoardDeleteAction;
 import action.board.QnA_BoardUpdateFormAction;
 import action.board.QnA_BoardListAction;
+import action.board.QnA_BoardReplyAction;
 import action.board.QnA_BoardReplyFormAction;
 import action.board.QnA_BoardUpdateAction;
 import action.board.QnA_BoardViewAction;
@@ -243,7 +244,7 @@ public class BoardController extends HttpServlet {
 		}
 		
 		/*-- 답글 적기 -----------------------------------------------------------------------------*/
-		else if(command.equals("/qna_boardReplyForm.bo")) {
+		else if(command.equals("/qna_boardReplyForm.bo")) { //답글 폼 보기 요청
 			action = new QnA_BoardReplyFormAction();
 			try {
 				forward = action.execute(request, response);
@@ -252,7 +253,14 @@ public class BoardController extends HttpServlet {
 			}
 		}
 		
-		
+		else if(command.equals("/qna_boardReplyAction.bo")) {//답글 저장 요청
+			action = new QnA_BoardReplyAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		
 		/*---------------------------------------------------------------------------------------*/

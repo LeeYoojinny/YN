@@ -5,6 +5,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -14,6 +15,9 @@
 <title>글목록 보기</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
+crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="css/user/qna/boardList_style.css">
 <!-- <script src="js/jquery-3.1.1.js"></script>
 <script src="js/bootstrap.js"></script> -->
@@ -50,6 +54,9 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 				<th>번호</th>
 				<th>작성자</th>
 				<th>제목</th>
+				<c:if test="${user_category == 'dealer' or user_category eq 'admin'}">
+					<th>상태</th>
+				</c:if>
 				<th>작성일</th>
 				<th>조회수</th>
 			</tr>
@@ -60,22 +67,65 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 					<c:forEach var="board" items="${boardList}" >
 			            <tr>
 			                <td>${num}</td>
-			                <td>${board.user_id}</td>
-			                <td id="subject">
-			                	<c:if test="${!fn:contains(board.qna_title, 'q')}">
-									<a onclick="secretCheck('${board.secret_YN}','${board.qna_num}','${user_category}','${num}')">${board.qna_title}</a>
-								</c:if>			
-								<c:if test="${fn:contains(board.qna_title, 'q')}">
+			                <td>
+				                <c:if test="${board.qna_replyNum ne 0}">
 									<c:forEach var="code" items="${allCode}">
-										<c:if test="${code.code_category == 'qna_subject'}">
-											<c:if test="${board.qna_title == code.code_name}">
-											<a onclick="secretCheck('${board.secret_YN}','${board.qna_num}','${user_category}','${num}')">${code.code_value}</a>
+										<c:if test="${code.code_category == 'user_name'}">
+											<c:if test="${board.user_id == code.code_name}">
+												${code.code_value}
 											</c:if>
 										</c:if>
-									</c:forEach>		
+									</c:forEach>	
 								</c:if>	
+			                	<c:if test="${board.qna_replyNum eq 0}">
+			                		${board.user_id}
+			                	</c:if>
+			                
 			                </td>
-			                <td>${board.qna_date}</td>
+			                <td id="subject">
+				                <c:if test="${board.qna_replyNum eq 0}">
+				                	<c:if test="${!fn:contains(board.qna_title, 'q')}">
+										<a onclick="secretCheck('${board.secret_YN}','${board.qna_num}','${user_category}','${num}')">${board.qna_title}</a>
+									</c:if>			
+									<c:if test="${fn:contains(board.qna_title, 'q')}">
+										<c:forEach var="code" items="${allCode}">
+											<c:if test="${code.code_category == 'qna_subject'}">
+												<c:if test="${board.qna_title == code.code_name}">
+												<a onclick="secretCheck('${board.secret_YN}','${board.qna_num}','${user_category}','${num}')">${code.code_value}</a>
+												</c:if>
+											</c:if>
+										</c:forEach>		
+									</c:if>
+								</c:if>
+								<c:if test="${board.qna_replyNum ne 0}">
+									<i class="fa-solid fa-reply fa-rotate-180"></i>
+									<a onclick="secretCheck('${board.secret_YN}','${board.qna_num}','${user_category}','${num}')">
+									${board.qna_title}</a>
+								</c:if>							
+			                </td>
+			                <c:if test="${user_category eq 'dealer' || user_category eq 'admin'}">
+				                <td>
+					                <c:if test="${board.reply_YN eq 'N'}">
+					                	<c:if test="${not empty board.car_id}">
+					                		<c:forEach var="car" items="${carList}">
+					                			<c:if test="${car.car_id eq board.car_id}">
+					                				<c:if test="${car.dealer_id eq user_id || user_category eq 'admin'}">
+					                					답변필요
+					                				</c:if>
+					                			</c:if>
+					                		</c:forEach>
+					                	</c:if>
+					                	<c:if test="${empty board.car_id}">
+					                		답변필요
+					                	</c:if>
+				                	</c:if>
+				                	<c:if test="${board.reply_YN eq 'Y'}">
+				                		답변완료
+				                	</c:if>
+			                	</td>
+			                </c:if>
+			                
+			                <td><fmt:formatDate pattern="yyyy/MM/dd hh:mm" value="${board.qna_date}"/></td>
 			                <td>${board.qna_hit}</td>
 			            </tr>
 			            <c:set var="num" value="${num-1}"></c:set>
@@ -99,17 +149,17 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 		
 		<c:choose> 
 				<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>
-				<c:otherwise><a style="text-decoration:none" href="boardList.bo?page=${pageInfo.page-1}">[이전]&nbsp;</a></c:otherwise>
+				<c:otherwise><a style="text-decoration:none" href="qna_boardList.bo?page=${pageInfo.page-1}">[이전]&nbsp;</a></c:otherwise>
 			</c:choose>
 			<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="loop">
 				<c:choose>
 					<c:when test="${i == pageInfo.page}">${i}&nbsp;</c:when>
-					<c:otherwise><a style="text-decoration:none" href="boardList.bo?page=${i}">${i}</a>&nbsp;</c:otherwise>
+					<c:otherwise><a style="text-decoration:none" href="qna_boardList.bo?page=${i}">${i}</a>&nbsp;</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:choose>
 				<c:when test="${pageInfo.page >= pageInfo.maxPage}">[다음]&nbsp;</c:when>
-				<c:otherwise><a style="text-decoration:none" href="boardList.bo?page=${pageInfo.page+1}">[다음]&nbsp;</a></c:otherwise>
+				<c:otherwise><a style="text-decoration:none" href="qna_boardList.bo?page=${pageInfo.page+1}">[다음]&nbsp;</a></c:otherwise>
 			</c:choose>
 		<c:if test="${user_category eq 'customer' or user_category eq null}">
 			<a class="btn btn-default float-end" style="border:1px solid #ccc;" onclick="loginCheck()">글쓰기</a>

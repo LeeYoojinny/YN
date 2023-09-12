@@ -83,8 +83,15 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 		</tr>		
 	</table>
 	<a class="btn btn-outline-secondary" href="qna_boardList.bo">목록</a>
-	<c:if test="${user_category eq 'admin' or dealer_id eq user_id}">
-		<a class="btn btn-outline-secondary" href="qna_boardReplyForm.bo?qna_num=${board.qna_num}">답글</a>	
+	<c:if test="${fn:contains(board.qna_title, 'q')}">
+		<c:if test="${user_category eq 'admin' or user_category eq 'dealer'}">
+			<a class="btn btn-outline-secondary" href="qna_boardReplyForm.bo?qna_num=${board.qna_num}">답글</a>
+		</c:if>
+	</c:if>
+	<c:if test="${!fn:contains(board.qna_title, 'q')}">
+		<c:if test="${user_category eq 'admin' or dealer_id eq user_id}">
+			<a class="btn btn-outline-secondary" href="qna_boardReplyForm.bo?qna_num=${board.qna_num}">답글</a>	
+		</c:if>
 	</c:if>
 	<c:if test="${board.user_id eq sessionScope.user_id or user_category eq 'admin'}">
 		<a class="btn btn-outline-secondary" onclick="update_secretCheck('${board.secret_YN}','${board.qna_num}')">수정</a>

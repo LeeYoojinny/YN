@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 public class QnABoard {
 	private String qna_num;
+	private int qna_viewNum;
+	private int qna_replyNum;
 	private String user_id;
 	private String car_id;
 	private String qna_pw;
@@ -13,6 +15,7 @@ public class QnABoard {
 	private String qna_file_origin;
 	private Timestamp qna_date;
 	private String secret_YN;
+	private String reply_YN;
 	private int qna_hit;
 	
 	public QnABoard() {}
@@ -32,6 +35,27 @@ public class QnABoard {
 		this.secret_YN = secret_YN;
 		this.qna_hit = qna_hit;
 	}
+
+	public QnABoard(String qna_num, int qna_viewNum, int qna_replyNum, String user_id, String car_id, String qna_pw,
+			String qna_title, String qna_content, String qna_file, String qna_file_origin, Timestamp qna_date,
+			String secret_YN, String reply_YN, int qna_hit) {
+		super();
+		this.qna_num = qna_num;
+		this.qna_viewNum = qna_viewNum;
+		this.qna_replyNum = qna_replyNum;
+		this.user_id = user_id;
+		this.car_id = car_id;
+		this.qna_pw = qna_pw;
+		this.qna_title = qna_title;
+		this.qna_content = qna_content;
+		this.qna_file = qna_file;
+		this.qna_file_origin = qna_file_origin;
+		this.qna_date = qna_date;
+		this.secret_YN = secret_YN;
+		this.reply_YN = reply_YN;
+		this.qna_hit = qna_hit;
+	}
+
 	public String getQna_num() {
 		return qna_num;
 	}
@@ -97,6 +121,30 @@ public class QnABoard {
 	}
 	public void setQna_hit(int qna_hit) {
 		this.qna_hit = qna_hit;
+	}
+
+	public int getQna_viewNum() {
+		return qna_viewNum;
+	}
+
+	public void setQna_viewNum(int qna_viewNum) {
+		this.qna_viewNum = qna_viewNum;
+	}
+
+	public int getQna_replyNum() {
+		return qna_replyNum;
+	}
+
+	public void setQna_replyNum(int qna_replyNum) {
+		this.qna_replyNum = qna_replyNum;
+	}
+
+	public String getReply_YN() {
+		return reply_YN;
+	}
+
+	public void setReply_YN(String reply_YN) {
+		this.reply_YN = reply_YN;
 	}
 	
 	
