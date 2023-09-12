@@ -6,16 +6,16 @@ import static db.JdbcUtil.rollback;
 
 import java.sql.Connection;
 
-import dao.QnABoardDAO;
+import dao.NoticeBoardDAO;
 
-public class QnA_BoardDeleteService {
+public class Notice_BoardDeleteService {
 
-	public boolean removeBoard(String qna_num) {
+	public boolean removeBoard(String notice_num) {
 		Connection con = getConnection();
-		QnABoardDAO boardDAO = QnABoardDAO.getInstance();
-		boardDAO.setConnection(con);
+		NoticeBoardDAO noticeBoardDAO = NoticeBoardDAO.getInstance();
+		noticeBoardDAO.setConnection(con);
 		
-		int deleteCount = boardDAO.deleteBoard(qna_num);
+		int deleteCount = noticeBoardDAO.deleteBoard(notice_num);
 		boolean isRemoveSuccess = false;
 		
 		if(deleteCount > 0) {
@@ -26,5 +26,5 @@ public class QnA_BoardDeleteService {
 		}
 		return isRemoveSuccess;
 	}
-	
+
 }

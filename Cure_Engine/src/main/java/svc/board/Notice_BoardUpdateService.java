@@ -7,26 +7,25 @@ import static db.JdbcUtil.rollback;
 
 import java.sql.Connection;
 
-import dao.QnABoardDAO;
-import vo.QnABoard;
+import dao.NoticeBoardDAO;
+import vo.NoticeBoard;
 
-public class QnA_BoardUpdateService {
+public class Notice_BoardUpdateService {
 
-	public boolean updateBoard(QnABoard board, String qna_num) {
+	public boolean updateNotice(NoticeBoard notice, String notice_num) {
 		Connection con = getConnection();
-		QnABoardDAO boardDAO = QnABoardDAO.getInstance();
-		boardDAO.setConnection(con);
+		NoticeBoardDAO noticeBoardDAO = NoticeBoardDAO.getInstance();
+		noticeBoardDAO.setConnection(con);
 		
-		int updateCount = boardDAO.updateBoard(board,qna_num);
+		int updatetCount = noticeBoardDAO.updateBoard(notice,notice_num);
 		boolean isUpdateSuccess = false;
 		
-		if(updateCount > 0) {
+		if(updatetCount > 0) {
 			commit(con);
 			isUpdateSuccess = true;
 		}else {
 			rollback(con);
 		}
-		
 		close(con);
 		return isUpdateSuccess;
 	}

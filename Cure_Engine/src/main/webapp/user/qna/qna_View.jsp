@@ -41,7 +41,7 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 	<table class="table table-hover">
 		<tr>
 			<th>번호</th>
-			<td>${board.qna_num}</td>
+			<td>${list_num}</td>
 		</tr>
 		<tr>
 			<th>작성일자</th>
@@ -77,12 +77,15 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 			<td>
 				<c:if test="${board.qna_file ne null }">
 				<img src="upload/qna_file/${board.qna_file}" width="100px">
-				<a href="fileDown.bo?file_name=${board.qna_file}">${board.qna_file_origin}</a>
+				<a href="fileDown.bo?file_name=${board.qna_file}&display_num=1">${board.qna_file_origin}</a>
 				</c:if>
 			</td>
-		</tr>
+		</tr>		
 	</table>
 	<a class="btn btn-outline-secondary" href="qna_boardList.bo">목록</a>
+	<c:if test="${user_category eq 'admin' or dealer_id eq user_id}">
+		<a class="btn btn-outline-secondary" href="qna_boardReplyForm.bo?qna_num=${board.qna_num}">답글</a>	
+	</c:if>
 	<c:if test="${board.user_id eq sessionScope.user_id or user_category eq 'admin'}">
 		<a class="btn btn-outline-secondary" onclick="update_secretCheck('${board.secret_YN}','${board.qna_num}')">수정</a>
 	</c:if>

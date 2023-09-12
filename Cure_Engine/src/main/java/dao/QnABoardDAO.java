@@ -9,21 +9,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import vo.Board;
+import vo.QnABoard;
 import vo.PageInfo;
 
-public class BoardDAO {
+public class QnABoardDAO {
 	private Connection con = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
-	private BoardDAO () {}
+	private QnABoardDAO () {}
 	
-	private static BoardDAO boardDAO;
+	private static QnABoardDAO boardDAO;
 	
-	public static BoardDAO getInstance() {
+	public static QnABoardDAO getInstance() {
 		if (boardDAO == null) {
-			boardDAO = new BoardDAO();
+			boardDAO = new QnABoardDAO();
 		}
 
 		return boardDAO;
@@ -33,7 +33,7 @@ public class BoardDAO {
 		this.con = con;
 	}
 	
-	/*-- 글 개수 구하는 메서드 --*/
+	/*-- QNA 게시판 글 개수 구하는 메서드 --*/
 	public int selectListCount() {
 		int listCount = 0;
 		
@@ -46,17 +46,17 @@ public class BoardDAO {
 				listCount = rs.getInt(1);
 			}
 		}catch(Exception e) {
-			System.out.println("BoardDAO의 selectListCount() 에러 : " + e);
+			System.out.println("BoardDAO의 selectQnaListCount() 에러 : " + e);
 		} finally {
 			close(rs);
 			close(pstmt);
 		}
 		return listCount;
 	}
-	/*-- 글 목록 가져오는 메서드 --*/
-	public ArrayList<Board> selectBoardList(int page, int limit){
+	/*-- QNA 게시판 글 목록 가져오는 메서드 --*/
+	public ArrayList<QnABoard> selectBoardList(int page, int limit){
 		
-		ArrayList<Board> boardList = null;
+		ArrayList<QnABoard> boardList = null;
 		
 		String sql = "select * from tbl_qna order by qna_num desc limit ?,10";
 		int startRow = (page-1)*10;
@@ -68,10 +68,10 @@ public class BoardDAO {
 			rs= pstmt.executeQuery();
 			
 			if(rs.next()) {
-				boardList = new ArrayList<Board>();
+				boardList = new ArrayList<QnABoard>();
 				
 				do {
-					Board board = new Board();
+					QnABoard board = new QnABoard();
 					
 					board.setQna_num(rs.getString("qna_num"));
 					board.setUser_id(rs.getString("user_id"));
@@ -96,8 +96,8 @@ public class BoardDAO {
 		return boardList;
 			
 	}
-	/*-- 글 등록 메서드 --*/
-	public int insertBoard(Board board) {
+	/*-- QNA 게시판 글 등록 메서드 --*/
+	public int insertBoard(QnABoard board) {
 		int insertCount = 0;
 		
 		String sql = "insert into tbl_qna(user_id,car_id,qna_pw,qna_title,qna_content,qna_file,qna_file_origin,secret_YN)"
@@ -140,8 +140,8 @@ public class BoardDAO {
 		return updateCount;
 	}
 
-	public Board selectBoard(String qna_num) {
-		Board board = null;
+	public QnABoard selectBoard(String qna_num) {
+		QnABoard board = null;
 		
 		String sql = "select * from tbl_qna where qna_num='"+qna_num+"'";
 		
@@ -150,7 +150,7 @@ public class BoardDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				board = new Board(rs.getString("qna_num"),
+				board = new QnABoard(rs.getString("qna_num"),
 								  rs.getString("user_id"),
 								  rs.getString("car_id"),
 								  rs.getString("qna_pw"),
@@ -213,10 +213,10 @@ public class BoardDAO {
 		return deleteCount;
 	}
 
-	public int updateBoard(Board board, String qna_num) {
+	public int updateBoard(QnABoard board, String qna_num) {
 		int updateCount = 0;
 		String sql = "update tbl_qna SET qna_pw=?, qna_title=?, qna_content=?,"
-				+ " qna_file=?, qna_file_origin=?, secret_YN=? where qna_num=?";
+				+ " qna_file=?, qna_file_origin=?, secret_YN=?, qna_date=? where qna_num=?";
 		
 		System.out.println("qna_pw : " +board.getQna_pw());
 		System.out.println("qna_title : " +board.getQna_title());
@@ -235,7 +235,8 @@ public class BoardDAO {
 			pstmt.setString(4, board.getQna_file());
 			pstmt.setString(5, board.getQna_file_origin());
 			pstmt.setString(6, board.getSecret_YN());
-			pstmt.setString(7, qna_num);
+			pstmt.setTimestamp(7, board.getQna_date());
+			pstmt.setString(8, qna_num);
 			
 			updateCount = pstmt.executeUpdate();
 			System.out.println("update성공유무 : "+updateCount);
@@ -247,8 +248,8 @@ public class BoardDAO {
 		return updateCount;
 	}
 
-	public ArrayList<Board> searchBoardList(String option, String keyword) {
-		ArrayList<Board> boardList = null;
+	public ArrayList<QnABoard> searchBoardList(String option, String keyword) {
+		ArrayList<QnABoard> boardList = null;
 		String sql = "";
 		if(option.equals("qna_title")) {
 			sql = "select * from tbl_qna where qna_title like ?";
@@ -263,10 +264,10 @@ public class BoardDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				boardList = new ArrayList<Board>();
+				boardList = new ArrayList<QnABoard>();
 				
 				do {
-					Board board = new Board();
+					QnABoard board = new QnABoard();
 					
 					board.setQna_num(rs.getString("qna_num"));
 					board.setUser_id(rs.getString("user_id"));
@@ -315,10 +316,7 @@ public class BoardDAO {
 		
 		return pwCheck;
 	}
-	
 
-	
-	
 
 	
 		

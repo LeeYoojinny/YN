@@ -2,6 +2,7 @@ package action.board;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import action.Action;
 import svc.board.QnA_BoardUpdateService;
 import vo.ActionForward;
-import vo.Board;
+import vo.QnABoard;
 
 public class QnA_BoardUpdateAction implements Action {
 
@@ -50,20 +51,13 @@ public class QnA_BoardUpdateAction implements Action {
 		System.out.println("qna_file : "+qna_file);
 		System.out.println("qna_file_origin : "+qna_file_origin);
 		
-		//패스워드 수정처리
-		/*
-		String qna_pw = "";
-		if(multi.getParameter("secret_YN").equals("Y")) {
-			qna_pw = null;
-		}else {
-			qna_pw = multi.getParameter("qna_pw");
-		}
-		*/
+		//업데이트 날짜로 바꾸기
+		Timestamp updateTime = new Timestamp(System.currentTimeMillis());
 		
 		String qna_num = multi.getParameter("qna_num");
 		System.out.println("파라미터로 넘어온 qna_num 값 : " + qna_num);
 		
-		Board board = new Board();		
+		QnABoard board = new QnABoard();		
 		board.setUser_id(multi.getParameter("user_id"));
 		board.setCar_id(multi.getParameter("car_id"));
 		board.setQna_pw(multi.getParameter("qna_pw"));
@@ -72,6 +66,7 @@ public class QnA_BoardUpdateAction implements Action {
 		board.setQna_file(qna_file);
 		board.setQna_file_origin(qna_file_origin);
 		board.setSecret_YN(multi.getParameter("secret_YN"));	
+		board.setQna_date(updateTime);	
 		
 		QnA_BoardUpdateService qna_BoardUpdateService = new QnA_BoardUpdateService();
 		boolean isUpdateSuccess = qna_BoardUpdateService.updateBoard(board,qna_num);

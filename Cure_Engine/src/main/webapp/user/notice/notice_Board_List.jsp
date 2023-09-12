@@ -18,30 +18,8 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 <!-- <script src="js/jquery-3.1.1.js"></script>
 <script src="js/bootstrap.js"></script> -->
 </head>
-<script type="text/javascript">
-	function loginCheck(){
-		var user_id = '<c:out value="${user_id}" />';
-		
-		if(!user_id) {
-			alert("로그인 후 문의 가능합니다.");
-			location.href="userLogin.usr";
-			return false;
-		}else {
-			location.href="qna_boardWrite.bo";			
-		}	
-	}
-	
-	function secretCheck(secretYN,qna_num,user_category,list_num) {
-		if(secretYN == 'Y' && (user_category == 'customer' || user_category == '')) {
-			location.href = "qna_pwCheckForm.bo?qna_num="+qna_num+"&display_num=3"+"&list_num="+list_num;
-		}else {
-			location.href = "qna_boardView.bo?qna_num="+qna_num+"&list_num="+list_num;
-		}	
-	}
-</script>
-
 <body class="sb-nav-fixed">
-<h2>문의게시판</h2>
+<h2>공지사항</h2>
 <div class="container">
 	<div class="card-body">
 		<table class="table table-striped table-hover text-center">
@@ -57,41 +35,30 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 			<tbody>
 				<c:if test="${boardList ne null}">
 				<c:set var="num" value="${pageInfo.listCount}"></c:set>
-					<c:forEach var="board" items="${boardList}" >
+					<c:forEach var="board" items="${boardList}">
 			            <tr>
 			                <td>${num}</td>
 			                <td>${board.user_id}</td>
 			                <td id="subject">
-			                	<c:if test="${!fn:contains(board.qna_title, 'q')}">
-									<a onclick="secretCheck('${board.secret_YN}','${board.qna_num}','${user_category}','${num}')">${board.qna_title}</a>
-								</c:if>			
-								<c:if test="${fn:contains(board.qna_title, 'q')}">
-									<c:forEach var="code" items="${allCode}">
-										<c:if test="${code.code_category == 'qna_subject'}">
-											<c:if test="${board.qna_title == code.code_name}">
-											<a onclick="secretCheck('${board.secret_YN}','${board.qna_num}','${user_category}','${num}')">${code.code_value}</a>
-											</c:if>
-										</c:if>
-									</c:forEach>		
-								</c:if>	
+								<a href="notice_boardView.bo?notice_num=${board.notice_num}&list_num=${num}">${board.notice_title}</a>					
 			                </td>
-			                <td>${board.qna_date}</td>
-			                <td>${board.qna_hit}</td>
+			                <td>${board.notice_date}</td>
+			                <td>${board.notice_hit}</td>
 			            </tr>
 			            <c:set var="num" value="${num-1}"></c:set>
 			        </c:forEach>
 			    </c:if>
 				<c:if test="${empty boardList}">
 		            <tr>
-		                <td colspan="6">게시글이 없습니다.</td>
+		                <td colspan="5">게시글이 없습니다.</td>
 		            </tr>
 		        </c:if>
 			</tbody>
 		</table>
 		
-		<form action="BoardSearchAction.bo" method="post">
+		<form action="noticeSearchAction.bo" method="post">
 			<select name="option">
-				<option value="qna_title" selected>제목</option>
+				<option value="notice_title" selected>제목</option>
 				<option value="user_id">작성자</option>
 			</select>
 			<input type="text" name="keyword" placeholder="검색어를 입력하세요">&nbsp;<input type="submit" value="검색">
@@ -111,8 +78,8 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 				<c:when test="${pageInfo.page >= pageInfo.maxPage}">[다음]&nbsp;</c:when>
 				<c:otherwise><a style="text-decoration:none" href="boardList.bo?page=${pageInfo.page+1}">[다음]&nbsp;</a></c:otherwise>
 			</c:choose>
-		<c:if test="${user_category eq 'customer' or user_category eq null}">
-			<a class="btn btn-default float-end" style="border:1px solid #ccc;" onclick="loginCheck()">글쓰기</a>
+		<c:if test="${user_category eq 'admin'}">
+			<a class="btn btn-default float-end" style="border:1px solid #ccc;" href="notice_boardWrite.bo">글쓰기</a>
 		</c:if>
 	</div>
 </div> 

@@ -3,14 +3,14 @@ package svc.board;
 import static db.JdbcUtil.*;
 
 import java.sql.Connection;
-import vo.Board;
-import dao.BoardDAO;
+import vo.QnABoard;
+import dao.QnABoardDAO;
 
 public class QnA_BoardWriteService {
 
-	public boolean writeQnABoard(Board board) {
+	public boolean writeQnABoard(QnABoard board) {
 		Connection con= getConnection();
-		BoardDAO boardDAO = BoardDAO.getInstance();
+		QnABoardDAO boardDAO = QnABoardDAO.getInstance();
 		boardDAO.setConnection(con);
 		
 		

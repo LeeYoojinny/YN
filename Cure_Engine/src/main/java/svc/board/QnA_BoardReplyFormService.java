@@ -8,18 +8,17 @@ import java.sql.Connection;
 import dao.QnABoardDAO;
 import vo.QnABoard;
 
-public class QnA_pwCheckService {
+public class QnA_BoardReplyFormService {
 
-	public int pwCheck(String qna_num, String input_pw) {
+	public QnABoard getboardInfo(String qna_num) {
 		Connection con = getConnection();
 		QnABoardDAO boardDAO = QnABoardDAO.getInstance();
 		boardDAO.setConnection(con);
 		
-		int pwOk  = boardDAO.pwCheck(qna_num,input_pw);
-
+		QnABoard board = boardDAO.selectBoard(qna_num);
+		
 		close(con);
-		return pwOk;
-
+		return board;
 	}
 
 }

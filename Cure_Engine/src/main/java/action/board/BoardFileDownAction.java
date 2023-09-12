@@ -19,8 +19,14 @@ public class BoardFileDownAction implements Action {
 		ActionForward forward = null;
 		
 		String filename = request.getParameter("file_name");
+		String display_num = request.getParameter("display_num");
+		String savePath = "";
 		
-		String savePath = "upload/qna_file";
+		if(display_num.equals("1")) {
+			savePath = "upload/qna_file";
+		}else if(display_num.equals("2")) {
+			savePath = "upload/notice_file";
+		}
 		ServletContext context = request.getServletContext();
 		String sDownloadPath = context.getRealPath(savePath);
 		

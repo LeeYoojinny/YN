@@ -594,6 +594,29 @@ public class CarDAO {
 			return updateResult;
 		}
 
+
+		public String getDealer_id(String car_id) {
+			String dealer_id = "";
+			
+			String sql = "select dealer_id from tbl_car where car_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,car_id);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					dealer_id = rs.getString(1);
+				}
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 getDealer_id()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return dealer_id;
+		}
+
 		
 		
 		

@@ -27,6 +27,8 @@ public class QnA_pwCheckAction implements Action {
 				forward = new ActionForward("qna_boardUpdateForm.bo", false);	
 			}else if(display_num.equals("2")) {
 				forward = new ActionForward("qna_boardDelete.bo?qna_num="+qna_num, false);	
+			}else if(display_num.equals("3")) {
+				forward = new ActionForward("qna_boardView.bo?qna_num="+qna_num, false);	
 			}				
 		}else {
 			response.setContentType("text/html; charset=utf-8");			

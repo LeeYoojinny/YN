@@ -9,9 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.board.BoardFileDownAction;
+import action.board.Notice_BoardDeleteAction;
+import action.board.Notice_BoardListAction;
+import action.board.Notice_BoardUpdateAction;
+import action.board.Notice_BoardUpdateFormAction;
+import action.board.Notice_BoardViewAction;
+import action.board.Notice_BoardWriteAction;
 import action.board.QnA_BoardDeleteAction;
 import action.board.QnA_BoardUpdateFormAction;
 import action.board.QnA_BoardListAction;
+import action.board.QnA_BoardReplyFormAction;
 import action.board.QnA_BoardUpdateAction;
 import action.board.QnA_BoardViewAction;
 import action.board.QnA_BoardWriteAction;
@@ -62,7 +69,17 @@ public class BoardController extends HttpServlet {
 		/*-- 글 목록보기 --*/
 		if(command.equals("/qna_boardList.bo")){
 			action = new QnA_BoardListAction();
-			System.out.println("boardList 실행됨");
+			System.out.println("qna_boardList 실행됨");
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(command.equals("/notice_boardList.bo")){
+			action = new Notice_BoardListAction();
+			System.out.println("notice_boardList 실행됨");
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -82,7 +99,7 @@ public class BoardController extends HttpServlet {
 		}
 		*/
 		
-		/*-- 글 등록하기 --*/
+		/*-- 글 등록하기 ---------------------------------------------------------------------------*/
 		else if(command.equals("/qna_boardWrite.bo")){ 
 			action = new QnA_BoardWriteForm();
 			System.out.println("QnA_BoardWriteForm 실행됨");
@@ -96,7 +113,7 @@ public class BoardController extends HttpServlet {
 		
 		else if(command.equals("/qna_BoardWriteAction.bo")){			
 			action = new QnA_BoardWriteAction();
-			System.out.println("BoardWriteAction 실행됨");
+			System.out.println("qna_BoardWriteAction 실행됨");
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -104,7 +121,23 @@ public class BoardController extends HttpServlet {
 			}
 		}
 		
-		/*-- 글 내용보기 --*/
+		else if(command.equals("/notice_boardWrite.bo")){ 
+			request.setAttribute("showPage", "user/notice/notice_Board_Write.jsp");
+			forward = new ActionForward("template.jsp",false);
+			System.out.println("notice_boardWrite 실행됨");
+		}
+		
+		else if(command.equals("/notice_BoardWriteAction.bo")){			
+			action = new Notice_BoardWriteAction();
+			System.out.println("notice_BoardWriteAction 실행됨");
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		/*-- 글 내용보기 ---------------------------------------------------------------------------*/
 		else if(command.equals("/qna_boardView.bo")) {
 			action = new QnA_BoardViewAction();
 			System.out.println("qna_boardView 실행됨");
@@ -115,7 +148,20 @@ public class BoardController extends HttpServlet {
 			}
 		}
 		
-		/*-- 파일 다운로드 --*/
+		else if(command.equals("/notice_boardView.bo")) {
+			action = new Notice_BoardViewAction();
+			System.out.println("qna_boardView 실행됨");
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
+		/*-- 파일 다운로드 ---------------------------------------------------------------------------*/
 		else if(command.equals("/fileDown.bo")) {
 			action = new BoardFileDownAction();
 			System.out.println("fileDown 실행됨");
@@ -126,7 +172,7 @@ public class BoardController extends HttpServlet {
 			}
 		}
 		
-		/*-- 글 수정하기 --*/
+		/*-- 글 수정하기 ---------------------------------------------------------------------------*/
 		else if(command.equals("/qna_pwCheckForm.bo")) { //비밀번호가 있는 게시물이라면
 			request.setAttribute("showPage", "user/qna/qna_pwCheck.jsp");
 			forward = new ActionForward("template.jsp", false);	
@@ -158,9 +204,26 @@ public class BoardController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
 		
-		/*-- 글 삭제하기 --*/
+		else if(command.equals("/notice_boardUpdateForm.bo")) { //수정하기 폼 보기
+			action = new Notice_BoardUpdateFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if(command.equals("/notice_boardUpdateAction.bo")) { //수정요청 처리
+			action = new Notice_BoardUpdateAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		/*-- 글 삭제하기 ---------------------------------------------------------------------------*/
 		else if(command.equals("/qna_boardDelete.bo")) {
 			action = new QnA_BoardDeleteAction();
 			try {
@@ -169,8 +232,30 @@ public class BoardController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
 		
+		else if(command.equals("/notice_boardDelete.bo")) {
+			action = new Notice_BoardDeleteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		/*-- 답글 적기 -----------------------------------------------------------------------------*/
+		else if(command.equals("/qna_boardReplyForm.bo")) {
+			action = new QnA_BoardReplyFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
+		/*---------------------------------------------------------------------------------------*/
 		if(forward != null) {
 			if(forward.isRedirect() == true) {
 				response.sendRedirect(forward.getPath());

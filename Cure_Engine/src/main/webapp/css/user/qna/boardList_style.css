@@ -22,6 +22,7 @@ h2 {
 #subject a{
 	text-decoration: none;
 	color: black;
+	cursor: pointer;
 }
 
 #subject a:hover{

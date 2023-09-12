@@ -384,6 +384,11 @@ select count(*) from tbl_qna where qna_num='QNA00001' and qna_pw='1234';
 update tbl_qna 
 
 -- -----------------------------------------------------
+-- tbl_qna_reply : 질문게시판 답글
+-- -----------------------------------------------------
+
+
+-- -----------------------------------------------------
 -- tbl_notice : 공지사항
 -- -----------------------------------------------------
 DROP TABLE tbl_notice;
@@ -399,6 +404,7 @@ user_id VARCHAR(45) NOT NULL,
 notice_title VARCHAR(100) NOT NULL,
 notice_content VARCHAR(1000) NOT NULL,
 notice_file VARCHAR(100) NULL,
+notice_file_origin VARCHAR(100) NULL,
 notice_date DATETIME DEFAULT CURRENT_TIMESTAMP,
 notice_hit INT NOT NULL DEFAULT 0,
 PRIMARY KEY (notice_num),
@@ -414,6 +420,9 @@ BEGIN
   SET NEW.notice_num = CONCAT('NTC', LPAD(LAST_INSERT_ID(), 5, '0'));
 END$$
 DELIMITER ;
+
+alter table tbl_notice add column notice_file_origin VARCHAR(100) NULL after notice_file;
+
 
 select * from tbl_notice;
 
