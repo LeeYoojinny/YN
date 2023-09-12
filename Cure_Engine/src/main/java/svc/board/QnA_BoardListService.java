@@ -6,8 +6,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.QnABoardDAO;
+import dao.CarDAO;
 import dao.CodeDAO;
 import vo.QnABoard;
+import vo.Car;
 import vo.Code;
 
 public class QnA_BoardListService {
@@ -46,6 +48,17 @@ public class QnA_BoardListService {
 		
 		close(con);
 		return allCode;
+	}
+
+	public ArrayList<Car> getAllCarList() {
+		Connection con = getConnection();
+		CarDAO carDAO = CarDAO.getInstance();
+		carDAO.setConnection(con);
+		
+		ArrayList<Car> allCarList = carDAO.selectAllCarInfo();
+		
+		close(con);
+		return allCarList;
 	}
 
 }
