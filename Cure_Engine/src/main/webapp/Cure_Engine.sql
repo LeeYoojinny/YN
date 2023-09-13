@@ -49,6 +49,7 @@ select * from tbl_car;
 
 select car_id from tbl_car where car_brand='maserati' ;
 select * from tbl_car where (car_price >=5000) and (car_price<=10000);
+select * from tbl_car where sale_YN='Y' and car_brand='brand1'
 
 delete from tbl_car where car_id='106오3333';
 
@@ -184,6 +185,7 @@ MODIFY COLUMN user_expiredate TIMESTAMP NULL;
 
 update tbl_user set user_email='lljinny@naver.com' where user_id='test12345';
 select * from tbl_user where user_category='dealer' and use_YN='N' limit 0,5
+update tbl_user set user_joindate=now() where user_id='d230004';
 
 select * from tbl_user;
 select max(user_id) from tbl_user where user_category='dealer';

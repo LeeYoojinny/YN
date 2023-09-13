@@ -617,6 +617,48 @@ public class CarDAO {
 			return dealer_id;
 		}
 
+
+		public ArrayList<Car> brandInfo(String car_brand) {
+			ArrayList<Car> carInfo = null;
+			
+			String sql = "select * from tbl_car where sale_YN='Y' and car_brand=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, car_brand);
+
+				rs = pstmt.executeQuery();
+				
+				
+				if(rs.next()) {
+					carInfo = new ArrayList<Car>();
+					do {
+						carInfo.add(new Car(
+								rs.getString("dealer_id"),
+								rs.getString("car_id"),
+								rs.getString("car_brand"),
+								rs.getString("car_name"),
+								rs.getInt("car_price"),
+								rs.getInt("car_year"),
+								rs.getString("car_image1"),
+								rs.getInt("car_like"),
+								rs.getString("sale_YN"),
+								rs.getString("car_delete")
+								));
+					}while(rs.next());
+				}
+				System.out.println(car_brand+"브랜드의 차량 수 : "+(carInfo.size()+1));
+					
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 brandInfo()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return carInfo;
+		}
+
 		
 		
 		

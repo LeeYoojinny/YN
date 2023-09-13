@@ -19,10 +19,10 @@ public class CodeDAO {
 		private static CodeDAO codeDAO;
 		
 		public static CodeDAO getInstance() {
-			if(codeDAO == null) {//DogDAO 객체가 없으면
+			if(codeDAO == null) {
 				codeDAO = new CodeDAO();
 			}
-			return codeDAO; //기존 DogDAO객체가 있으면 주소를 리턴
+			return codeDAO;
 		}
 		
 		
@@ -129,9 +129,27 @@ public class CodeDAO {
 		}
 
 
-		public int insertDealer(String[] dealer_ids) {
-			// TODO 자동 생성된 메소드 스텁
-			return 0;
+		public int insertDealer(String[] dealer_ids, String[] user_name) {
+			int insertResult = 0;
+			
+			String sql="insert into tbl_code_master values('user_name',?,?)";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				
+				for (int i = 0; i < dealer_ids.length; i++) {
+					pstmt.setString(1, dealer_ids[i]);
+					pstmt.setString(2, user_name[i]);
+					insertResult = pstmt.executeUpdate();
+					System.out.println("insert성공"+i+1);
+	            }
+			}catch(Exception e) {
+				System.out.println("CodeDAO 클래스의 insertDealer()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			
+			return insertResult;
 		}
 		
 

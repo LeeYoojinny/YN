@@ -110,17 +110,17 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 					                		<c:forEach var="car" items="${carList}">
 					                			<c:if test="${car.car_id eq board.car_id}">
 					                				<c:if test="${car.dealer_id eq user_id || user_category eq 'admin'}">
-					                					답변필요
+					                					<span id="aNeed">답변필요</span>
 					                				</c:if>
 					                			</c:if>
 					                		</c:forEach>
 					                	</c:if>
 					                	<c:if test="${empty board.car_id}">
-					                		답변필요
+					                		<span id="aNeed">답변필요</span>
 					                	</c:if>
 				                	</c:if>
 				                	<c:if test="${board.reply_YN eq 'Y'}">
-				                		답변완료
+				                		<span id="aOk">답변완료</span>
 				                	</c:if>
 			                	</td>
 			                </c:if>

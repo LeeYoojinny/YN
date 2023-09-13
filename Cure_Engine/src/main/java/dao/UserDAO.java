@@ -427,6 +427,60 @@ public class UserDAO {
 		}
 
 
+		public String[] getDealerName(String[] dealer_ids) {
+			String[] dealer_name = new String[dealer_ids.length];
+			
+			String sql = "select user_name from tbl_user where user_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				
+				for(int i=0; i<dealer_ids.length; i++) {
+					System.out.println("user_id에 대입 : "+dealer_ids[i]);
+					pstmt.setString(1,dealer_ids[i]);
+					rs = pstmt.executeQuery();
+					
+					if(rs.next()) {
+						dealer_name[i] = rs.getString(1);
+					}
+				}
+				
+				for(String name : dealer_name) {
+					System.out.println("딜러이름 확인 : "+name);
+				}
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 getDealerName()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return dealer_name;
+		}
+
+
+		public int dealerRefuse(String dealer_id) {
+			int result = 0;
+			
+			String sql = "update tbl_user set user_category='refuse_dealer',"
+					+ " user_expiredate=now() where user_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);				
+				pstmt.setString(1, dealer_id);
+				
+				result = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 dealerRefuse()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+						
+			return result;
+		}
+
+
 		
 		
 		

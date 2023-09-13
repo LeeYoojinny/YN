@@ -30,3 +30,11 @@ h2 {
 	text-decoration: underline;
 	color: #08298A;
 }
+
+#aNeed {
+	color: red;
+}
+
+#aOk {
+	color: blue;
+}

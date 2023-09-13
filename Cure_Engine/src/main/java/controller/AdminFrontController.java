@@ -16,8 +16,10 @@ import action.adm.AdminCarUpdateAction;
 import action.adm.AdminCarUpdateFormAction;
 import action.adm.AdminDealerApproveAction;
 import action.adm.AdminDealerApproveListAction;
+import action.adm.AdminDealerInfoViewAction;
 import action.adm.AdminDealerJoinAction;
 import action.adm.AdminDealerJoinFormAction;
+import action.adm.AdminDealerRefuseAction;
 import action.adm.AdminMyCarRemoveAction;
 import action.adm.AdminMySaleCarAction;
 import vo.ActionForward;
@@ -154,6 +156,16 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}
 		
+		/*------- 딜러등록 반려 처리  -----------------------------------------------------------*/
+		else if(command.equals("/dealerRefuse.adm")) {//'딜러등록' 승인하기
+			action = new AdminDealerRefuseAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		/*------- '나의판매차량 보기' → 처리 ---------------------------------------------------------*/
 		else if(command.equals("/mySaleCar.adm")) {//'나의판매차량 보기' 요청이면
 			action = new AdminMySaleCarAction();
@@ -193,6 +205,15 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}
 		
+		/*------- '딜러정보수정' → 처리 ---------------------------------------------------------*/
+		else if(command.equals("/dealerInfoView.adm")) {//'차량정보수정' 요청이면
+			action = new AdminDealerInfoViewAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)
