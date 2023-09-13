@@ -14,12 +14,12 @@ import vo.User;
 public class UserLoginService {
 
 	//로그인 시 아이디와 패스워드 검증
-	public String login(User user) {
+	public ArrayList<String> login(User user) {
 		Connection con = getConnection();//JdbcUtil. 생략 → 위에서 static으로 import 했으므로 생략가능
 		UserDAO userDAO = UserDAO.getInstance();
 		userDAO.setConnection(con);
 		
-		String use_YN = userDAO.selectLoginId(user);
+		ArrayList<String> use_YN = userDAO.selectLoginId(user);
 		
 		System.out.println("dao에서 로그인 결과 가지고 옴");
 		
@@ -41,7 +41,8 @@ public class UserLoginService {
 		return userInfo;
 		
 	}
-
+	
+	//고객의 관심상품 가져오기
 	public ArrayList<Wishlist> getWishInfo(String user_id) {
 		Connection con = getConnection();
 		WishlistDAO wishlistDAO = WishlistDAO.getInstance();

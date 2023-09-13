@@ -29,8 +29,11 @@ public class QnA_BoardListAction implements Action {
 		}
 	
 		QnA_BoardListService boardListService = new QnA_BoardListService();
-
+		
+		//게시물 총 개수 받아오기
 		int listCount = boardListService.getListCount();
+		
+		//게시물 내용 받아오기
 		ArrayList<QnABoard> boardList = boardListService.selectBoardList(page,limit);			
 				
 		int maxPage = (int)((double)listCount/limit+0.95);

@@ -5,8 +5,10 @@ import static db.JdbcUtil.close;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import util.SHA256;
+import vo.Car;
 import vo.User;
 
 public class UserDAO {
@@ -36,7 +38,7 @@ public class UserDAO {
 			this.con = con;
 		}
 
-		/*----회원가입-----------------------------------------------------------------------------------------------*/
+		/*---- 고객 회원가입 ----------------------------------------------------------------------------------------------*/
 		public int insertUser(User user) {
 			int insertUserCount = 0;
 			
@@ -69,12 +71,46 @@ public class UserDAO {
 			}
 			return insertUserCount;
 		}
-
-		/*----로그인-----------------------------------------------------------------------------------------------*/
-		public String selectLoginId(User user) {
-			String use_YN = null;
+		
+		/*---- 딜러 등록 ----------------------------------------------------------------------------------------------*/
+		public int insertDealer(User user) {
+			int insertDealerCount = 0;
 			
-			String sql = "select user_id, user_pw, use_YN  from tbl_user where user_id=? and user_pw=?";
+			String sql = "insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_gender,"
+					+ "user_phone,user_email,user_zipcode,user_address1,user_address2,use_YN)"
+					+ " values(?,?,?,?,?,?,?,?,?,?,?,?)";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, user.getUser_category());
+				pstmt.setString(2, user.getUser_id());
+				pstmt.setString(3, user.getUser_pw());
+				pstmt.setString(4, user.getUser_name());
+				pstmt.setString(5, user.getUser_birth());
+				pstmt.setString(6, user.getUser_gender());
+				pstmt.setString(7, user.getUser_phone());
+				pstmt.setString(8, user.getUser_email());
+				pstmt.setInt(9, user.getUser_zipcode());
+				pstmt.setString(10, user.getUser_address1());
+				pstmt.setString(11, user.getUser_address2());
+				pstmt.setString(12, user.getUse_YN());
+				
+				insertDealerCount = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 insertDealer()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}			
+			return insertDealerCount;
+		}
+
+		
+		/*----로그인-----------------------------------------------------------------------------------------------*/
+		public ArrayList<String> selectLoginId(User user) {
+			ArrayList<String> loginCheck = null;
+			
+			String sql = "select user_id, user_pw, user_category, use_YN  from tbl_user where user_id=? and user_pw=?";
 			
 			try {
 				pstmt = con.prepareStatement(sql);
@@ -84,7 +120,9 @@ public class UserDAO {
 				rs = pstmt.executeQuery();
 
 				if(rs.next()) {
-					use_YN = rs.getString(3);
+					loginCheck = new ArrayList<String>();
+					loginCheck.add(rs.getString("user_category"));
+					loginCheck.add(rs.getString("use_YN"));
 				}
 				
 			}catch(Exception e) {
@@ -92,10 +130,9 @@ public class UserDAO {
 			}finally {
 				close(rs);
 				close(pstmt);
-				//Connection 자원해제는 service에서 해줬기 때문에 여기서 하지 않음
 			}
 			
-			return use_YN;
+			return loginCheck;
 		}
 
 		/*----로그인 시 세션에 담을 고객정보------------------------------------------------------------------------------*/
@@ -122,6 +159,7 @@ public class UserDAO {
 					userInfo.setUser_zipcode(rs.getInt("user_zipcode"));
 					userInfo.setUser_address1(rs.getString("user_address1"));
 					userInfo.setUser_address2(rs.getString("user_address2"));
+					userInfo.setUse_YN(rs.getString("use_YN"));
 				}
 				
 			}catch(Exception e) {
@@ -271,6 +309,125 @@ public class UserDAO {
 			return updateUserCount;
 		}
 
+		/*------ 딜러등록 시 아이디 자동생성 ----------------------------------------------------------------*/
+		public String getDealerId() {
+			String dealer_id = "";
+			
+			String sql = "select max(user_id) from tbl_user where user_category='dealer'";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					dealer_id = rs.getString(1);
+				}
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 getDealerId()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return dealer_id;
+		}
+
+		/*------ 딜러 승인 요청건 가져오기 ----------------------------------------------------------------*/
+		public ArrayList<User> disaprv_DealerList(int page, int limit) {
+			ArrayList<User> disapprove_list = null;
+			
+			String sql = "select * from tbl_user where user_category='dealer' and use_YN='N'  limit ?,5";
+			int startrow=(page-1)*5; 
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startrow);
+				
+				rs = pstmt.executeQuery();
+								
+				if(rs.next()) {
+					disapprove_list = new ArrayList<User>();
+					do {
+						disapprove_list.add(new User(
+								rs.getString("user_category"),
+								rs.getString("user_id"),
+								rs.getString("user_pw"),
+								rs.getString("user_name"),
+								rs.getString("user_birth"),
+								rs.getString("user_gender"),
+								rs.getString("user_phone"),
+								rs.getString("user_email"),
+								rs.getInt("user_zipcode"),
+								rs.getString("user_address1"),
+								rs.getString("user_address2"),
+								rs.getString("use_YN")
+								));
+					}while(rs.next());
+				}
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 disaprv_DealerList()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return disapprove_list;
+		}
+
+
+		public int getdisaprv_listCount() {
+			int listCount = 0;
+			
+			String sql = "select count(*) from tbl_user where user_category='dealer' and use_YN='N'";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					listCount = rs.getInt(1);
+				}
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 getDealerId()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return listCount;
+		}
+
+
+		public int approveDealer(String[] dealer_ids) {
+			int result = 0;
+			
+			String where_user_id = "";
+			for(int i=0; i<dealer_ids.length; i++) {
+				if(i == 0) {
+					where_user_id += " (user_id='"+dealer_ids[i]+"'";
+				}else {
+					where_user_id += " or user_id='"+dealer_ids[i]+"'";
+				}
+			}
+			where_user_id += ")";
+			
+			String sql = "update tbl_user set use_YN='Y' where"+where_user_id;
+			try {
+				pstmt = con.prepareStatement(sql);
+				result = pstmt.executeUpdate();
+
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 approveDealer()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+
+
+		
 		
 		
 		

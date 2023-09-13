@@ -66,17 +66,17 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 		
 		<c:choose> 
 				<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>
-				<c:otherwise><a style="text-decoration:none" href="boardList.bo?page=${pageInfo.page-1}">[이전]&nbsp;</a></c:otherwise>
+				<c:otherwise><a style="text-decoration:none" href="notice_boardList.bo?page=${pageInfo.page-1}">[이전]&nbsp;</a></c:otherwise>
 			</c:choose>
 			<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="loop">
 				<c:choose>
 					<c:when test="${i == pageInfo.page}">${i}&nbsp;</c:when>
-					<c:otherwise><a style="text-decoration:none" href="boardList.bo?page=${i}">${i}</a>&nbsp;</c:otherwise>
+					<c:otherwise><a style="text-decoration:none" href="notice_boardList.bo?page=${i}">${i}</a>&nbsp;</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:choose>
 				<c:when test="${pageInfo.page >= pageInfo.maxPage}">[다음]&nbsp;</c:when>
-				<c:otherwise><a style="text-decoration:none" href="boardList.bo?page=${pageInfo.page+1}">[다음]&nbsp;</a></c:otherwise>
+				<c:otherwise><a style="text-decoration:none" href="notice_boardList.bo?page=${pageInfo.page+1}">[다음]&nbsp;</a></c:otherwise>
 			</c:choose>
 		<c:if test="${user_category eq 'admin'}">
 			<a class="btn btn-default float-end" style="border:1px solid #ccc;" href="notice_boardWrite.bo">글쓰기</a>

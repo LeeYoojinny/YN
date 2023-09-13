@@ -10,35 +10,6 @@
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">	
-	//아이디 중복체크
-	function idCheck() { 
-		const regIdPass = /^[a-zA-Z0-9]{8,12}$/;
-		
-		if(document.f.user_id.value.trim() =="") {
-			alert("아이디를 입력 해주세요.");
-			document.f.user_id.focus();
-			return false;
-		}
-		
-		if(!regIdPass.test(document.f.user_id.value.trim())){
-			alert("아이디를 8~12자 사이의 영문과 숫자로 조합해주세요");
-			document.f.user_id.select();
-			return false;
-		}
-		
-		var url = "user/joinIdCheck.jsp?user_id="+document.f.user_id.value;
-		window.open(url, "check_ID", "width=500, height=300, left=450, top=200");
-		
-	}
-
-	//아이디 입력태그에서 키보드를 누를 때 호출되는 함수
-	function idCheckInit() {
-		if(document.f.idCheckYN.value == "Y") {
-			document.f.idCheckYN.value = "N";
-			document.f.user_id.select();
-		}
-		
-	}
 
 	/* 생년월일 입력에서 숫자를 다 적으면 자동으로 다음칸 넘어가게 해주는 함수 */
 	document.addEventListener("DOMContentLoaded", function() {
@@ -101,28 +72,7 @@
 			
 		//휴대번호 정규화 공식
 		const regPhone = /^\d{3}\d{3,4}\d{4}$/; //-제외
-		
-		
-		
-		
-		//아이디 체크
-		if(!document.f.user_id.value.trim()){
-			alert("아이디를 입력해주세요.");
-			document.f.user_id.focus();
-			return false;
-		}else if(!regIdPass.test(document.f.user_id.value.trim())){
-			alert("아이디를 8~12자 사이의 영문과 숫자로 조합해주세요");
-			document.f.user_id.select();
-			return false;
-		}
-		
-		//아이디 중복체크 여부확인
-		if(document.f.idCheckYN.value == "N"){
-			alert("아이디 중복확인 해주세요.");
-			document.f.user_id.focus();
-			return false;
-		}
-		
+
 		//비밀번호 체크
 		if(!document.f.user_pw.value.trim()){
 			alert("비밀번호를 입력해주세요.");
@@ -224,15 +174,14 @@
 </script>
 <body>
 	<div class="wrap_join">
-	<div class="subject">회원가입</div>
-		<form action="userJoinAction.usr" name="f" method="post">
-		<input type="hidden" name="user_category" id="user_category" value="customer">
+	<div class="subject">딜러등록<div class="smallfont">(관리자 승인 후 이용가능합니다.)</div></div>
+		<form action="dealerJoinAction.adm" name="f" method="post">
+		<input type="hidden" name="user_category" id="user_category" value="dealer">
+		<input type="hidden" name="use_YN" id="use_YN" value="N">
 			<div class="field id">
-				<b>아이디<small>(8~12자 이내 영어 대소문자 및 숫자로 조합) </small></b>
+				<b>아이디<small>(자동생성)</small></b>
 				<div>
-				<input type="text" name="user_id" id="user_id" onkeyup="idCheckInit();">
-				<input type="button" onclick="idCheck();" value="중복확인">
-				<input type="hidden" name="idCheckYN" id="idCheckYN" value="N">
+					<input type="text" name="user_id" id="user_id" value="${dealer_id}" readonly>
 				</div>
 			</div>
 			<div class="field">
@@ -284,7 +233,7 @@
 			</div>
 
 
-			<div class="field join_submit"><input type="submit" value="가입하기" onclick="check(); return false;"></div>
+			<div class="field join_submit"><input type="submit" value="등록하기" onclick="check(); return false;"></div>
 		</form>
 	</div>
 </body>

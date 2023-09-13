@@ -104,7 +104,7 @@
 		  	<c:choose>
 				<c:when test="${sessionScope.user_id eq null}">
 		  			<li><a href="<%=request.getContextPath()%>/userLogin.usr">LogIn</a></li>
-					<li><a href="<%=request.getContextPath()%>/userJoin.usr">Join</a></li>
+					<li><a href="<%=request.getContextPath()%>/userJoinChoice.usr">Join</a></li>
 		  		</c:when>
 		  		<c:when test="${sessionScope.user_category eq 'customer'}">
 		  			<%-- <div class="welcome">${sessionScope.user_name}님 환영합니다</div> --%>
@@ -136,7 +136,7 @@
 					<li><a href="#">My Info</a>
 						<ul id="inside_menu2" style="padding-left: 0;">
 					     	<li><a href="#">회원관리</a></li>
-					     	<li><a href="#">딜러등록</a></li>
+					     	<li><a href="dealerApproveList.adm">딜러등록</a></li>
 					     	<li><a href="#">관리자정보수정</a></li>
 					    </ul>
 					</li>

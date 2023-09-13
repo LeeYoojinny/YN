@@ -87,12 +87,15 @@ public class UserFrontController extends HttpServlet {
 		
 		
 		/*------- '회원가입 폼 보기' → 처리 ---------------------------------------------------------*/
-		else if(command.equals("/userJoin.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
+		else if(command.equals("/userJoinChoice.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
+			request.setAttribute("showPage", "user/joinChoiceForm.jsp");
+			forward = new ActionForward("template.jsp",false); //반드시 디스패치 방식으로 포워딩
+		}	
+		
+		else if(command.equals("/userJoin.usr")) {//'일반고객 가입' 요청이면
 			request.setAttribute("showPage", "user/joinForm.jsp");
 			forward = new ActionForward("template.jsp",false); //반드시 디스패치 방식으로 포워딩
 		}
-		
-
 		else if(command.equals("/userJoinAction.usr")) {//'회원가입 처리'요청하면
 			action = new UserJoinAction();
 			try {
