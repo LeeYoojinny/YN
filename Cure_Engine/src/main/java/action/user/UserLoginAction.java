@@ -62,7 +62,14 @@ public class UserLoginAction implements Action {
 			out.println("alert('관리자 승인 후 이용 가능합니다.');");
 			out.println("location.href='userLogin.usr'"); //로그인폼보기 다시 요청
 			out.println("</script>");
-			
+		}else if(user_category.equals("refuse_dealer")) {//딜러 등록 승인이 안됐다면
+				response.setContentType("text/html; charset=utf-8");				
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('관리자 승인 반려되었습니다. 재등록 후 이용 가능합니다.');");
+				out.println("location.href='userLogin.usr'"); //로그인폼보기 다시 요청
+				out.println("</script>");
+						
 		}else { //로그인에 성공했다면
 			Cookie cookieU_id = new Cookie("user_id", user_id);
 			System.out.println("user_id Cookie 객체 생성");

@@ -126,17 +126,18 @@
 		  			<%-- <div class="welcome">${sessionScope.user_name}(${sessionScope.user_category})님 환영합니다</div> --%>
 					<li><a href="#">My Info</a>
 					 	<ul id="inside_menu2" style="padding-left: 0;">
-					     	<li><a href="#">딜러정보수정</a></li>
+					     	<li><a href="dealerInfoView.adm">딜러정보수정</a></li>
 					    </ul>
 					</li>
 					<li><a href="<%=request.getContextPath()%>/userLogout.usr">LogOut</a></li>
 				</c:when>
 				<c:otherwise>
 					<%-- <div class="welcome">${sessionScope.user_name}(${sessionScope.user_category})님 환영합니다</div>> --%>
-					<li><a href="#">My Info</a>
+					<li><a href="#">Manage</a>
 						<ul id="inside_menu2" style="padding-left: 0;">
 					     	<li><a href="#">회원관리</a></li>
 					     	<li><a href="dealerApproveList.adm">딜러등록</a></li>
+					     	<li><a href="#">딜러관리</a></li>
 					     	<li><a href="#">관리자정보수정</a></li>
 					    </ul>
 					</li>

@@ -6,43 +6,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import svc.adm.AdminDealerApproveService;
+import svc.adm.AdminDealerRefuseService;
 import vo.ActionForward;
 
-public class AdminDealerApproveAction implements Action {
+public class AdminDealerRefuseAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		String dealer_id = request.getParameter("user_ids");
-		String[] dealer_ids;
-		if(dealer_id != null && dealer_id.contains(",")) {
-			dealer_ids = dealer_id.split(",");
-		}else {
-			dealer_ids = new String[] {dealer_id};
-		}
+		String dealer_id = request.getParameter("user_id");
 		
-		//콘솔로 값 확인하기
-		for(String id : dealer_ids) {
-			System.out.println("파라미터 값으로 넘어온 dealer_ids : " + id);
-		}
+		AdminDealerRefuseService dealerRefuseService = new AdminDealerRefuseService();
+		int refuseResult = dealerRefuseService.setDealerRefuse(dealer_id);
 		
-		AdminDealerApproveService dealerApproveService = new AdminDealerApproveService();
-		int approveResult = dealerApproveService.joinApprove_Y(dealer_ids);
-		
-		if(approveResult > 0 ) {
+		if(refuseResult > 0 ) {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('승인처리 되었습니다.');");
+			out.println("alert('반려처리 되었습니다.');");
 			out.println("location.href='dealerApproveList.adm';");
 			out.println("</script>");
 		}else {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('승인 실패했습니다.');");
+			out.println("alert('반려처리에 실패했습니다.');");
 			out.println("history.back();");			
 			out.println("</script>");
 		}

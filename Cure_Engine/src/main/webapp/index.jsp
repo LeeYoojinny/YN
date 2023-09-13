@@ -34,7 +34,7 @@
 	        <div>
 	          <h2>Mercedes-Benz</h2>
 	          <p>메르세데스-벤츠는 프리미엄 차량, 혁신적인 기술, 우아한 디자인으로 유명한 글로벌 럭셔리 자동차 브랜드입니다.</p>
-			  <a href="#">알아보기</a> 
+			  <a href="carBrandView.usr?car_brand=brand1">알아보기</a> 
 	        </div>
 	      </div>
 	      
@@ -42,7 +42,7 @@
 	        <div>
 	          <h2>Tesla</h2>
 	          <p>Tasla, Inc.는 전기 자동차, 베터리 저장 솔루션 및 재생 에너지 제품으로 유명한 전기 자동차 및 청정 에너지 회사입니다.</p>
-			  <a href="#">알아보기</a>
+			  <a href="carBrandView.usr?car_brand=brand2">알아보기</a>
 	        </div>
 	      </div>
 	
@@ -50,7 +50,7 @@
 	        <div>
 	          <h2>Ferrari</h2>
 	          <p>페라리는 날렵한 디자인과 공기역학적 차체 디자인럭셔리 스포츠카, 강력한 엔진으로 잘 알려져 있습니다, 모든 면에서 세련미와 우아함을 발산합니다.</p>
-	          <a href="#">알아보기</a>
+	          <a href="carBrandView.usr?car_brand=brand3">알아보기</a>
 	        </div>
 	      </div>
 	
@@ -58,7 +58,7 @@
 	        <div>
 	          <h2>BMW</h2>
 	          <p>BMW는 고성능 차량, 럭셔리 기능, 스포티한 미학으로 유명한 선도적인 럭셔리 자동차 제조업체입니다.</p>
-	          <a href="#">알아보기</a>
+	          <a href="carBrandView.usr?car_brand=brand4">알아보기</a>
 	        </div>
 	      </div>
 	
@@ -66,7 +66,7 @@
 	        <div>
 	          <h2>Audi</h2>
 	          <p>아우디는 세련된 디자인, 앞선 기술, 프리미엄 드라이빙 경험으로 인정받는 독일의 자동차 브랜드입니다.</p>
-	          <a href="#">알아보기</a>
+	          <a href="carBrandView.usr?car_brand=brand5">알아보기</a>
 	        </div>
 	      </div>
 	      
@@ -74,7 +74,7 @@
 	        <div>
 	          <h2>Maserati</h2>
 	          <p>마세라티는 우아한 디자인, 탁월한 주행 성능, 고급스러운 인테리어 및 최신 기술을 갖추고 있습니다. 이탈리아 역사적인 가치를 대표하는 브랜드 중 하나 입니다.</p>
-	          <a href="#">알아보기</a>
+	          <a href="carBrandView.usr?car_brand=brand6">알아보기</a>
 	        </div>
 	      </div>
 	      
@@ -82,7 +82,7 @@
 	        <div>
 	          <h2>Bentley</h2>
 	          <p>벤틀리는 고급 승용차 브랜드로 우아한 디자인과 탁월한 주행성능, 강력한 엔진을 자랑하는 영국의 자동차 브랜드입니다.</p>
-	          <a href="#">알아보기</a>
+	          <a href="carBrandView.usr?car_brand=brand7">알아보기</a>
 	        </div>
 	      </div>
 	      
@@ -90,7 +90,7 @@
 	        <div>
 	          <h2>Cadillac</h2>
 	          <p>캐딜락은 변속 기어에 뛰어난 성능과 기술력을 선보이며, 웅장한 모습과 고급스러운 세련된 미국의 자동차브랜드이다.</p>
-	          <a href="#">알아보기</a>
+	          <a href="carBrandView.usr?car_brand=brand8">알아보기</a>
 	        </div>
 	      </div>
 	      

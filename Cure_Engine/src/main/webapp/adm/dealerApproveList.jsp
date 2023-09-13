@@ -62,7 +62,7 @@
 		 var confirmMessage = user_id+ ' 승인 반려 하시겠습니까?';
 		 
 		 if(confirm(confirmMessage)) {
-			 location.href = 'dealerDelete.adm?user_id=' + user_id;
+			 location.href = 'dealerRefuse.adm?user_id=' + user_id;
 		 }
 	}
 	

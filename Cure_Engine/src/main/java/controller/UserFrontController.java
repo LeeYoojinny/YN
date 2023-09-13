@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.user.UserAllCarViewAction;
+import action.user.UserCarBrandViewAction;
 import action.user.UserCarDetailViewAction;
 import action.user.UserCarSearchAction;
 import action.user.UserFindIdAction;
@@ -180,6 +181,17 @@ public class UserFrontController extends HttpServlet {
 			}
 		}
 		
+		/*------- '인덱스에서 브랜드별 알아보기' → 처리 ---------------------------------------------------------*/
+		else if(command.equals("/carBrandView.usr")) {//Car 메뉴나 index에서 '자동차 찾아보기' 요청이면
+			action = new UserCarBrandViewAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		
 		/*------- '상품 전체 리스트 보기 폼' → 처리 ---------------------------------------------------------*/
 		else if(command.equals("/allCarListView.usr")) {//Car 메뉴나 index에서 '자동차 찾아보기' 요청이면
 			action = new UserAllCarViewAction();
@@ -223,6 +235,7 @@ public class UserFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		
 
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)
