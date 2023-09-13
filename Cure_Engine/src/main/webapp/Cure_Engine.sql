@@ -183,8 +183,11 @@ ALTER TABLE tbl_user
 MODIFY COLUMN user_expiredate TIMESTAMP NULL;
 
 update tbl_user set user_email='lljinny@naver.com' where user_id='test12345';
+select * from tbl_user where user_category='dealer' and use_YN='N' limit 0,5
 
 select * from tbl_user;
+select max(user_id) from tbl_user where user_category='dealer';
+select count(*) from tbl_user where user_category='dealer' and use_YN='N'
 
 /* 관리자 id:admin , pw:adm!Q2w#E4r */
 insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_gender,user_phone,user_zipcode,user_address1,user_address2,user_email) 
@@ -373,7 +376,7 @@ select * from tbl_qna;
 alter table tbl_qna modify column car_id VARCHAR(10);
 alter table tbl_qna add column qna_file_origin NVARCHAR(20) NULL after qna_file;
 alter table tbl_qna add column qna_viewNum int not NULL after qna_num;
-alter table tbl_qna add column qna_replyNum int not NULL DEFAULT 0 after qna_num;
+alter table tbl_qna add column qna_replyNum int not NULL DEFAULT 0 after qna_viewNum;
 alter table tbl_qna add column reply_YN CHAR(1) NOT NULL DEFAULT 'N' after secret_YN;
 
 /* qna_num 문자열+숫자 자동증가를 위한 trigger (trigger는 워크벤치로 생성) */

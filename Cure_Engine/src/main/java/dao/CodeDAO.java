@@ -127,6 +127,12 @@ public class CodeDAO {
 			}
 			return allCode;
 		}
+
+
+		public int insertDealer(String[] dealer_ids) {
+			// TODO 자동 생성된 메소드 스텁
+			return 0;
+		}
 		
 
 		

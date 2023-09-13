@@ -14,6 +14,10 @@ import action.adm.AdminCarRegistAction;
 import action.adm.AdminCarRegistFormAction;
 import action.adm.AdminCarUpdateAction;
 import action.adm.AdminCarUpdateFormAction;
+import action.adm.AdminDealerApproveAction;
+import action.adm.AdminDealerApproveListAction;
+import action.adm.AdminDealerJoinAction;
+import action.adm.AdminDealerJoinFormAction;
 import action.adm.AdminMyCarRemoveAction;
 import action.adm.AdminMySaleCarAction;
 import vo.ActionForward;
@@ -76,7 +80,10 @@ public class AdminFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		System.out.println("[Customer]command : " + command); //어떤 요청인지 확인하기 위해 출력
+		System.out.println("[Admin]command : " + command); //어떤 요청인지 확인하기 위해 출력
+		
+		
+		
 		
 		/*------- '상품등록' 클릭 → 상품등록 폼 → 상품등록 처리 ------------------------------------*/
 
@@ -107,7 +114,46 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
+		
+		/*------- 딜러등록 폼보기 요청 ---------------------------------------------------------------*/
+		else if(command.equals("/dealerJoin.adm")) {//'딜러등록' 폼보기 요청이면
+			action = new AdminDealerJoinFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if(command.equals("/dealerJoinAction.adm")) {//'딜러등록' 요청이면
+			action = new AdminDealerJoinAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		/*------- 딜러등록 요청 리스트 보기  -----------------------------------------------------------*/
+		else if(command.equals("/dealerApproveList.adm")) {//'딜러등록' 요청이면
+			action = new AdminDealerApproveListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		/*------- 딜러등록 승인하기 처리  -----------------------------------------------------------*/
+		else if(command.equals("/dealerApprove.adm")) {//'딜러등록' 승인하기
+			action = new AdminDealerApproveAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		/*------- '나의판매차량 보기' → 처리 ---------------------------------------------------------*/
 		else if(command.equals("/mySaleCar.adm")) {//'나의판매차량 보기' 요청이면
 			action = new AdminMySaleCarAction();
