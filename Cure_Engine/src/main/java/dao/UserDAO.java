@@ -528,7 +528,7 @@ public class UserDAO {
 			return changePw;
 		}
 
-
+		/*------ 회원관리 - 페이징처리를 위해 회원 수 가져오기 ------------------------------------------------------*/
 		public int getCustListCount() {
 			int listCount = 0;
 			
@@ -552,7 +552,7 @@ public class UserDAO {
 			return listCount;
 		}
 
-
+		/*------ 회원관리 - 모든회원정보 가져오기 ----------------------------------------------------------------*/
 		public ArrayList<User> getAllCustomer(int page, int limit) {
 			ArrayList<User> customerList = null;
 			
@@ -569,7 +569,7 @@ public class UserDAO {
 				if(rs.next()) {
 					customerList = new ArrayList<User>();
 					do {
-						System.out.println("cutomer 정보담기");
+						System.out.println("customer 정보담기");
 						customerList.add(new User(
 								rs.getString("user_category"),
 								rs.getString("user_id"),
@@ -598,7 +598,7 @@ public class UserDAO {
 			return customerList;
 		}
 
-
+		/*------ 관리자가 회원 강제탈퇴 시키기 ----------------------------------------------------------------*/
 		public int custDelete(String user_id) {
 			int result = 0;
 			
@@ -617,6 +617,78 @@ public class UserDAO {
 			}			
 			return result;
 		}
+
+		/*------ 탈퇴회원관리 - 페이징처리를 위해 탈퇴회원 수 가져오기 -----------------------------------------------*/
+		public int getExpireCustListCount() {
+			int listCount = 0;
+			
+			String sql = "select count(*) from tbl_user where user_category='customer' and use_YN='N'";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					listCount = rs.getInt(1);
+				}
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 getCustListCount()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}			
+			
+			return listCount;
+		}
+
+		/*------ 탈퇴회원관리 - 탈퇴회원 가져오기 -----------------------------------------------*/
+		public ArrayList<User> getExpireCustList(int page, int limit) {
+			ArrayList<User> expireCust = null;
+			
+			String sql = "select * from tbl_user where user_category='customer' and use_YN='N' "
+					+ "order by user_expiredate limit ?,10";
+			int startrow = (page-1)*10;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startrow);
+				
+				rs = pstmt.executeQuery();
+								
+				if(rs.next()) {
+					expireCust = new ArrayList<User>();
+					do {
+						System.out.println("탈퇴회원 정보담기");
+						expireCust.add(new User(
+								rs.getString("user_category"),
+								rs.getString("user_id"),
+								rs.getString("user_pw"),
+								rs.getString("user_name"),
+								rs.getString("user_birth"),
+								rs.getString("user_gender"),
+								rs.getString("user_phone"),
+								rs.getString("user_email"),
+								rs.getInt("user_zipcode"),
+								rs.getString("user_address1"),
+								rs.getString("user_address2"),
+								rs.getTimestamp("user_joindate"),
+								rs.getString("use_YN"),
+								rs.getTimestamp("user_expiredate")
+								));
+					}while(rs.next());
+				}
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 getAllCustomer()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+						
+			return expireCust;
+		}
+
+		
 
 
 		

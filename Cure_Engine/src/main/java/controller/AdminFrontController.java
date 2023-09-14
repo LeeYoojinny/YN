@@ -17,6 +17,7 @@ import action.adm.AdminCarUpdateFormAction;
 import action.adm.AdminCustDeleteAction;
 import action.adm.AdminCustDetailViewAction;
 import action.adm.AdminCustExpireListAction;
+import action.adm.AdminCustSearchAction;
 import action.adm.AdminCustomerListAction;
 import action.adm.AdminDealerApproveAction;
 import action.adm.AdminDealerApproveListAction;
@@ -258,6 +259,15 @@ public class AdminFrontController extends HttpServlet {
 		
 		else if(command.equals("/custExpireList.adm")) {//'탈퇴회원보기' 요청이면
 			action = new AdminCustExpireListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if(command.equals("/custSearchAction.adm")) {//'회원검색' 요청이면
+			action = new AdminCustSearchAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

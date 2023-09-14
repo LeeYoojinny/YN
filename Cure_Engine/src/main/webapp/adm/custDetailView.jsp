@@ -114,7 +114,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 					    </c:if>
 						<c:if test="${empty boardList}">
 				            <tr>
-				                <td colspan="3">게시글이 없습니다.</td>
+				                <td colspan="4">게시글이 없습니다.</td>
 				            </tr>
 				        </c:if>
 					</tbody>
@@ -150,6 +150,12 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     </div>
 </div>
 <div id="underBt">
+	<c:if test="${display_num eq 1}">
+	<button onclick="location.href='customerList.adm'">회원목록</button>
+	</c:if>
+	<c:if test="${display_num eq 2}">
+	<button onclick="location.href='custExpireList.adm'">회원목록</button>
+	</c:if>
 	<button onclick="deleteCheck('${custInfo.user_id}')">탈퇴처리</button>
 </div>
 

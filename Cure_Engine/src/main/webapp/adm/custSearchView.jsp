@@ -32,36 +32,53 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 </script>
 
 <body class="sb-nav-fixed">
-<h2>회원관리</h2>
+<h2>회원 검색 결과</h2>
 <div class="container">
 	<div class="card-body">
 	<div class="topBt">
-		<button onclick="location.href='custExpireList.adm'; return false;">탈퇴회원관리</button>
+		<c:if test="${display_num eq 1}">
+			<button onclick="location.href='customerList.adm'">회원목록</button>
+		</c:if>
+		<c:if test="${display_num eq 2}">
+			<button onclick="location.href='custExpireList.adm'">회원목록</button>
+		</c:if>
 	</div>
 		<table class="table table-striped table-hover text-center">
 			<thead>
 			<tr>
 				<th>번호</th>
 				<th>아이디</th>
-				<th>가입일</th>
+				<c:if test="${display_num eq 1}">
+					<th>가입일</th>
+				</c:if>
+				<c:if test="${display_num eq 2}">
+					<th>탈퇴일</th>
+				</c:if>
 			</tr>
 			</thead>
 			<tbody>
-				<c:if test="${customerList ne null}">
-				<c:set var="startNo" value="${(pageInfo.page - 1) * 10 + 1}" />
-					<c:forEach var="cust" items="${customerList}" varStatus="status">
-			            <tr>
-			                <td id="item_no">${startNo + status.count-1}</td>
-			                <td id="item_id">
-			                	<a href="custDetailView.adm?user_id=${cust.user_id}&display_num=1">${cust.user_id}</a>
-			                </td>
-			                <td id="item_date"><fmt:formatDate pattern="yyyy/MM/dd" value="${cust.user_joindate}"/></td>			                		                
-			            </tr>
-			        </c:forEach>
-			    </c:if>
-				<c:if test="${empty customerList}">
+				<c:if test="${searchUser ne null}">					
 		            <tr>
-		                <td colspan="3">가입 고객이 없습니다.</td>
+		                <td id="item_no">1</td>
+		                <td id="item_id">
+		                <c:if test="${display_num eq 1}">
+		                	<a href="custDetailView.adm?user_id=${searchUser.user_id}&display_num=1">${searchUser.user_id}</a>
+		                </c:if>
+		                <c:if test="${display_num eq 2}">
+		                	<a href="custDetailView.adm?user_id=${searchUser.user_id}&display_num=2">${searchUser.user_id}</a>
+		                </c:if>
+		                </td>
+		                <c:if test="${display_num eq 1}">
+		                	<td id="item_date"><fmt:formatDate pattern="yyyy/MM/dd" value="${searchUser.user_joindate}"/></td>			                		                
+		            	</c:if>
+		                <c:if test="${display_num eq 2}">
+		                	<td id="item_date"><fmt:formatDate pattern="yyyy/MM/dd" value="${searchUser.user_expiredate}"/></td>			                		                
+		            	</c:if>
+		            </tr>			    
+			    </c:if>
+				<c:if test="${empty searchUser}">
+		            <tr>
+		                <td colspan="3">검색결과가 없습니다.</td>
 		            </tr>
 		        </c:if>
 			</tbody>
@@ -69,25 +86,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 		
 		<form action="custSearchAction.adm" method="post" name="f">
 			<input type="text" name="keyword" placeholder="아이디 검색">
-			<input type="hidden" name="display_num" value="1"> 
+			<c:if test="${display_num eq 1}">
+				<input type="hidden" name="display_num" value="1">
+			</c:if>
+			<c:if test="${display_num eq 2}">
+				<input type="hidden" name="display_num" value="2">
+			</c:if>
 			<input type="submit" onclick="searchCheck()" value="검색">
 		</form>
-		<div class="page">
-			<c:choose> 
-				<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>
-				<c:otherwise><a style="text-decoration:none" href="customerList.adm?page=${pageInfo.page-1}">[이전]&nbsp;</a></c:otherwise>
-			</c:choose>
-			<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="loop">
-				<c:choose>
-					<c:when test="${i == pageInfo.page}">${i}&nbsp;</c:when>
-					<c:otherwise><a style="text-decoration:none" href="customerList.adm?page=${i}">${i}</a>&nbsp;</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:choose>
-				<c:when test="${pageInfo.page >= pageInfo.maxPage}">[다음]&nbsp;</c:when>
-				<c:otherwise><a style="text-decoration:none" href="customerList.adm?page=${pageInfo.page+1}">[다음]&nbsp;</a></c:otherwise>
-			</c:choose>
-		</div>
 	</div>
 </div> 
 
