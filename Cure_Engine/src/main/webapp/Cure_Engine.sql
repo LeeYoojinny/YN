@@ -190,6 +190,8 @@ update tbl_user set user_joindate=now() where user_id='d230004';
 select * from tbl_user;
 select max(user_id) from tbl_user where user_category='dealer';
 select count(*) from tbl_user where user_category='dealer' and use_YN='N'
+select * from tbl_user where user_category='customer' and use_YN='Y' order by user_joindate
+
 
 /* 관리자 id:admin , pw:adm!Q2w#E4r */
 insert into tbl_user(user_category,user_id,user_pw,user_name,user_birth,user_gender,user_phone,user_zipcode,user_address1,user_address2,user_email) 

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Cure Engine 회원탈퇴</title>
-<link rel="stylesheet" href="css/user/user_loginForm_style.css">
+<link rel="stylesheet" href="css/customer/deleteForm_style.css">
 </head>
 <script type="text/javascript">
 	function check() {
@@ -19,7 +19,7 @@
 </script>
 <body>
 	<div class="wrap_login">
-		<div class="subject">User Login</div>
+		<div class="subject">회원탈퇴</div>
 		  <form action="customerDelete.cust" method="post" name="f" id="loginForm">
 		    	<div class="field">
 					<b>아이디</b> <input type="text" name="user_id" id="user_id" value="${user_id}" readonly="readonly">

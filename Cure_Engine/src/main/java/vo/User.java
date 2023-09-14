@@ -1,5 +1,7 @@
 package vo;
 
+import java.sql.Timestamp;
+
 import util.SHA256;
 
 public class User {
@@ -16,9 +18,9 @@ public class User {
 	private String user_address2;
 	
 	//회원가입에 없는것
-	private String user_joindate;
+	private Timestamp user_joindate;
 	private String use_YN;
-	private String user_expiredate;
+	private Timestamp user_expiredate;
 	
 	public User() {}
 	
@@ -69,6 +71,26 @@ public class User {
 		this.user_zipcode = user_zipcode;
 		this.user_address1 = user_address1;
 		this.user_address2 = user_address2;		
+	}
+	
+	public User(String user_category, String user_id, String user_pw, String user_name, String user_birth,
+			String user_gender, String user_phone, String user_email, int user_zipcode, String user_address1,
+			String user_address2, Timestamp user_joindate, String use_YN, Timestamp user_expiredate) {
+		super();
+		this.user_category = user_category;
+		this.user_id = user_id;
+		this.user_pw = user_pw;
+		this.user_name = user_name;
+		this.user_birth = user_birth;
+		this.user_gender = user_gender;
+		this.user_phone = user_phone;
+		this.user_email = user_email;
+		this.user_zipcode = user_zipcode;
+		this.user_address1 = user_address1;
+		this.user_address2 = user_address2;
+		this.user_joindate = user_joindate;
+		this.use_YN = use_YN;
+		this.user_expiredate = user_expiredate;
 	}
 
 	public String getUser_category() {
@@ -159,11 +181,11 @@ public class User {
 		this.user_address2 = user_address2;
 	}
 
-	public String getUser_joindate() {
+	public Timestamp getUser_joindate() {
 		return user_joindate;
 	}
 
-	public void setUser_joindate(String user_joindate) {
+	public void setUser_joindate(Timestamp user_joindate) {
 		this.user_joindate = user_joindate;
 	}
 
@@ -175,11 +197,11 @@ public class User {
 		this.use_YN = use_YN;
 	}
 
-	public String getUser_expiredate() {
+	public Timestamp getUser_expiredate() {
 		return user_expiredate;
 	}
 
-	public void setUser_expiredate(String user_expiredate) {
+	public void setUser_expiredate(Timestamp user_expiredate) {
 		this.user_expiredate = user_expiredate;
 	}
 	

@@ -11,8 +11,6 @@
 <link rel="stylesheet" href="css/main_style.css">
 </head>
 <body>
-	<%-- 스피너 --%>
-
 	<jsp:include page="header.jsp"/>
 	
 	<c:if test="${showPage ne null}">
@@ -25,7 +23,7 @@
 		<jsp:include page="footer.jsp"/>
 	</div>
 	
-<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script> -->
+<%-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> --%>
 </body>
 </html>

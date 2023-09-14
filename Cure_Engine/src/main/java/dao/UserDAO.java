@@ -159,7 +159,9 @@ public class UserDAO {
 					userInfo.setUser_zipcode(rs.getInt("user_zipcode"));
 					userInfo.setUser_address1(rs.getString("user_address1"));
 					userInfo.setUser_address2(rs.getString("user_address2"));
+					userInfo.setUser_joindate(rs.getTimestamp("user_joindate"));
 					userInfo.setUse_YN(rs.getString("use_YN"));
+					userInfo.setUser_expiredate(rs.getTimestamp("user_expiredate"));
 				}
 				
 			}catch(Exception e) {
@@ -477,6 +479,142 @@ public class UserDAO {
 				close(pstmt);
 			}
 						
+			return result;
+		}
+
+
+		public int checkPw(String user_id, String user_pw) {
+			int checkUser = 0;
+			
+			String sql = "select count(*) from tbl_user where user_id=? and user_pw=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, user_id);
+				pstmt.setString(2, user_pw);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					checkUser = rs.getInt(1);
+				}
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 checkPw()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}			
+			return checkUser;
+		}
+
+
+		public int changePw(String user_id, String change_pw) {
+			int changePw = 0;
+			
+			String sql = "update tbl_user set user_pw=? where user_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);				
+				pstmt.setString(1, change_pw);
+				pstmt.setString(2, user_id);
+				
+				changePw = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 changePw()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}			
+			return changePw;
+		}
+
+
+		public int getCustListCount() {
+			int listCount = 0;
+			
+			String sql = "select count(*) from tbl_user where user_category='customer' and use_YN='Y'";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					listCount = rs.getInt(1);
+				}
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 getCustListCount()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}			
+			
+			return listCount;
+		}
+
+
+		public ArrayList<User> getAllCustomer(int page, int limit) {
+			ArrayList<User> customerList = null;
+			
+			String sql = "select * from tbl_user where user_category='customer' and use_YN='Y' "
+					+ "order by user_joindate limit ?,10";
+			int startrow = (page-1)*10;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startrow);
+				
+				rs = pstmt.executeQuery();
+								
+				if(rs.next()) {
+					customerList = new ArrayList<User>();
+					do {
+						System.out.println("cutomer 정보담기");
+						customerList.add(new User(
+								rs.getString("user_category"),
+								rs.getString("user_id"),
+								rs.getString("user_pw"),
+								rs.getString("user_name"),
+								rs.getString("user_birth"),
+								rs.getString("user_gender"),
+								rs.getString("user_phone"),
+								rs.getString("user_email"),
+								rs.getInt("user_zipcode"),
+								rs.getString("user_address1"),
+								rs.getString("user_address2"),
+								rs.getTimestamp("user_joindate"),
+								rs.getString("use_YN"),
+								rs.getTimestamp("user_expiredate")
+								));
+					}while(rs.next());
+				}
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 getAllCustomer()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return customerList;
+		}
+
+
+		public int custDelete(String user_id) {
+			int result = 0;
+			
+			String sql = "update tbl_user set use_YN='N', user_expiredate=now() where user_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);				
+				pstmt.setString(1, user_id);
+				
+				result = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 custDelete()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}			
 			return result;
 		}
 

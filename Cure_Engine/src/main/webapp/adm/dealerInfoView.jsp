@@ -110,11 +110,6 @@
 </script>
 <body>
     <div class="wrap_join">
-    	<div class="topBt">
-    		<button onclick="location.href='pwChangeForm.usr?user_id=${userInfo.user_id}'">비밀번호수정</button>
-    		<button onclick="location.href='dealerDeleteForm.adm?user_id=${userInfo.user_id}'">딜러 탈퇴</button>
-    	</div>
-
         <div class="subject">딜러정보 관리</div>
         <form action="dealerInfoUpdate.adm" name="f" method="post">
         <input type="hidden" name="user_category" value="dealer">
@@ -135,10 +130,6 @@
                     <input type="text" class="birth" name="user_birth_m" id="user_birth_m" value="${user_birth_m}" maxlength="2">
                     <input type="text" class="birth" name="user_birth_d" id="user_birth_d" value="${user_birth_d}" maxlength="2">
                 </div>
-            </div>
-            <div class="field">
-                <b>휴대폰 번호</b> 
-                <input type="text" name="user_phone" id="user_phone" value="${userInfo.user_phone}" placeholder="(-)없이 숫자만 입력하세요.">
             </div>
             <div class="field gender">
 				<b>성별</b>
@@ -167,6 +158,10 @@
             <div class="field join_submit">
                 <input type="submit" value="수정하기" onclick="check(); return false;">
             </div>
+            <div class="field underBt">
+    			<button onclick="location.href='pwChangeForm.usr?user_id=${userInfo.user_id}'; return false;">비밀번호수정</button>
+    			<button onclick="location.href='dealerDeleteForm.adm?user_id=${userInfo.user_id}'; return false;">딜러 탈퇴</button>
+    		</div>
         </form>
     </div>
 </body>

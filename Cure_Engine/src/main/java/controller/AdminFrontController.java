@@ -14,8 +14,13 @@ import action.adm.AdminCarRegistAction;
 import action.adm.AdminCarRegistFormAction;
 import action.adm.AdminCarUpdateAction;
 import action.adm.AdminCarUpdateFormAction;
+import action.adm.AdminCustDeleteAction;
+import action.adm.AdminCustDetailViewAction;
+import action.adm.AdminCustExpireListAction;
+import action.adm.AdminCustomerListAction;
 import action.adm.AdminDealerApproveAction;
 import action.adm.AdminDealerApproveListAction;
+import action.adm.AdminDealerInfoUpdateAction;
 import action.adm.AdminDealerInfoViewAction;
 import action.adm.AdminDealerJoinAction;
 import action.adm.AdminDealerJoinFormAction;
@@ -205,8 +210,8 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}
 		
-		/*------- '딜러정보수정' → 처리 ---------------------------------------------------------*/
-		else if(command.equals("/dealerInfoView.adm")) {//'차량정보수정' 요청이면
+		/*------- '딜러정보수정 폼보기' → 처리 ---------------------------------------------------------*/
+		else if(command.equals("/dealerInfoView.adm")) {//'딜러정보수정 폼보기' 요청이면
 			action = new AdminDealerInfoViewAction();
 			try {
 				forward = action.execute(request, response);
@@ -214,7 +219,51 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
+		else if(command.equals("/dealerInfoUpdate.adm")) {//'딜러정보수정' 요청이면
+			action = new AdminDealerInfoUpdateAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		/*------- '회원관리 폼보기' → 처리 ---------------------------------------------------------*/
+		else if(command.equals("/customerList.adm")) {//'회원관리 폼보기' 요청이면
+			action = new AdminCustomerListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if(command.equals("/custDetailView.adm")) {//'회원 자세히 보기' 요청이면
+			action = new AdminCustDetailViewAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if(command.equals("/custDelete.adm")) {//'회원 탈퇴처리' 요청이면
+			action = new AdminCustDeleteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if(command.equals("/custExpireList.adm")) {//'탈퇴회원보기' 요청이면
+			action = new AdminCustExpireListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)
 		 *********************************************************************/

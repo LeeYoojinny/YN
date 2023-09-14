@@ -55,23 +55,29 @@ form {
     margin-bottom: 5px;
 }
 
-/* 상단 버튼2개 스타일 */
-.wrap_join button {
+/* 하단 버튼2개 스타일 */
+.field.underBt{
+	display: flex; /* 부모 요소를 플렉스 컨테이너로 설정 */
+}
+
+.field.underBt button {
+	background-color: #9caecd;
+	color:#fff;
+	cursor: pointer;
+	font-family: 'Gowun Dodum', sans-serif;
     border: 1px solid #dadada;
     padding: 10px;
-    width: 20%;
     margin-bottom: 5px;
     margin-right: 5px;
 }
 
-.topBt{
-	display: flex; /* 부모 요소를 플렉스 컨테이너로 설정 */
-    justify-content: flex-end;	
+.field.underBt button:nth-child(1),
+.field.underBt button:nth-child(2){
+	flex:1;
 }
 
 .wrap_join input[type=button],
-.wrap_join input[type=submit],
-.wrap_join button{
+.wrap_join input[type=submit]{
 	background-color: #486AAE;
 	color:#fff;
 	cursor: pointer;
