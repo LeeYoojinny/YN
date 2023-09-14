@@ -32,36 +32,36 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 </script>
 
 <body class="sb-nav-fixed">
-<h2>회원관리</h2>
+<h2>탈퇴회원관리</h2>
 <div class="container">
 	<div class="card-body">
 	<div class="topBt">
-		<button onclick="location.href='custExpireList.adm'; return false;">탈퇴회원관리</button>
+		<button onclick="location.href='customerList.adm'; return false;">회원관리</button>
 	</div>
 		<table class="table table-striped table-hover text-center">
 			<thead>
 			<tr>
 				<th>번호</th>
 				<th>아이디</th>
-				<th>가입일</th>
+				<th>탈퇴일</th>
 			</tr>
 			</thead>
 			<tbody>
-				<c:if test="${customerList ne null}">
+				<c:if test="${expireCust ne null}">
 				<c:set var="startNo" value="${(pageInfo.page - 1) * 10 + 1}" />
-					<c:forEach var="cust" items="${customerList}" varStatus="status">
+					<c:forEach var="cust" items="${expireCust}" varStatus="status">
 			            <tr>
 			                <td id="item_no">${startNo + status.count-1}</td>
 			                <td id="item_id">
-			                	<a href="custDetailView.adm?user_id=${cust.user_id}&display_num=1">${cust.user_id}</a>
+			                	<a href="custDetailView.adm?user_id=${cust.user_id}&display_num=2">${cust.user_id}</a>
 			                </td>
-			                <td id="item_date"><fmt:formatDate pattern="yyyy/MM/dd" value="${cust.user_joindate}"/></td>			                		                
+			                <td id="item_date"><fmt:formatDate pattern="yyyy/MM/dd" value="${cust.user_expiredate}"/></td>			                		                
 			            </tr>
 			        </c:forEach>
 			    </c:if>
-				<c:if test="${empty customerList}">
+				<c:if test="${empty expireCust}">
 		            <tr>
-		                <td colspan="3">가입 고객이 없습니다.</td>
+		                <td colspan="3">탈퇴회원이 없습니다.</td>
 		            </tr>
 		        </c:if>
 			</tbody>
@@ -69,7 +69,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 		
 		<form action="custSearchAction.adm" method="post" name="f">
 			<input type="text" name="keyword" placeholder="아이디 검색">
-			<input type="hidden" name="display_num" value="1"> 
+			<input type="hidden" name="display_num" value="2"> 
 			<input type="submit" onclick="searchCheck()" value="검색">
 		</form>
 		<div class="page">

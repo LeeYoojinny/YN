@@ -20,6 +20,27 @@ h2 {
 	max-width: 600px;
 }
 
+.topBt {
+	margin: 0.5rem auto 0.5rem auto;
+    text-align: end;
+}
+
+.topBt button {
+	background-color: #486AAE;;
+	color:#fff;
+	cursor: pointer;
+	font-family: 'Gowun Dodum', sans-serif;
+    border: 1px solid #dadada;
+    padding: 8px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.topBt button:hover {
+	background-color: #36589C;
+	color:#fff;
+}
+
 #item_no{
 	width: 20%;
 }

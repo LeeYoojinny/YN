@@ -54,7 +54,18 @@ h2 {
     text-align: end;
 }
 
-#underBt button {
+#underBt button:nth-child(1) {
+	background-color: #486AAE;;
+	color:#fff;
+	cursor: pointer;
+	font-family: 'Gowun Dodum', sans-serif;
+    border: 1px solid #dadada;
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+#underBt button:nth-child(2) {
 	background-color: #9caecd;
 	color:#fff;
 	cursor: pointer;

@@ -22,7 +22,7 @@
 	   username="java" 
 	   password="java"   
 	   driverClassName="com.mysql.cj.jdbc.Driver"
-	   url="jdbc:mysql://localhost:3306/testdb?serverTimezone=Asia/Seoul"
+	   url="jdbc:mysql://localhost:3306/testdb?serverTimezone=Asia/Seoul&amp;zeroDateTimeBehavior=convertToNull"
 	   
 	   factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
 	  
