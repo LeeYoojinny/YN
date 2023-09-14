@@ -342,7 +342,48 @@ public class QnABoardDAO {
 		
 		return pwCheck;
 	}
-
+	
+	/*-- 고객별 작성글 가져오기 ------------------------------------------------------------------------*/
+	public ArrayList<QnABoard> getCustQna(String user_id) {
+		ArrayList<QnABoard> custQna = null;
+		
+		String sql = "select * from tbl_qna where user_id=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				custQna = new ArrayList<QnABoard>();
+				
+				do {
+					QnABoard board = new QnABoard();
+					
+					board.setQna_num(rs.getString("qna_num"));
+					board.setUser_id(rs.getString("user_id"));
+					board.setCar_id(rs.getString("car_id"));
+					board.setQna_pw(rs.getString("qna_pw"));
+					board.setQna_title(rs.getString("qna_title"));
+					board.setQna_content(rs.getString("qna_content"));
+					board.setQna_date(rs.getTimestamp("qna_date"));
+					board.setSecret_YN(rs.getString("secret_YN"));
+					board.setQna_hit(rs.getInt("qna_hit"));
+					custQna.add(board);
+					
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			System.out.println("BoardDAO의 getCustQna() 에러 : " + e);
+		} finally {
+			close(rs);
+			close(pstmt);
+		}	
+		return custQna;
+	}
+	
+	/*-- 답글 -------------------------------------------------------------------------------------------*/	
 	public int insertReply(QnABoard board) {
 		int replyCount = 0;
 		int num=0;
@@ -402,7 +443,7 @@ public class QnABoardDAO {
 		
 		return parent_replyY;
 	}
-
+	
 
 	
 		

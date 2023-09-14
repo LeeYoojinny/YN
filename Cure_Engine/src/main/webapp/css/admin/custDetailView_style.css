@@ -1,0 +1,71 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+
+body{
+    font-family: 'Gowun Dodum', serif;
+    background-color: #f5f6f7;
+    line-height: 1.5em;
+    color : #222;
+    margin: 0;
+    width:100%;
+}
+
+h2 {
+	text-align: center;
+}
+
+.accordion {
+	margin-top: 1rem;
+	margin-left: auto;
+    margin-right: auto;
+	max-width: 800px;
+}
+
+/* 열린 패널 배경색 변경 */
+.accordion-button[aria-expanded="true"] {
+    background-color: #D8D8D8 !important;
+    
+}
+
+.accordion-button:focus {
+	border-color: #F2F2F2 !important;
+}
+
+.accordion-body table tr {
+	line-height: 2rem;
+}
+.subject {
+	width: 30%;
+	color: #6E6E6E;
+}
+
+.subject.title a {
+	cursor: pointer;
+}
+
+.subject.title a:hover {
+	text-decoration: underline;
+}
+
+#underBt {
+	max-width: 800px;
+    margin: 1.5rem auto 0 auto;
+    text-align: end;
+}
+
+#underBt button {
+	background-color: #9caecd;
+	color:#fff;
+	cursor: pointer;
+	font-family: 'Gowun Dodum', sans-serif;
+    border: 1px solid #dadada;
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+#underBt button:hover{
+	background-color: #36589C;
+	color:#fff;
+}
