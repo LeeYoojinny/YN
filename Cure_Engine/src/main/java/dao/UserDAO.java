@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import util.SHA256;
 import vo.Car;
+import vo.Reservation;
 import vo.User;
 
 public class UserDAO {
@@ -707,6 +708,72 @@ public class UserDAO {
 				close(pstmt);
 			}			
 			return result;
+		}
+
+		
+		/*------ 시승예약 -----------------------------------------------*/
+		public int insertReserve(Reservation reservation) {
+			int reserveCount = 0;
+			
+			String sql = "insert into tbl_reservation(car_id,user_id,dealer_id,rev_date,rev_time)"
+					+ " values(?,?,?,?,?)";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,reservation.getCar_id());
+				pstmt.setString(2,reservation.getUser_id());
+				pstmt.setString(3,reservation.getDealer_id());
+				
+				//java.util.Date 객체를 java.sql.Date로 변환
+				java.sql.Date sqlRevDate = new java.sql.Date(reservation.getRev_date().getTime());
+		        pstmt.setDate(4, sqlRevDate);
+		        
+				pstmt.setString(5, reservation.getRev_time());
+				
+				reserveCount = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 insertReserve()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return reserveCount;
+		}
+
+
+		public ArrayList<Reservation> selectMyReservation(String user_id) {
+			ArrayList<Reservation> myReservation = null;
+			
+			String sql = "select * from tbl_reservation where user_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, user_id);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					myReservation = new ArrayList<Reservation>();
+					do {						
+						myReservation.add(new Reservation(
+									rs.getString("resernum"),
+									rs.getString("car_id"),
+									rs.getString("user_id"),
+									rs.getString("dealer_id"),
+									rs.getDate("rev_date"),
+									rs.getString("rev_time"),
+									rs.getString("approve_YN")
+									));
+					}while(rs.next());
+					
+				}
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 selectMyReservation()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return myReservation;
 		}
 
 		

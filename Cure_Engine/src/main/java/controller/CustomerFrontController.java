@@ -13,6 +13,8 @@ import action.cust.CustomerInfoViewAction;
 import action.cust.CustomerLikeThisAction;
 import action.cust.CustomerOrderFormAction;
 import action.cust.CustomerRemoveWishAction;
+import action.cust.CustomerReservationAction;
+import action.cust.CustomerReservationListAction;
 import action.cust.CustomerUnlikeThisAction;
 import action.cust.CustomerUpdateAction;
 import action.cust.CustomerWishlistAction;
@@ -192,7 +194,31 @@ public class CustomerFrontController extends HttpServlet {
 			}
 		}
 		
+		/*------- '시승예약 폼 보기' → 처리 ---------------------------------------------------------*/
+		else if(command.equals("/reservationForm.cust")) {//'시승예약 폼 보기' 요청이면
+			request.setAttribute("showPage", "customer/reservationForm.jsp");
+			forward = new ActionForward("template.jsp",false);
+		}
+		else if(command.equals("/reservation.cust")) {//예약 처리
+			action = new CustomerReservationAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
 		
+		/*------- 나의예약내역 ---------------------------------------------------------*/
+		else if(command.equals("/myReservation.cust")) {//'예약페이지 보기' 요청이면
+			action = new CustomerReservationListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
 		
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)

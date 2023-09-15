@@ -1,0 +1,90 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+body{
+    font-family: 'Gowun Dodum', sans-serif;
+    background-color: #f5f6f7;
+    line-height: 1.5em;
+    color : #222;
+    margin: 0;
+    width:100%;
+}
+
+.wrap_allCarList{
+    width: 100%;
+    margin: auto; /*중앙 정렬*/
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+input::placeholder {
+  font-family: 'Gowun Dodum', sans-serif;
+  font-style: italic;
+}
+
+/* 관리자용 상품등록 버튼 */
+.rgstButton button{
+	float: right;
+	width: 7rem;
+	margin-bottom: 1rem;
+	padding: 10px;
+	color:#fff;
+	font-family: 'Gowun Dodum', sans-serif;
+	background-color: #486AAE;
+	border: 1px solid #dadada;
+	cursor: pointer;
+}
+
+
+.rgstButton button:hover{
+	background-color: #36589C;
+	color:#fff;
+}
+
+.nothing{
+	text-align: center;
+}
+
+/* 상품 리스트 부분 ---------------------------------------------------*/
+table {
+	margin-top: 0.2rem;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	max-width: 900px;
+	border-collapse: collapse;
+}
+
+#firstLine {
+	border-top: 1px solid #848484;
+	border-bottom: 1px solid #848484;
+	height: 2rem; /*높이조절*/
+	text-align: center;
+}
+
+#space {
+	border-top: 1px solid #848484;
+}
+
+/* 상품 테이블 */
+.contents {
+	text-align: center;
+}
+
+/* 체크박스 및 넘버 너비설정 */
+#check_remove, #item_no{
+	width: 5%;
+}
+
+/* 이미지 너비 설정 */
+#main_img {
+	width: 18%;
+}
+
+#main_img img {
+	width: 100%;
+	margin: 0.5rem auto;
+	height: 100px; /* 원하는 높이로 조정 */
+	object-fit: fill;
+}
+

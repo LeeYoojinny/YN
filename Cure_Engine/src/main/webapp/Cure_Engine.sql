@@ -268,6 +268,7 @@ BEGIN
 END$$
 DELIMITER ;
 
+alter table tbl_reservation modify column approve_YN CHAR(1) NOT NULL DEFAULT 'W';
 select * from tbl_reservation;
 
 -- -----------------------------------------------------
