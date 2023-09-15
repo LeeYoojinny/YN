@@ -28,6 +28,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 		}
 		
 	}
+	
+	function rejoinCheck(user_id) {
+		if(!confirm("재가입 처리 하시겠습니까?")){
+			return false;
+		}else {
+			location.href="custRejoin.adm?user_id="+user_id;
+		}
+		
+	}
 </script>
 <body>
 	<h2>${custInfo.user_id} 회원 정보</h2>
@@ -151,12 +160,17 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 </div>
 <div id="underBt">
 	<c:if test="${display_num eq 1}">
-	<button onclick="location.href='customerList.adm'">회원목록</button>
+		<button onclick="location.href='customerList.adm'">회원목록</button>
 	</c:if>
 	<c:if test="${display_num eq 2}">
-	<button onclick="location.href='custExpireList.adm'">회원목록</button>
+		<button onclick="location.href='custExpireList.adm'">회원목록</button>
 	</c:if>
-	<button onclick="deleteCheck('${custInfo.user_id}')">탈퇴처리</button>
+	<c:if test="${display_num eq 1}">
+		<button onclick="deleteCheck('${custInfo.user_id}')">탈퇴처리</button>
+	</c:if>
+	<c:if test="${display_num eq 2}">
+		<button onclick="rejoinCheck('${custInfo.user_id}')">재가입처리</button>
+	</c:if>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 

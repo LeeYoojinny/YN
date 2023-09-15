@@ -271,43 +271,7 @@ public class CarDAO {
 			return searchCar;
 		}
 
-		/*---- '나의판매차량' 보기용 ------------------------------------------------------------------------------*/
-		public ArrayList<Car> selectmySaleCar(String user_id) {
-			ArrayList<Car> mySaleCar = null;
-			
-			String sql = "select * from tbl_car where car_delete='N' and dealer_id=?";
-			
-			try {
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1,user_id);
-				rs = pstmt.executeQuery();
-				
-				if(rs.next()) {
-					mySaleCar = new ArrayList<Car>();
-					do {
-						mySaleCar.add(new Car(
-								rs.getString("dealer_id"),
-								rs.getString("car_id"),
-								rs.getString("car_brand"),
-								rs.getString("car_name"),
-								rs.getInt("car_price"),
-								rs.getInt("car_year"),
-								rs.getString("car_image1"),
-								rs.getInt("car_like"),
-								rs.getString("sale_YN"),
-								rs.getString("car_delete")
-								));
-					}while(rs.next());
-				}
-			}catch(Exception e) {
-				System.out.println("CarDAO 클래스의 selectmySaleCar()에서 발생한 에러 : "+e);
-			}finally {
-				close(rs);
-				close(pstmt);
-			}
-			
-			return mySaleCar;
-		}
+		
 
 		/*---- 관심상품 등록 후 like 숫자 올리기 ------------------------------------------------------------------------------*/
 		public int likeUpdate(String car_id) {
@@ -355,36 +319,49 @@ public class CarDAO {
 		
 		
 		/*---- 관심상품보기 -------------------------------------------------------------------*/
-		public ArrayList<Car> selectmyWishCar(String[] all_car_id) {
+		public ArrayList<Car> selectmyWishCar(String[] all_car_id, int page, int limit) {
 			ArrayList<Car> wishCar = new ArrayList<Car>();
 			
-			String sql = "select * from tbl_car where car_delete='N' and car_id=?";
+			System.out.println("page값 : "+page);
 			
-			try {
-				pstmt = con.prepareStatement(sql);
-				
-				for(int i=0; i<all_car_id.length; i++) {
-					System.out.println("car_id에 대입 : "+all_car_id[i]);
-					pstmt.setString(1,all_car_id[i]);
-					rs = pstmt.executeQuery();
-					
-					if(rs.next()) {
-						do {
-							wishCar.add(new Car(
-									rs.getString("dealer_id"),
-									rs.getString("car_id"),
-									rs.getString("car_brand"),
-									rs.getString("car_name"),
-									rs.getInt("car_price"),
-									rs.getInt("car_year"),
-									rs.getString("car_image1"),
-									rs.getInt("car_like"),
-									rs.getString("sale_YN"),
-									rs.getString("car_delete")
-									));
-						}while(rs.next());
-					}
-				}
+			String sql = "SELECT * FROM tbl_car WHERE car_delete = 'N' AND car_id IN (";
+		    for (int i = 0; i < all_car_id.length; i++) {
+		        sql += "?";
+		        if (i < all_car_id.length - 1) {
+		            sql += ",";
+		        }
+		    }
+		    sql += ") LIMIT ?, 5";
+
+		    int startrow = (page - 1) * 5;
+
+		    try {
+		        pstmt = con.prepareStatement(sql);
+
+		        // car_id 파라미터 설정
+		        for (int i = 0; i < all_car_id.length; i++) {
+		            pstmt.setString(i + 1, all_car_id[i]);
+		        }
+
+		        // 페이지 파라미터 설정
+		        pstmt.setInt(all_car_id.length + 1, startrow);
+
+		        rs = pstmt.executeQuery();
+
+		        while (rs.next()) {
+		            wishCar.add(new Car(
+		                    rs.getString("dealer_id"),
+		                    rs.getString("car_id"),
+		                    rs.getString("car_brand"),
+		                    rs.getString("car_name"),
+		                    rs.getInt("car_price"),
+		                    rs.getInt("car_year"),
+		                    rs.getString("car_image1"),
+		                    rs.getInt("car_like"),
+		                    rs.getString("sale_YN"),
+		                    rs.getString("car_delete")
+		            ));
+		        }
 				
 				for(Car car_brand : wishCar) {
 					System.out.println("wishCar 안의 브랜드 확인 : "+car_brand.getCar_brand());
@@ -472,7 +449,70 @@ public class CarDAO {
 			}
 			return result;
 		}
-
+		
+		/*--- 페이징처리 위해 나의 판매차량 개수 가져오기 -------------------------------------------------------------------*/
+		public int getSaleCount(String user_id) {
+			int count = 0;
+			
+			String sql = "select count(*) from tbl_car where car_delete='N' and dealer_id=?";
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, user_id);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 getSaleCount()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return count;
+		}
+		
+		/*---- '나의판매차량' 보기용 ------------------------------------------------------------------------------*/
+		public ArrayList<Car> selectmySaleCar(String user_id, int page, int limit) {
+			ArrayList<Car> mySaleCar = null;
+			
+			String sql = "select * from tbl_car where car_delete='N' and dealer_id=? limit ?,5";
+			int startrow = (page - 1) * 5;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,user_id);
+				pstmt.setInt(2, startrow);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					mySaleCar = new ArrayList<Car>();
+					do {
+						mySaleCar.add(new Car(
+								rs.getString("dealer_id"),
+								rs.getString("car_id"),
+								rs.getString("car_brand"),
+								rs.getString("car_name"),
+								rs.getInt("car_price"),
+								rs.getInt("car_year"),
+								rs.getString("car_image1"),
+								rs.getInt("car_like"),
+								rs.getString("sale_YN"),
+								rs.getString("car_delete")
+								));
+					}while(rs.next());
+				}
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 selectmySaleCar()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return mySaleCar;
+		}
+		
 		/*--- 딜러가 자신이 등록한 차량 삭제 -------------------------------------------------------------------*/
 		public int removeMyCar(String[] car_ids, String user_id) {
 			int result = 0;
@@ -658,7 +698,8 @@ public class CarDAO {
 			
 			return carInfo;
 		}
-
+		
+		
 		
 		
 		

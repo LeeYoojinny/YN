@@ -113,3 +113,10 @@ table {
 	padding-right: 0.3rem;
 	cursor: pointer;
 }
+
+/* 페이지 넘버 부분 */
+.pageNum {
+	clear: both;
+	margin-top : 1.5rem;
+	text-align: center;
+}

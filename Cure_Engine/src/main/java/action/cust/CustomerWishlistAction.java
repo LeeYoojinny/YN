@@ -12,40 +12,82 @@ import vo.ActionForward;
 import vo.Wishlist;
 import vo.Car;
 import vo.Code;
+import vo.PageInfo;
 
 public class CustomerWishlistAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ActionForward forward = null;
+		ActionForward forward = null;	
 		
-		//세션에 저장된 wishlist 불러오기
+		//세션에 저장된 user_id 불러오기
 		HttpSession session = request.getSession();
-		ArrayList<Wishlist> myWishlist = (ArrayList<Wishlist>)session.getAttribute("wishlist");
+		String user_id = (String)session.getAttribute("user_id");
+		System.out.println("위시리스트를 얻기위한 user_id : "+user_id);
+				
+		CustomerWishlistService customerWishlistService = new CustomerWishlistService();
 		
-		if(myWishlist == null) {
-			myWishlist = new ArrayList<Wishlist>();
+		/* 1. 페이징처리 --------------------------------------------------------------------------*/
+		int page = 1;
+		int limit = 5;
+		int pageGroupSize = 10;
+		
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		int listCount = customerWishlistService.getListCount(user_id);
+		//총 페이지 수 계산
+		int maxPage = (int) Math.ceil((double) listCount / limit);
+		
+		// 현재 페이지 그룹을 계산
+		int currentPageGroup = (int) Math.ceil((double) page / pageGroupSize);
+
+		// 시작 페이지와 끝 페이지 계산
+		int startPage = (currentPageGroup - 1) * pageGroupSize + 1;
+		int endPage = startPage + pageGroupSize - 1;
+		if(endPage > maxPage) endPage = maxPage;
+		
+		//페이징처리를 위한 페이지정보
+		PageInfo pageInfo = new PageInfo();
+		pageInfo.setEndPage(endPage);
+		pageInfo.setListCount(listCount);
+		pageInfo.setMaxPage(maxPage);
+		pageInfo.setPage(page);
+		pageInfo.setStartPage(startPage);	
+		
+		/*---------------------------------------------------------------------------------------*/
+		
+		/* 2. user_id로 관심상품 리스트 가져오기 --------------------------------------------------------*/
+		ArrayList<Wishlist> myWish = customerWishlistService.getMyWishlist(user_id);
+				
+		if(myWish == null) {
+			myWish = new ArrayList<Wishlist>();
+			System.out.println("myWish가 null임");
 		}
 		
 		//wishlist에서 car_id만 가져오기
-		String[] all_car_id = new String[myWishlist.size()];
-		if (myWishlist != null) {
-		    for (int i = 0; i < myWishlist.size(); i++) {
-		    	all_car_id[i] = myWishlist.get(i).getCar_id();
+		String[] all_car_id = new String[myWish.size()];
+		if (myWish != null) {
+		    for (int i = 0; i < myWish.size(); i++) {
+		    	all_car_id[i] = myWish.get(i).getCar_id();
 		    }
 		}
 		
+		//콘솔 확인
 		for(String all:all_car_id) {
 			System.out.println("배열로 저장된 car_id : "+all);
 		}
-		
-		CustomerWishlistService customerWishlistService = new CustomerWishlistService();
-		ArrayList<Car> wishCar = customerWishlistService.getWishCar(all_car_id);
+		/*---------------------------------------------------------------------------------------*/
+				
+		/* 3. 관심상품 리스트로 자동차 정보 가저오기 --------------------------------------------------------*/
+		ArrayList<Car> wishCar = customerWishlistService.getWishCar(all_car_id,page,limit);
 		ArrayList<Code> allCode = customerWishlistService.getAllCode();
 		
 		System.out.println("action으로 돌아옴");
 		
 		request.setAttribute("myWishCar", wishCar);
+		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("allCode", allCode);
 		
 		request.setAttribute("showPage", "customer/myWishlistForm.jsp");

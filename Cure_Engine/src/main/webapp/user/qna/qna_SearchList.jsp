@@ -72,9 +72,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 			</tr>
 			</thead>
 			<tbody>
-				<c:if test="${boardList ne null}">
+				<c:if test="${result ne null}">
 				<c:set var="num" value="${pageInfo.listCount}"></c:set>
-					<c:forEach var="board" items="${boardList}" >
+					<c:forEach var="board" items="${result}" >
 			            <tr>
 			                <td>${num}</td>
 			                <td>
@@ -141,7 +141,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 			            <c:set var="num" value="${num-1}"></c:set>
 			        </c:forEach>
 			    </c:if>
-				<c:if test="${empty boardList}">
+				<c:if test="${empty result}">
 		            <tr>
 		                <td colspan="6">게시글이 없습니다.</td>
 		            </tr>
@@ -156,11 +156,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 			</select>
 			<input type="text" name="keyword" placeholder="검색어를 입력하세요">
 			<button onclick="searchCheck()">검색</button>
-			<c:if test="${user_category eq 'customer' or user_category eq null}">
-				<a class="btn btn-default float-end" style="border:1px solid #ccc;" onclick="loginCheck()">글쓰기</a>
-			</c:if>	
+			<button id="listBack" onclick="location.href='qna_boardList.bo'; return false;">전체목록보기</button>
 		</form>
-		
 		<div class="pageNum">
 			<c:choose> 
 					<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>
@@ -176,8 +173,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 					<c:when test="${pageInfo.page >= pageInfo.maxPage}">[다음]&nbsp;</c:when>
 					<c:otherwise><a style="text-decoration:none" href="qna_boardList.bo?page=${pageInfo.page+1}">[다음]&nbsp;</a></c:otherwise>
 				</c:choose>
-		</div>
-			
+		</div>			
 	</div>
 </div> 
 

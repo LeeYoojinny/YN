@@ -174,6 +174,31 @@ public class WishlistDAO {
 		}
 
 
+		public int getWishCount(String user_id) {
+			int count = 0;
+			
+			String sql = "select count(*) from tbl_wishlist where user_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, user_id);
+
+				rs = pstmt.executeQuery();			
+				
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				System.out.println("WishlistDAO 클래스의 getWishCount()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return count;
+		}
+
+
 		
 
 		

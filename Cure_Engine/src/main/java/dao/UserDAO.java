@@ -688,6 +688,27 @@ public class UserDAO {
 			return expireCust;
 		}
 
+		/*------ 탈퇴회원관리 - 탈퇴회원 재가입처리 -----------------------------------------------*/
+		public int custRejoin(String user_id) {
+			int result = 0;
+			
+			String sql = "update tbl_user set use_YN='Y', user_expiredate=null, "
+					+ "user_joindate=now() where user_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);				
+				pstmt.setString(1, user_id);
+				
+				result = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 custRejoin()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}			
+			return result;
+		}
+
 		
 
 

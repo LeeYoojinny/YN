@@ -67,8 +67,9 @@
 	}
 </script>
 <body>
+<h3>관심상품</h3>
 <div class="wrap_allWish">
-	<c:if test="${wishlist != null }">
+	<c:if test="${myWishCar != null }">
 		<form method="post">
 			<table>
 				<tr id="allRemove">
@@ -82,10 +83,11 @@
 					<th>관심상품</th>
 					<th></th>
 				</tr>
+				<c:set var="startNo" value="${(pageInfo.page - 1) * 5 + 1}" />
 				<c:forEach var="wish" items="${myWishCar}" varStatus="status">
 					<tr class="contents">
 						<td rowspan="3" id="check_remove"><input type="checkbox" name="remove" value="${wish.car_id}"></td>
-						<td rowspan="3" id="item_no">${status.count}</td>
+						<td rowspan="3" id="item_no">${startNo + status.count-1}</td>
 						<td rowspan="3" id="main_img"><a href="carDetailView.usr?car_id=${wish.car_id}"><img src="upload/carRegist_images/${wish.car_image1}"></a></td>
 						<td id="explain1">
 						<c:forEach var="code" items="${allCode}">
@@ -114,8 +116,24 @@
 				</c:forEach>
 			</table>
 		</form>
+		<div class="pageNum">
+			<c:choose> 
+					<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>
+					<c:otherwise><a style="text-decoration:none" href="myWishlist.cust?page=${pageInfo.page-1}">[이전]&nbsp;</a></c:otherwise>
+				</c:choose>
+				<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="loop">
+					<c:choose>
+						<c:when test="${i == pageInfo.page}">${i}&nbsp;</c:when>
+						<c:otherwise><a style="text-decoration:none" href="myWishlist.cust?page=${i}">${i}</a>&nbsp;</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:choose>
+					<c:when test="${pageInfo.page >= pageInfo.maxPage}">[다음]&nbsp;</c:when>
+					<c:otherwise><a style="text-decoration:none" href="myWishlist.cust?page=${pageInfo.page+1}">[다음]&nbsp;</a></c:otherwise>
+				</c:choose>
+		</div>
 	</c:if>
-	<c:if test="${wishlist == null }">
+	<c:if test="${myWishCar == null }">
 		<div class="nothing">${user_id}님의 관심상품이 없습니다.</div>
 	</c:if>
 </div>

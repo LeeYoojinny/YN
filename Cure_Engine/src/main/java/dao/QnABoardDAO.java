@@ -424,6 +424,7 @@ public class QnABoardDAO {
 		return replyCount;
 	}
 
+		
 	public int parentReplyYN(String parent_qna_num) {
 		int parent_replyY = 0;
 		
@@ -443,6 +444,124 @@ public class QnABoardDAO {
 		
 		return parent_replyY;
 	}
+	
+	public int getSearchCount(String keyword, int searchMethod) {
+		int count = 0;
+		
+		String sql = "";
+		
+		if(searchMethod == 1) {
+			sql = "select count(*) from tbl_qna where qna_title like ? or qna_content like ?";
+		}else if(searchMethod == 2) {
+			sql = "select count(*) from tbl_qna where user_id=?";
+		}
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			if(searchMethod == 1) {
+				pstmt.setString(1, "%" + keyword + "%");
+				pstmt.setString(2, "%" + keyword + "%");
+			}else if(searchMethod == 2) {
+				pstmt.setString(1, keyword);
+			}
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			System.out.println("BoardDAO의 getSearchCount() 에러 : " + e);
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+	
+
+	/*-- 게시판 검색 - 제목+내용으로 찾기 -------------------------------------------------------------------------------------------*/	
+	public ArrayList<QnABoard> getSearchResult_1(String keyword) {
+		ArrayList<QnABoard> result = null;
+		
+		String sql = "select * from tbl_qna where qna_title like ? or qna_content like ?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setString(2, "%" + keyword + "%");
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = new ArrayList<QnABoard>();
+				
+				do {
+					QnABoard board = new QnABoard();
+					
+					board.setQna_num(rs.getString("qna_num"));
+					board.setUser_id(rs.getString("user_id"));
+					board.setCar_id(rs.getString("car_id"));
+					board.setQna_pw(rs.getString("qna_pw"));
+					board.setQna_title(rs.getString("qna_title"));
+					board.setQna_content(rs.getString("qna_content"));
+					board.setQna_date(rs.getTimestamp("qna_date"));
+					board.setSecret_YN(rs.getString("secret_YN"));
+					board.setQna_hit(rs.getInt("qna_hit"));
+					result.add(board);
+					
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			System.out.println("BoardDAO의 getSearchResult_1() 에러 : " + e);
+		} finally {
+			close(rs);
+			close(pstmt);
+		}		
+		return result;
+	}
+	
+	/*-- 게시판 검색 - 작성자로 찾기 -------------------------------------------------------------------------------------------*/	
+	public ArrayList<QnABoard> getSearchResult_2(String keyword) {
+		ArrayList<QnABoard> result = null;
+		
+		String sql = "select * from tbl_qna where user_id=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = new ArrayList<QnABoard>();
+				
+				do {
+					QnABoard board = new QnABoard();
+					
+					board.setQna_num(rs.getString("qna_num"));
+					board.setUser_id(rs.getString("user_id"));
+					board.setCar_id(rs.getString("car_id"));
+					board.setQna_pw(rs.getString("qna_pw"));
+					board.setQna_title(rs.getString("qna_title"));
+					board.setQna_content(rs.getString("qna_content"));
+					board.setQna_date(rs.getTimestamp("qna_date"));
+					board.setSecret_YN(rs.getString("secret_YN"));
+					board.setQna_hit(rs.getInt("qna_hit"));
+					result.add(board);
+					
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			System.out.println("BoardDAO의 getSearchResult_2() 에러 : " + e);
+		} finally {
+			close(rs);
+			close(pstmt);
+		}		
+		return result;
+	}
+
 	
 
 	

@@ -18,6 +18,17 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 <!-- <script src="js/jquery-3.1.1.js"></script>
 <script src="js/bootstrap.js"></script> -->
 </head>
+<script type="text/javascript">
+	function searchCheck(){
+		if(document.f.keyword.value == ""){
+			alert("검색어를 입력해주세요.");
+			return false;
+		}
+		
+		document.f.submit();
+	}
+</script>
+
 <body class="sb-nav-fixed">
 <h2>공지사항</h2>
 <div class="container">
@@ -61,9 +72,13 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 				<option value="notice_title" selected>제목</option>
 				<option value="user_id">작성자</option>
 			</select>
-			<input type="text" name="keyword" placeholder="검색어를 입력하세요">&nbsp;<input type="submit" value="검색">
+			<input type="text" name="keyword" placeholder="검색어를 입력하세요">
+			<button onclick="searchCheck()">검색</button>
+			<c:if test="${user_category eq 'admin'}">
+				<a class="btn btn-default float-end" style="border:1px solid #ccc;" href="notice_boardWrite.bo">글쓰기</a>
+			</c:if>
 		</form>
-		
+		<div class="pageNum">
 		<c:choose> 
 				<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>
 				<c:otherwise><a style="text-decoration:none" href="notice_boardList.bo?page=${pageInfo.page-1}">[이전]&nbsp;</a></c:otherwise>
@@ -78,9 +93,7 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 				<c:when test="${pageInfo.page >= pageInfo.maxPage}">[다음]&nbsp;</c:when>
 				<c:otherwise><a style="text-decoration:none" href="notice_boardList.bo?page=${pageInfo.page+1}">[다음]&nbsp;</a></c:otherwise>
 			</c:choose>
-		<c:if test="${user_category eq 'admin'}">
-			<a class="btn btn-default float-end" style="border:1px solid #ccc;" href="notice_boardWrite.bo">글쓰기</a>
-		</c:if>
+		</div>		
 	</div>
 </div> 
 

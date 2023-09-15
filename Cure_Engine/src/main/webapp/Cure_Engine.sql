@@ -325,6 +325,7 @@ order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
 car_price INT NOT NULL,
 region NVARCHAR(30) NOT NULL,
 deliveryfee INT NOT NULL,
+user_zipcode INT NOT NULL,
 user_address1 VARCHAR(100) NOT NULL,
 user_address2 VARCHAR(60) NULL,
 user_phone VARCHAR(11) NOT NULL,
@@ -345,6 +346,9 @@ BEGIN
   SET NEW.ordernum = CONCAT('ORD', LPAD(LAST_INSERT_ID(), 5, '0'));
 END$$
 DELIMITER ;
+
+alter table tbl_order add column user_zipcode INT NOT NULL after deliveryfee;
+
 
 select * from tbl_order;
 
@@ -399,9 +403,7 @@ select * from tbl_qna;
 select count(*) from tbl_qna where qna_num='QNA00001' and qna_pw='1234';
 update tbl_qna 
 
--- -----------------------------------------------------
--- tbl_qna_reply : 질문게시판 답글
--- -----------------------------------------------------
+select count(*), from tbl_qna where qna_title like '%문의%' or qna_content like '%문의%'
 
 
 -- -----------------------------------------------------
@@ -489,12 +491,13 @@ ordernum VARCHAR(8) NOT NULL,
 pay_by INT NOT NULL COMMENT '1:계좌이체(현금) 2:신용카드',
 pay_price INT NOT NULL,
 pay_depositor_name VARCHAR(45) NULL COMMENT '현금결제일때 입금자명',
-pay_creditcard_name INT(16) NULL COMMENT '카드회사이름',
+pay_creditcard_name VARCHAR(45) NULL COMMENT '카드회사이름',
 pay_creditcard_num INT(16) NULL COMMENT '카드결제시 카드번호 16자리',
 pay_creditcard_cvc INT(3) NULL COMMENT '카드결제시 cvc 번호 3자리',
 CONSTRAINT fk_pay_ordernum FOREIGN KEY (ordernum) REFERENCES tbl_order (ordernum));
 
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+alter table tbl_payment modify pay_creditcard_name VARCHAR(45) NULL;

@@ -29,4 +29,21 @@
 	   maxActive="500" 
 	   maxWait="1000"
 	   maxIdle="100"/>
+	   
+	     <!-- MySQL용 -->
+ 		<!-- <Resource name="jdbc/MySQLDB" 
+	   auth="Container"
+	   type="javax.sql.DataSource" 
+	   
+	   username="ipc23albk" 
+	   password="ipc23albk"   
+	   driverClassName="com.mysql.cj.jdbc.Driver"
+	   url="jdbc:mysql://118.131.179.138/ipc23albk"
+	   
+	   factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+	  
+	   maxActive="500" 
+	   maxWait="1000"
+	   maxIdle="100"/> -->
+	   
 </Context>

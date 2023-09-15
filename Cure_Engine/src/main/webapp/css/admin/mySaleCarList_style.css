@@ -215,6 +215,7 @@ table {
 	padding-right: 0.3rem;
 }
 
+
 #bt button{
 	display: block;
 	margin: 0.5rem auto;
@@ -225,4 +226,10 @@ table {
 	background-color: #486AAE;
 	border: 1px solid #dadada;
 	cursor: pointer;
+}
+
+.pageNum {
+	clear: both;
+	margin-top : 1.5rem;
+	text-align: center;
 }
