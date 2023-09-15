@@ -77,6 +77,17 @@ String image5 = carDetail.getCar_image5();
 		location.href="orderForm.cust?car_id="+car_id;
 	}
 	
+	function reserCheck(user_id,car_id,dealer_id){
+		var user_id = '<c:out value="${user_id}" />'
+			
+		if(!user_id) {
+			alert("로그인 후 예약 가능합니다.");
+			location.href="userLogin.usr";
+			return false;
+		}
+		
+		location.href="reservationForm.cust?user_id="+user_id+"&car_id="+car_id+"&dealer_id="+dealer_id;
+	}
 	
 </script>
 <body>
@@ -202,7 +213,7 @@ String image5 = carDetail.getCar_image5();
 					<c:if test="${user_category eq null || user_category eq 'customer'}">
 						<div class="basic_info button">
 							<div id="resv_order">
-								<button onclick="#">시승예약</button>
+								<button onclick="reserCheck('${user_id}','${carDetail.car_id}','${carDetail.dealer_id}'); return false;">시승예약</button>
 								<button onclick="orderCheck('${carDetail.car_id}')">주문하기</button>
 							</div>
 		  	 				<div class="basic_info likeQty">
