@@ -64,6 +64,20 @@ String image5 = carDetail.getCar_image5();
 			
 		}
 	}
+	
+	function orderCheck(car_id){
+		var user_id = '<c:out value="${user_id}" />'
+		
+		if(!user_id) {
+			alert("로그인 후 주문 가능합니다.");
+			location.href="userLogin.usr";
+			return false;
+		}
+		
+		location.href="orderForm.cust?car_id="+car_id;
+	}
+	
+	
 </script>
 <body>
 <h2>${carDetail.car_id} 상세보기</h2>
@@ -189,7 +203,7 @@ String image5 = carDetail.getCar_image5();
 						<div class="basic_info button">
 							<div id="resv_order">
 								<button onclick="#">시승예약</button>
-								<button onclick="#">주문하기</button>
+								<button onclick="orderCheck('${carDetail.car_id}')">주문하기</button>
 							</div>
 		  	 				<div class="basic_info likeQty">
 				   	 			<c:set var="found" value="false" />

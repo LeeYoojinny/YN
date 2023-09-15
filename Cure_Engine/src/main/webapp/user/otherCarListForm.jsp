@@ -78,6 +78,22 @@
 					<tr id="space"><td colspan="3"></td></tr>
 				</c:forEach>
 			</table>
+			<div class="pageNum">
+				<c:choose> 
+					<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>
+					<c:otherwise><a style="text-decoration:none" href="mySaleCar.adm?page=${pageInfo.page-1}">[이전]&nbsp;</a></c:otherwise>
+				</c:choose>
+				<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="loop">
+					<c:choose>
+						<c:when test="${i == pageInfo.page}">${i}&nbsp;</c:when>
+						<c:otherwise><a style="text-decoration:none" href="mySaleCar.adm?page=${i}">${i}</a>&nbsp;</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:choose>
+					<c:when test="${pageInfo.page >= pageInfo.maxPage}">[다음]&nbsp;</c:when>
+					<c:otherwise><a style="text-decoration:none" href="mySaleCar.adm?page=${pageInfo.page+1}">[다음]&nbsp;</a></c:otherwise>
+				</c:choose>
+			</div>
 			</form>
 		</c:if>
 		<c:if test="${otherCarList == null }">

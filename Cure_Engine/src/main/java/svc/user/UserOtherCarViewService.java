@@ -12,13 +12,23 @@ import vo.Car;
 import vo.Code;
 
 public class UserOtherCarViewService {
-
-	public ArrayList<Car> getOtherCarList(String dealer_id) {
+	public int getListCount(String dealer_id) {
 		Connection con = getConnection();
 		CarDAO carDAO = CarDAO.getInstance();
 		carDAO.setConnection(con);
 		
-		ArrayList<Car> otherCarList = carDAO.selectmySaleCar(dealer_id);
+		int count = carDAO.getSaleCount(dealer_id);
+		
+		close(con);
+		return count;
+	}
+
+	public ArrayList<Car> getOtherCarList(String dealer_id, int page, int limit) {
+		Connection con = getConnection();
+		CarDAO carDAO = CarDAO.getInstance();
+		carDAO.setConnection(con);
+		
+		ArrayList<Car> otherCarList = carDAO.selectmySaleCar(dealer_id,page,limit);
 		
 		close(con);
 		return otherCarList;
@@ -34,5 +44,7 @@ public class UserOtherCarViewService {
 		close(con);
 		return allCode;
 	}
+
+	
 
 }

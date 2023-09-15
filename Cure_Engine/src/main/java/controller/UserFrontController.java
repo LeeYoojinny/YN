@@ -90,8 +90,11 @@ public class UserFrontController extends HttpServlet {
 		
 		/*------- '회원가입 폼 보기' → 처리 ---------------------------------------------------------*/
 		else if(command.equals("/userJoinChoice.usr")) {//'index.jsp에서 userMain.jsp 뷰페이지 보기' 요청이면
+			System.out.println("userJoinChoice.usr 요청받음");
 			request.setAttribute("showPage", "user/joinChoiceForm.jsp");
+			System.out.println("showPage에 user/joinChoiceForm.jsp 대입");
 			forward = new ActionForward("template.jsp",false); //반드시 디스패치 방식으로 포워딩
+			System.out.println("template.jsp 로 보내기");
 		}	
 		
 		else if(command.equals("/userJoin.usr")) {//'일반고객 가입' 요청이면

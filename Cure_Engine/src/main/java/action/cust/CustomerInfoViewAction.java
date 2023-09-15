@@ -11,7 +11,7 @@ import svc.cust.CustomerInfoViewService;
 import vo.ActionForward;
 import vo.User;
 
-public record CustomerInfoViewAction() implements Action {
+public class CustomerInfoViewAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

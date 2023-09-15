@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.cust.CustomerInfoViewAction;
 import action.cust.CustomerLikeThisAction;
+import action.cust.CustomerOrderFormAction;
 import action.cust.CustomerRemoveWishAction;
 import action.cust.CustomerUnlikeThisAction;
 import action.cust.CustomerUpdateAction;
@@ -137,18 +138,7 @@ public class CustomerFrontController extends HttpServlet {
 		}
 		*/
 		
-		/*------- '주문보기' → 처리 ---------------------------------------------------------*/
-		/*
-		else if(command.equals("/myOrder.cust")) {//'주문페이지 보기' 요청이면
-			action = new CustomerOrderListAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO 자동 생성된 catch 블록
-				e.printStackTrace();
-			}
-		}
-		*/
+		
 		
 		/*------- '회원정보관리 폼 보기' → 처리 ---------------------------------------------------------*/
 		
@@ -190,6 +180,20 @@ public class CustomerFrontController extends HttpServlet {
 			}
 		}
 		*/
+		
+		/*------- '주문 폼 보기' → 처리 ---------------------------------------------------------*/
+		else if(command.equals("/orderForm.cust")) {//'주문 폼 보기' 요청이면
+			action = new CustomerOrderFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)
 		 *********************************************************************/

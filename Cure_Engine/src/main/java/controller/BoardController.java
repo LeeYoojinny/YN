@@ -24,6 +24,7 @@ import action.board.QnA_BoardUpdateAction;
 import action.board.QnA_BoardViewAction;
 import action.board.QnA_BoardWriteAction;
 import action.board.QnA_BoardWriteForm;
+import action.board.QnA_SearchAction;
 import action.board.QnA_pwCheckAction;
 import vo.ActionForward;
 
@@ -262,6 +263,15 @@ public class BoardController extends HttpServlet {
 			}
 		}
 		
+		/*-- 검색하기 -----------------------------------------------------------------------------*/
+		else if(command.equals("/qna_searchAction.bo")) {//답글 저장 요청
+			action = new QnA_SearchAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		/*---------------------------------------------------------------------------------------*/
 		if(forward != null) {

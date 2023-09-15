@@ -26,7 +26,7 @@
 		<c:choose>
 			<%-- 로그인 하기 전 --%>
 			<c:when test="${sessionScope.user_id eq null}">
-			    <li><a href="allCarListView.usr">Cars</a></li>
+			    <li><a href="<%=request.getContextPath()%>/allCarListView.usr">Cars</a></li>
 			    <li><a href="#">Board</a>
 				    <ul id="inside_menu" style="padding-left: 0;">
 				     	<li><a href="<%=request.getContextPath()%>/qna_boardList.bo">문의게시판</a></li>
@@ -41,7 +41,7 @@
 			</c:when>
 			<%-- 고객이 로그인을 했을 떄 --%>
 			<c:when test="${sessionScope.user_category eq 'customer'}">
-			    <li><a href="allCarListView.usr">Cars</a></li>
+			    <li><a href="<%=request.getContextPath()%>/allCarListView.usr">Cars</a></li>
 			    <li><a href="#">Board</a>
 				    <ul id="inside_menu1" style="padding-left: 0;">
 				     	<li><a href="<%=request.getContextPath()%>/qna_boardList.bo">문의게시판</a></li>
@@ -56,7 +56,7 @@
 			</c:when>
 			<%-- 딜러가 로그인 했을 떄 --%>
 			<c:when test="${sessionScope.user_category eq 'dealer'}">
-			    <li><a href="allCarListView.usr">Cars</a>
+			    <li><a href="<%=request.getContextPath()%>/allCarListView.usr">Cars</a>
 			    	<ul id="inside_menu2" style="padding-left: 0;">
 				     	<li><a href="carRegistForm.adm">상품등록</a></li>
 				     	<li><a href="mySaleCar.adm">나의판매차량</a></li>
@@ -80,21 +80,21 @@
 			<c:otherwise>
 			    <li><a href="allCarListView.usr">Cars</a>
 			    	<ul id="inside_menu2" style="padding-left: 0;">
-				     	<li><a href="carRegistForm.adm">상품등록</a></li>
-				     	<li><a href="allSaleCar.adm">전체상품관리</a></li>
+				     	<li><a href="<%=request.getContextPath()%>/carRegistForm.adm">상품등록</a></li>
+				     	<li><a href="<%=request.getContextPath()%>/allSaleCar.adm">전체상품관리</a></li>
 				    </ul>		    
 			    </li>
 			    <li><a href="#">Status</a>
 			    	<ul id="inside_menu1" style="padding-left: 0;">
-				     	<li><a href="reservationView.adm">예약현황</a></li>
-				     	<li><a href="orderView.adm">주문현황</a></li>
+				     	<li><a href="<%=request.getContextPath()%>/reservationView.adm">예약현황</a></li>
+				     	<li><a href="<%=request.getContextPath()%>/orderView.adm">주문현황</a></li>
 				    </ul>
 			    </li>
 			    <li><a href="#">Board</a>
 			    	<ul id="inside_menu2" style="padding-left: 0;">
 				     	<li><a href="<%=request.getContextPath()%>/notice_boardList.bo">공지사항</a></li>
 				     	<li><a href="<%=request.getContextPath()%>/qna_boardList.bo">문의게시판관리</a></li>
-				     	<li><a href="reviewManage.adm">리뷰게시판관리</a></li>
+				     	<li><a href="<%=request.getContextPath()%>/reviewManage.adm">리뷰게시판관리</a></li>
 				    </ul>		    
 			    </li>    
 			</c:otherwise>
@@ -115,9 +115,9 @@
 		  			</li>
 					<li><a href="#">My Info</a>
 					 	<ul id="inside_menu2" style="padding-left: 0;">
-					     	<li><a href="myReservation.cust">나의예약내역</a></li>
-					     	<li><a href="myOrder.cust">나의주문내역</a></li>
-					     	<li><a href="myInfoView.cust">회원정보수정</a></li>
+					     	<li><a href="<%=request.getContextPath()%>/myReservation.cust">나의예약내역</a></li>
+					     	<li><a href="<%=request.getContextPath()%>/myOrder.cust">나의주문내역</a></li>
+					     	<li><a href="<%=request.getContextPath()%>/myInfoView.cust">회원정보수정</a></li>
 					    </ul>
 					</li>
 					<li><a href="<%=request.getContextPath()%>/userLogout.usr">LogOut</a></li>
@@ -126,7 +126,7 @@
 		  			<%-- <div class="welcome">${sessionScope.user_name}(${sessionScope.user_category})님 환영합니다</div> --%>
 					<li><a href="#">My Info</a>
 					 	<ul id="inside_menu2" style="padding-left: 0;">
-					     	<li><a href="dealerInfoView.adm">딜러정보수정</a></li>
+					     	<li><a href="<%=request.getContextPath()%>/dealerInfoView.adm">딜러정보수정</a></li>
 					    </ul>
 					</li>
 					<li><a href="<%=request.getContextPath()%>/userLogout.usr">LogOut</a></li>
@@ -135,10 +135,10 @@
 					<%-- <div class="welcome">${sessionScope.user_name}(${sessionScope.user_category})님 환영합니다</div>> --%>
 					<li><a href="#">Manage</a>
 						<ul id="inside_menu2" style="padding-left: 0;">
-					     	<li><a href="customerList.adm">회원관리</a></li>
-					     	<li><a href="dealerApproveList.adm">딜러등록</a></li>
+					     	<li><a href="<%=request.getContextPath()%>/customerList.adm">회원관리</a></li>
+					     	<li><a href="<%=request.getContextPath()%>/dealerApproveList.adm">딜러등록</a></li>
 					     	<li><a href="#">딜러관리</a></li>
-					     	<li><a href="pwChangeForm.usr?user_id=${user_id}">비밀번호변경</a></li>
+					     	<li><a href="<%=request.getContextPath()%>/pwChangeForm.usr?user_id=${user_id}">비밀번호변경</a></li>
 					    </ul>
 					</li>
 					<li><a href="<%=request.getContextPath()%>/userLogout.usr">LogOut</a></li>
