@@ -4,15 +4,18 @@ import java.sql.Timestamp;
 
 public class Coupon {
 	private String coupon_id;
+	private String coupon_name;
 	private String user_id;
 	private int discount_rate;
 	private Timestamp coupon_expiredate;
 	
+	
 	public Coupon() {}
 	
-	public Coupon(String coupon_id, String user_id, int discount_rate, Timestamp coupon_expiredate) {
+	public Coupon(String coupon_id, String coupon_name, String user_id, int discount_rate, Timestamp coupon_expiredate) {
 		super();
 		this.coupon_id = coupon_id;
+		this.coupon_name = coupon_name;
 		this.user_id = user_id;
 		this.discount_rate = discount_rate;
 		this.coupon_expiredate = coupon_expiredate;
@@ -24,6 +27,14 @@ public class Coupon {
 
 	public void setCoupon_id(String coupon_id) {
 		this.coupon_id = coupon_id;
+	}	
+	
+	public String getCoupon_name() {
+		return coupon_name;
+	}
+
+	public void setCoupon_name(String coupon_name) {
+		this.coupon_name = coupon_name;
 	}
 
 	public String getUser_id() {

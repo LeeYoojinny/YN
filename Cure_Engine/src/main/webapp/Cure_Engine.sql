@@ -282,17 +282,17 @@ PRIMARY KEY (region));
 insert into tbl_deliveryfee values ('서울특별시',300000);
 insert into tbl_deliveryfee values ('경기도',240000);
 insert into tbl_deliveryfee values ('강원도',350000);
-insert into tbl_deliveryfee values ('충청북도',200000);
-insert into tbl_deliveryfee values ('충청남도',250000);
+insert into tbl_deliveryfee values ('충북',200000);
+insert into tbl_deliveryfee values ('충남',250000);
 insert into tbl_deliveryfee values ('대전광역시',160000);
 insert into tbl_deliveryfee values ('부산광역시',150000);
 insert into tbl_deliveryfee values ('울산광역시',120000);
 insert into tbl_deliveryfee values ('대구광역시',50000);
 insert into tbl_deliveryfee values ('광주광역시',250000);
-insert into tbl_deliveryfee values ('경상북도',130000);
-insert into tbl_deliveryfee values ('경상남도',100000);
-insert into tbl_deliveryfee values ('전라북도',200000);
-insert into tbl_deliveryfee values ('전라남도',260000);
+insert into tbl_deliveryfee values ('경북',130000);
+insert into tbl_deliveryfee values ('경남',100000);
+insert into tbl_deliveryfee values ('전북',200000);
+insert into tbl_deliveryfee values ('전남',260000);
 insert into tbl_deliveryfee values ('제주도',500000);
 
 -- -----------------------------------------------------
@@ -300,13 +300,19 @@ insert into tbl_deliveryfee values ('제주도',500000);
 -- -----------------------------------------------------
 CREATE TABLE tbl_coupon (
 coupon_id CHAR(10) NOT NULL COMMENT '로직에서처리 10자리 난수 생성',
+coupon_name NVARCHAR(50) NOT NULL,
 user_id VARCHAR(45) NOT NULL,
 discount_rate INT NOT NULL,
-coupon_expiredate DATETIME DEFAULT CURRENT_TIMESTAMP,
+coupon_expiredate DATETIME DEFAULT (CURRENT_TIMESTAMP + INTERVAL 31 DAY),
 PRIMARY KEY (coupon_id),
 CONSTRAINT fk_cp_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id));
 
 select * from tbl_coupon;
+
+alter table tbl_coupon add column coupon_name NVARCHAR(50) NOT NULL after coupon_id;
+alter table tbl_coupon modify column coupon_expiredate DATETIME;
+ALTER TABLE tbl_coupon
+MODIFY COLUMN coupon_expiredate DATETIME DEFAULT (CURRENT_TIMESTAMP + INTERVAL 31 DAY);
 -- -----------------------------------------------------
 -- tbl_order : 주문하기
 -- -----------------------------------------------------

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import vo.Code;
+import vo.Deliveryfee;
 
 public class CodeDAO {
 		private Connection con = null;
@@ -151,7 +152,36 @@ public class CodeDAO {
 			
 			return insertResult;
 		}
-		
 
+		/*---- 탁송료 모든 값 가져오기 --------------------------------------------------------------------------*/
+		public ArrayList<Deliveryfee> getAllFee() {			
+			ArrayList<Deliveryfee> allFee = null;
+			
+			String sql = "select * from tbl_deliveryfee";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+
+				if(rs.next()) {
+					allFee = new ArrayList<Deliveryfee>();
+					do {
+						allFee.add(new Deliveryfee(
+								rs.getString("region"),
+								rs.getInt("fee")							
+								));
+						
+					}while(rs.next());
+				}				
+			}catch(Exception e) {
+				System.out.println("CodeDAO 클래스의 getAllFee()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return allFee;
+		}
+
+	
 		
 }

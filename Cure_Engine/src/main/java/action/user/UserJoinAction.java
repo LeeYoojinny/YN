@@ -13,6 +13,8 @@ import action.Action;
 import svc.user.UserJoinService;
 import vo.ActionForward;
 import vo.User;
+import vo.Coupon;
+import util.SHA256;
 
 public class UserJoinAction implements Action {
 
@@ -55,22 +57,40 @@ public class UserJoinAction implements Action {
 			out.println("history.back();"); //로그인폼보기 다시 요청
 			out.println("</script>");
 		}else {//회원가입 성공 알림창 → '로그인 폼보기' 요청(리다이렉트 방식)
-			//로그인폼보기 요청 전 이전에 저장한 쿠키객체 삭체
-			Cookie cookieU_id = new Cookie("u_id", "");
-			cookieU_id.setMaxAge(0);
-			response.addCookie(cookieU_id);
+			//회원가입 시 자동으로 발급되는 쿠폰
+			String couponNum = SHA256.getRandomPassword(10);
+			Coupon joinCoupon = new Coupon();
+			joinCoupon.setCoupon_id(couponNum);
+			joinCoupon.setCoupon_name("Welcome Coupon");
+			joinCoupon.setUser_id(user_id);
+			joinCoupon.setDiscount_rate(50);
 			
-			Cookie cookieCheckbox = new Cookie("checkbox", "");
-			cookieCheckbox.setMaxAge(0);
-			response.addCookie(cookieCheckbox);
-			
-			//성공알림창 → 로그인폼보기
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('회원가입에 성공했습니다.');");
-			out.println("location.href='userLogin.usr'"); //로그인폼보기 다시 요청
-			out.println("</script>");
+			boolean isCouponSuccess = userJoinService.userJoinCoupon(joinCoupon);
+			if(isCouponSuccess == true) {				
+				//로그인폼보기 요청 전 이전에 저장한 쿠키객체 삭체
+				Cookie cookieU_id = new Cookie("u_id", "");
+				cookieU_id.setMaxAge(0);
+				response.addCookie(cookieU_id);
+				
+				Cookie cookieCheckbox = new Cookie("checkbox", "");
+				cookieCheckbox.setMaxAge(0);
+				response.addCookie(cookieCheckbox);
+				
+				//성공알림창 → 로그인폼보기
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('회원가입에 성공했습니다.');");
+				out.println("location.href='userLogin.usr'"); //로그인폼보기 다시 요청
+				out.println("</script>");
+			}else {
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('회원가입에 실패하였습니다. 다시 시도해주세요.');");
+				out.println("history.back();"); //로그인폼보기 다시 요청
+				out.println("</script>");
+			}
 		}
 		
 		return forward;

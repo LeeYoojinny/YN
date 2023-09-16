@@ -11,6 +11,8 @@ import svc.cust.CustomerOrderFormService;
 import vo.ActionForward;
 import vo.Car;
 import vo.Code;
+import vo.Coupon;
+import vo.Deliveryfee;
 import vo.User;
 
 public class CustomerOrderFormAction implements Action {
@@ -24,16 +26,21 @@ public class CustomerOrderFormAction implements Action {
 		String car_id = request.getParameter("car_id");
 		
 		CustomerOrderFormService orderFormService = new CustomerOrderFormService();
+		//회원가입에 필요한 고객정보, 자동차정보, 쿠폰정보 가져오기
 		User userInfo = orderFormService.getUserInfo(user_id);
 		Car carInfo = orderFormService.getCarInfo(car_id);
-				
+		Coupon myCoupon = orderFormService.getMyCoupon(user_id);
+		
+		ArrayList<Deliveryfee> allFee = orderFormService.getAllFee();				
 		ArrayList<Code> allCode = orderFormService.getAllCode();
 		
 		request.setAttribute("userInfo", userInfo);
 		request.setAttribute("carInfo", carInfo);
+		request.setAttribute("myCoupon", myCoupon);
+		request.setAttribute("allFee", allFee);
 		request.setAttribute("allCode", allCode);
 		
-		request.setAttribute("showPage", "adm/dealerApproveList.jsp");
+		request.setAttribute("showPage", "customer/orderForm.jsp");
 		forward = new ActionForward("template.jsp",false);
 		
 		

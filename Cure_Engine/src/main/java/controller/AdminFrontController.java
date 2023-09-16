@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.adm.AdminAllSaleCarAction;
 import action.adm.AdminCarIdCheckAction;
 import action.adm.AdminCarRegistAction;
 import action.adm.AdminCarRegistFormAction;
@@ -29,6 +30,7 @@ import action.adm.AdminDealerJoinFormAction;
 import action.adm.AdminDealerRefuseAction;
 import action.adm.AdminMyCarRemoveAction;
 import action.adm.AdminMySaleCarAction;
+import action.adm.AdminReservationViewAction;
 import vo.ActionForward;
 
 /**
@@ -284,6 +286,30 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		
+		/*------- 예약현황보기 ---------------------------------------------------------*/
+		else if(command.equals("/reservationView.adm")) {//'예약현황보기' 요청이면
+			action = new AdminReservationViewAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		/*------- 관리자 - 모든상품보기 ---------------------------------------------------------*/
+		
+		else if(command.equals("/allSaleCar.adm")) {//'모든차량보기' 요청이면
+			action = new AdminAllSaleCarAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)
 		 *********************************************************************/
