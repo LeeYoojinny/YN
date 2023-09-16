@@ -698,6 +698,66 @@ public class CarDAO {
 			
 			return carInfo;
 		}
+
+		/*--- 페이징처리 위해 모든 판매차량 개수 가져오기 -------------------------------------------------------------------*/
+		public int getAllSaleCount() {
+			int count = 0;
+			
+			String sql = "select count(*) from tbl_car where car_delete='N'";
+			try {
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 getAllSaleCount()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return count;
+		}
+
+		/*--- 페이징처리 된 모든 판매차량 가져오기 -------------------------------------------------------------------*/
+		public ArrayList<Car> selectAllSaleCar(int page, int limit) {
+			ArrayList<Car> allCarList = null;
+			
+			String sql = "select * from tbl_car where car_delete='N' limit ?,5";
+			int startrow = (page - 1) * 5;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startrow);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					allCarList = new ArrayList<Car>();
+					do {
+						allCarList.add(new Car(
+								rs.getString("dealer_id"),
+								rs.getString("car_id"),
+								rs.getString("car_brand"),
+								rs.getString("car_name"),
+								rs.getInt("car_price"),
+								rs.getInt("car_year"),
+								rs.getString("car_image1"),
+								rs.getInt("car_like"),
+								rs.getString("sale_YN"),
+								rs.getString("car_delete")
+								));
+					}while(rs.next());
+				}
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 selectAllSaleCar()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return allCarList;
+		}
 		
 		
 		

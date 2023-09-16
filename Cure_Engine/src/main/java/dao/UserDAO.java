@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import util.SHA256;
 import vo.Car;
+import vo.Coupon;
 import vo.Reservation;
 import vo.User;
 
@@ -72,6 +73,31 @@ public class UserDAO {
 			}
 			return insertUserCount;
 		}
+		
+		/*------ 회원가입시 발행되는 탁송료 반값 쿠폰 -----------------------------------------------*/
+		public int userJoinCoupon(Coupon joinCoupon) {
+			int result = 0;
+			
+			String sql = "insert into tbl_coupon(coupon_id,coupon_name,user_id,discount_rate) values(?,?,?,?)";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,joinCoupon.getCoupon_id());
+				pstmt.setString(2,joinCoupon.getCoupon_name());
+				pstmt.setString(3,joinCoupon.getUser_id());
+				pstmt.setInt(4,joinCoupon.getDiscount_rate());
+				
+				result = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 userJoinCoupon()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}		
+			
+			return result;
+		}
+
 		
 		/*---- 딜러 등록 ----------------------------------------------------------------------------------------------*/
 		public int insertDealer(User user) {
@@ -740,7 +766,7 @@ public class UserDAO {
 			return reserveCount;
 		}
 
-
+		/*------ 나의 시승예약 -----------------------------------------------*/
 		public ArrayList<Reservation> selectMyReservation(String user_id) {
 			ArrayList<Reservation> myReservation = null;
 			
@@ -775,7 +801,139 @@ public class UserDAO {
 			}
 			return myReservation;
 		}
+		
 
+		/*------ 예약관리 페이징처리를 위해 개수 가져오기 -----------------------------------------------*/
+		public int getRsvListCount() {
+			int listCount = 0;
+
+			String sql = "select count(*) from tbl_reservation";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					listCount = rs.getInt(1);
+				}
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 getRsvListCount()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}			
+			
+			return listCount;
+		}
+
+
+		/*------ 딜러용 예약내역보기 -----------------------------------------------*/
+		public ArrayList<Reservation> selectReservation(String user_id,int page,int limit) {
+			ArrayList<Reservation> reservation = null;
+			
+			String sql = "select * from tbl_reservation where dealer_id=? limit ?,10";
+			int startrow = (page-1)*10;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, user_id);
+				pstmt.setInt(2, startrow);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					reservation = new ArrayList<Reservation>();
+					do {						
+						reservation.add(new Reservation(
+									rs.getString("resernum"),
+									rs.getString("car_id"),
+									rs.getString("user_id"),
+									rs.getString("dealer_id"),
+									rs.getDate("rev_date"),
+									rs.getString("rev_time"),
+									rs.getString("approve_YN")
+									));
+					}while(rs.next());
+					
+				}
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 selectReservation()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return reservation;
+		}
+
+		/*------ 관리자용 예약내역보기 -----------------------------------------------*/
+		public ArrayList<Reservation> selectAllReservation(int page,int limit) {
+			ArrayList<Reservation> reservation = null;
+			
+			String sql = "select * from tbl_reservation limit ?,10";
+			int startrow = (page-1)*10;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startrow);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					reservation = new ArrayList<Reservation>();
+					do {						
+						reservation.add(new Reservation(
+									rs.getString("resernum"),
+									rs.getString("car_id"),
+									rs.getString("user_id"),
+									rs.getString("dealer_id"),
+									rs.getDate("rev_date"),
+									rs.getString("rev_time"),
+									rs.getString("approve_YN")
+									));
+					}while(rs.next());
+					
+				}
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 selectAllReservation()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return reservation;
+		}
+
+		/*------ 주문 시 쿠폰리스트 가져오기 -----------------------------------------------*/
+		public Coupon getMyCoupon(String user_id) {
+			Coupon coupon = null;
+			
+			String sql = "select * from tbl_coupon where user_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, user_id);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					coupon = new Coupon();
+					coupon.setCoupon_id(rs.getString("coupon_id"));					
+					coupon.setCoupon_name(rs.getString("coupon_name"));					
+					coupon.setUser_id(rs.getString("user_id"));					
+					coupon.setDiscount_rate(rs.getInt("discount_rate"));					
+					coupon.setCoupon_expiredate(rs.getTimestamp("coupon_expiredate"));					
+				}
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 selectAllReservation()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return coupon;
+		}
+
+		
 		
 
 
