@@ -13,6 +13,27 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link href="css/customer/orderForm_style.css" rel="stylesheet">
 </head>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
+	/* 주소 검색 함수 */
+	function findAddr() {
+	    new daum.Postcode({
+	        oncomplete : function(data) {
+	            document.getElementById("user_zipcode").value = data.zonecode;
+	            let roadAddr = data.roadAddress;
+	            let jibunAddr = data.jibunAddress;
+	            
+	            if (roadAddr !== '') {
+	                document.getElementById("user_address1").value = roadAddr;
+	            } else if (jibunAddr !== '') {
+	                document.getElementById("user_address1").value = jibunAddr;
+	            }
+	            
+	            document.getElementById("user_address2").focus();
+	        }
+	    }).open();
+	}
+</script>
 <body>
 	<div class="container">
   <main>
@@ -72,12 +93,13 @@
           <li class="list-group-item d-flex justify-content-between lh-sm">
           <c:forEach var="fee" items="${allFee}">
           <c:set var="user_region" value="${fn:substring(userInfo.user_address1, 0, 2)}" />
-            <c:if test="${fee.region == user_region}">
+          <c:set var="fee_region" value="${fn:substring(fee.region, 0, 2)}" />
+            <c:if test="${fee_region == param.feeRegion}">
             	<c:set var="user_fee" value="${fee.fee}" />
 	            <div>
-	              <h6 class="my-0">탁송료</h6>                          
+	              <h6 class="my-0">탁송료(출발지역:대구)</h6>                          
 	              <small class="text-body-secondary">
-	              대구 ~ ${fee.region} 
+	              차량 받으실 지역 : ${fee.region} 
 	              </small>
 	            </div>
 	            <span class="text-body-secondary">
@@ -117,160 +139,176 @@
       </div>
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">신청 정보</h4>
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" action="order.cust" method="post" name="f">
+        <input type="hidden" name="car_id" value="${carInfo.car_id}">
+        <input type="hidden" name="car_id" value="${carInfo.car_id}">
+        <input type="hidden" name="coupon_id" value="${myCoupon.coupon_id}">
           <div class="row g-3">
             <div class="col-sm-6">
-              <label for="firstName" class="form-label">First name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid first name is required.
-              </div>
+              <label for="firstName" class="form-label">아이디</label>
+              <input type="text" class="form-control" id="user_id" name="user_id" value="${userInfo.user_id}" readonly>
             </div>
-
             <div class="col-sm-6">
-              <label for="lastName" class="form-label">Last name</label>
-              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+              <label for="lastName" class="form-label">성함</label>
+              <input type="text" class="form-control" id="user_name" name="user_name" value="${userInfo.user_name}" required>
               <div class="invalid-feedback">
-                Valid last name is required.
+                성함을 입력해주세요.
               </div>
             </div>
-
-            <div class="col-12">
-              <label for="username" class="form-label">Username</label>
-              <div class="input-group has-validation">
-                <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="username" placeholder="Username" required>
+            
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">휴대폰번호</label>
+              <input type="text" class="form-control" placeholder="(-)없이 숫자만 입력해주세요."
+              id="user_phone" name="user_phone" value="${userInfo.user_phone}" required>
               <div class="invalid-feedback">
-                  Your username is required.
+                연락 가능한 전화번호를 입력해주세요.
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">이메일</label>
+              <input type="text" class="form-control" id="user_email" name="user_email" value="${userInfo.user_email}" required>
+              <div class="invalid-feedback">
+                이메일 주소를 입력해주세요.
+              </div>
+            </div>
+			
+            <div class="col-12">
+              <label for="username" class="form-label">탁송받으실 주소</label>
+              <div class="input-group has-validation">                
+                <input type="text" class="form-control" id="user_zipcode" name="${userInfo.user_zipcode}" placeholder="우편번호만 입력"  required>
+                <span class="input-group-text col-3 d-flex justify-content-center" 
+                onclick="findAddr(); return false;"  style="cursor: pointer;">
+                	우편번호찾기
+                </span>
+              <div class="invalid-feedback">
+                  우편번호찾기를 통해 우편번호 입력해주세요.
                 </div>
               </div>
             </div>
-
-            <div class="col-12">
-              <label for="email" class="form-label">Email <span class="text-body-secondary">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
-              <div class="invalid-feedback">
-                Please enter a valid email address for shipping updates.
-              </div>
+            <div class="col-12">             
+              <input type="email" class="form-control" id="user_address1" name="user_address1" placeholder="주소" readonly>
             </div>
-
-            <div class="col-12">
-              <label for="address" class="form-label">Address</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
+            <div class="col-12">              
+              <input type="text" class="form-control" id="user_address2" name="user_address2" 
+              placeholder="상세주소">
             </div>
-
-            <div class="col-12">
-              <label for="address2" class="form-label">Address 2 <span class="text-body-secondary">(Optional)</span></label>
-              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-            </div>
-
-            <div class="col-md-5">
-              <label for="country" class="form-label">Country</label>
-              <select class="form-select" id="country" required>
-                <option value="">Choose...</option>
-                <option>United States</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country.
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <label for="state" class="form-label">State</label>
-              <select class="form-select" id="state" required>
-                <option value="">Choose...</option>
-                <option>California</option>
-              </select>
-              <div class="invalid-feedback">
-                Please provide a valid state.
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="zip" class="form-label">Zip</label>
-              <input type="text" class="form-control" id="zip" placeholder="" required>
-              <div class="invalid-feedback">
-                Zip code required.
-              </div>
-            </div>
+          <hr class="my-4">
+		</div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="order_agree">
+            <label class="form-check-label" for="same-address">
+            주문자 정보 및 탁송지역을 모두 확인하였습니다.
+            </label>
           </div>
 
           <hr class="my-4">
 
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="same-address">
-            <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
-          </div>
-
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="save-info">
-            <label class="form-check-label" for="save-info">Save this information for next time</label>
-          </div>
-
-          <hr class="my-4">
-
-          <h4 class="mb-3">Payment</h4>
+          <h4 class="mb-3">결제방법</h4>
 
           <div class="my-3">
             <div class="form-check">
-              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-              <label class="form-check-label" for="credit">Credit card</label>
+              <input id="cash" name="pay_by" value="1" type="radio" class="form-check-input" checked required>
+              <label class="form-check-label" for="cash">계좌이체(현금)</label>
             </div>
             <div class="form-check">
-              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-              <label class="form-check-label" for="debit">Debit card</label>
-            </div>
-            <div class="form-check">
-              <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-              <label class="form-check-label" for="paypal">PayPal</label>
+              <input id="credit" name="pay_by" value="2" type="radio" class="form-check-input" required>
+              <label class="form-check-label" for="credit">신용카드</label>
             </div>
           </div>
 
-          <div class="row gy-3">
-            <div class="col-md-6">
-              <label for="cc-name" class="form-label">Name on card</label>
-              <input type="text" class="form-control" id="cc-name" placeholder="" required>
-              <small class="text-body-secondary">Full name as displayed on card</small>
-              <div class="invalid-feedback">
-                Name on card is required
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <label for="cc-number" class="form-label">Credit card number</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="" required>
-              <div class="invalid-feedback">
-                Credit card number is required
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Expiration</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-              <div class="invalid-feedback">
-                Expiration date required
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="cc-cvv" class="form-label">CVV</label>
-              <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-              <div class="invalid-feedback">
-                Security code required
-              </div>
-            </div>
-          </div>
-
+		<div class="row gy-3">
+			<div class="col-md-6" id="accountInfo1"> <!-- 초기에 보이도록 설정 -->
+				<div class="form-group">
+					<label for="cc-name" class="form-label">입금계좌</label>
+					<input type="text" class="form-control" id="cc-name" placeholder="" readonly disabled>
+				</div>
+			</div>
+			<div class="col-md-6" id="accountInfo2">
+				<div class="form-group">
+					<label for="cc-number" class="form-label">예금주명</label>
+					<input type="text" class="form-control" id="cc-number" placeholder="" >
+				</div>
+					<small class="text-body-secondary">Full name as displayed on card</small>
+					<div class="invalid-feedback">
+					Credit card number is required
+				</div>
+			</div>
+		</div>
           <hr class="my-4">
-
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+          <button class="w-100 btn btn-primary btn-lg" id="payButton">결제하기</button>
         </form>
       </div>
     </div>
   </main>
 </div>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script>
+
+//pay_by 값이 변경될 때 이를 감지하는 이벤트 핸들러 등록
+const cashRadio = document.getElementById('cash');
+const creditRadio = document.getElementById('credit');
+const accountInfo1 = document.getElementById('accountInfo1');
+const accountInfo2 = document.getElementById('accountInfo2');
+
+cashRadio.addEventListener('change', function () {
+    if (this.checked) {
+        accountInfo1.style.display = 'block'; // 계좌이체 선택 시 보이게 함
+        accountInfo1.disabled = false;
+        accountInfo2.style.display = 'block'; // 계좌이체 선택 시 보이게 함
+        accountInfo2.disabled = false;
+    }
+});
+
+creditRadio.addEventListener('change', function () {
+    if (this.checked) {
+        accountInfo1.style.display = 'none'; // 신용카드 선택 시 숨김
+        accountInfo1.disabled = true;
+        accountInfo2.style.display = 'none'; // 신용카드 선택 시 숨김
+        accountInfo2.disabled = true;
+    }
+});
+//결제 api를 사용하기 위해 db 값 받아오기
+document.getElementById("payButton").addEventListener("click", function() {
+    // 필요한 매개변수 값을 가져와서 함수에 전달합니다.
+    var carName = '${carInfo.car_name}';
+    var totalAmount = '${total}';
+    var userEmail = document.getElementById("user_email").value;
+    var userName = document.getElementById("user_name").value;
+    var userPhone = document.getElementById("user_phone").value;
+    var userAddr = document.getElementById("user_address1").value;
+    var userZipcode = document.getElementById("user_zipcode").value;
+
+    requestPay(carName, totalAmount, userEmail,userName,userPhone,userAddr,userZipcode);
+});
+  
+  
+  
+function requestPay(carName,totalAmount,userEmail,userName,userPhone,userAddr,userZipcode) {	
+    var IMP = window.IMP; 
+    
+    IMP.init('imp13627713'); 
+    IMP.request_pay({
+    	pg : "html5_inicis", 
+        pay_method : 'card',
+        merchant_uid : userName + new Date().getTime(),
+        name : carName,
+        amount : totalAmount,
+        buyer_email : userEmail,
+        buyer_name : userName,
+        buyer_tel : userPhone,
+        buyer_addr : userAddr,
+        buyer_postcode : userZipcode
+        /* m_redirect_url : 'redirect url' */
+    }, function(rsp) {
+        if ( rsp.success ) {
+            document.forms['f'].submit();
+        } else {
+            var msg = '결제에 실패하였습니다.';
+            rsp.error_msg;            
+        }
+    });
+}
+</script>
+
 </body>
 </html>

@@ -9,6 +9,8 @@ public class Order {
 	private String coupon_id;
 	private Timestamp order_date;
 	private int car_price;
+	private int car_tax;
+	private int sale_expense;
 	private String region;
 	private int deliveryfee;
 	private int user_zipcode;
@@ -19,9 +21,9 @@ public class Order {
 	
 	public Order() {}
 		
-	public Order(String order_num, String car_id, String user_id, String coupon_id, Timestamp order_date, int car_price,
-			String region, int deliveryfee, int user_zipcode, String user_address1, String user_address2,
-			String user_phone, int payment) {
+	public Order(String order_num, String car_id, String user_id, String coupon_id, Timestamp order_date, 
+			int car_price, int car_tax,int sale_expense, String region, int deliveryfee, int user_zipcode, 
+			String user_address1, String user_address2,	String user_phone, int payment) {
 		super();
 		this.order_num = order_num;
 		this.car_id = car_id;
@@ -29,6 +31,8 @@ public class Order {
 		this.coupon_id = coupon_id;
 		this.order_date = order_date;
 		this.car_price = car_price;
+		this.car_tax = car_tax;
+		this.sale_expense = sale_expense;
 		this.region = region;
 		this.deliveryfee = deliveryfee;
 		this.user_zipcode = user_zipcode;
@@ -84,6 +88,22 @@ public class Order {
 
 	public void setCar_price(int car_price) {
 		this.car_price = car_price;
+	}	
+	
+	public int getCar_tax() {
+		return car_tax;
+	}
+
+	public void setCar_tax(int car_tax) {
+		this.car_tax = car_tax;
+	}
+
+	public int getSale_expense() {
+		return sale_expense;
+	}
+
+	public void setSale_expense(int sale_expense) {
+		this.sale_expense = sale_expense;
 	}
 
 	public String getRegion() {
