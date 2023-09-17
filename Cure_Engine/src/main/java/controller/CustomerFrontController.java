@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.cust.CustomerDeleteAction;
 import action.cust.CustomerInfoViewAction;
 import action.cust.CustomerLikeThisAction;
 import action.cust.CustomerOrderFormAction;
@@ -171,7 +172,7 @@ public class CustomerFrontController extends HttpServlet {
 			forward = new ActionForward("template.jsp",false);
 		}
 		
-		/*
+
 		else if(command.equals("/customerDelete.cust")) {//'회원탈퇴' 처리
 			action = new CustomerDeleteAction();
 			try {
@@ -181,7 +182,7 @@ public class CustomerFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		*/
+
 		
 		/*------- '주문 폼 보기' → 처리 ---------------------------------------------------------*/
 		else if(command.equals("/orderForm.cust")) {//'주문 폼 보기' 요청이면

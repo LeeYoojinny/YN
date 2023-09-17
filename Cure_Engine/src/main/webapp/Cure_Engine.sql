@@ -355,6 +355,8 @@ END$$
 DELIMITER ;
 
 alter table tbl_order add column user_zipcode INT NOT NULL after deliveryfee;
+alter table tbl_order add column car_tax INT NOT NULL after car_price;
+alter table tbl_order add column sale_expense INT NOT NULL after car_tax;
 
 
 select * from tbl_order;

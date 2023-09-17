@@ -19,8 +19,8 @@
 </script>
 <body>
 	<div class="wrap_login">
-		<div class="subject">회원탈퇴</div>
-		  <form action="customerDelete.cust" method="post" name="f" id="loginForm">
+		<div class="subject">딜러탈퇴</div>
+		  <form action="dealerDelete.adm" method="post" name="f" id="loginForm">
 		    	<div class="field">
 					<b>아이디</b> <input type="text" name="user_id" id="user_id" value="${user_id}" readonly="readonly">
 				</div>

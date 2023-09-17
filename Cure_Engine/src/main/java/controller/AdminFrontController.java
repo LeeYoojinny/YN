@@ -23,6 +23,7 @@ import action.adm.AdminCustSearchAction;
 import action.adm.AdminCustomerListAction;
 import action.adm.AdminDealerApproveAction;
 import action.adm.AdminDealerApproveListAction;
+import action.adm.AdminDealerDeleteAction;
 import action.adm.AdminDealerInfoUpdateAction;
 import action.adm.AdminDealerInfoViewAction;
 import action.adm.AdminDealerJoinAction;
@@ -225,6 +226,18 @@ public class AdminFrontController extends HttpServlet {
 		}
 		else if(command.equals("/dealerInfoUpdate.adm")) {//'딜러정보수정' 요청이면
 			action = new AdminDealerInfoUpdateAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/dealerDeleteForm.adm")) {//'딜러탈퇴 폼보기' 요청이면
+			request.setAttribute("showPage", "adm/dealerDeleteForm.jsp");
+			forward = new ActionForward("template.jsp",false);
+		}
+		else if(command.equals("/dealerDelete.adm")) {//'딜러탈퇴 폼보기' 요청이면
+			action = new AdminDealerDeleteAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
