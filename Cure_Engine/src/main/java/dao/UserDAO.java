@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import util.SHA256;
-import vo.Car;
 import vo.Coupon;
 import vo.Order;
 import vo.Payment;
@@ -935,30 +934,210 @@ public class UserDAO {
 			return coupon;
 		}
 
+		/*------ 딜러가 시승예약 승인, 거절 처리 -----------------------------------------------*/
+		public int updateResevation(String resernum, String check) {
+			int updateRevCount = 0;
+			
+			String sql = "";
+			if(check.equals("Y")) {
+				sql = "update tbl_reservation set approve_YN='Y' where resernum=?";
+			}else if(check.equals("N")) {
+				sql = "update tbl_reservation set approve_YN='N' where resernum=?";
+			}else {}
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, resernum);
+			
+				updateRevCount = pstmt.executeUpdate();
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 updateResevation()에서 발생한 에러 : "+e);
+			}finally {
+				//close(rs);
+				close(pstmt);
+			}
+			return updateRevCount;
+		}
 
-		public int insertOrder(Order order) {
+		/*------ 관리자 - 딜러관리 목록 만들기 -----------------------------------------------*/
+		public int getDealerListCount() {
+			int listCount = 0;
+			String sql = "select count(*) from tbl_user where user_category='dealer' and use_YN='Y'";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					listCount = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 getDealerListCount()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return listCount;
+		}
+
+		/*------ 관리자 - 모든딜러목록 가져오기 -----------------------------------------------*/
+		public ArrayList<User> getAllDealer(int page, int limit) {
+			ArrayList<User> dealerList = null;
+			
+			String sql = "select * from tbl_user where user_category='dealer' and use_YN='Y'"
+					+ " order by user_joindate limit ?,10";
+			int startRow = (page-1)*10;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1,startRow);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					dealerList = new ArrayList<User>();
+					do {
+						System.out.println("dealer 정보담기");
+						dealerList.add(new User(
+								rs.getString("user_category"),
+								rs.getString("user_id"),
+								rs.getString("user_pw"),
+								rs.getString("user_name"),
+								rs.getString("user_birth"),
+								rs.getString("user_gender"),
+								rs.getString("user_phone"),
+								rs.getString("user_email"),
+								rs.getInt("user_zipcode"),
+								rs.getString("user_address1"),
+								rs.getString("user_address2"),
+								rs.getTimestamp("user_joindate"),
+								rs.getString("use_YN"),
+								rs.getTimestamp("user_expiredate")
+								));
+					}while(rs.next());
+				}
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 getAllDealer()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return dealerList;
+		}
+
+		/*------ 관리자 - 페이징 처리 위해 탈퇴딜러 개수 가져오기 -----------------------------------------------*/
+		public int getExpireDealerListCount() {
+			int listCount = 0;
+			
+			String sql = "select count(*) from tbl_user where user_category='dealer' and use_YN='N'";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					listCount = rs.getInt(1);
+				}
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 getExpireDealerListCount()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}			
+			
+			return listCount;
+		}
+
+		/*------ 관리자 - 모든 탈퇴 딜러목록 가져오기 -----------------------------------------------*/
+		public ArrayList<User> getExpireDealerList(int page, int limit) {
+			ArrayList<User> expireDealer = null;
+			
+			String sql = "select * from tbl_user where user_category='dealer' and use_YN='N' "
+					+ "order by user_expiredate limit ?,10";
+			int startrow = (page-1)*10;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startrow);
+				
+				rs = pstmt.executeQuery();
+								
+				if(rs.next()) {
+					expireDealer = new ArrayList<User>();
+					do {
+						System.out.println("탈퇴딜러 정보담기");
+						expireDealer.add(new User(
+								rs.getString("user_category"),
+								rs.getString("user_id"),
+								rs.getString("user_pw"),
+								rs.getString("user_name"),
+								rs.getString("user_birth"),
+								rs.getString("user_gender"),
+								rs.getString("user_phone"),
+								rs.getString("user_email"),
+								rs.getInt("user_zipcode"),
+								rs.getString("user_address1"),
+								rs.getString("user_address2"),
+								rs.getTimestamp("user_joindate"),
+								rs.getString("use_YN"),
+								rs.getTimestamp("user_expiredate")
+								));
+					}while(rs.next());
+				}
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 getExpireDealerList()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+						
+			return expireDealer;
+		}
+
+		/*------ 관리자 - 딜러탈퇴처리 -----------------------------------------------*/
+		public int dealerDelete(String user_id) {
 			int result = 0;
 			
-			String sql = "insert into tbl_order(car_id,user_id,coupon_id,discount_price,car_price,car_tax,sale_expense,"
-					+ "region,deliveryfee,user_zipcode,user_address1,user_address2,user_phone,payment) "
-					+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "update tbl_user set use_YN='N', user_expiredate=now() where user_id=?";
 			
+			try {
+				pstmt = con.prepareStatement(sql);				
+				pstmt.setString(1, user_id);
+				
+				result = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 dealerDelete()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}			
+			return result;
+		}
+
+		/*------ 관리자 - 딜러 재가입처리 -----------------------------------------------*/
+		public int dealerRejoin(String user_id) {
+			int result = 0;
+			
+			String sql = "update tbl_user set use_YN='Y', user_expiredate=null, "
+					+ "user_joindate=now() where user_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);				
+				pstmt.setString(1, user_id);
+				
+				result = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 dealerRejoin()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}			
 			return result;
 		}
 
 
-		public String getOrderNum(String car_id) {
-			// TODO 자동 생성된 메소드 스텁
-			return null;
-		}
-
-
-		public int insertPay(Payment payment, String orderNum) {
-			// TODO 자동 생성된 메소드 스텁
-			return 0;
-		}
-
-
+		
 		
 		
 		

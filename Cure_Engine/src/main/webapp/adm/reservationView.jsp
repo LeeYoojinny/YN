@@ -49,45 +49,66 @@
 	    }
 	}
 	
+	function submitForm(checkValue, resernumValue) {
+		//폼 데이터 설정
+	    document.forms["reservationForm"].elements["check"].value = checkValue;
+	    document.forms["reservationForm"].elements["resernum"].value = resernumValue;
+	    
+	    //폼 제출
+	    document.forms["reservationForm"].submit();
+	}
 </script>
 <body>
-	<form method="post">
-		<table>
-			<tr id="allApprove">
-				<td colspan="2" id="bt"><button onclick="deleteCheck(); return false;">선택삭제</button></td>
-				<td colspan="5"></td>
-			</tr>
-			<tr id="firstLine">
+<h2>시승예약 현황</h2>
+	<table>
+		<c:if test="${user_category eq 'admin'}">
+		<tr id="allApprove">
+			<td colspan="2" id="bt"><button onclick="deleteCheck(); return false;">선택삭제</button></td>
+			<td colspan="5"></td>
+		</tr>
+		</c:if>
+		<tr id="firstLine">
+			<c:if test="${user_category eq 'admin'}">
+				<th><input type="checkbox" name="allCheck" onclick="checkAll(this.form)"></th>	
+			</c:if>
+			<th>No.</th>
+			<th>신청차량</th>
+			<th>신청자</th>
+			<th>날짜</th>
+			<th>시간</th>
+			<th>처리내용</th>
+		</tr>
+		<c:set var="startNo" value="${(pageInfo.page - 1) * 10 + 1}" />
+		<c:forEach var="rev" items="${reservation}" varStatus="status">
+			<tr class="contents">
 				<c:if test="${user_category eq 'admin'}">
-					<th><input type="checkbox" name="allCheck" onclick="checkAll(this.form)"></th>	
+					<td><input type="checkbox" name="deleteRsv" value="${rev.resernum}"></td>	
 				</c:if>
-				<th>No.</th>
-				<th>신청차량</th>
-				<th>신청자</th>
-				<th>날짜</th>
-				<th>시간</th>
-				<th>승인</th>
+				<td id="item_no">${startNo + status.count-1}</td>
+				<td>${rev.car_id}</td>
+				<td>${rev.user_id}</td>
+				<td>${rev.rev_date}</td>
+				<td>${rev.rev_time}</td>
+				<c:if test="${rev.approve_YN eq 'W'}">
+				<td id="bt">
+					<form id="reservationForm" method="post" action="reservationCheck.adm">
+						<input type="hidden" name="resernum" value="${rev.resernum}">
+						<input type="hidden" name="check" value="">
+						<button type="button" onclick="submitForm('Y', '${rev.resernum}')">승인</button>
+                        <button type="button" onclick="submitForm('N', '${rev.resernum}')">거절</button>
+                    </form>
+				</td>
+				</c:if>
+				<c:if test="${rev.approve_YN eq 'Y'}">
+					<td style="line-height:2.5rem;">승인</td>
+				</c:if>
+				<c:if test="${rev.approve_YN eq 'N'}">
+					<td style="line-height:2.5rem;">거절</td>
+				</c:if>
 			</tr>
-			<c:set var="startNo" value="${(pageInfo.page - 1) * 10 + 1}" />
-			<c:forEach var="rev" items="${reservation}" varStatus="status">
-				<tr class="contents">
-					<c:if test="${user_category eq 'admin'}">
-						<td><input type="checkbox" name="deleteRsv" value="${rev.resernum}"></td>	
-					</c:if>
-					<td id="item_no">${startNo + status.count-1}</td>
-					<td>${rev.car_id}</td>
-					<td>${rev.user_id}</td>
-					<td>${rev.rev_date}</td>
-					<td>${rev.rev_time}</td>
-					<td id="bt">
-						<button value="Y" onclick="location.href='reservationCheck.adm?user_id=${rev.user_id}&rev_date=${rev.rev_date}&rev_time=${rev.rev_time}'; return false;">승인</button>
-						<button value="N" onclick="#">거절</button>
-					</td>
-				</tr>
-				<tr id="space"><td colspan="6"></td></tr>
-			</c:forEach>
-		</table>
-	</form>
+			<tr id="space"><td colspan="6"></td></tr>
+		</c:forEach>
+	</table>
 	<div class="page">
 		<c:choose> 
 			<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>
@@ -105,7 +126,7 @@
 		</c:choose>
 	</div>
 	<c:if test="${reservation == null}">
-		<div class="nothing">${user_id}님의 판매차량이 없습니다.</div>
+		<div class="nothing">${user_id}님의 예약 신청건이 없습니다.</div>
 	</c:if>
 </body>
 </html>

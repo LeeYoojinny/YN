@@ -779,6 +779,71 @@ public class CarDAO {
 			return result;
 		}
 		
+		/*--- 딜러 재가입하면서 딜러의 자동차 다시 돌려놓기 -------------------------------------------------------------------*/
+		public int getMyCarCount(String user_id) {
+			int count = 0;
+			
+			String sql = "select count(*) from tbl_car where dealer_id=?";
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, user_id);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 getMyCarCount()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return count;
+		}
+				
+		public int reSaleCar(String user_id) {
+			int result = 0;
+			
+			String sql = "update tbl_car set car_delete='N' where dealer_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,user_id);
+				
+				result = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 reSaleCar()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
+
+		
+		
+		/*--- 고객 주문 시 sale_YN 'W'로 변경 -------------------------------------------------------------------*/
+		public int saleChangeW(String car_id) {
+			int result = 0;
+			
+			String sql = "update tbl_car set sale_YN='W' where car_id=?"; 
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,car_id);
+				
+				result = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 saleChange()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
+		
 		
 		
 		

@@ -144,8 +144,7 @@ function orderCheck() {
 									세금입니다.</small>
 							</div>
 							<span class="text-body-secondary">
-								<fmt:formatNumber value="${carPriceWithZeros * 0.07}" pattern="#,###" />
-								<c:set var="car_tax" value="${carPriceWithZeros * 0.07}"/>
+								<fmt:formatNumber value="${carPriceWithZeros * 0.07}" pattern="#,###" />								
 								<c:set var="total" value="${total + (carPriceWithZeros * 0.07)}" />
 							</span>
 						</li>
@@ -205,11 +204,13 @@ function orderCheck() {
 				<div class="col-md-7 col-lg-8">
 					<h4 class="mb-3">신청 정보 확인</h4>
 					<form class="needs-validation"  action="order.cust" method="post" name="f">
+						<input type="hidden" name="car_price" value="${carInfo.car_price * 10000}">
 						<input type="hidden" name="car_id" value="${carInfo.car_id}">
-						<input type="hidden" name="car_tax" value="${car_tax}">
+						<%-- <input type="hidden" name="car_tax" value="${carInfo.car_price * 10000 * 0.07}"> --%>
 						<input type="hidden" name="discount_price" value="${discount_price}">
 						<input type="hidden" name="coupon_id" value="${myCoupon.coupon_id}">
 						<input type="hidden" name="region" value="${region}">
+						<input type="hidden" name="deliveryfee" value="${user_fee}">
 						<input type="hidden" name="total_price" value="${total}">
 						<div class="row g-3">
 							<div class="col-sm-6">
@@ -238,7 +239,7 @@ function orderCheck() {
 								<label for="username" class="form-label">탁송받으실 주소</label>
 								<div class="input-group has-validation">
 									<input type="text" class="form-control" id="user_zipcode"
-										name="${userInfo.user_zipcode}" value="${param.user_zipcode}" readonly>
+										name="user_zipcode" value="${param.user_zipcode}" readonly>
 									<span class="input-group-text col-3 d-flex justify-content-center"
 										onclick="findAddr(); return false;">우편번호찾기</span>
 								</div>

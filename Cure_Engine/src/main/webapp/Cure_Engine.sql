@@ -51,7 +51,7 @@ select * from tbl_car where (car_price >=5000) and (car_price<=10000);
 select * from tbl_car where sale_YN='Y' and car_brand='brand1'
 
 delete from tbl_car where car_id='106오3333';
-
+update tbl_car set car_delete='Y' where dealer_id='d230004'
 /* 차량검색 Test */
 select *
 from tbl_car
@@ -307,12 +307,15 @@ coupon_name NVARCHAR(50) NOT NULL,
 user_id VARCHAR(45) NOT NULL,
 discount_rate INT NOT NULL,
 coupon_expiredate DATETIME DEFAULT (CURRENT_TIMESTAMP + INTERVAL 31 DAY),
+coupon_use CHAR(1) NOT NULL DEFAULT 'N',
 PRIMARY KEY (coupon_id),
 CONSTRAINT fk_cp_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id));
 
 select * from tbl_coupon;
 
 alter table tbl_coupon add column coupon_name NVARCHAR(50) NOT NULL after coupon_id;
+alter table tbl_coupon add column coupon_use CHAR(1) NOT NULL DEFAULT 'N' after coupon_expiredate;
+alter table tbl_coupon modify column coupon_use CHAR(1) NOT NULL DEFAULT 'N'
 alter table tbl_coupon modify column coupon_expiredate DATETIME;
 ALTER TABLE tbl_coupon
 MODIFY COLUMN coupon_expiredate DATETIME DEFAULT (CURRENT_TIMESTAMP + INTERVAL 31 DAY);
@@ -343,7 +346,7 @@ user_address1 VARCHAR(100) NOT NULL,
 user_address2 VARCHAR(60) NULL,
 user_phone VARCHAR(11) NOT NULL,
 payment INT NOT NULL COMMENT '결제방법 1:현금 2:카드',
-order_approve_YN CHAR(1) NOT NULL DEFAULT 'N' COMMENT '주문승인',
+order_approve_YN CHAR(1) NOT NULL DEFAULT 'W' COMMENT '주문승인',
 PRIMARY KEY (ordernum),
 
 CONSTRAINT fk_od_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id),
@@ -365,6 +368,7 @@ alter table tbl_order add column car_tax INT NOT NULL after car_price;
 alter table tbl_order add column sale_expense INT NOT NULL after car_tax;
 alter table tbl_order modify sale_expense INT NOT NULL DEFAULT 300000;
 alter table tbl_order add column discount_price INT null after coupon_id;
+alter table tbl_order modify order_approve_YN CHAR(1) NOT NULL DEFAULT 'W';
 select * from tbl_order;
 
 -- -----------------------------------------------------
@@ -517,5 +521,4 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 alter table tbl_payment modify pay_creditcard_name VARCHAR(45) NULL;
-alter table tbl_payment add column pay_id VARCHAR(100) NULL after notice_file;
 alter table tbl_payment add column pay_creditcard_date VARCHAR(45) NULL;
