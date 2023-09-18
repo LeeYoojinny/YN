@@ -24,13 +24,19 @@ import action.adm.AdminCustomerListAction;
 import action.adm.AdminDealerApproveAction;
 import action.adm.AdminDealerApproveListAction;
 import action.adm.AdminDealerDeleteAction;
+import action.adm.AdminDealerDetailViewAction;
+import action.adm.AdminDealerExpireAction;
+import action.adm.AdminDealerExpireListAction;
 import action.adm.AdminDealerInfoUpdateAction;
 import action.adm.AdminDealerInfoViewAction;
 import action.adm.AdminDealerJoinAction;
 import action.adm.AdminDealerJoinFormAction;
+import action.adm.AdminDealerListAction;
 import action.adm.AdminDealerRefuseAction;
+import action.adm.AdminDealerRejoinAction;
 import action.adm.AdminMyCarRemoveAction;
 import action.adm.AdminMySaleCarAction;
+import action.adm.AdminReservationCheckAction;
 import action.adm.AdminReservationViewAction;
 import vo.ActionForward;
 
@@ -309,6 +315,14 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		else if(command.equals("/reservationCheck.adm")) {//'승인, 거절' 요청이면
+			action = new AdminReservationCheckAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		/*------- 관리자 - 모든상품보기 ---------------------------------------------------------*/
 		
@@ -321,7 +335,50 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}
 		
+		/*------- 관리자 - 딜러관리 ---------------------------------------------------------*/
+		else if(command.equals("/dealerList.adm")) {//'모든차량보기' 요청이면
+			action = new AdminDealerListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/dealerDetailView.adm")) {//딜러 정보 자세히 보기
+			action = new AdminDealerDetailViewAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
+		else if(command.equals("/dealerExpireList.adm")) {
+			action = new AdminDealerExpireListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if(command.equals("/adminDealerDelete.adm")) {
+			action = new AdminDealerExpireAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if(command.equals("/dealerRejoin.adm")) {
+			action = new AdminDealerRejoinAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		/*********************************************************************
 		 * 3. 포워딩(화면에 뿌리는 작업)

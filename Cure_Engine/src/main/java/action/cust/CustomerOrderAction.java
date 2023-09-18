@@ -11,13 +11,14 @@ import vo.ActionForward;
 import vo.Order;
 import vo.Payment;
 
+
 public class CustomerOrderAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		//주문처리 : 주문정보 DB저장 (Order, Payment),  Car 테이블의 sale_YN 값 W(대기)로 update
+		//주문처리 : 주문정보 DB저장 (Order, Payment),  쿠폰 사용했다면 쿠폰 테이블 update, Car 테이블의 sale_YN 값 W(대기)로 update
 		
 		
 		//Order 객체 생성
@@ -32,22 +33,34 @@ public class CustomerOrderAction implements Action {
 		if(valueCheck != null && !valueCheck.isEmpty()) {
 			coupon_id = valueCheck;
 		}		
+		System.out.println("coupon_id : "+coupon_id);
+		
 		valueCheck = request.getParameter("discount_price");
 		if(valueCheck != null && !valueCheck.isEmpty()) {
 			discount_price = Integer.parseInt(valueCheck);
 		}
+		System.out.println("discount_price : "+discount_price);
 
 		int car_price = Integer.parseInt(request.getParameter("car_price"));
-		int car_tax = Integer.parseInt(request.getParameter("car_tax"));
-		int sale_expense = Integer.parseInt(request.getParameter("sale_expense"));
+		System.out.println("car_price : " + car_price);
+		int car_tax = (int)Math.round(car_price*0.07);
+		System.out.println("car_tax : " + car_tax);
 		String region = request.getParameter("region");
+		System.out.println("region : " + region);
 		int deliveryfee = Integer.parseInt(request.getParameter("deliveryfee"));
+		System.out.println("deliveryfee : " + deliveryfee);
 		int user_zipcode = Integer.parseInt(request.getParameter("user_zipcode"));
+		System.out.println("user_zipcode : " + user_zipcode);
 		String user_address1 = request.getParameter("user_address1");
+		System.out.println("user_address1 : " + user_address1);
 		String user_address2 = request.getParameter("user_address2");
+		System.out.println("user_address2 : " + user_address2);
 		String user_phone = request.getParameter("user_phone");
+		System.out.println("user_phone : " + user_phone);
 		int pay_by = Integer.parseInt(request.getParameter("pay_by"));
-		int pay_price = Integer.parseInt(request.getParameter("total_price"));
+		System.out.println("pay_by : " + pay_by);
+		int pay_price = car_price+car_tax+deliveryfee+300000-discount_price;
+		System.out.println("pay_price : " + pay_price);
 
 		Order order = new Order();
 		order.setCar_id(car_id);
@@ -56,7 +69,6 @@ public class CustomerOrderAction implements Action {
 		order.setDiscount_price(discount_price);
 		order.setCar_price(car_price);
 		order.setCar_tax(car_tax);
-		order.setSale_expense(sale_expense);
 		order.setRegion(region);
 		order.setDeliveryfee(deliveryfee);
 		order.setUser_zipcode(user_zipcode);
@@ -70,6 +82,9 @@ public class CustomerOrderAction implements Action {
 		Payment payment = new Payment();
 		payment.setPay_by(pay_by);
 		payment.setPay_price(pay_price);
+		
+		System.out.println("pay_by : " + pay_by);
+		System.out.println("pay_price : " + pay_price);
 		
 		//null 값이 올 수 있는 결제방법에 대해 미리 처리하기
 		String pay_depositor_name = "";
@@ -88,6 +103,12 @@ public class CustomerOrderAction implements Action {
 			pay_creditcard_cvc = Integer.parseInt(request.getParameter("pay_creditcard_cvc"));
 		}
 		
+		System.out.println("pay_depositor_name : " + pay_depositor_name);
+		System.out.println("pay_creditcard_name : " + pay_creditcard_name);
+		System.out.println("pay_creditcard_num : " + pay_creditcard_num);
+		System.out.println("pay_creditcard_date : " + pay_creditcard_date);
+		System.out.println("pay_creditcard_cvc : " + pay_creditcard_cvc);
+		
 		payment.setPay_depositor_name(pay_depositor_name);
 		payment.setPay_creditcard_name(pay_creditcard_name);
 		payment.setPay_creditcard_num(pay_creditcard_num);
@@ -95,14 +116,15 @@ public class CustomerOrderAction implements Action {
 		payment.setPay_creditcard_cvc(pay_creditcard_cvc);
 		
 		CustomerOrderService orderService = new CustomerOrderService();
-		int orderSuccess = orderService.insertOrder(order,payment);
+		boolean orderSuccess = orderService.insertOrder(order,payment);
 		
-		if(orderSuccess > 0) {
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();			
-			out.println("<script>");
-			out.println("location.href='orderFormStep3.cust';");
-			out.println("</script>");
+		if(orderSuccess) {			
+			request.setAttribute("order", order);
+			request.setAttribute("payment", payment);
+			request.setAttribute("car_id", car_id);
+			
+			request.setAttribute("showPage", "customer/orderFormStep3.jsp");
+			forward = new ActionForward("template.jsp", false);	
 		}else {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();			

@@ -137,7 +137,7 @@
 						<ul id="inside_menu2" style="padding-left: 0;">
 					     	<li><a href="<%=request.getContextPath()%>/customerList.adm">회원관리</a></li>
 					     	<li><a href="<%=request.getContextPath()%>/dealerApproveList.adm">딜러등록</a></li>
-					     	<li><a href="#">딜러관리</a></li>
+					     	<li><a href="<%=request.getContextPath()%>/dealerList.adm">딜러관리</a></li>
 					     	<li><a href="<%=request.getContextPath()%>/pwChangeForm.usr?user_id=${user_id}">비밀번호변경</a></li>
 					    </ul>
 					</li>
