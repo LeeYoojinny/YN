@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import util.SHA256;
 import vo.Car;
 import vo.Coupon;
+import vo.Order;
+import vo.Payment;
 import vo.Reservation;
 import vo.User;
 
@@ -625,7 +627,7 @@ public class UserDAO {
 			return customerList;
 		}
 
-		/*------ 회원탈퇴 ----------------------------------------------------------------*/
+		/*------ 회원 또는 딜러 탈퇴 ----------------------------------------------------------------*/
 		public int custDelete(String user_id) {
 			int result = 0;
 			
@@ -933,14 +935,30 @@ public class UserDAO {
 			return coupon;
 		}
 
-		
-		
+
+		public int insertOrder(Order order) {
+			int result = 0;
+			
+			String sql = "insert into tbl_order(car_id,user_id,coupon_id,discount_price,car_price,car_tax,sale_expense,"
+					+ "region,deliveryfee,user_zipcode,user_address1,user_address2,user_phone,payment) "
+					+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			
+			return result;
+		}
 
 
-		
-		
-		
-		
+		public String getOrderNum(String car_id) {
+			// TODO 자동 생성된 메소드 스텁
+			return null;
+		}
+
+
+		public int insertPay(Payment payment, String orderNum) {
+			// TODO 자동 생성된 메소드 스텁
+			return 0;
+		}
+
+
 		
 		
 		

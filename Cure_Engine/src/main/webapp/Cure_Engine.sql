@@ -12,7 +12,6 @@ car_capacity INT NOT NULL COMMENT '배기량(cc)',
 car_fuel VARCHAR(45) NOT NULL COMMENT '가솔린,디젤,하이브리드,전기,수소',
 car_transmission VARCHAR(45) NOT NULL COMMENT '오토, 수동',
 car_type VARCHAR(45) NOT NULL COMMENT '경차, 세단, SUV',
-/*car_size VARCHAR(45) NOT NULL COMMENT '경형,소형,중형,대형',*/
 car_accident CHAR(1) NULL DEFAULT 'N' COMMENT '사고차량(Y) 무사고(N)',
 car_year INT NOT NULL COMMENT '연식',
 car_distance INT NOT NULL COMMENT '주행거리',
@@ -284,6 +283,7 @@ insert into tbl_deliveryfee values ('경기도',240000);
 insert into tbl_deliveryfee values ('강원도',350000);
 insert into tbl_deliveryfee values ('충북',200000);
 insert into tbl_deliveryfee values ('충남',250000);
+insert into tbl_deliveryfee values ('인천광역시',320000);
 insert into tbl_deliveryfee values ('대전광역시',160000);
 insert into tbl_deliveryfee values ('부산광역시',150000);
 insert into tbl_deliveryfee values ('울산광역시',120000);
@@ -294,6 +294,9 @@ insert into tbl_deliveryfee values ('경남',100000);
 insert into tbl_deliveryfee values ('전북',200000);
 insert into tbl_deliveryfee values ('전남',260000);
 insert into tbl_deliveryfee values ('제주도',500000);
+
+
+
 
 -- -----------------------------------------------------
 -- tbl_coupon : 쿠폰
@@ -328,8 +331,11 @@ ordernum VARCHAR(8) NOT NULL DEFAULT '0',
 car_id VARCHAR(10) NOT NULL,
 user_id VARCHAR(45) NOT NULL,
 coupon_id CHAR(10) NULL,
+discount_price INT NULL,
 order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
 car_price INT NOT NULL,
+car_tax INT NOT NULL,
+sale_expense INT NOT NULL DEFAULT 300000,
 region NVARCHAR(30) NOT NULL,
 deliveryfee INT NOT NULL,
 user_zipcode INT NOT NULL,
@@ -357,8 +363,8 @@ DELIMITER ;
 alter table tbl_order add column user_zipcode INT NOT NULL after deliveryfee;
 alter table tbl_order add column car_tax INT NOT NULL after car_price;
 alter table tbl_order add column sale_expense INT NOT NULL after car_tax;
-
-
+alter table tbl_order modify sale_expense INT NOT NULL DEFAULT 300000;
+alter table tbl_order add column discount_price INT null after coupon_id;
 select * from tbl_order;
 
 -- -----------------------------------------------------
@@ -500,9 +506,10 @@ ordernum VARCHAR(8) NOT NULL,
 pay_by INT NOT NULL COMMENT '1:계좌이체(현금) 2:신용카드',
 pay_price INT NOT NULL,
 pay_depositor_name VARCHAR(45) NULL COMMENT '현금결제일때 입금자명',
-pay_creditcard_name VARCHAR(45) NULL COMMENT '카드회사이름',
+pay_creditcard_name VARCHAR(45) NULL COMMENT '카드 명의자명',
 pay_creditcard_num INT(16) NULL COMMENT '카드결제시 카드번호 16자리',
 pay_creditcard_cvc INT(3) NULL COMMENT '카드결제시 cvc 번호 3자리',
+pay_creditcard_date VARCHAR(45) NULL,
 CONSTRAINT fk_pay_ordernum FOREIGN KEY (ordernum) REFERENCES tbl_order (ordernum));
 
 SET SQL_MODE=@OLD_SQL_MODE;
@@ -510,3 +517,5 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 alter table tbl_payment modify pay_creditcard_name VARCHAR(45) NULL;
+alter table tbl_payment add column pay_id VARCHAR(100) NULL after notice_file;
+alter table tbl_payment add column pay_creditcard_date VARCHAR(45) NULL;

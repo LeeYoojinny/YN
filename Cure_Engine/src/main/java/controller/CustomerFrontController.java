@@ -12,7 +12,9 @@ import action.Action;
 import action.cust.CustomerDeleteAction;
 import action.cust.CustomerInfoViewAction;
 import action.cust.CustomerLikeThisAction;
-import action.cust.CustomerOrderFormAction;
+import action.cust.CustomerOrderAction;
+import action.cust.CustomerOrderForm1Action;
+import action.cust.CustomerOrderForm2Action;
 import action.cust.CustomerRemoveWishAction;
 import action.cust.CustomerReservationAction;
 import action.cust.CustomerReservationListAction;
@@ -185,8 +187,8 @@ public class CustomerFrontController extends HttpServlet {
 
 		
 		/*------- '주문 폼 보기' → 처리 ---------------------------------------------------------*/
-		else if(command.equals("/orderForm.cust")) {//'주문 폼 보기' 요청이면
-			action = new CustomerOrderFormAction();
+		else if(command.equals("/orderFormStep1.cust")) {//'주문 폼 - 신청정보 작성' 요청이면
+			action = new CustomerOrderForm1Action();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -194,7 +196,24 @@ public class CustomerFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+		else if(command.equals("/orderFormStep2.cust")) {//'주문 폼 - 금액확인 및 결제방법 보기' 요청이면
+			action = new CustomerOrderForm2Action();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/order.cust")) {//'주문 폼 - 결제하기' 요청이면
+			action = new CustomerOrderAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
 		/*------- '시승예약 폼 보기' → 처리 ---------------------------------------------------------*/
 		else if(command.equals("/reservationForm.cust")) {//'시승예약 폼 보기' 요청이면
 			request.setAttribute("showPage", "customer/reservationForm.jsp");

@@ -7,6 +7,7 @@ public class Order {
 	private String car_id;
 	private String user_id;
 	private String coupon_id;
+	private int discount_price;
 	private Timestamp order_date;
 	private int car_price;
 	private int car_tax;
@@ -18,17 +19,19 @@ public class Order {
 	private String user_address2;
 	private String user_phone;
 	private int payment;
+	private String order_approve_YN;
 	
 	public Order() {}
 		
-	public Order(String order_num, String car_id, String user_id, String coupon_id, Timestamp order_date, 
+	public Order(String order_num, String car_id, String user_id, String coupon_id, int discount_price, Timestamp order_date, 
 			int car_price, int car_tax,int sale_expense, String region, int deliveryfee, int user_zipcode, 
-			String user_address1, String user_address2,	String user_phone, int payment) {
+			String user_address1, String user_address2,	String user_phone, int payment,String order_approve_YN) {
 		super();
 		this.order_num = order_num;
 		this.car_id = car_id;
 		this.user_id = user_id;
 		this.coupon_id = coupon_id;
+		this.discount_price = discount_price;
 		this.order_date = order_date;
 		this.car_price = car_price;
 		this.car_tax = car_tax;
@@ -40,6 +43,7 @@ public class Order {
 		this.user_address2 = user_address2;
 		this.user_phone = user_phone;
 		this.payment = payment;
+		this.order_approve_YN = order_approve_YN;
 	}
 
 	public String getOrder_num() {
@@ -72,6 +76,14 @@ public class Order {
 
 	public void setCoupon_id(String coupon_id) {
 		this.coupon_id = coupon_id;
+	}
+
+	public int getDiscount_price() {
+		return discount_price;
+	}
+
+	public void setDiscount_price(int discount_price) {
+		this.discount_price = discount_price;
 	}
 
 	public Timestamp getOrder_date() {
@@ -160,6 +172,14 @@ public class Order {
 
 	public void setPayment(int payment) {
 		this.payment = payment;
+	}
+
+	public String getOrder_approve_YN() {
+		return order_approve_YN;
+	}
+
+	public void setOrder_approve_YN(String order_approve_YN) {
+		this.order_approve_YN = order_approve_YN;
 	}
 	
 	

@@ -1,0 +1,65 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+body{
+    font-family: 'Gowun Dodum', sans-serif !important;
+    background-color: #f5f6f7;
+    line-height: 1.5em;
+    color : #222;
+    margin: 0;
+    width:100%;
+}
+
+.py-5{
+	padding-top: 0 !important;
+
+}
+
+.progressBar ol.breadcrumb li + li:before {
+  content: " > ";
+}
+
+/* .progressBar {
+	width: 66.66%;
+    margin: auto;
+}
+ */
+.step2 {
+	color: #0431B4 !important;
+	font-weight: bold;
+}
+
+:root {
+  --line-fill: #486AAE;
+  --line-empty: #e0e0e0;
+}
+
+.btn {
+  background-color: var(--line-fill);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 8px 30px;
+  margin: 5px;
+  font-size: 14px;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:hover {
+  background-color: #36589C;
+  color: #fff;
+}
+
+.btn:focus {
+  outline: 0;
+}
+
+.btn:disabled {
+  background-color: var(--line-empty);
+  cursor: not-allowed;
+}
