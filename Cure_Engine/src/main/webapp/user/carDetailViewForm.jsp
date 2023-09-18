@@ -74,7 +74,7 @@ String image5 = carDetail.getCar_image5();
 			return false;
 		}
 		
-		location.href="orderForm.cust?car_id="+car_id;
+		location.href="orderFormStep1.cust?car_id="+car_id;
 	}
 	
 	function reserCheck(user_id,car_id,dealer_id){

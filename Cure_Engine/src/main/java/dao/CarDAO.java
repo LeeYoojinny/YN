@@ -758,6 +758,26 @@ public class CarDAO {
 			
 			return allCarList;
 		}
+
+		/*--- 딜러 탈퇴하면서 딜러의 자동차 삭제 -------------------------------------------------------------------*/
+		public int deleteCar(String user_id) {
+			int result = 0;
+			
+			String sql = "update tbl_car set car_delete='Y' where dealer_id=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,user_id);
+				
+				result = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 deleteCar()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
 		
 		
 		

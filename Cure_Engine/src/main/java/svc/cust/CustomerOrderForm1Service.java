@@ -15,7 +15,7 @@ import vo.Coupon;
 import vo.Deliveryfee;
 import vo.User;
 
-public class CustomerOrderFormService {
+public class CustomerOrderForm1Service {
 
 	public ArrayList<Code> getAllCode() {
 		Connection con = getConnection();
