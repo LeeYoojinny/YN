@@ -114,7 +114,7 @@ public class CarDAO {
 		public ArrayList<Car> selectAllCarInfo() {
 			ArrayList<Car> allCarList = null;
 			
-			String sql = "select * from tbl_car where car_delete='N'";
+			String sql = "select * from tbl_car where car_delete='N' ORDER BY sale_YN DESC, car_id";
 			
 			try {
 				pstmt = con.prepareStatement(sql);
@@ -477,7 +477,7 @@ public class CarDAO {
 		public ArrayList<Car> selectmySaleCar(String user_id, int page, int limit) {
 			ArrayList<Car> mySaleCar = null;
 			
-			String sql = "select * from tbl_car where car_delete='N' and dealer_id=? limit ?,5";
+			String sql = "select * from tbl_car where car_delete='N' and dealer_id=? ORDER BY sale_YN DESC, car_id limit ?,5";
 			int startrow = (page - 1) * 5;
 			
 			try {
@@ -843,7 +843,8 @@ public class CarDAO {
 			
 			return result;
 		}
-		
+
+
 		
 		
 		

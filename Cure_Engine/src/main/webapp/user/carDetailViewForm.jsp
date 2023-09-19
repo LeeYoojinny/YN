@@ -213,8 +213,14 @@ String image5 = carDetail.getCar_image5();
 					<c:if test="${user_category eq null || user_category eq 'customer'}">
 						<div class="basic_info button">
 							<div id="resv_order">
-								<button onclick="reserCheck('${user_id}','${carDetail.car_id}','${carDetail.dealer_id}'); return false;">시승예약</button>
-								<button onclick="orderCheck('${carDetail.car_id}')">주문하기</button>
+								<c:if test="${carDetail.sale_YN eq 'Y'}">
+									<button onclick="reserCheck('${user_id}','${carDetail.car_id}','${carDetail.dealer_id}'); return false;">시승예약</button>
+									<button onclick="orderCheck('${carDetail.car_id}')">주문하기</button>
+								</c:if>
+								<c:if test="${carDetail.sale_YN eq 'W' || carDetail.sale_YN eq 'N'}">
+									<button disabled>시승예약</button>
+									<button disabled>주문하기</button>
+								</c:if>
 							</div>
 		  	 				<div class="basic_info likeQty">
 				   	 			<c:set var="found" value="false" />
@@ -236,9 +242,13 @@ String image5 = carDetail.getCar_image5();
 					<c:if test="${user_category eq 'dealer' || user_category eq 'admin'}">
 						<div class="basic_info button">
 							<div id="resv_order">
-								<c:if test="${user_id eq carDetail.dealer_id || user_id eq 'admin'}">
+								<c:if test="${carDetail.sale_YN eq 'Y'}">
 									<button onclick="location.href='carUpdateForm.adm?car_id=${carDetail.car_id}'; return false;">수정하기</button>
 									<button onclick="removeCheck_2('${carDetail.car_id}');return false;">삭제하기</button>
+								</c:if>	
+								<c:if test="${carDetail.sale_YN eq 'W' || carDetail.sale_YN eq 'N'}">
+									<button disabled>수정하기</button>
+									<button disabled>삭제하기</button>
 								</c:if>	
 							</div>
 		  	 				<div class="basic_info likeQty">

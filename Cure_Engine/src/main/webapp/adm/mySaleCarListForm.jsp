@@ -190,9 +190,30 @@
 				<c:set var="startNo" value="${(pageInfo.page - 1) * 5 + 1}" />
 				<c:forEach var="myCar" items="${mySaleCarList}" varStatus="status">
 					<tr class="contents">
-						<td rowspan="3" id="check_remove"><input type="checkbox" name="remove" value="${myCar.car_id}"></td>
+						<td rowspan="3" id="check_remove">
+						<c:if test="${myCar.sale_YN eq 'Y'}">
+							<input type="checkbox" name="remove" value="${myCar.car_id}">
+						</c:if>
+						<c:if test="${myCar.sale_YN eq 'W' || myCar.sale_YN eq 'N'}">
+							<input type="checkbox" disabled>
+						</c:if>
+						</td>
 						<td rowspan="3" id="item_no">${startNo + status.count-1}</td>
-						<td rowspan="3" id="main_img"><a href="carDetailView.usr?car_id=${myCar.car_id}"><img src="upload/carRegist_images/${myCar.car_image1}"></a></td>
+						<td rowspan="3" id="main_img">
+							<a href="carDetailView.usr?car_id=${myCar.car_id}" class="image-link">
+								<img src="upload/carRegist_images/${myCar.car_image1}">
+								<c:if test="${myCar.sale_YN eq 'W'}">
+							        <div class="sold-out-overlay">
+							            <p class="sold-out-text">예약중</p>
+							        </div>
+							    </c:if>
+							    <c:if test="${myCar.sale_YN eq 'N'}">
+							        <div class="sold-out-overlay">
+							            <p class="sold-out-text">판매완료</p>
+							        </div>
+							    </c:if>
+							</a>
+						</td>
 						<td id="explain1">
 						<c:forEach var="code" items="${allCode}">
 							<c:if test="${code.code_category == 'car_brand'}">
@@ -200,10 +221,18 @@
 							</c:if>
 						</c:forEach>					
 						&nbsp;${myCar.car_year}연식 ${myCar.car_name}</td>
-						<td rowspan="3" id="bt">
-							<button onclick="location.href='carUpdateForm.adm?car_id=${myCar.car_id}'; return false;">수정하기</button>
-							<button onclick="removeCheck_2('${myCar.car_id}');return false;">삭제하기</button>
-						</td>
+						<c:if test="${myCar.sale_YN eq 'Y'}">
+							<td rowspan="3" id="bt">
+								<button onclick="location.href='carUpdateForm.adm?car_id=${myCar.car_id}'; return false;">수정하기</button>
+								<button onclick="removeCheck_2('${myCar.car_id}');return false;">삭제하기</button>
+							</td>
+						</c:if>
+						<c:if test="${myCar.sale_YN eq 'W' || myCar.sale_YN eq 'N'}">
+							<td rowspan="3" id="bt">
+								<button disabled>수정하기</button>
+								<button disabled>삭제하기</button>
+							</td>
+						</c:if>
 					</tr>
 					<tr class="contents">
 						<td id="explain2"><fmt:formatNumber value="${myCar.car_price}" pattern="#,###" />만원</td>

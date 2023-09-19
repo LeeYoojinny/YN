@@ -6,14 +6,14 @@ public class Payment {
 	private int pay_price;
 	private String pay_depositor_name;
 	private String pay_creditcard_name;
-	private int pay_creditcard_num;
+	private String pay_creditcard_num;
 	private String pay_creditcard_date;
 	private int pay_creditcard_cvc;	
 	
 	public Payment() {}
 	
 	public Payment(String order_num, int pay_by, int pay_price, String pay_depositor_name, String pay_creditcard_name,
-			int pay_creditcard_num, String pay_creditcard_date, int pay_creditcard_cvc) {
+			String pay_creditcard_num, String pay_creditcard_date, int pay_creditcard_cvc) {
 		super();
 		this.order_num = order_num;
 		this.pay_by = pay_by;
@@ -65,11 +65,11 @@ public class Payment {
 		this.pay_creditcard_name = pay_creditcard_name;
 	}
 
-	public int getPay_creditcard_num() {
+	public String getPay_creditcard_num() {
 		return pay_creditcard_num;
 	}
 
-	public void setPay_creditcard_num(int pay_creditcard_num) {
+	public void setPay_creditcard_num(String pay_creditcard_num) {
 		this.pay_creditcard_num = pay_creditcard_num;
 	}
 	

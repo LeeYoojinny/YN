@@ -15,6 +15,8 @@
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
+
+//결제 방법에 따라 값 확인
 function orderCheck() {
 	//이름 정규화 공식
 	const regName = /^[가-힣a-zA-Z]{2,}$/;
@@ -206,7 +208,7 @@ function orderCheck() {
 					<form class="needs-validation"  action="order.cust" method="post" name="f">
 						<input type="hidden" name="car_price" value="${carInfo.car_price * 10000}">
 						<input type="hidden" name="car_id" value="${carInfo.car_id}">
-						<%-- <input type="hidden" name="car_tax" value="${carInfo.car_price * 10000 * 0.07}"> --%>
+						<input type="hidden" name="dealer_id" value="${carInfo.dealer_id}">						
 						<input type="hidden" name="discount_price" value="${discount_price}">
 						<input type="hidden" name="coupon_id" value="${myCoupon.coupon_id}">
 						<input type="hidden" name="region" value="${region}">

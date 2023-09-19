@@ -30,32 +30,6 @@ h2 {
   object-fit: cover;
 }
 
-/**버튼디자인**/
-/*
-.button_img button{
-	width: 30px; height: 30px;
-	position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
- 	background-color: transparent;
- 	border: 0; 	
-}
-
-.next{
-  right: 0;
-}
-
-
-#back_img, #next_img {
-	opacity: 0.5;
-}
-
-#back_img:hover, #next_img:hover {
-	opacity: 0.9;
-}
-*/
-/* 반응형 만들 때 864px 기준으로~~~ */
-
 .wrap_secLine {
 	display: flex;
 	flex-direction: row;
@@ -174,6 +148,19 @@ h2 {
 	background-color: #36589C;
 	color:#fff;
 }
+
+#resv_order button:disabled {
+	width: 7rem;
+	padding: 0.5rem;
+	margin-right: 0.5rem;
+	font-family: 'GowunDodum';
+	color:#fff;
+	background-color: #e0e0e0;
+	border: none;
+	cursor: default;
+}
+
+
 
 .basic_info.likeQty img {
 	width: 1.5rem;

@@ -23,6 +23,7 @@ public class CustomerOrderAction implements Action {
 		
 		//Order 객체 생성
 		String car_id = request.getParameter("car_id");
+		String dealer_id = request.getParameter("dealer_id");
 		String user_id = request.getParameter("user_id");
 		
 		//null 값이 올 수 있는 쿠폰관련 값은 미리 처리
@@ -64,6 +65,7 @@ public class CustomerOrderAction implements Action {
 
 		Order order = new Order();
 		order.setCar_id(car_id);
+		order.setDealer_id(dealer_id);
 		order.setUser_id(user_id);
 		order.setCoupon_id(coupon_id);
 		order.setDiscount_price(discount_price);
@@ -89,7 +91,7 @@ public class CustomerOrderAction implements Action {
 		//null 값이 올 수 있는 결제방법에 대해 미리 처리하기
 		String pay_depositor_name = "";
 		String pay_creditcard_name = "";
-		int pay_creditcard_num = 0;
+		String pay_creditcard_num = "";
 		String pay_creditcard_date = "";		
 		int pay_creditcard_cvc = 0;
 		
@@ -98,7 +100,7 @@ public class CustomerOrderAction implements Action {
 			
 		}else if(pay_by == 2) {
 			pay_creditcard_name = request.getParameter("pay_creditcard_name");			
-			pay_creditcard_num = Integer.parseInt(request.getParameter("pay_creditcard_num"));
+			pay_creditcard_num = request.getParameter("pay_creditcard_num");
 			pay_creditcard_date = request.getParameter("pay_creditcard_date");
 			pay_creditcard_cvc = Integer.parseInt(request.getParameter("pay_creditcard_cvc"));
 		}

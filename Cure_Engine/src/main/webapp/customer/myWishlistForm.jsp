@@ -97,8 +97,8 @@
 						</c:forEach>					
 						&nbsp;${wish.car_year}연식 ${wish.car_name}</td>
 						<td rowspan="3" id="bt">
-							<button onclick="#">시승예약</button>
-							<button onclick="#">주문하기</button>
+							<button onclick="location.href='reservationForm.cust?user_id=${user_id}&car_id=${wish.car_id}&dealer_id=${wish.dealer_id}'; return false;">시승예약</button>
+							<button onclick="location.href='orderFormStep1.cust?car_id=${wish.car_id}'; return false;">주문하기</button>
 						</td>
 					</tr>
 					<tr class="contents">

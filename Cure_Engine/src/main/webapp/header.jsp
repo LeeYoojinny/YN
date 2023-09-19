@@ -65,7 +65,7 @@
 			    <li><a href="#">Status</a>
 			    	<ul id="inside_menu1" style="padding-left: 0;">
 				     	<li><a href="reservationView.adm">예약현황</a></li>
-				     	<li><a href="orderView.adm">주문현황</a></li>
+				     	<li><a href="orderListView.adm">주문현황</a></li>
 				    </ul>
 			    </li>
 			    <li><a href="#">Board</a>
@@ -87,7 +87,7 @@
 			    <li><a href="#">Status</a>
 			    	<ul id="inside_menu1" style="padding-left: 0;">
 				     	<li><a href="<%=request.getContextPath()%>/reservationView.adm">예약현황</a></li>
-				     	<li><a href="<%=request.getContextPath()%>/orderView.adm">주문현황</a></li>
+				     	<li><a href="<%=request.getContextPath()%>/orderListView.adm">주문현황</a></li>
 				    </ul>
 			    </li>
 			    <li><a href="#">Board</a>
