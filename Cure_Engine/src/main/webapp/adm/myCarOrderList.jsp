@@ -15,11 +15,11 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script type="text/javascript">
 	function checkAll(theForm){
 		//체크박스가 하나인지 여러개인지 확인
-		if(theForm.remove.length == undefined){//체크박스(remove)의 배열길이가 정의되어 있지 않다면(=장바구니에 상품이 1개라면)
-			theForm.remove.checked = theForm.allCheck.checked;			
+		if(theForm.approve.length == undefined){//체크박스(remove)의 배열길이가 정의되어 있지 않다면(=장바구니에 상품이 1개라면)
+			theForm.approve.checked = theForm.allCheck.checked;			
 		}else {//체크박스(remove)의 배열길이가 정의되어 있다면(=장바구니에 상품이 2개이상이면)
-			for(var i=0; i<theForm.remove.length; i++){
-				theForm.remove[i].checked = theForm.allCheck.checked;
+			for(var i=0; i<theForm.approve.length; i++){
+				theForm.approve[i].checked = theForm.allCheck.checked;
 			}			
 		}		
 	}
@@ -42,44 +42,33 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 	        return false;
 	    } else {
 	        // 체크된 항목이 있으면 삭제 여부를 물어보고 삭제 작업 실행
-	        var confirmMessage = '선택된 ' + selectedCount + '개 항목을 삭제하시겠습니까?';
+	        var confirmMessage = '선택된 ' + selectedCount + '개 항목을 승인하시겠습니까?';
 
 	        if (confirm(confirmMessage)) {
 	            // 사용자가 확인을 누르면 선택된 항목 삭제
-	            var param = 'car_ids=' + selectedCarIds.join(',');
-	            location.href = 'myCarRemove.adm?' + param;
+	            var param = 'car_ids=' + selectedCarIds.join(',') + '&decision=Y';
+	            location.href = 'orderDecision.adm?' + param;
 	        }
 	    }
+	}
+
+	function approveCheck_2(car_id) {
+		 var confirmMessage = car_id+ ' 주문건을 승인하시겠습니까?';
+		 
+		 if(confirm(confirmMessage)) {
+			 var param = 'car_ids=' + car_id + '&decision=Y';
+			 location.href = 'orderDecision.adm?' + param;
+		 }
 	}
 	
-	function removeCheck() {
-		var checkboxes = document.getElementsByName('approve');
-	    var selectedCount = 0;
-	    var selectedCarIds = [];
-
-	    for (var i = 0; i < checkboxes.length; i++) {
-	        if (checkboxes[i].checked) {
-	            selectedCount++;
-	            selectedCarIds.push(checkboxes[i].value);
-	        }
-	    }
-
-	    if (selectedCount === 0) {
-	        // 체크된 항목이 없으면 경고 메시지 표시 후 작업 취소
-	        alert('선택된 항목이 없습니다.');
-	        return false;
-	    } else {
-	        // 체크된 항목이 있으면 삭제 여부를 물어보고 삭제 작업 실행
-	        var confirmMessage = '선택된 ' + selectedCount + '개 항목을 삭제하시겠습니까?';
-
-	        if (confirm(confirmMessage)) {
-	            // 사용자가 확인을 누르면 선택된 항목 삭제
-	            var param = 'car_ids=' + selectedCarIds.join(',');
-	            location.href = 'myCarRemove.adm?' + param;
-	        }
-	    }
+	function refuseCheck(car_id) {
+		 var confirmMessage = car_id+ ' 주문건을 거절하시겠습니까?';
+		 
+		 if(confirm(confirmMessage)) {
+			 var param = 'car_ids=' + car_id + '&decision=N';
+			 location.href = 'orderDecision.adm?' + param;
+		 }
 	}
-
 	
 </script>
 <body>
@@ -89,13 +78,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 			<form method="post">
 			<table>
 				<tr id="allApprove">
-					<c:if test="${user_category eq 'dealer'}">					
+					<c:if test="${user_category eq 'dealer' || user_category eq 'admin'}">					
 						<td colspan="2" id="bt"><button onclick="approveCheck_1(); return false;">선택승인</button></td>
-						<td colspan="3" id="bt"></td>
-					</c:if>
-					<c:if test="${user_category eq 'admin'}">					
-						<td colspan="2" id="bt"><button onclick="approveCheck_1(); return false;">선택승인</button></td>
-						<td><button onclick="removeCheck(); return false;">선택삭제</button></td>
 						<td colspan="3" id="bt"></td>
 					</c:if>
 				</tr>
@@ -110,7 +94,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 				<c:set var="startNo" value="${(pageInfo.page - 1) * 5 + 1}" />
 				<c:forEach var="orderCar" items="${carList}" varStatus="status">
 					<tr class="contents">
-						<td rowspan="3" id="check_remove"><input type="checkbox" name="approve" value="${orderCar.car_id}"></td>
+						<td rowspan="3" id="check_approve"><input type="checkbox" name="approve" value="${orderCar.car_id}"></td>
 						<td rowspan="3" id="item_no">${startNo + status.count-1}</td>
 						<td rowspan="3" id="main_img">
 							<a href="carDetailView.usr?car_id=${orderCar.car_id}" class="image-link">
@@ -124,13 +108,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 							</c:if>
 						</c:forEach>					
 						&nbsp;${orderCar.car_year}연식 ${orderCar.car_name}</td>
+						<c:set var="ordernum" />
 						<c:forEach var="order" items="${orderList}">															
 							<c:if test="${order.car_id == orderCar.car_id}">
+							<c:set var="ordernum" value="${order.ordernum }" />
 								<c:if test="${order.order_approve_YN eq 'W'}">								
 								<td rowspan="3" id="orderStatus">승인대기</td>
 								<td rowspan="3" id="bt">
-									<button onclick="location.href='orderApprove.adm?car_id=${orderCar.car_id}'; return false;">승인</button>
-									<button onclick="location.href='orderRefuse.adm?car_id=${orderCar.car_id}';return false;">거절</button>
+									<button onclick="approveCheck_2('${orderCar.car_id}'); return false;">승인</button>
+									<button onclick="refuseCheck('${orderCar.car_id}');return false;">거절</button>
 								</td>
 								</c:if>
 								<c:if test="${order.order_approve_YN eq 'Y'}">
@@ -141,24 +127,28 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 									</td>
 								</c:if>
 								<c:if test="${order.order_approve_YN eq 'N'}">
-									<td rowspan="3" id="orderStatus">주문반려</td>
+									<td rowspan="3" id="orderStatus">주문거절</td>
 									<td rowspan="3" id="bt">
 										<button disabled>승인</button>
 										<button disabled>거절</button>
 									</td>								
 								</c:if>								
 							</c:if>							
-						</c:forEach>							
+						</c:forEach>						
 					</tr>
-					<tr class="contents">
-						<td id="explain2"><fmt:formatNumber value="${orderCar.car_price}" pattern="#,###" />만원</td>
-					</tr>
+					<c:forEach var="pay" items="${allpayList}">
+						<c:if test="${pay.ordernum == ordernum}">
+							<tr class="contents">
+								<td id="explain2">결제금액 : <fmt:formatNumber value="${pay.pay_price}" pattern="#,###" />원</td>
+							</tr>
+						</c:if>
+					</c:forEach>		
 					<tr class="contents">
 						<c:forEach var="order" items="${orderList}">															
 								<c:if test="${order.car_id == orderCar.car_id}">
 									<td id="explain3">
 										<span>주문일자 : <fmt:formatDate value="${order.order_date}" pattern="yyyy-MM-dd HH:mm"/></span>
-										<a href="orderDetail.adm?ordernum=${order.ordernum}"><i class="fa-solid fa-magnifying-glass"></i>주문상세보기</a>
+										<a href="orderDetail.adm?ordernum=${order.ordernum}&car_id=${order.car_id}"><i class="fa-solid fa-magnifying-glass"></i>주문상세보기</a>
 									</td>
 								</c:if>
 						</c:forEach>

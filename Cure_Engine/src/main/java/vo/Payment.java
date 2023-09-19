@@ -1,7 +1,7 @@
 package vo;
 
 public class Payment {
-	private String order_num;
+	private String ordernum;
 	private int pay_by;
 	private int pay_price;
 	private String pay_depositor_name;
@@ -12,10 +12,10 @@ public class Payment {
 	
 	public Payment() {}
 	
-	public Payment(String order_num, int pay_by, int pay_price, String pay_depositor_name, String pay_creditcard_name,
+	public Payment(String ordernum, int pay_by, int pay_price, String pay_depositor_name, String pay_creditcard_name,
 			String pay_creditcard_num, String pay_creditcard_date, int pay_creditcard_cvc) {
 		super();
-		this.order_num = order_num;
+		this.ordernum = ordernum;
 		this.pay_by = pay_by;
 		this.pay_price = pay_price;
 		this.pay_depositor_name = pay_depositor_name;
@@ -25,12 +25,12 @@ public class Payment {
 		this.pay_creditcard_cvc = pay_creditcard_cvc;
 	}
 
-	public String getOrder_num() {
-		return order_num;
+	public String getOrdernum() {
+		return ordernum;
 	}
 
-	public void setOrder_num(String order_num) {
-		this.order_num = order_num;
+	public void setOrdernum(String ordernum) {
+		this.ordernum = ordernum;
 	}
 
 	public int getPay_by() {

@@ -1164,6 +1164,62 @@ public class UserDAO {
 			return removeResult;
 		}
 
+		/*------ 주문현황 - 주문승인 시 품절처리 -----------------------------------------------*/
+		public int saleN(String[] car_ids) {
+			int carSaleN = 0;
+			
+			String where_car_id = "";
+			for(int i=0; i<car_ids.length; i++) {
+				if(i == 0) {
+					where_car_id += " (car_id='"+car_ids[i]+"'";
+				}else {
+					where_car_id += " or car_id='"+car_ids[i]+"'";
+				}
+			}
+			where_car_id += ")";
+			
+			String sql = "update tbl_car set sale_YN='N' where"+where_car_id;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				carSaleN = pstmt.executeUpdate();
+
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 saleN()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return carSaleN;
+		}
+
+
+		public int saleY(String[] car_ids) {
+			int carSaleY = 0;
+			
+			String where_car_id = "";
+			for(int i=0; i<car_ids.length; i++) {
+				if(i == 0) {
+					where_car_id += " (car_id='"+car_ids[i]+"'";
+				}else {
+					where_car_id += " or car_id='"+car_ids[i]+"'";
+				}
+			}
+			where_car_id += ")";
+			
+			String sql = "update tbl_car set sale_YN='Y' where"+where_car_id;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				carSaleY = pstmt.executeUpdate();
+
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 saleN()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return carSaleY;
+		}
+
 
 		
 		
