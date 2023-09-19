@@ -10,6 +10,9 @@ body{
     width:100%;
 }
 
+h2 {
+	text-align: center;	
+}
 .wrap_allCarList{
     width: 100%;
     margin: auto; /*중앙 정렬*/

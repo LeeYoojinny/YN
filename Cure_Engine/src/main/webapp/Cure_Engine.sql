@@ -332,6 +332,7 @@ create table tpm_ordernum (
 CREATE TABLE tbl_order (
 ordernum VARCHAR(8) NOT NULL DEFAULT '0',
 car_id VARCHAR(10) NOT NULL,
+dealer_id CHAR(7) NOT NULL,
 user_id VARCHAR(45) NOT NULL,
 coupon_id CHAR(10) NULL,
 discount_price INT NULL,
@@ -366,10 +367,23 @@ DELIMITER ;
 alter table tbl_order add column user_zipcode INT NOT NULL after deliveryfee;
 alter table tbl_order add column car_tax INT NOT NULL after car_price;
 alter table tbl_order add column sale_expense INT NOT NULL after car_tax;
+alter table tbl_order add column dealer_id CHAR(7) NOT NULL after car_id;
 alter table tbl_order modify sale_expense INT NOT NULL DEFAULT 300000;
 alter table tbl_order add column discount_price INT null after coupon_id;
 alter table tbl_order modify order_approve_YN CHAR(1) NOT NULL DEFAULT 'W';
 select * from tbl_order;
+
+select *
+from tbl_car join tbl_order
+using(car_id)
+outer join tbl_payment 
+using(ordernum)
+
+SELECT c.*
+FROM tbl_car c
+INNER JOIN tbl_order o ON c.car_id = o.car_id
+LEFT JOIN tbl_payment p ON o.ordernum = p.ordernum
+WHERE c.dealer_id = 'd230001';
 
 -- -----------------------------------------------------
 -- tbl_qna : 질문게시판
@@ -506,12 +520,12 @@ select * from tbl_review;
 -- tbl_payment : 결재방법
 -- -----------------------------------------------------
 CREATE TABLE tbl_payment (
-ordernum VARCHAR(8) NOT NULL,
+ordernum VARCHAR(8) NOT NULL unique,
 pay_by INT NOT NULL COMMENT '1:계좌이체(현금) 2:신용카드',
 pay_price INT NOT NULL,
 pay_depositor_name VARCHAR(45) NULL COMMENT '현금결제일때 입금자명',
 pay_creditcard_name VARCHAR(45) NULL COMMENT '카드 명의자명',
-pay_creditcard_num INT(16) NULL COMMENT '카드결제시 카드번호 16자리',
+pay_creditcard_num VARCHAR(45) NULL COMMENT '카드결제시 카드번호 16자리',
 pay_creditcard_cvc INT(3) NULL COMMENT '카드결제시 cvc 번호 3자리',
 pay_creditcard_date VARCHAR(45) NULL,
 CONSTRAINT fk_pay_ordernum FOREIGN KEY (ordernum) REFERENCES tbl_order (ordernum));
@@ -520,5 +534,6 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+alter table tbl_payment modify pay_creditcard_num VARCHAR(45) NULL;
 alter table tbl_payment modify pay_creditcard_name VARCHAR(45) NULL;
 alter table tbl_payment add column pay_creditcard_date VARCHAR(45) NULL;

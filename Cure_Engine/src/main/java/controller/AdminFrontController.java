@@ -36,7 +36,9 @@ import action.adm.AdminDealerRefuseAction;
 import action.adm.AdminDealerRejoinAction;
 import action.adm.AdminMyCarRemoveAction;
 import action.adm.AdminMySaleCarAction;
+import action.adm.AdminOrderViewListAction;
 import action.adm.AdminReservationCheckAction;
+import action.adm.AdminReservationDeleteAction;
 import action.adm.AdminReservationViewAction;
 import vo.ActionForward;
 
@@ -317,6 +319,24 @@ public class AdminFrontController extends HttpServlet {
 		}
 		else if(command.equals("/reservationCheck.adm")) {//'승인, 거절' 요청이면
 			action = new AdminReservationCheckAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/deleteReservation.adm")) {//'예약 삭제' 요청이면
+			action = new AdminReservationDeleteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		/*------- 주문현황보기 ---------------------------------------------------------*/
+		else if(command.equals("/orderListView.adm")) {//'주문현황리스트' 요청이면
+			action = new AdminOrderViewListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

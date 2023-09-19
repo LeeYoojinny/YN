@@ -1136,6 +1136,34 @@ public class UserDAO {
 			return result;
 		}
 
+		/*------ 관리자 - 시승예약내역 삭제하기 -----------------------------------------------*/
+		public int removeRev(String[] resernums, String user_id) {
+			int removeResult = 0;
+			
+			String where_resernum = "";
+			for(int i = 0; i < resernums.length; i++) {
+				if(i==0) {
+					where_resernum += "(resernum='"+resernums[i]+"'";
+				}else {
+					where_resernum += "or resernum='"+resernums[i]+"'";
+				}
+			}
+			where_resernum += ")";
+			
+			String sql = "delete from tbl_reservation where "+where_resernum;
+			System.out.println("만들어진 sql문 : "+sql);
+			try {
+				pstmt = con.prepareStatement(sql);
+				removeResult = pstmt.executeUpdate();
+			}catch(Exception e) {
+				System.out.println("UserDAO 클래스의 removeRev()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			
+			return removeResult;
+		}
+
 
 		
 		

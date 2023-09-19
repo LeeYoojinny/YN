@@ -3,8 +3,9 @@ package vo;
 import java.sql.Timestamp;
 
 public class Order {
-	private String order_num;
+	private String ordernum;
 	private String car_id;
+	private String dealer_id;	
 	private String user_id;
 	private String coupon_id;
 	private int discount_price;
@@ -23,12 +24,13 @@ public class Order {
 	
 	public Order() {}
 		
-	public Order(String order_num, String car_id, String user_id, String coupon_id, int discount_price, Timestamp order_date, 
-			int car_price, int car_tax,int sale_expense, String region, int deliveryfee, int user_zipcode, 
+	public Order(String ordernum, String car_id, String dealer_id,String user_id, String coupon_id, int discount_price, 
+			Timestamp order_date, int car_price, int car_tax,int sale_expense, String region, int deliveryfee, int user_zipcode, 
 			String user_address1, String user_address2,	String user_phone, int payment,String order_approve_YN) {
 		super();
-		this.order_num = order_num;
+		this.ordernum = ordernum;
 		this.car_id = car_id;
+		this.dealer_id = dealer_id;
 		this.user_id = user_id;
 		this.coupon_id = coupon_id;
 		this.discount_price = discount_price;
@@ -46,12 +48,12 @@ public class Order {
 		this.order_approve_YN = order_approve_YN;
 	}
 
-	public String getOrder_num() {
-		return order_num;
+	public String getOrdernum() {
+		return ordernum;
 	}
 
-	public void setOrder_num(String order_num) {
-		this.order_num = order_num;
+	public void setOrdernum(String ordernum) {
+		this.ordernum = ordernum;
 	}
 
 	public String getCar_id() {
@@ -60,6 +62,14 @@ public class Order {
 
 	public void setCar_id(String car_id) {
 		this.car_id = car_id;
+	}	
+	
+	public String getDealer_id() {
+		return dealer_id;
+	}
+
+	public void setDealer_id(String dealer_id) {
+		this.dealer_id = dealer_id;
 	}
 
 	public String getUser_id() {

@@ -36,8 +36,8 @@
 						탁송주소 : ${order.user_address1} ${order.user_address2}
 					</div>
 					결제방법 :					
-					<c:if test="${order.pay_by eq 1}"> 계좌이체 </c:if>
-					<c:if test="${order.pay_by eq 2}"> 신용카드 </c:if>
+					<c:if test="${order.payment eq 1}"> 계좌이체 </c:if>
+					<c:if test="${order.payment eq 2}"> 신용카드 </c:if>
 					<div id="wrap_table">
 						<table>
 							<tr>

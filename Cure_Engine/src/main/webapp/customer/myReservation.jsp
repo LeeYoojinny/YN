@@ -13,6 +13,7 @@
 
 </script>
 <body>
+<h2>시승예약 현황</h2>
 	<form method="post">
 		<table>
 			<tr id="firstLine">
@@ -25,7 +26,7 @@
 			</tr>
 			<c:forEach var="mrev" items="${myReservation}" varStatus="status">
 				<tr class="contents">
-					<td id="item_no">${status.count}</td>
+					<td id="item_no" >${status.count}</td>
 					<td>
 						<a href="carDetailView.usr?car_id=${mrev.car_id}">${mrev.car_id}</a>
 					</td>

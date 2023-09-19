@@ -183,6 +183,29 @@ input::placeholder {
 	font-weight: bold;
 }
 
+.image-link {
+    position: relative;
+    display: inline-block; /* 크기에 따라 div 크기가 조정되도록 설정 */
+}
+
+/* 이미지 위에 겹칠 오버레이 스타일 */
+.sold-out-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0.7); /* 투명 빨간색 배경 */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sold-out-text {
+    color: white;
+    font-size: 24px;
+}
 .likeQty img {
 	width: 1.5rem;
 	display: inline;

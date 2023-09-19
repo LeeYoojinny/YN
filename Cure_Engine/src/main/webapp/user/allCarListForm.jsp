@@ -169,8 +169,19 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 					<c:forEach var="car" items="${allCarList}" varStatus="status">
 						<div class="col">
           					<div class="card shadow-sm" >
-            					<a href="carDetailView.usr?car_id=${car.car_id}">
-								<img src="upload/carRegist_images/${car.car_image1}" width="100%" height="280"></a>
+            					<a href="carDetailView.usr?car_id=${car.car_id}" class="image-link">
+								<img src="upload/carRegist_images/${car.car_image1}" width="100%" height="280">
+								  <c:if test="${car.sale_YN eq 'W'}">
+							          <div class="sold-out-overlay">
+							              <p class="sold-out-text">예약중</p>
+							          </div>
+							       </c:if>
+							       <c:if test="${car.sale_YN eq 'N'}">
+							          <div class="sold-out-overlay">
+							              <p class="sold-out-text">판매완료</p>
+							          </div>
+							       </c:if>
+							       </a>
             						<div class="card-body" >
             							<p class="card-text">
             								<c:forEach var="code" items="${allCode}">
