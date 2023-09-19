@@ -7,6 +7,7 @@ public class Order {
 	private String car_id;
 	private String dealer_id;	
 	private String user_id;
+	private String user_name;
 	private String coupon_id;
 	private int discount_price;
 	private Timestamp order_date;
@@ -19,19 +20,21 @@ public class Order {
 	private String user_address1;
 	private String user_address2;
 	private String user_phone;
+	private String user_email;
 	private int payment;
 	private String order_approve_YN;
 	
 	public Order() {}
 		
-	public Order(String ordernum, String car_id, String dealer_id,String user_id, String coupon_id, int discount_price, 
+	public Order(String ordernum, String car_id, String dealer_id,String user_id, String user_name, String coupon_id, int discount_price, 
 			Timestamp order_date, int car_price, int car_tax,int sale_expense, String region, int deliveryfee, int user_zipcode, 
-			String user_address1, String user_address2,	String user_phone, int payment,String order_approve_YN) {
+			String user_address1, String user_address2,	String user_phone, String user_email, int payment,String order_approve_YN) {
 		super();
 		this.ordernum = ordernum;
 		this.car_id = car_id;
 		this.dealer_id = dealer_id;
 		this.user_id = user_id;
+		this.user_name = user_name;
 		this.coupon_id = coupon_id;
 		this.discount_price = discount_price;
 		this.order_date = order_date;
@@ -44,6 +47,7 @@ public class Order {
 		this.user_address1 = user_address1;
 		this.user_address2 = user_address2;
 		this.user_phone = user_phone;
+		this.user_email = user_email;
 		this.payment = payment;
 		this.order_approve_YN = order_approve_YN;
 	}
@@ -190,6 +194,22 @@ public class Order {
 
 	public void setOrder_approve_YN(String order_approve_YN) {
 		this.order_approve_YN = order_approve_YN;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+
+	public String getUser_email() {
+		return user_email;
+	}
+
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
 	}
 	
 	

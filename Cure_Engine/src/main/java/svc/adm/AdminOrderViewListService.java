@@ -11,6 +11,7 @@ import dao.CodeDAO;
 import dao.OrderDAO;
 import vo.Car;
 import vo.Order;
+import vo.Payment;
 import vo.Code;
 
 public class AdminOrderViewListService {
@@ -32,24 +33,34 @@ public class AdminOrderViewListService {
 		return result;
 	}
 
-	public ArrayList<Car> getOrderCarList(String dealer_id, int page, int limit) {
+	public ArrayList<Car> getOrderCarList(String dealer_id, String user_category, int page, int limit) {
 		Connection con = getConnection();
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		orderDAO.setConnection(con);
 		
-		ArrayList<Car> carList = orderDAO.getOrderCarList(dealer_id,page,limit);				
-		
+		ArrayList<Car> carList = null;
+		if(user_category.equals("dealer")) {
+			carList = orderDAO.getOrderCarList(dealer_id,page,limit);				
+		}else if(user_category.equals("admin")) {//전체 주문건 가져오기
+			carList = orderDAO.getOrderCarList(page,limit);
+		}
 		close(con);
 		return carList;
 		
 	}
 	
-	public ArrayList<Order> getOrderList(String dealer_id, int page, int limit) {
+	public ArrayList<Order> getOrderList(String dealer_id, String user_category, int page, int limit) {
 		Connection con = getConnection();
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		orderDAO.setConnection(con);
-	
-		ArrayList<Order> orderList = orderDAO.getOrderList(dealer_id,page,limit);		
+		
+		ArrayList<Order> orderList = null;
+		if(user_category.equals("dealer")) {
+			orderList = orderDAO.getOrderList(dealer_id,page,limit);		
+		}else if(user_category.equals("admin")) {//전체 주문건 가져오기
+			orderList = orderDAO.getOrderList(page,limit);
+		}
+		
 		
 		close(con);
 		return orderList;
@@ -64,6 +75,17 @@ public class AdminOrderViewListService {
 		
 		close(con);
 		return allCode;
+	}
+
+	public ArrayList<Payment> getAllPayList() {
+		Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		ArrayList<Payment> allPayList = orderDAO.getAllPayList();
+		
+		close(con);
+		return allPayList;
 	}
 
 	

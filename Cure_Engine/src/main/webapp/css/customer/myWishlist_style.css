@@ -122,6 +122,18 @@ table {
 	border: 1px solid #dadada;
 	cursor: pointer;
 }
+
+#bt button:disabled{
+	display: block;
+	margin: 0.5rem auto;
+	width: 7rem;
+    padding: 0.5rem;
+	color:#fff;
+	font-family: 'Gowun Dodum', sans-serif;
+	background-color: #e0e0e0;
+	border: none;
+	cursor: default;
+}
 .pageNum {
 	clear: both;
 	margin-top : 1.5rem;

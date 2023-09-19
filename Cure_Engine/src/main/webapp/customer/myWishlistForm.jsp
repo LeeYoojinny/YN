@@ -97,9 +97,16 @@
 						</c:forEach>					
 						&nbsp;${wish.car_year}연식 ${wish.car_name}</td>
 						<td rowspan="3" id="bt">
-							<button onclick="location.href='reservationForm.cust?user_id=${user_id}&car_id=${wish.car_id}&dealer_id=${wish.dealer_id}'; return false;">시승예약</button>
-							<button onclick="location.href='orderFormStep1.cust?car_id=${wish.car_id}'; return false;">주문하기</button>
+							<c:if test="${wish.sale_YN eq 'Y'}">
+								<button onclick="location.href='reservationForm.cust?user_id=${user_id}&car_id=${wish.car_id}&dealer_id=${wish.dealer_id}'; return false;">시승예약</button>
+								<button onclick="location.href='orderFormStep1.cust?car_id=${wish.car_id}'; return false;">주문하기</button>
+							</c:if>
+							<c:if test="${wish.sale_YN eq 'W' || wish.sale_YN eq 'N'}">
+								<button disabled>시승예약</button>
+								<button disabled>주문하기</button>
+							</c:if>	
 						</td>
+						
 					</tr>
 					<tr class="contents">
 						<td id="explain2">

@@ -225,6 +225,22 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 				</div>
 			</div>
 		</c:if>
+		<div class="pageNum">
+			<c:choose> 
+				<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>
+				<c:otherwise><a style="text-decoration:none" href="allCarListView.usr?page=${pageInfo.page-1}">[이전]&nbsp;</a></c:otherwise>
+			</c:choose>
+			<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="loop">
+				<c:choose>
+					<c:when test="${i == pageInfo.page}">${i}&nbsp;</c:when>
+					<c:otherwise><a style="text-decoration:none" href="allCarListView.usr?page=${i}">${i}</a>&nbsp;</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<c:choose>
+				<c:when test="${pageInfo.page >= pageInfo.maxPage}">[다음]&nbsp;</c:when>
+				<c:otherwise><a style="text-decoration:none" href="allCarListView.usr?page=${pageInfo.page+1}">[다음]&nbsp;</a></c:otherwise>
+			</c:choose>
+		</div>
 		<c:if test="${allCarList == null }">
 			<div class="nothing">등록된 상품이 없습니다.</div>
 		</c:if>

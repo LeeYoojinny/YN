@@ -13,6 +13,7 @@ import vo.Car;
 import vo.Order;
 import vo.Code;
 import vo.PageInfo;
+import vo.Payment;
 
 public class AdminOrderViewListAction implements Action {
 
@@ -57,13 +58,15 @@ public class AdminOrderViewListAction implements Action {
 		pageInfo.setPage(page);
 		pageInfo.setStartPage(startPage);		
 		
-		ArrayList<Car> carList = orderViewListService.getOrderCarList(dealer_id,page,limit);
-		ArrayList<Order> orderList = orderViewListService.getOrderList(dealer_id,page,limit);
+		ArrayList<Car> carList = orderViewListService.getOrderCarList(dealer_id,user_category,page,limit);
+		ArrayList<Order> orderList = orderViewListService.getOrderList(dealer_id,user_category,page,limit);
+		ArrayList<Payment> allpayList = orderViewListService.getAllPayList();
 		ArrayList<Code> allCode = orderViewListService.getAllCode();
 		
 		request.setAttribute("carList", carList);
 		request.setAttribute("orderList", orderList);
 		request.setAttribute("pageInfo", pageInfo);
+		request.setAttribute("allpayList", allpayList);
 		request.setAttribute("allCode", allCode);
 		
 		request.setAttribute("showPage", "adm/myCarOrderList.jsp");

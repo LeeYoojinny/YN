@@ -36,6 +36,8 @@ import action.adm.AdminDealerRefuseAction;
 import action.adm.AdminDealerRejoinAction;
 import action.adm.AdminMyCarRemoveAction;
 import action.adm.AdminMySaleCarAction;
+import action.adm.AdminOrderDecisionAction;
+import action.adm.AdminOrderDetailAction;
 import action.adm.AdminOrderViewListAction;
 import action.adm.AdminReservationCheckAction;
 import action.adm.AdminReservationDeleteAction;
@@ -343,6 +345,22 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		else if(command.equals("/orderDetail.adm")) {//'주문자세히보기' 요청이면
+			action = new AdminOrderDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/orderDecision.adm")) {//'주문 승인/거절' 요청이면
+			action = new AdminOrderDecisionAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		/*------- 관리자 - 모든상품보기 ---------------------------------------------------------*/
 		
@@ -356,7 +374,7 @@ public class AdminFrontController extends HttpServlet {
 		}
 		
 		/*------- 관리자 - 딜러관리 ---------------------------------------------------------*/
-		else if(command.equals("/dealerList.adm")) {//'모든차량보기' 요청이면
+		else if(command.equals("/dealerList.adm")) {//'딜러관리보기' 요청이면
 			action = new AdminDealerListAction();
 			try {
 				forward = action.execute(request, response);
@@ -373,7 +391,7 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}
 		
-		else if(command.equals("/dealerExpireList.adm")) {
+		else if(command.equals("/dealerExpireList.adm")) { //탈퇴딜러 리스트보기
 			action = new AdminDealerExpireListAction();
 			try {
 				forward = action.execute(request, response);
@@ -382,7 +400,7 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}
 		
-		else if(command.equals("/adminDealerDelete.adm")) {
+		else if(command.equals("/adminDealerDelete.adm")) {//관리자가 딜러 탈퇴시키기
 			action = new AdminDealerExpireAction();
 			try {
 				forward = action.execute(request, response);
@@ -391,7 +409,7 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}
 		
-		else if(command.equals("/dealerRejoin.adm")) {
+		else if(command.equals("/dealerRejoin.adm")) {//관리자가 딜러 재가입처리하기
 			action = new AdminDealerRejoinAction();
 			try {
 				forward = action.execute(request, response);

@@ -51,7 +51,7 @@ table {
 	margin-left: auto;
 	margin-right: auto;
 	width: 80%;
-	max-width: 900px;
+	max-width: 1000px;
 	border-collapse: collapse;
 }
 
@@ -167,13 +167,18 @@ table {
 #bt button{
 	display: block;
 	margin: 0.5rem auto;
-	width: 6rem;
+	width: 5.5rem;
     padding: 0.5rem;
 	color:#fff;
 	font-family: 'Gowun Dodum', sans-serif;
 	background-color: #486AAE;
 	border: 1px solid #dadada;
 	cursor: pointer;
+}
+
+#bt button:hover{
+	background-color: #36589C;
+	color:#fff;
 }
 
 #bt button:disabled{

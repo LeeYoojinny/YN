@@ -253,8 +253,7 @@ function orderCheck() {
 							<div class="col-12">
 								<input type="text" class="form-control" id="user_address2"
 									name="user_address2" value="${param.user_address2}" readonly>
-							</div>
-							<hr class="my-4">
+							</div>							
 						</div>
 
 						<hr class="my-4">

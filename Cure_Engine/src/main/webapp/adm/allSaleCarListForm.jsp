@@ -194,7 +194,21 @@
 						<td rowspan="3" id="check_remove"><input type="checkbox" name="remove" value="${allCar.car_id}"></td>
 						<td rowspan="3" id="item_no">${startNo + status.count-1}</td>
 						<td rowspan="3">${allCar.dealer_id}&nbsp;&nbsp;</td>
-						<td rowspan="3" id="main_img"><a href="carDetailView.usr?car_id=${allCar.car_id}"><img src="upload/carRegist_images/${allCar.car_image1}"></a></td>
+						<td rowspan="3" id="main_img">
+							<a href="carDetailView.usr?car_id=${allCar.car_id}" class="image-link">
+							<img src="upload/carRegist_images/${allCar.car_image1}" >
+							<c:if test="${allCar.sale_YN eq 'W'}">
+						        <div class="sold-out-overlay">
+						            <p class="sold-out-text">예약중</p>
+						        </div>
+						    </c:if>
+						    <c:if test="${allCar.sale_YN eq 'N'}">
+						        <div class="sold-out-overlay">
+						            <p class="sold-out-text">판매완료</p>
+						        </div>
+						    </c:if>
+							</a>
+						</td>
 						
 						<td id="explain1">
 						<c:forEach var="code" items="${allCode}">
@@ -203,9 +217,15 @@
 							</c:if>
 						</c:forEach>					
 						&nbsp;${allCar.car_year}연식 ${allCar.car_name}</td>
-						<td rowspan="3" id="bt">
-							<button onclick="location.href='carUpdateForm.adm?car_id=${allCar.car_id}'; return false;">수정하기</button>
+						<td rowspan="3" id="bt">							
+							<c:if test="${allCar.sale_YN eq 'Y'}">
+								<button onclick="location.href='carUpdateForm.adm?car_id=${allCar.car_id}'; return false;">수정하기</button>
 							<button onclick="removeCheck_2('${allCar.car_id}');return false;">삭제하기</button>
+							</c:if>
+							<c:if test="${allCar.sale_YN eq 'W' || allCar.sale_YN eq 'N'}">
+								<button disabled>시승예약</button>
+								<button disabled>주문하기</button>
+							</c:if>	
 						</td>
 					</tr>
 					<tr class="contents">

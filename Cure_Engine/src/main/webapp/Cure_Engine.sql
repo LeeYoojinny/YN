@@ -231,7 +231,6 @@ delete from tbl_wishlist where user_id='test11111' and (car_id='41로9999' or ca
 alter table tbl_wishlist add column car_delete CHAR(1) NOT NULL DEFAULT 'N' after user_id;
 
 
-
 select distinct w.car_id
 from tbl_wishlist w inner join tbl_car c
 on w.car_id = c.car_id
@@ -334,6 +333,7 @@ ordernum VARCHAR(8) NOT NULL DEFAULT '0',
 car_id VARCHAR(10) NOT NULL,
 dealer_id CHAR(7) NOT NULL,
 user_id VARCHAR(45) NOT NULL,
+user_name  NVARCHAR(20) NOT NULL,
 coupon_id CHAR(10) NULL,
 discount_price INT NULL,
 order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -346,6 +346,7 @@ user_zipcode INT NOT NULL,
 user_address1 VARCHAR(100) NOT NULL,
 user_address2 VARCHAR(60) NULL,
 user_phone VARCHAR(11) NOT NULL,
+user_email VARCHAR(50) NOT NULL,
 payment INT NOT NULL COMMENT '결제방법 1:현금 2:카드',
 order_approve_YN CHAR(1) NOT NULL DEFAULT 'W' COMMENT '주문승인',
 PRIMARY KEY (ordernum),
@@ -368,6 +369,8 @@ alter table tbl_order add column user_zipcode INT NOT NULL after deliveryfee;
 alter table tbl_order add column car_tax INT NOT NULL after car_price;
 alter table tbl_order add column sale_expense INT NOT NULL after car_tax;
 alter table tbl_order add column dealer_id CHAR(7) NOT NULL after car_id;
+alter table tbl_order add column user_name  NVARCHAR(20) NOT NULL after user_id;
+alter table tbl_order add column user_email VARCHAR(50) NOT NULL after user_phone;
 alter table tbl_order modify sale_expense INT NOT NULL DEFAULT 300000;
 alter table tbl_order add column discount_price INT null after coupon_id;
 alter table tbl_order modify order_approve_YN CHAR(1) NOT NULL DEFAULT 'W';
@@ -379,11 +382,17 @@ using(car_id)
 outer join tbl_payment 
 using(ordernum)
 
-SELECT c.*
+SELECT count(*)
 FROM tbl_car c
 INNER JOIN tbl_order o ON c.car_id = o.car_id
 LEFT JOIN tbl_payment p ON o.ordernum = p.ordernum
 WHERE c.dealer_id = 'd230001';
+
+SELECT c.*, o.*, p.*
+FROM tbl_car c
+INNER JOIN tbl_order o ON c.car_id = o.car_id
+LEFT JOIN tbl_payment p ON o.ordernum = p.ordernum
+WHERE p.ordernum = 'ORD00013';
 
 -- -----------------------------------------------------
 -- tbl_qna : 질문게시판
@@ -519,6 +528,8 @@ select * from tbl_review;
 -- -----------------------------------------------------
 -- tbl_payment : 결재방법
 -- -----------------------------------------------------
+drop table tbl_payment
+
 CREATE TABLE tbl_payment (
 ordernum VARCHAR(8) NOT NULL unique,
 pay_by INT NOT NULL COMMENT '1:계좌이체(현금) 2:신용카드',
@@ -533,6 +544,8 @@ CONSTRAINT fk_pay_ordernum FOREIGN KEY (ordernum) REFERENCES tbl_order (ordernum
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+insert into tbl_payment(ordernum,pay_by,pay_price,pay_depositor_name,pay_creditcard_num,pay_creditcard_cvc) values ('ORD00009',1,160850000,'아무개','0',0);
 
 alter table tbl_payment modify pay_creditcard_num VARCHAR(45) NULL;
 alter table tbl_payment modify pay_creditcard_name VARCHAR(45) NULL;

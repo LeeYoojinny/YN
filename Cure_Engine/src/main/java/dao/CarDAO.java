@@ -111,13 +111,15 @@ public class CarDAO {
 		}
 
 		/*---- '등록된 차량 뷰' 보기용 ------------------------------------------------------------------------------*/
-		public ArrayList<Car> selectAllCarInfo() {
+		public ArrayList<Car> selectAllCarInfo(int page, int limit) {
 			ArrayList<Car> allCarList = null;
 			
-			String sql = "select * from tbl_car where car_delete='N' ORDER BY sale_YN DESC, car_id";
+			String sql = "select * from tbl_car where car_delete='N' ORDER BY sale_YN DESC, car_id limit ?,12";
+			int startrow = (page - 1) * 12;
 			
 			try {
 				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startrow);
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
 					allCarList = new ArrayList<Car>();
@@ -145,7 +147,7 @@ public class CarDAO {
 			
 			return allCarList;
 		}
-
+		
 		/*---- '차량 검색 결과' 보기용 ------------------------------------------------------------------------------*/
 		public ArrayList<Car> selectSearchCar(String car_brand, String car_color, String car_type, 
 				int car_distance, int start_price, int end_price) {
@@ -844,7 +846,42 @@ public class CarDAO {
 			return result;
 		}
 
-
+		/*---- '등록된 차량 뷰' 보기용 ------------------------------------------------------------------------------*/
+		public ArrayList<Car> selectAllCarInfo() {
+			ArrayList<Car> allCarList = null;
+			
+			String sql = "select * from tbl_car where car_delete='N' ORDER BY sale_YN DESC, car_id";
+			
+			
+			try {
+				pstmt = con.prepareStatement(sql);				
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					allCarList = new ArrayList<Car>();
+					do {
+						allCarList.add(new Car(
+								rs.getString("dealer_id"),
+								rs.getString("car_id"),
+								rs.getString("car_brand"),
+								rs.getString("car_name"),
+								rs.getInt("car_price"),
+								rs.getInt("car_year"),
+								rs.getString("car_image1"),
+								rs.getInt("car_like"),
+								rs.getString("sale_YN"),
+								rs.getString("car_delete")
+								));
+					}while(rs.next());
+				}
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 selectAllCarInfo()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return allCarList;
+		}
 		
 		
 		
