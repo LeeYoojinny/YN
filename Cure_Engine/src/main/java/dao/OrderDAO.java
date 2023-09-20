@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import vo.Car;
 import vo.Order;
@@ -253,7 +254,8 @@ public class OrderDAO {
 							rs.getString("o.user_phone"),
 							rs.getString("o.user_email"),
 							rs.getInt("o.payment"),
-							rs.getString("o.order_approve_YN")
+							rs.getString("o.order_approve_YN"),
+							rs.getString("o.cancel_YN")
 							));
 				}while(rs.next());
 			}
@@ -373,7 +375,8 @@ public class OrderDAO {
 							rs.getString("o.user_phone"),
 							rs.getString("o.user_email"),
 							rs.getInt("o.payment"),
-							rs.getString("o.order_approve_YN")
+							rs.getString("o.order_approve_YN"),
+							rs.getString("o.cancel_YN")
 							));
 				}while(rs.next());
 			}
@@ -555,6 +558,195 @@ public class OrderDAO {
 			close(pstmt);
 		}
 		return orderN;
+	}
+
+	/*---- 고객용 주문현황 리스트 가져오기 - 개수  ---------------------------------------------------------------------*/	
+	public int getCustOrderCount(String user_id) {
+		int result = 0;
+		
+		String sql = "SELECT count(*)"
+				+ " FROM tbl_car c"
+				+ " INNER JOIN tbl_order o ON c.car_id = o.car_id"
+				+ " LEFT JOIN tbl_payment p ON o.ordernum = p.ordernum"
+				+ " WHERE o.user_id =?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		}catch(Exception e) {
+			System.out.println("OrderDAO 클래스의 getCustOrderCount()에서 발생한 에러 : "+e);
+		}finally {
+			close(rs);
+			close(pstmt);
+		}		
+		return result;
+	}
+	
+	/*---- 고객용 주문현황 리스트 가져오기 - Payment객체  ---------------------------------------------------------------------*/	
+	public ArrayList<Payment> getAllPayList(List<String> ordernumList) {
+		ArrayList<Payment> allPayList = null;
+		
+		String where_ordernum = "";
+		for(int i = 0; i < ordernumList.size(); i++) {
+			if(i == 0) {
+				where_ordernum += " (ordernum='"+ordernumList.get(i)+"'";
+			}else {
+				where_ordernum += " or ordernum='"+ordernumList.get(i)+"'";
+			}
+		}
+		where_ordernum += ")";		
+		
+		String sql = "select * from tbl_payment where"+where_ordernum;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				allPayList = new ArrayList<Payment>();
+				do {
+					allPayList.add(new Payment(
+							rs.getString("ordernum"),
+							rs.getInt("pay_by"),
+							rs.getInt("pay_price"),
+							rs.getString("pay_depositor_name"),
+							rs.getString("pay_creditcard_name"),
+							rs.getString("pay_creditcard_num"),
+							rs.getString("pay_creditcard_date"),
+							rs.getInt("pay_creditcard_cvc")							
+							));
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			System.out.println("OrderDAO 클래스의 getAllPayList()에서 발생한 에러 : "+e);
+		}finally {
+			close(rs);
+			close(pstmt);
+		}	
+		
+		return allPayList;
+	}
+	
+	/*---- 고객용 주문현황 리스트 가져오기 - Car객체  ---------------------------------------------------------------------*/	
+	public ArrayList<Car> getCustOrderCarList(String user_id, int page, int limit) {
+		ArrayList<Car> carList = null;
+		
+		String sql = "SELECT c.*, o.*, p.*"
+				+ " FROM tbl_car c"
+				+ " INNER JOIN tbl_order o ON c.car_id = o.car_id"
+				+ " LEFT JOIN tbl_payment p ON o.ordernum = p.ordernum"
+				+ " WHERE o.user_id =? limit ?,5";
+		
+		int startrow = (page - 1) * 5;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			pstmt.setInt(2, startrow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				carList = new ArrayList<Car>();
+				do {
+					carList.add(new Car(
+							rs.getString("c.dealer_id"),
+							rs.getString("c.car_id"),
+							rs.getString("c.car_brand"),
+							rs.getString("c.car_name"),
+							rs.getInt("c.car_price"),
+							rs.getInt("c.car_year"),
+							rs.getString("c.car_image1"),
+							rs.getInt("c.car_like"),
+							rs.getString("c.sale_YN"),
+							rs.getString("c.car_delete")
+							));
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			System.out.println("OrderDAO 클래스의 getCustOrderCarList()에서 발생한 에러 : "+e);
+		}finally {
+			close(rs);
+			close(pstmt);
+		}	
+		return carList;
+	}
+
+	public ArrayList<Order> getCustOrderList(String user_id, int page, int limit) {
+		ArrayList<Order> orderList = null;
+		
+		String sql = "SELECT c.*, o.*, p.*"
+				+ " FROM tbl_car c"
+				+ " INNER JOIN tbl_order o ON c.car_id = o.car_id"
+				+ " LEFT JOIN tbl_payment p ON o.ordernum = p.ordernum"
+				+ " WHERE o.user_id =? limit ?,5";
+		
+		int startrow = (page - 1) * 5;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			pstmt.setInt(2, startrow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				orderList = new ArrayList<Order>();
+				do {
+					orderList.add(new Order(
+							rs.getString("o.ordernum"),
+							rs.getString("o.car_id"),
+							rs.getString("o.dealer_id"),
+							rs.getString("o.user_id"),
+							rs.getString("o.user_name"),
+							rs.getString("o.coupon_id"),
+							rs.getInt("o.discount_price"),
+							rs.getTimestamp("o.order_date"),
+							rs.getInt("o.car_price"),
+							rs.getInt("o.car_tax"),
+							rs.getInt("o.sale_expense"),
+							rs.getString("o.region"),
+							rs.getInt("o.deliveryfee"),
+							rs.getInt("o.user_zipcode"),
+							rs.getString("o.user_address1"),
+							rs.getString("o.user_address2"),
+							rs.getString("o.user_phone"),
+							rs.getString("o.user_email"),
+							rs.getInt("o.payment"),
+							rs.getString("o.order_approve_YN"),
+							rs.getString("o.cancel_YN")
+							));
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			System.out.println("OrderDAO 클래스의 getCustOrderList()에서 발생한 에러 : "+e);
+		}finally {
+			close(rs);
+			close(pstmt);
+		}	
+		return orderList;
+	}
+
+	public int cancelOrder(String car_id) {
+		int result = 0;
+		
+		String sql = "update tbl_order set cancel_YN='Y' where car_id=?"; 
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,car_id);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("CarDAO 클래스의 cancelOrder()에서 발생한 에러 : "+e);
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 	

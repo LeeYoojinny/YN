@@ -349,6 +349,7 @@ user_phone VARCHAR(11) NOT NULL,
 user_email VARCHAR(50) NOT NULL,
 payment INT NOT NULL COMMENT '결제방법 1:현금 2:카드',
 order_approve_YN CHAR(1) NOT NULL DEFAULT 'W' COMMENT '주문승인',
+cancel_YN CHAR(1) NOT NULL DEFAULT 'N',
 PRIMARY KEY (ordernum),
 
 CONSTRAINT fk_od_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id),
@@ -373,8 +374,10 @@ alter table tbl_order add column user_name  NVARCHAR(20) NOT NULL after user_id;
 alter table tbl_order add column user_email VARCHAR(50) NOT NULL after user_phone;
 alter table tbl_order modify sale_expense INT NOT NULL DEFAULT 300000;
 alter table tbl_order add column discount_price INT null after coupon_id;
-alter table tbl_order modify order_approve_YN CHAR(1) NOT NULL DEFAULT 'W';
+alter table tbl_order add column cancel_YN CHAR(1) NOT NULL DEFAULT 'N' after order_approve_YN;
+alter table tbl_order modify order_approve_YN CHAR(1) NOT NULL DEFAULT 'W' ;
 select * from tbl_order;
+delete from tbl_order where car_id='66마8070'
 
 select *
 from tbl_car join tbl_order
@@ -498,19 +501,18 @@ CREATE TABLE tbl_review (
 review_num VARCHAR(8) NOT NULL DEFAULT '0',
 car_id VARCHAR(10) NOT NULL,
 user_id VARCHAR(45) NOT NULL,
-ordernum VARCHAR(8) NOT NULL,
-review_pw VARCHAR(45) NOT NULL,
+ordernum VARCHAR(8) NOT NULL unique,
 review_title VARCHAR(100) NOT NULL,
 review_content VARCHAR(1000) NOT NULL,
 review_file1 VARCHAR(100) NULL,
+review_file1_origin VARCHAR(100) NULL,
 review_file2 VARCHAR(100) NULL,
+review_file2_origin VARCHAR(100) NULL,
 review_file3 VARCHAR(100) NULL,
+review_file3_origin VARCHAR(100) NULL,
 review_date DATETIME DEFAULT CURRENT_TIMESTAMP,
 review_hit INT NOT NULL DEFAULT 0,
-PRIMARY KEY (review_num),
-CONSTRAINT fk_rv_car_id FOREIGN KEY (car_id) REFERENCES tbl_car (car_id),
-CONSTRAINT fk_rv_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id),
-CONSTRAINT fk_rv_ordernum FOREIGN KEY (ordernum) REFERENCES tbl_order (ordernum));
+PRIMARY KEY (review_num);
 
 /* review_num 문자열+숫자 자동증가를 위한 trigger (trigger는 워크벤치로 생성) */
 DELIMITER $$
@@ -524,7 +526,11 @@ END$$
 DELIMITER ;
 
 select * from tbl_review;
+alter table tbl_review add column review_file1_origin VARCHAR(100) NULL after review_file1;
+alter table tbl_review add column review_file2_origin VARCHAR(100) NULL after review_file2;
+alter table tbl_review add column review_file3_origin VARCHAR(100) NULL after review_file3;
 
+select * from tbl_review where review_num='REV00001'
 -- -----------------------------------------------------
 -- tbl_payment : 결재방법
 -- -----------------------------------------------------

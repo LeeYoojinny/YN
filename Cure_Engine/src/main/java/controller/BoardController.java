@@ -26,6 +26,10 @@ import action.board.QnA_BoardWriteAction;
 import action.board.QnA_BoardWriteForm;
 import action.board.QnA_SearchAction;
 import action.board.QnA_pwCheckAction;
+import action.board.Review_BoardListAction;
+import action.board.Review_BoardUpdateFormAction;
+import action.board.Review_BoardViewAction;
+import action.board.Review_BoardWriteAction;
 import vo.ActionForward;
 
 /**
@@ -139,6 +143,33 @@ public class BoardController extends HttpServlet {
 			}
 		}
 		
+		else if(command.equals("/review_boardWrite.bo")){ 
+			request.setAttribute("showPage", "user/review/review_Board_Write.jsp");
+			forward = new ActionForward("template.jsp",false);
+			System.out.println("review_boardWrite 실행됨");
+		}
+		
+		else if(command.equals("/review_BoardWriteAction.bo")){			
+			action = new Review_BoardWriteAction();
+			System.out.println("review_BoardWriteAction 실행됨");
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if(command.equals("/review_boardList.bo")){			
+			action = new Review_BoardListAction();
+			System.out.println("review_BoardListAction 실행됨");
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+
 		/*-- 글 내용보기 ---------------------------------------------------------------------------*/
 		else if(command.equals("/qna_boardView.bo")) {
 			action = new QnA_BoardViewAction();
@@ -160,6 +191,15 @@ public class BoardController extends HttpServlet {
 			}
 		}
 		
+		else if(command.equals("/review_boardView.bo")) {
+			action = new Review_BoardViewAction();
+			System.out.println("review_boardView 실행됨");
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		
 		
@@ -218,6 +258,15 @@ public class BoardController extends HttpServlet {
 		
 		else if(command.equals("/notice_boardUpdateAction.bo")) { //수정요청 처리
 			action = new Notice_BoardUpdateAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if(command.equals("/review_boardUpdateForm.bo")) { //수정하기 폼 보기
+			action = new Review_BoardUpdateFormAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

@@ -45,7 +45,7 @@
 			    <li><a href="#">Board</a>
 				    <ul id="inside_menu1" style="padding-left: 0;">
 				     	<li><a href="<%=request.getContextPath()%>/qna_boardList.bo">문의게시판</a></li>
-				     	<li><a href="#">리뷰게시판</a></li>
+				     	<li><a href="<%=request.getContextPath()%>/review_boardList.bo">리뷰게시판</a></li>
 				    </ul>
 				</li>
 			    <li><a href="#">Contact</a>
@@ -54,7 +54,7 @@
 			    	</ul>	
 			    </li>
 			</c:when>
-			<%-- 딜러가 로그인 했을 떄 --%>
+			<%-- 딜러가 로그인 했을 때 --%>
 			<c:when test="${sessionScope.user_category eq 'dealer'}">
 			    <li><a href="<%=request.getContextPath()%>/allCarListView.usr">Cars</a>
 			    	<ul id="inside_menu2" style="padding-left: 0;">
@@ -116,7 +116,7 @@
 					<li><a href="#">My Info</a>
 					 	<ul id="inside_menu2" style="padding-left: 0;">
 					     	<li><a href="<%=request.getContextPath()%>/myReservation.cust">나의예약내역</a></li>
-					     	<li><a href="<%=request.getContextPath()%>/myOrder.cust">나의주문내역</a></li>
+					     	<li><a href="<%=request.getContextPath()%>/myOrderList.cust">나의주문내역</a></li>
 					     	<li><a href="<%=request.getContextPath()%>/myInfoView.cust">회원정보수정</a></li>
 					    </ul>
 					</li>
