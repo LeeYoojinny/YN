@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.cust.CustomerCancelOrderAction;
 import action.cust.CustomerDeleteAction;
 import action.cust.CustomerInfoViewAction;
 import action.cust.CustomerLikeThisAction;
 import action.cust.CustomerOrderAction;
 import action.cust.CustomerOrderForm1Action;
 import action.cust.CustomerOrderForm2Action;
+import action.cust.CustomerOrderListAction;
 import action.cust.CustomerRemoveWishAction;
 import action.cust.CustomerReservationAction;
 import action.cust.CustomerReservationListAction;
@@ -207,6 +209,24 @@ public class CustomerFrontController extends HttpServlet {
 		}
 		else if(command.equals("/order.cust")) {//'주문 폼 - 결제하기' 요청이면
 			action = new CustomerOrderAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/myOrderList.cust")) {//'나의주문내역 폼보기' 요청이면
+			action = new CustomerOrderListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO 자동 생성된 catch 블록
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/cancelOrder.cust")) {//'나의주문내역 - 주문취소' 요청이면
+			action = new CustomerCancelOrderAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

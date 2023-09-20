@@ -25,6 +25,7 @@ public class CustomerOrderAction implements Action {
 		String car_id = request.getParameter("car_id");
 		String dealer_id = request.getParameter("dealer_id");
 		String user_id = request.getParameter("user_id");
+		String user_name= request.getParameter("user_name");
 		
 		//null 값이 올 수 있는 쿠폰관련 값은 미리 처리
 		String coupon_id = "";
@@ -58,6 +59,7 @@ public class CustomerOrderAction implements Action {
 		System.out.println("user_address2 : " + user_address2);
 		String user_phone = request.getParameter("user_phone");
 		System.out.println("user_phone : " + user_phone);
+		String user_email = request.getParameter("user_email");
 		int pay_by = Integer.parseInt(request.getParameter("pay_by"));
 		System.out.println("pay_by : " + pay_by);
 		int pay_price = car_price+car_tax+deliveryfee+300000-discount_price;
@@ -67,6 +69,7 @@ public class CustomerOrderAction implements Action {
 		order.setCar_id(car_id);
 		order.setDealer_id(dealer_id);
 		order.setUser_id(user_id);
+		order.setUser_name(user_name);
 		order.setCoupon_id(coupon_id);
 		order.setDiscount_price(discount_price);
 		order.setCar_price(car_price);
@@ -77,6 +80,7 @@ public class CustomerOrderAction implements Action {
 		order.setUser_address1(user_address1);
 		order.setUser_address2(user_address2);
 		order.setUser_phone(user_phone);
+		order.setUser_email(user_email);
 		order.setPayment(pay_by);
 		
 		

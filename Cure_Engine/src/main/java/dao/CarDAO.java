@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import vo.Car;
 import vo.User;
@@ -882,8 +883,74 @@ public class CarDAO {
 			
 			return allCarList;
 		}
+
+		/*---- 주문취소시 차량 세일 가능한 상태로 바꾸기 ------------------------------------------------------------------------------*/
+		public int saleChangeY(String car_id) {
+			int result = 0;
+			
+			String sql = "update tbl_car set sale_YN='Y' where car_id=?"; 
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,car_id);
+				
+				result = pstmt.executeUpdate();
+				
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 saleChange()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			
+			return result;
+		}
 		
-		
+		/*---- 리뷰게시판용 차량정보 가져오기 ------------------------------------------------------------------------------*/
+		public ArrayList<Car> selectAllCarInfo(List<String> car_id_List) {
+			ArrayList<Car> allCarList = null;
+			
+			String where_car_id = "";
+			for(int i=0; i<car_id_List.size(); i++) {
+				if(i == 0) {
+					where_car_id += " (car_id='"+car_id_List.get(i)+"'";
+				}else {
+					where_car_id += " or car_id='"+car_id_List.get(i)+"'";
+				}
+			}
+			where_car_id += ")";
+			
+			String sql = "select * from tbl_car where car_delete='N' and "+where_car_id;
+			
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					allCarList = new ArrayList<Car>();
+					do {
+						allCarList.add(new Car(
+								rs.getString("dealer_id"),
+								rs.getString("car_id"),
+								rs.getString("car_brand"),
+								rs.getString("car_name"),
+								rs.getInt("car_price"),
+								rs.getInt("car_year"),
+								rs.getString("car_image1"),
+								rs.getInt("car_like"),
+								rs.getString("sale_YN"),
+								rs.getString("car_delete")
+								));
+					}while(rs.next());
+				}
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 selectAllCarInfo()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return allCarList;
+		}
 		
 		
 }

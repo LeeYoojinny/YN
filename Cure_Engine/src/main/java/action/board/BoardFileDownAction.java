@@ -26,7 +26,11 @@ public class BoardFileDownAction implements Action {
 			savePath = "upload/qna_file";
 		}else if(display_num.equals("2")) {
 			savePath = "upload/notice_file";
+		}else if(display_num.equals("3")) {
+			savePath = "upload/review_file";
 		}
+		
+		
 		ServletContext context = request.getServletContext();
 		String sDownloadPath = context.getRealPath(savePath);
 		

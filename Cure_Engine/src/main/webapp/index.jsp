@@ -89,7 +89,7 @@
 	      <div class="swiper-slide swiper-slide--Eight">
 	        <div>
 	          <h2>Cadillac</h2>
-	          <p>캐딜락은 변속 기어에 뛰어난 성능과 기술력을 선보이며, 웅장한 모습과 고급스러운 세련된 미국의 자동차브랜드이다.</p>
+	          <p>캐딜락은 변속 기어에 뛰어난 성능과 기술력을 선보이며, 웅장한 모습과 고급스러운 세련된 미국의 자동차브랜드입니다.</p>
 	          <a href="carBrandView.usr?car_brand=brand8">알아보기</a>
 	        </div>
 	      </div>

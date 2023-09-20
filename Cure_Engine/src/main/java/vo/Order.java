@@ -23,12 +23,13 @@ public class Order {
 	private String user_email;
 	private int payment;
 	private String order_approve_YN;
+	private String cancel_YN;
 	
 	public Order() {}
 		
 	public Order(String ordernum, String car_id, String dealer_id,String user_id, String user_name, String coupon_id, int discount_price, 
 			Timestamp order_date, int car_price, int car_tax,int sale_expense, String region, int deliveryfee, int user_zipcode, 
-			String user_address1, String user_address2,	String user_phone, String user_email, int payment,String order_approve_YN) {
+			String user_address1, String user_address2,	String user_phone, String user_email, int payment,String order_approve_YN,String cancel_YN) {
 		super();
 		this.ordernum = ordernum;
 		this.car_id = car_id;
@@ -50,6 +51,7 @@ public class Order {
 		this.user_email = user_email;
 		this.payment = payment;
 		this.order_approve_YN = order_approve_YN;
+		this.cancel_YN = cancel_YN;
 	}
 
 	public String getOrdernum() {
@@ -211,7 +213,13 @@ public class Order {
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
 	}
-	
-	
+
+	public String getCancel_YN() {
+		return cancel_YN;
+	}
+
+	public void setCancel_YN(String cancel_YN) {
+		this.cancel_YN = cancel_YN;
+	}
 	
 }

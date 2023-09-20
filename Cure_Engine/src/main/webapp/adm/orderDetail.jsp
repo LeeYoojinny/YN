@@ -120,13 +120,22 @@ function refuseCheck(car_id) {
 							<strong> <fmt:formatNumber value="${payInfo.pay_price}" pattern="#,###" /></strong>
 						</li>
 					</ul>
+					<c:if test="${user_category eq 'admin' || user_category eq 'dealer'}">
+						<div style="text-align:center;">
+							<c:if test="${orderInfo.order_approve_YN eq 'W'}">
+								<button class="btn" onclick="approveCheck('${orderInfo.car_id}'); return false;">승인</button>
+								<button class="btn" onclick="refuseCheck('${orderInfo.car_id}');return false;">거절</button>						
+							</c:if>						
+						</div>	
+					</c:if>	
 					<div style="text-align:center;">
-						<c:if test="${orderInfo.order_approve_YN eq 'W'}">
-							<button class="btn" onclick="approveCheck('${orderInfo.car_id}'); return false;">승인</button>
-							<button class="btn" onclick="refuseCheck('${orderInfo.car_id}');return false;">거절</button>						
+						<c:if test="${param.display eq 1}">						
+							<button class="btn" onclick="location.href='myOrderList.cust'">목록보기</button>
 						</c:if>
-						
-					</div>						
+						<c:if test="${param.display eq 2}">						
+							<button class="btn" onclick="location.href='orderListView.adm'">목록보기</button>
+						</c:if>
+					</div>					
 				</div>
 				<div class="col-md-7 col-lg-8">
 					<h4 class="mb-3">신청 정보 확인</h4>

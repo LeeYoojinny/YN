@@ -135,7 +135,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 			                	</td>
 			                </c:if>
 			                
-			                <td><fmt:formatDate pattern="yyyy/MM/dd hh:mm" value="${board.qna_date}"/></td>
+			                <td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${board.qna_date}"/></td>
 			                <td>${board.qna_hit}</td>
 			            </tr>
 			            <c:set var="num" value="${num-1}"></c:set>
