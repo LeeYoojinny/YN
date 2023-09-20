@@ -223,8 +223,8 @@
 							<button onclick="removeCheck_2('${allCar.car_id}');return false;">삭제하기</button>
 							</c:if>
 							<c:if test="${allCar.sale_YN eq 'W' || allCar.sale_YN eq 'N'}">
-								<button disabled>시승예약</button>
-								<button disabled>주문하기</button>
+								<button disabled>수정하기</button>
+								<button disabled>삭제하기</button>
 							</c:if>	
 						</td>
 					</tr>

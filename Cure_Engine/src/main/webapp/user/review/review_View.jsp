@@ -14,7 +14,7 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 <link rel="stylesheet" href="css/user/qna/boardView_style.css">
 </head>
 <script type="text/javascript">
-	function deleteCheck(review_num) {
+	function delete_Check(review_num) {
 		if(confirm("게시물을 삭제하시겠습니까?")){
 			location.href = "review_boardDelete.bo?review_num="+review_num;
 		}else {
@@ -52,37 +52,31 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 			<td>${board.review_content}</td>
 		</tr>
 		<c:if test="${fileCount ne 0}">
-			<tr>	
-				<th rowspan="${fileCount}">첨부파일</th>
-				<c:if test="${not empty board.review_file1}">
-					<td>
-						
+			<c:if test="${not empty board.review_file1}">
+				<tr>	
+					<th rowspan="${fileCount}">첨부파일</th>				
+					<td>							
 						<img src="upload/review_file/${board.review_file1}" style="max-width:300px;">
 						<a href="fileDown.bo?file_name=${board.review_file1}&display_num=3">${board.review_file1_origin}</a>
-						
-					</td>
-				</c:if>
-			</tr>
-			<tr>
-				<c:if test="${not empty board.review_file2 }">
-				<td>
-					
+					</td>					
+				</tr>
+			</c:if>
+			<c:if test="${not empty board.review_file2 }">
+			<tr>				
+				<td>					
 					<img src="upload/review_file/${board.review_file2}" style="max-width:300px;">
-					<a href="fileDown.bo?file_name=${board.review_file2}&display_num=3">${board.review_file2_origin}</a>
-					
-				</td>
-				</c:if>
+					<a href="fileDown.bo?file_name=${board.review_file2}&display_num=3">${board.review_file2_origin}</a>					
+				</td>				
 			</tr>
-			<tr>
-				<c:if test="${not empty board.review_file3}">
-					<td>
-						
+			</c:if>
+			<c:if test="${not empty board.review_file3}">
+				<tr>					
+					<td>						
 						<img src="upload/review_file/${board.review_file3}" style="max-width:300px;">
-						<a href="fileDown.bo?file_name=${board.review_file3}&display_num=3">${board.review_file3_origin}</a>
-						
-					</td>
-				</c:if>
-			</tr>
+						<a href="fileDown.bo?file_name=${board.review_file3}&display_num=3">${board.review_file3_origin}</a>						
+					</td>					
+				</tr>
+			</c:if>
 		</c:if>	
 	</table>
 	<a class="btn btn-outline-secondary" href="review_boardList.bo">목록</a>
@@ -90,7 +84,7 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 		<a class="btn btn-outline-secondary" onclick="location.href='review_boardUpdateForm.bo?review_num=+${board.review_num}'; return false;">수정</a>
 	</c:if>
 	<c:if test="${board.user_id eq sessionScope.user_id or user_category eq 'admin'}">
-	<a class="btn btn-outline-secondary" onclick="delete_Check('${board.review_num}')">삭제</a> 
+	<a class="btn btn-outline-secondary" onclick="delete_Check('${board.review_num}'); return false;">삭제</a> 
 	</c:if>
 </div>
 </body>

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import vo.ReviewBoard;
 
@@ -73,6 +74,8 @@ public class ReviewBoardDAO {
 			if(rs.next()) {
 				listCount = rs.getInt(1);
 			}
+			
+			System.out.println("리뷰게시판 글 개수 : "+listCount);
 		}catch(Exception e) {
 			System.out.println("ReviewBoardDAO의 selectListCount() 에러 : " + e);
 		} finally {
@@ -127,7 +130,7 @@ public class ReviewBoardDAO {
 			close(rs);
 			close(pstmt);
 		}
-			return boardList;
+		return boardList;
 	}
 
 	public ReviewBoard selectReview(String review_num) {
@@ -138,11 +141,15 @@ public class ReviewBoardDAO {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, review_num);
+			System.out.println("변수 대입");
 			
-			rs= pstmt.executeQuery();
+			rs = pstmt.executeQuery();
+			System.out.println("resultSet 실행");
 			
 			if(rs.next()) {
+				System.out.println("결과값이 있다");
 				board = new ReviewBoard();
+				System.out.println("board 객체 생성");
 				board.setReview_num(rs.getString("review_num"));
 				board.setCar_id(rs.getString("car_id"));
 				board.setUser_id(rs.getString("user_id"));
@@ -188,6 +195,99 @@ public class ReviewBoardDAO {
 		}
 		
 		return updateCount;
+	}
+
+	public int deleteBoard(String review_num) {
+		int deleteCount = 0;
+		
+		String sql = "delete from tbl_review where review_num=?";
+		
+		try {	
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, review_num);
+			
+			deleteCount = pstmt.executeUpdate();
+		}catch(Exception e) {
+			System.out.println("NoticeBoardDAO의 deleteBoard() 에러 : " + e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
+
+	public List<String> getOrdernum(String user_id) {
+		List<String> ordernum = null;
+		
+		String sql = "select ordernum from tbl_review where user_id=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				ordernum = new ArrayList<>();
+				do {
+					ordernum.add(rs.getString(1));
+				}while(rs.next());
+			}
+			
+			System.out.println("리뷰게시판 글 개수 : "+ordernum.size());
+		}catch(Exception e) {
+			System.out.println("ReviewBoardDAO의 selectListCount() 에러 : " + e);
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return ordernum;
+	}
+
+	public ArrayList<ReviewBoard> getcustReview(String user_id) {
+		ArrayList<ReviewBoard> review = null;
+		
+		String sql = "select * from tbl_review where user_id=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				review = new ArrayList<ReviewBoard>();
+				
+				do {
+					ReviewBoard board = new ReviewBoard();
+					
+					board.setReview_num(rs.getString("review_num"));
+					board.setCar_id(rs.getString("car_id"));
+					board.setUser_id(rs.getString("user_id"));
+					board.setOrdernum(rs.getString("ordernum"));
+					board.setReview_title(rs.getString("review_title"));
+					board.setReview_content(rs.getString("review_content"));
+					board.setReview_file1(rs.getString("review_file1"));
+					board.setReview_file1_origin(rs.getString("review_file1_origin"));
+					board.setReview_file2(rs.getString("review_file2"));
+					board.setReview_file2_origin(rs.getString("review_file2_origin"));
+					board.setReview_file3(rs.getString("review_file3"));
+					board.setReview_file3_origin(rs.getString("review_file3_origin"));
+					board.setReview_date(rs.getTimestamp("review_date"));
+					board.setReview_hit(rs.getInt("review_hit"));
+					
+					review.add(board);
+					
+				}while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			System.out.println("ReviewBoardDAO의 getcustReview() 에러 : " + e);
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return review;
 	}
 }
 

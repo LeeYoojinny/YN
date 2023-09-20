@@ -30,7 +30,7 @@
 			    <li><a href="#">Board</a>
 				    <ul id="inside_menu" style="padding-left: 0;">
 				     	<li><a href="<%=request.getContextPath()%>/qna_boardList.bo">문의게시판</a></li>
-				     	<li><a href="#">리뷰게시판</a></li>
+				     	<li><a href="<%=request.getContextPath()%>/review_boardList.bo">리뷰게시판</a></li>
 				    </ul>
 				</li>
 			    <li><a href="#">Contact</a>
@@ -72,7 +72,7 @@
 			    	<ul id="inside_menu2" style="padding-left: 0;">
 				     	<li><a href="<%=request.getContextPath()%>/notice_boardList.bo">공지사항</a></li>
 				     	<li><a href="<%=request.getContextPath()%>/qna_boardList.bo">문의게시판관리</a></li>
-				     	<li><a href="reviewManage.adm">리뷰게시판관리</a></li>
+				     	<li><a href="<%=request.getContextPath()%>/review_boardList.bo">리뷰게시판관리</a></li>
 				    </ul>		    
 			    </li>    
 			</c:when>
@@ -94,7 +94,7 @@
 			    	<ul id="inside_menu2" style="padding-left: 0;">
 				     	<li><a href="<%=request.getContextPath()%>/notice_boardList.bo">공지사항</a></li>
 				     	<li><a href="<%=request.getContextPath()%>/qna_boardList.bo">문의게시판관리</a></li>
-				     	<li><a href="<%=request.getContextPath()%>/reviewManage.adm">리뷰게시판관리</a></li>
+				     	<li><a href="<%=request.getContextPath()%>/review_boardList.bo">리뷰게시판관리</a></li>
 				    </ul>		    
 			    </li>    
 			</c:otherwise>

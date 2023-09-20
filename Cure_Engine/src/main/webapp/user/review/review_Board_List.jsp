@@ -46,7 +46,7 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 			</tr>
 			</thead>
 			<tbody>
-				<c:if test="${boardList ne null}">
+				<c:if test="${not empty boardList || boardList ne null}">
 				<c:set var="num" value="${pageInfo.listCount}"></c:set>
 					<c:forEach var="board" items="${boardList}">
 			            <tr>
@@ -66,25 +66,22 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 			            <c:set var="num" value="${num-1}"></c:set>
 			        </c:forEach>
 			    </c:if>
-				<c:if test="${empty boardList}">
+				<c:if test="${empty boardList || boardList eq null}">
 		            <tr>
-		                <td colspan="5">게시글이 없습니다.</td>
+		                <td colspan="6">게시글이 없습니다.</td>
 		            </tr>
 		        </c:if>
 			</tbody>
 		</table>
 		
-		<form action="noticeSearchAction.bo" method="post">
+		<%-- <form action="noticeSearchAction.bo" method="post">
 			<select name="option">
 				<option value="notice_title" selected>제목</option>
 				<option value="user_id">작성자</option>
 			</select>
 			<input type="text" name="keyword" placeholder="검색어를 입력하세요">
-			<button onclick="searchCheck()">검색</button>
-			<c:if test="${user_category eq 'admin'}">
-				<a class="btn btn-default float-end" style="border:1px solid #ccc;" href="notice_boardWrite.bo">글쓰기</a>
-			</c:if>
-		</form>
+			<button onclick="searchCheck()">검색</button>			
+		</form> --%>
 		<div class="pageNum">
 		<c:choose> 
 				<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>

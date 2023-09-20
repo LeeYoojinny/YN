@@ -31,13 +31,12 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 					<th>No.</th>
 					<th></th>
 					<th>주문목록</th>
-					<th>상태</th>
-					<th></th>
+					<th colspan="2">상태</th>					
 				</tr>
-				<c:set var="startNo" value="${(pageInfo.page - 1) * 5 + 1}" />
+				<c:set var="num" value="${pageInfo.listCount}"></c:set>				
 				<c:forEach var="orderCar" items="${carList}" varStatus="status">
 					<tr class="contents">						
-						<td rowspan="3" id="item_no">${startNo + status.count-1}</td>
+						<td rowspan="3" id="item_no">${num}</td>
 						<td rowspan="3" id="main_img">
 							<a href="carDetailView.usr?car_id=${orderCar.car_id}" class="image-link">
 								<img src="upload/carRegist_images/${orderCar.car_image1}" alt="상품상세보기">
@@ -64,7 +63,16 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 								<c:if test="${order.order_approve_YN eq 'Y'}">
 									<td rowspan="3" id="orderStatus">주문승인</td>	
 									<td rowspan="3" id="bt">
+									<c:set var="found" value="false" />
+									<c:forEach var="rev_num" items="${reviewOrdernum}">
+										<c:if test="${rev_num eq ordernum}">
+											<button disabled style="width: 6.5rem;">리뷰작성완료</button>
+											<c:set var="found" value="true"/>
+										</c:if>
+									</c:forEach>
+									<c:if test="${not found}">
 										<button onclick="location.href='review_boardWrite.bo?car_id=${order.car_id}&ordernum=${order.ordernum}'; return false;">리뷰작성</button>
+									</c:if>
 									</td>									
 								</c:if>
 								<c:if test="${order.order_approve_YN eq 'N'}">
@@ -96,6 +104,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 						</c:forEach>
 					</tr>
 					<tr id="space"><td colspan="6"></td></tr>
+					<c:set var="num" value="${num-1}"></c:set>
 				</c:forEach>
 			</table>
 			</form>

@@ -134,6 +134,7 @@ public class QnABoardDAO {
 		}catch(Exception e) {
 			System.out.println("BoardDAO의 insertBoard() 에러 : " + e);
 		} finally {
+			close(rs);
 			close(pstmt);
 		}
 		return insertCount;
@@ -418,6 +419,7 @@ public class QnABoardDAO {
 		}catch(Exception e) {
 			System.out.println("BoardDAO의 insertBoard() 에러 : " + e);
 		} finally {
+			close(rs);
 			close(pstmt);
 		}
 		

@@ -26,6 +26,7 @@ import action.board.QnA_BoardWriteAction;
 import action.board.QnA_BoardWriteForm;
 import action.board.QnA_SearchAction;
 import action.board.QnA_pwCheckAction;
+import action.board.Review_BoardDeleteAction;
 import action.board.Review_BoardListAction;
 import action.board.Review_BoardUpdateFormAction;
 import action.board.Review_BoardViewAction;
@@ -72,7 +73,7 @@ public class BoardController extends HttpServlet {
 		ActionForward forward = null;
 		System.out.println("[Board]command : " + command);
 		
-		/*-- 글 목록보기 --*/
+		/*-- 글 목록보기 ---------------------------------------------------------------------------*/
 		if(command.equals("/qna_boardList.bo")){
 			action = new QnA_BoardListAction();
 			System.out.println("qna_boardList 실행됨");
@@ -286,6 +287,14 @@ public class BoardController extends HttpServlet {
 		
 		else if(command.equals("/notice_boardDelete.bo")) {
 			action = new Notice_BoardDeleteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/review_boardDelete.bo")) {
+			action = new Review_BoardDeleteAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

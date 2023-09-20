@@ -71,7 +71,7 @@
 					
 					<div class="form-check text-center">
 						<button class="btn" id="prev" onclick="location.href='index.jsp';">메인으로</button>
-						<button class="btn" id="payButton" onclick="location.href='myOrder.cust?user_id=${order.user_id}'">나의주문내역</button>
+						<button class="btn" id="payButton" onclick="location.href='myOrderList.cust?user_id=${order.user_id}'">나의주문내역</button>
 					</div>					
 				</div>				
 			</div>
