@@ -6,11 +6,14 @@ import static db.JdbcUtil.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import vo.ReviewBoard;
 import dao.CodeDAO;
 import dao.QnABoardDAO;
+import dao.ReviewBoardDAO;
 import dao.UserDAO;
 import vo.Code;
 import vo.QnABoard;
+import vo.Reservation;
 import vo.User;
 
 public class AdminCustDetailViewService {
@@ -46,6 +49,27 @@ public class AdminCustDetailViewService {
 		
 		close(con);
 		return allCode;
+	}
+
+	public ArrayList<ReviewBoard> getcustReview(String user_id) {
+		Connection con = getConnection();
+		ReviewBoardDAO revieweBoardDAO = ReviewBoardDAO.getInstance();
+		revieweBoardDAO.setConnection(con);
+		
+		ArrayList<ReviewBoard> custReview = revieweBoardDAO.getcustReview(user_id);
+		
+		close(con);
+		return custReview;
+	}
+
+	public ArrayList<Reservation> getMyRev(String user_id) {
+		Connection con = getConnection();
+		UserDAO userDAO = UserDAO.getInstance();
+		userDAO.setConnection(con);
+		
+		ArrayList<Reservation> myRev = userDAO.selectMyReservation(user_id);
+		
+		return myRev;
 	}
 
 }

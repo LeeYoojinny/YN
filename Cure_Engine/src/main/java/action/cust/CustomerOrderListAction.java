@@ -62,12 +62,20 @@ public class CustomerOrderListAction implements Action {
 		ArrayList<Order> orderList = orderListService.getOrderList(user_id,page,limit);
 		
 		// Payment db를 가져오기 위해 ordernum 필드 값을 String 배열로 가져오기
-        List<String> ordernumList = new ArrayList<>();
-        for (Order order : orderList) {
-            ordernumList.add(order.getOrdernum());
+		List<String> ordernumList = null;
+		ArrayList<Payment> allpayList = null;
+        if(orderList != null) {
+        	ordernumList = new ArrayList<>();
+            for (Order order : orderList) {
+                ordernumList.add(order.getOrdernum());
+            }
+            allpayList = orderListService.getAllPayList(ordernumList);
         }
-		
-		ArrayList<Payment> allpayList = orderListService.getAllPayList(ordernumList);
+        
+        //리뷰작성 유무를 확인하기 위해 리뷰테이블 db 가져오기
+        List<String> reviewOrdernum = orderListService.getOrdernum(user_id);
+        
+
 		ArrayList<Code> allCode = orderListService.getAllCode();
 		
 		request.setAttribute("carList", carList);
@@ -75,6 +83,7 @@ public class CustomerOrderListAction implements Action {
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("allpayList", allpayList);
 		request.setAttribute("allCode", allCode);
+		request.setAttribute("reviewOrdernum", reviewOrdernum);
 		
 		request.setAttribute("showPage", "customer/myOrderList.jsp");
 		forward = new ActionForward("template.jsp", false);	

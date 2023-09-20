@@ -395,7 +395,7 @@ SELECT c.*, o.*, p.*
 FROM tbl_car c
 INNER JOIN tbl_order o ON c.car_id = o.car_id
 LEFT JOIN tbl_payment p ON o.ordernum = p.ordernum
-WHERE p.ordernum = 'ORD00013';
+WHERE o.user_id ='test11111' order by o.order_date desc limit ?,5;
 
 -- -----------------------------------------------------
 -- tbl_qna : 질문게시판
@@ -531,6 +531,7 @@ alter table tbl_review add column review_file2_origin VARCHAR(100) NULL after re
 alter table tbl_review add column review_file3_origin VARCHAR(100) NULL after review_file3;
 
 select * from tbl_review where review_num='REV00001'
+select * from tbl_review where review_num='REV00002'
 -- -----------------------------------------------------
 -- tbl_payment : 결재방법
 -- -----------------------------------------------------

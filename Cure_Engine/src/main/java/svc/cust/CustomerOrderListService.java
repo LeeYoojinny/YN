@@ -9,6 +9,7 @@ import java.util.List;
 
 import dao.CodeDAO;
 import dao.OrderDAO;
+import dao.ReviewBoardDAO;
 import vo.Car;
 import vo.Code;
 import vo.Order;
@@ -74,6 +75,17 @@ public class CustomerOrderListService {
 		
 		close(con);
 		return allCode;
+	}
+
+	public List<String> getOrdernum(String user_id) {
+		Connection con = getConnection();
+		ReviewBoardDAO revieweBoardDAO = ReviewBoardDAO.getInstance();
+		revieweBoardDAO.setConnection(con);
+		
+		List<String> ordernum = revieweBoardDAO.getOrdernum(user_id);
+		
+		close(con);
+		return ordernum;
 	}
 
 }

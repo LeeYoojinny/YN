@@ -42,6 +42,8 @@ h2 {
 
 .subject.title a {
 	cursor: pointer;
+	text-decoration: none;
+	color: initial;
 }
 
 .subject.title a:hover {

@@ -67,7 +67,7 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 			</tbody>
 		</table>
 		
-		<form action="noticeSearchAction.bo" method="post">
+		<%-- <form action="noticeSearchAction.bo" method="post">
 			<select name="option">
 				<option value="notice_title" selected>제목</option>
 				<option value="user_id">작성자</option>
@@ -77,7 +77,7 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 			<c:if test="${user_category eq 'admin'}">
 				<a class="btn btn-default float-end" style="border:1px solid #ccc;" href="notice_boardWrite.bo">글쓰기</a>
 			</c:if>
-		</form>
+		</form> --%>
 		<div class="pageNum">
 		<c:choose> 
 				<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>

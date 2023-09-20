@@ -91,77 +91,76 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 					<th>상태</th>
 					<th>처리</th>
 				</tr>
-				<c:set var="startNo" value="${(pageInfo.page - 1) * 5 + 1}" />
-				<c:forEach var="orderCar" items="${carList}" varStatus="status">
+				<c:set var="num" value="${pageInfo.listCount}"></c:set>
+				<c:forEach var="order" items="${orderList}" varStatus="status">										
 					<tr class="contents">
-						<td rowspan="3" id="check_approve"><input type="checkbox" name="approve" value="${orderCar.car_id}"></td>
-						<td rowspan="3" id="item_no">${startNo + status.count-1}</td>
-						<td rowspan="3" id="main_img">
-							<a href="carDetailView.usr?car_id=${orderCar.car_id}" class="image-link">
-								<img src="upload/carRegist_images/${orderCar.car_image1}" alt="상품상세보기">
-							</a>
-						</td>
-						<td id="explain1">
-						<c:forEach var="code" items="${allCode}">
-							<c:if test="${code.code_category == 'car_brand'}">
-								<c:if test="${orderCar.car_brand == code.code_name}">${code.code_value}</c:if>
-							</c:if>
-						</c:forEach>					
-						&nbsp;${orderCar.car_year}연식 ${orderCar.car_name}</td>
-						<c:set var="ordernum" />
-						<c:forEach var="order" items="${orderList}">															
-							<c:if test="${order.car_id == orderCar.car_id}">
-							<c:set var="ordernum" value="${order.ordernum }" />
-								<c:if test="${order.order_approve_YN eq 'W' && order.cancel_YN eq 'N'}">								
-								<td rowspan="3" id="orderStatus">승인대기</td>
-								<td rowspan="3" id="bt">
-									<button onclick="approveCheck_2('${orderCar.car_id}'); return false;">승인</button>
-									<button onclick="refuseCheck('${orderCar.car_id}');return false;">거절</button>
-								</td>
-								</c:if>
-								<c:if test="${order.order_approve_YN eq 'Y'}">
-									<td rowspan="3" id="orderStatus">주문승인</td>
-									<td rowspan="3" id="bt">
-										<button disabled>승인</button>
-										<button disabled>거절</button>
-									</td>
-								</c:if>
-								<c:if test="${order.order_approve_YN eq 'N'}">
-									<td rowspan="3" id="orderStatus">주문거절</td>
-									<td rowspan="3" id="bt">
-										<button disabled>승인</button>
-										<button disabled>거절</button>
-									</td>								
-								</c:if>
-								<c:if test="${order.order_approve_YN eq 'W' && order.cancel_YN eq 'Y'}">
-									<td rowspan="3" id="orderStatus">주문취소</td>
-									<td rowspan="3" id="bt">
-										<button disabled>승인</button>
-										<button disabled>거절</button>
-									</td>								
-								</c:if>								
-							</c:if>							
-						</c:forEach>						
-					</tr>
-					<c:forEach var="pay" items="${allpayList}">
-						<c:if test="${pay.ordernum == ordernum}">
-							<tr class="contents">
-								<td id="explain2">결제금액 : <fmt:formatNumber value="${pay.pay_price}" pattern="#,###" />원</td>
-							</tr>
-						</c:if>
-					</c:forEach>		
-					<tr class="contents">
-						<c:forEach var="order" items="${orderList}">															
-								<c:if test="${order.car_id == orderCar.car_id}">
-									<td id="explain3">
-										<span>주문일자 : <fmt:formatDate value="${order.order_date}" pattern="yyyy-MM-dd HH:mm"/></span>
-										<a href="orderDetail.adm?ordernum=${order.ordernum}&car_id=${order.car_id}"><i class="fa-solid fa-magnifying-glass"></i>주문상세보기</a>
-									</td>
+						<td rowspan="3" id="check_approve"><input type="checkbox" name="approve" value="${order.car_id}"></td>
+						<td rowspan="3" id="item_no">${num}</td>
+							<c:set var="foundCar" value="false" />
+							<c:forEach var="car" items="${carList}">	
+								<c:if test="${order.car_id eq car.car_id }">	
+									<c:if test="${!foundCar}">	
+										<td rowspan="3" id="main_img">
+											<a href="carDetailView.usr?car_id=${car.car_id}" class="image-link">
+											<img src="upload/carRegist_images/${car.car_image1}" alt="상품상세보기">
+											</a>
+										</td>
+										<td id="explain1">
+											<c:forEach var="code" items="${allCode}">
+												<c:if test="${code.code_category == 'car_brand'}">
+													<c:if test="${car.car_brand == code.code_name}">${code.code_value}</c:if>
+												</c:if>
+											</c:forEach>					
+											&nbsp;${car.car_year}연식 ${car.car_name}
+										</td>
+										<c:choose>
+					                   		<c:when test="${order.order_approve_YN eq 'W' && order.cancel_YN eq 'N'}">														
+												<td rowspan="3" id="orderStatus">승인대기</td>
+												<td rowspan="3" id="bt">
+													<button onclick="approveCheck_2('${orderCar.car_id}'); return false;">승인</button>
+													<button onclick="refuseCheck('${orderCar.car_id}');return false;">거절</button>
+												</td>
+											</c:when>								 
+											<c:when test="${order.order_approve_YN eq 'Y'}">
+													<td rowspan="3" id="orderStatus">주문승인</td>
+													<td rowspan="3" id="bt">
+														<button disabled>승인</button>
+														<button disabled>거절</button>
+													</td>
+											</c:when>
+											<c:when test="${order.order_approve_YN eq 'N'}">
+												<td rowspan="3" id="orderStatus">주문거절</td>
+												<td rowspan="3" id="bt"></td>								
+											</c:when>
+											<c:when test="${order.order_approve_YN eq 'W' && order.cancel_YN eq 'Y'}">
+												<td rowspan="3" id="orderStatus">주문취소</td>
+												<td rowspan="3" id="bt"></td>
+																			
+											</c:when>						
+										</c:choose>
+										</tr>				
+										<c:forEach var="pay" items="${allpayList}">
+											<c:if test="${pay.ordernum == order.ordernum}">
+												<tr class="contents">
+													<td id="explain2">결제금액 : <fmt:formatNumber value="${pay.pay_price}" pattern="#,###" />원</td>
+												</tr>
+											</c:if>
+										</c:forEach>		
+										<tr class="contents">						
+											<td id="explain3">
+												<span>주문일자 : <fmt:formatDate value="${order.order_date}" pattern="yyyy-MM-dd HH:mm"/></span>
+												<a href="orderDetail.adm?ordernum=${order.ordernum}&car_id=${order.car_id}&display=2"><i class="fa-solid fa-magnifying-glass"></i>주문상세보기</a>
+											</td>								
+										</tr>
+					
+										<tr id="space"><td colspan="6"></td></tr>
+									</c:if>
+									<c:set var="foundCar" value="true" />
 								</c:if>
 						</c:forEach>
-					</tr>
-					<tr id="space"><td colspan="6"></td></tr>
+						<c:set var="num" value="${num-1}"></c:set>
 				</c:forEach>
+				
 			</table>
 			</form>
 

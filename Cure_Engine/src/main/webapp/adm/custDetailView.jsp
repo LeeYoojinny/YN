@@ -14,6 +14,7 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
 crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="css/admin/custDetailView_style.css">
+<link rel="stylesheet" href="css/customer/reservationView_style.css">
 </head>
 <script type="text/javascript">
 	function secretCheck(qna_num) {
@@ -99,6 +100,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 					</thead>
 					<tbody>
 						<c:if test="${boardList ne null}">
+							<c:set var="num" />
 							<c:forEach var="board" items="${boardList}" varStatus="loop">
 					            <tr>
 					                <td>${loop.index + 1}</td>
@@ -119,9 +121,20 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 					                </td>			              
 					                <td><fmt:formatDate pattern="yyyy/MM/dd hh:mm" value="${board.qna_date}"/></td>			                
 					            </tr>
+					            <c:set var="num" value="${loop.index + 1}" />
+					        </c:forEach>
+					        <c:forEach var="review" items="${custReview}" varStatus="loop">
+					            <tr>
+					                <td>${num + loop.index + 1}</td>
+					                <td>리뷰게시판</td>			                
+					                <td class="subject title">				                	
+										<a href="review_boardView.bo?review_num=${review.review_num}">${review.review_title}</a>														
+					                </td>			              
+					                <td><fmt:formatDate pattern="yyyy/MM/dd hh:mm" value="${review.review_date}"/></td>			                
+					            </tr>
 					        </c:forEach>
 					    </c:if>
-						<c:if test="${empty boardList}">
+						<c:if test="${empty boardList and empty custReview}">
 				            <tr>
 				                <td colspan="4">게시글이 없습니다.</td>
 				            </tr>
@@ -140,7 +153,46 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         </h2>
         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
             <div class="accordion-body">
-                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            <c:if test="${myReservation ne null }">
+                <form method="post">
+					<table>
+						<tr id="firstLine">
+							<th>No.</th>
+							<th>신청차량</th>
+							<th>딜러</th>
+							<th>날짜</th>
+							<th>시간</th>
+							<th>예약상태</th>
+						</tr>
+						<c:forEach var="mrev" items="${myReservation}" varStatus="status">
+							<tr class="contents">
+								<td id="item_no" >${status.count}</td>
+								<td>
+									<a href="carDetailView.usr?car_id=${mrev.car_id}">${mrev.car_id}</a>
+								</td>
+								<c:forEach var="code" items="${allCode}">
+				    				<c:if test="${code.code_category == 'user_name'}">
+				    					<c:if test="${mrev.dealer_id == code.code_name}">
+											<td>${code.code_value}</td>
+										</c:if>
+									</c:if>
+								</c:forEach>			
+								<td>${mrev.rev_date}</td>
+								<td>${mrev.rev_time}</td>
+								<c:choose>
+									<c:when test="${mrev.approve_YN eq 'Y'}"><td>예약승인</td></c:when>
+									<c:when test="${mrev.approve_YN eq 'W'}"><td>예약대기중</td></c:when>
+									<c:when test="${mrev.approve_YN eq 'N'}"><td>예약거절</td></c:when>
+								</c:choose>
+							</tr>
+							<tr id="space"><td colspan="6"></td></tr>
+						</c:forEach>
+					</table>
+				</form>
+			</c:if>
+				<c:if test="${myReservation == null }">
+					<div class="nothing">${custInfo.user_id}님의 신청한 예약이 없습니다.</div>
+				</c:if>
             </div>
         </div>
     </div>

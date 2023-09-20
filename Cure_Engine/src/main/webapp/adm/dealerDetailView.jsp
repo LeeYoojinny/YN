@@ -14,6 +14,7 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
 crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="css/admin/custDetailView_style.css">
+<link rel="stylesheet" href="css/admin/mySaleCarList_style.css">
 </head>
 <script type="text/javascript">
 
@@ -85,8 +86,72 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         </h2>
         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
             <div class="accordion-body">
-                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-            </div>
+            <c:if test="${mySaleCarList ne null }">
+            	<form method="post">
+					<table>
+						<tr id="firstLine">
+							<th>No.</th>
+							<th></th>
+							<th>판매목록</th>							
+						</tr>
+						<c:set var="startNo" value="${(pageInfo.page - 1) * 5 + 1}" />
+						<c:forEach var="myCar" items="${mySaleCarList}" varStatus="status">
+							<tr class="contents">
+								<td rowspan="3" id="item_no">${startNo + status.count-1}</td>
+								<td rowspan="3" id="main_img">
+									<a href="carDetailView.usr?car_id=${myCar.car_id}" class="image-link">
+										<img src="upload/carRegist_images/${myCar.car_image1}">
+										<c:if test="${myCar.sale_YN eq 'W'}">
+									        <div class="sold-out-overlay">
+									            <p class="sold-out-text">예약중</p>
+									        </div>
+									    </c:if>
+									    <c:if test="${myCar.sale_YN eq 'N'}">
+									        <div class="sold-out-overlay">
+									            <p class="sold-out-text">판매완료</p>
+									        </div>
+									    </c:if>
+									</a>
+								</td>
+								<td id="explain1">
+								<c:forEach var="code" items="${allCode}">
+									<c:if test="${code.code_category == 'car_brand'}">
+										<c:if test="${myCar.car_brand == code.code_name}">${code.code_value}</c:if>
+									</c:if>
+								</c:forEach>					
+								&nbsp;${myCar.car_year}연식 ${myCar.car_name}</td>
+							</tr>
+							<tr class="contents">
+								<td id="explain2"><fmt:formatNumber value="${myCar.car_price}" pattern="#,###" />만원</td>
+							</tr>
+							<tr class="contents">
+								<td id="explain3"><img src="image/carList/red_like_icon.png">${myCar.car_like}</td>
+							</tr>
+							<tr id="space"><td colspan="5"></td></tr>
+						</c:forEach>
+					</table>
+				</form>
+				<div class="pageNum">
+					<c:choose> 
+						<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>
+						<c:otherwise><a style="text-decoration:none" href="dealerDetailView.adm?user_id=${dealerInfo.user_id}&display_num=1&page=${pageInfo.page-1}">[이전]&nbsp;</a></c:otherwise>
+					</c:choose>
+					<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="loop">
+						<c:choose>
+							<c:when test="${i == pageInfo.page}">${i}&nbsp;</c:when>
+							<c:otherwise><a style="text-decoration:none" href="dealerDetailView.adm?user_id=${dealerInfo.user_id}&display_num=1&page=${i}">${i}</a>&nbsp;</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${pageInfo.page >= pageInfo.maxPage}">[다음]&nbsp;</c:when>
+						<c:otherwise><a style="text-decoration:none" href="dealerDetailView.adm?user_id=${dealerInfo.user_id}&display_num=1&page=${pageInfo.page+1}">[다음]&nbsp;</a></c:otherwise>
+					</c:choose>
+				</div>
+				</c:if>
+				<c:if test="${mySaleCarList == null }">
+					<div class="nothing">${dealerInfo.user_id}님의 판매차량이 없습니다.</div>
+				</c:if>            
+			</div>
         </div>
     </div>
     <div class="accordion-item">
@@ -98,7 +163,41 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         </h2>
         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
             <div class="accordion-body">
-                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            <c:if test="${reservation ne null}">
+            	<table>
+					<tr id="firstLine">
+						<th>No.</th>
+						<th>신청차량</th>
+						<th>신청자</th>
+						<th>날짜</th>
+						<th>시간</th>
+						<th>처리내용</th>
+					</tr>
+					<c:set var="startNo" value="${(pageInfo.page - 1) * 10 + 1}" />
+					<c:forEach var="rev" items="${reservation}" varStatus="status">
+						<tr class="contents">
+							<td id="item_no">${startNo + status.count-1}</td>
+							<td>${rev.car_id}</td>
+							<td>${rev.user_id}</td>
+							<td>${rev.rev_date}</td>
+							<td>${rev.rev_time}</td>
+							<c:if test="${rev.approve_YN eq 'W'}">
+								<td style="line-height:2.5rem;">대기중</td>
+							</c:if>
+							<c:if test="${rev.approve_YN eq 'Y'}">
+								<td style="line-height:2.5rem;">승인</td>
+							</c:if>
+							<c:if test="${rev.approve_YN eq 'N'}">
+								<td style="line-height:2.5rem;">거절</td>
+							</c:if>
+						</tr>
+						<tr id="space"><td colspan="6"></td></tr>
+					</c:forEach>
+				</table>
+				</c:if>
+				<c:if test="${reservation == null}">
+					<div class="nothing">${dealerInfo.user_id}님의 예약 신청건이 없습니다.</div>
+				</c:if>
             </div>
         </div>
     </div>

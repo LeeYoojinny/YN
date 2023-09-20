@@ -52,12 +52,17 @@ public class Review_BoardListAction implements Action {
 		ArrayList<ReviewBoard> boardList = review_BoardListService.selectBoardList(page,limit);			
 		
 		//자동차 대표이미지 불러오기위해 car_id만 배열로 만들기
-		List<String> car_id_List = new ArrayList<>();
-        for (ReviewBoard board : boardList) {
-        	car_id_List.add(board.getCar_id());
-        }
+		List<String> car_id_List = null;
+		ArrayList<Car> carList = null;
 		
-        ArrayList<Car> carList = review_BoardListService.selectAllCarInfo(car_id_List);		
+		if(boardList != null) {
+			car_id_List = new ArrayList<>();
+	        for (ReviewBoard board : boardList) {
+	        	car_id_List.add(board.getCar_id());
+	        }
+	        carList = review_BoardListService.selectAllCarInfo(car_id_List);	
+		}
+        
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("boardList", boardList);

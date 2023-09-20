@@ -71,7 +71,7 @@ public class OrderDAO {
 	public String getOrderNum(String car_id) {
 		String orderNum = "";
 		
-		String sql = "select ordernum from tbl_order where car_id=?";
+		String sql = "select ordernum from tbl_order where order_approve_YN='W' and car_id=?";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -344,7 +344,7 @@ public class OrderDAO {
 				+ " FROM tbl_car c"
 				+ " INNER JOIN tbl_order o ON c.car_id = o.car_id"
 				+ " LEFT JOIN tbl_payment p ON o.ordernum = p.ordernum"
-				+ " limit ?,5";
+				+ " order by o.order_date desc limit ?,5";
 		
 		int startrow = (page - 1) * 5;
 		
@@ -641,7 +641,7 @@ public class OrderDAO {
 				+ " FROM tbl_car c"
 				+ " INNER JOIN tbl_order o ON c.car_id = o.car_id"
 				+ " LEFT JOIN tbl_payment p ON o.ordernum = p.ordernum"
-				+ " WHERE o.user_id =? limit ?,5";
+				+ " WHERE o.user_id =? order by o.order_date desc limit ?,5";
 		
 		int startrow = (page - 1) * 5;
 		
@@ -683,7 +683,7 @@ public class OrderDAO {
 				+ " FROM tbl_car c"
 				+ " INNER JOIN tbl_order o ON c.car_id = o.car_id"
 				+ " LEFT JOIN tbl_payment p ON o.ordernum = p.ordernum"
-				+ " WHERE o.user_id =? limit ?,5";
+				+ " WHERE o.user_id =? order by o.order_date desc limit ?,5";
 		
 		int startrow = (page - 1) * 5;
 		
