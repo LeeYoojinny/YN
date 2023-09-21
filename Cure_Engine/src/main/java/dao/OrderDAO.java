@@ -223,7 +223,7 @@ public class OrderDAO {
 				+ " FROM tbl_car c"
 				+ " INNER JOIN tbl_order o ON c.car_id = o.car_id"
 				+ " LEFT JOIN tbl_payment p ON o.ordernum = p.ordernum"
-				+ " WHERE c.dealer_id =? limit ?,5";
+				+ " WHERE c.dealer_id =? order by o.order_date desc limit ?,5";
 		
 		int startrow = (page - 1) * 5;
 		

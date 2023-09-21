@@ -22,7 +22,7 @@ public class Review_BoardWriteAction implements Action {
 		ActionForward forward = null;
 		
 		ServletContext context = request.getServletContext();
-		String uploadPath = context.getRealPath("/upload/review_file");//컨텍스트 루트(/)의 절대경로를 기준
+		String uploadPath = context.getRealPath("upload/review_file");//컨텍스트 루트(/)의 절대경로를 기준
 		System.out.println("서버상의 실제 경로(절대경로) : " + uploadPath);
 		
 		File dir = new File(uploadPath);
@@ -66,6 +66,19 @@ public class Review_BoardWriteAction implements Action {
 		}
 		
 		Review_BoardWriteService review_BoardWriteService = new Review_BoardWriteService();
+		
+		//review_num 생성
+		String review_num = "";
+		String max_reserNum = review_BoardWriteService.createNotice_num();
+		if(max_reserNum == null) {
+			review_num = "REV00001"; //첫 생성이면 해당 넘버로 지정
+		}else {
+			String numericPart = max_reserNum.substring(3);
+			int nextNumber = Integer.parseInt(numericPart) + 1;
+			review_num = "REV" + String.format("%05d", nextNumber);
+		}		
+		review.setReview_num(review_num);
+				
 		boolean isWriteSuccess = review_BoardWriteService.writeReviewBoard(review);
 		
 		if(!isWriteSuccess) {

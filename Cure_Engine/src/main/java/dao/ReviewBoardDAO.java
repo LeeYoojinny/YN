@@ -34,25 +34,25 @@ public class ReviewBoardDAO {
 	public int insertBoard(ReviewBoard review) {
 		int insertCount = 0;
 		
-		String sql = "insert into tbl_review(car_id,user_id,ordernum,review_title,review_content,"
+		String sql = "insert into tbl_review(review_num,car_id,user_id,ordernum,review_title,review_content,"
 				+ "review_file1,review_file1_origin,review_file2,review_file2_origin,review_file3,"
-				+ "review_file3_origin,review_num) values(?,?,?,?,?,?,?,?,?,?,?,"
-				+ "CONCAT('REV', LPAD(MAX(CAST(SUBSTRING(review_num, 4) AS UNSIGNED)) + 1, 5, '0')))";
+				+ "review_file3_origin) values(?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setString(1, review.getCar_id());
-			pstmt.setString(2, review.getUser_id());
-			pstmt.setString(3, review.getOrdernum());
-			pstmt.setString(4, review.getReview_title());
-			pstmt.setString(5, review.getReview_content());			
-			pstmt.setString(6, review.getReview_file1());
-			pstmt.setString(7, review.getReview_file1_origin());
-			pstmt.setString(8, review.getReview_file2());
-			pstmt.setString(9, review.getReview_file2_origin());
-			pstmt.setString(10, review.getReview_file3());
-			pstmt.setString(11, review.getReview_file3_origin());
+			pstmt.setString(1, review.getReview_num());			
+			pstmt.setString(2, review.getCar_id());
+			pstmt.setString(3, review.getUser_id());
+			pstmt.setString(4, review.getOrdernum());
+			pstmt.setString(5, review.getReview_title());
+			pstmt.setString(6, review.getReview_content());			
+			pstmt.setString(7, review.getReview_file1());
+			pstmt.setString(8, review.getReview_file1_origin());
+			pstmt.setString(9, review.getReview_file2());
+			pstmt.setString(10, review.getReview_file2_origin());
+			pstmt.setString(11, review.getReview_file3());
+			pstmt.setString(12, review.getReview_file3_origin());
 						
 			insertCount = pstmt.executeUpdate();
 		}catch(Exception e) {
@@ -289,6 +289,59 @@ public class ReviewBoardDAO {
 			close(pstmt);
 		}
 		return review;
+	}
+
+	/*-- review_num 생성위해 마지막 review_num 가져오기 ---------------------------------------*/
+	public String createReviewNum() {
+		String review_num = "";
+		
+		String sql = "select max(review_num) from tbl_review";
+		
+		try {
+			pstmt = con.prepareStatement(sql);			
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				review_num = rs.getString(1);
+			}
+			
+		}catch(Exception e) {
+			System.out.println("ReviewBoardDAO의 createReviewNum() 에러 : " + e);
+		} finally {
+			close(rs);
+			close(pstmt);
+		}		
+		return review_num;
+	}
+
+	public int updateReview(ReviewBoard review, String review_num) {
+		int updateCount = 0;
+		String sql = "update tbl_review SET review_title=?, review_content=?, review_file1=?,"
+				+ " review_file1_origin=?, review_file2=?, review_file2_origin=?, review_file3=?,"
+				+ " review_file3_origin=?, review_date=? where review_num=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);			
+			
+			pstmt.setString(1, review.getReview_title());
+			pstmt.setString(2, review.getReview_content());
+			pstmt.setString(3, review.getReview_file1());
+			pstmt.setString(4, review.getReview_file1_origin());
+			pstmt.setString(5, review.getReview_file2());
+			pstmt.setString(6, review.getReview_file2_origin());
+			pstmt.setString(7, review.getReview_file3());
+			pstmt.setString(8, review.getReview_file3_origin());
+			pstmt.setTimestamp(9, review.getReview_date());
+			pstmt.setString(10, review_num);
+			
+			updateCount = pstmt.executeUpdate();
+			System.out.println("update성공유무 : "+updateCount);
+		}catch(Exception e) {
+			System.out.println("ReviewBoardDAO의 updateReview() 에러 : " + e);
+		} finally {
+			close(pstmt);
+		}
+		return updateCount;
 	}
 }
 

@@ -758,7 +758,10 @@ public class UserDAO {
 	public ArrayList<Reservation> selectMyReservation(String user_id) {
 		ArrayList<Reservation> myReservation = null;
 
-		String sql = "select * from tbl_reservation where user_id=?";
+		String sql = "SELECT r.*"
+				+ " FROM tbl_reservation r"
+				+ " INNER JOIN tbl_car c ON r.car_id = c.car_id"
+				+ " WHERE r.user_id=? AND c.car_delete = 'N'";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -788,7 +791,10 @@ public class UserDAO {
 	public int getRsvListCount() {
 		int listCount = 0;
 
-		String sql = "select count(*) from tbl_reservation";
+		String sql = "SELECT count(*)"
+				+ " FROM tbl_reservation r"
+				+ " INNER JOIN tbl_car c ON r.car_id = c.car_id"
+				+ " WHERE c.car_delete = 'N'";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -812,7 +818,10 @@ public class UserDAO {
 	public ArrayList<Reservation> selectReservation(String user_id, int page, int limit) {
 		ArrayList<Reservation> reservation = null;
 
-		String sql = "select * from tbl_reservation where dealer_id=? limit ?,10";
+		String sql = "SELECT r.*"
+				+ " FROM tbl_reservation r"
+				+ " INNER JOIN tbl_car c ON r.car_id = c.car_id"
+				+ " WHERE r.dealer_id=? and c.car_delete = 'N' limit ?,10";
 		int startrow = (page - 1) * 10;
 
 		try {
@@ -844,7 +853,10 @@ public class UserDAO {
 	public ArrayList<Reservation> selectAllReservation(int page, int limit) {
 		ArrayList<Reservation> reservation = null;
 
-		String sql = "select * from tbl_reservation limit ?,10";
+		String sql = "SELECT r.*"
+				+ " FROM tbl_reservation r"
+				+ " INNER JOIN tbl_car c ON r.car_id = c.car_id"
+				+ " WHERE c.car_delete = 'N' limit ?,10";
 		int startrow = (page - 1) * 10;
 
 		try {

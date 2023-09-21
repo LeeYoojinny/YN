@@ -28,6 +28,7 @@ import action.board.QnA_SearchAction;
 import action.board.QnA_pwCheckAction;
 import action.board.Review_BoardDeleteAction;
 import action.board.Review_BoardListAction;
+import action.board.Review_BoardUpdateAction;
 import action.board.Review_BoardUpdateFormAction;
 import action.board.Review_BoardViewAction;
 import action.board.Review_BoardWriteAction;
@@ -275,6 +276,14 @@ public class BoardController extends HttpServlet {
 			}
 		}
 		
+		else if(command.equals("/review_boardUpdateAction.bo")) { //수정요청 처리
+			action = new Review_BoardUpdateAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		/*-- 글 삭제하기 ---------------------------------------------------------------------------*/
 		else if(command.equals("/qna_boardDelete.bo")) {
 			action = new QnA_BoardDeleteAction();

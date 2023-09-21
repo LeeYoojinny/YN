@@ -198,6 +198,26 @@ public class WishlistDAO {
 			return count;
 		}
 
+		/*---- 판매차량 재등록 시 위시리스트에서 보이게 하기 ---------------------------------------------*/
+		public int update_deleteN() {
+			int result = 0;
+			
+			String sql = "update tbl_wishlist set car_delete='N' where "
+					+ "car_id IN (SELECT car_id FROM tbl_car WHERE car_delete = 'N')";
+			System.out.println("만들어진 sql문 : "+sql);
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				result = pstmt.executeUpdate();
+
+			}catch(Exception e) {
+				System.out.println("WishlistDAO 클래스의 update_deleteN()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
+
 
 		
 

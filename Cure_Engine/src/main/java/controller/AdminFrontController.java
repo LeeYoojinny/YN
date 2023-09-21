@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.adm.AdminAllSaleCarAction;
 import action.adm.AdminCarIdCheckAction;
+import action.adm.AdminCarReRegistAction;
 import action.adm.AdminCarRegistAction;
 import action.adm.AdminCarRegistFormAction;
 import action.adm.AdminCarUpdateAction;
@@ -39,6 +40,7 @@ import action.adm.AdminMySaleCarAction;
 import action.adm.AdminOrderDecisionAction;
 import action.adm.AdminOrderDetailAction;
 import action.adm.AdminOrderViewListAction;
+import action.adm.AdminRemoveCarListAction;
 import action.adm.AdminReservationCheckAction;
 import action.adm.AdminReservationDeleteAction;
 import action.adm.AdminReservationViewAction;
@@ -364,7 +366,7 @@ public class AdminFrontController extends HttpServlet {
 		
 		/*------- 관리자 - 모든상품보기 ---------------------------------------------------------*/
 		
-		else if(command.equals("/allSaleCar.adm")) {//'모든차량보기' 요청이면
+		else if(command.equals("/allSaleCar.adm")) {//'삭제 안된 모든 차량보기' 요청이면
 			action = new AdminAllSaleCarAction();
 			try {
 				forward = action.execute(request, response);
@@ -373,6 +375,23 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}
 		
+		else if(command.equals("/removeCarList.adm")) {//'삭제된 차량보기' 요청이면
+			action = new AdminRemoveCarListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if(command.equals("/carReRegist.adm")) {//'삭제된 차량보기 재등록' 요청이면
+			action = new AdminCarReRegistAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		/*------- 관리자 - 딜러관리 ---------------------------------------------------------*/
 		else if(command.equals("/dealerList.adm")) {//'딜러관리보기' 요청이면
 			action = new AdminDealerListAction();

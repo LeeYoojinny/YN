@@ -10,6 +10,7 @@ import svc.adm.AdminDealerDetailViewService;
 import vo.ActionForward;
 import vo.Car;
 import vo.Code;
+import vo.Order;
 import vo.User;
 import vo.PageInfo;
 import vo.Reservation;
@@ -56,11 +57,13 @@ public class AdminDealerDetailViewAction implements Action {
 		User dealerInfo = dealerDetailViewService.getDealerInfo(user_id);
 		ArrayList<Car> mySaleCarList = dealerDetailViewService.getMySaleCarList(user_id,page,limit);
 		ArrayList<Reservation> reservation = dealerDetailViewService.getReservation(user_id,page, limit);
+		ArrayList<Order> orderList = dealerDetailViewService.getOrderList(user_id,page,limit);
 		ArrayList<Code> allCode = dealerDetailViewService.getAllCode();
 		
 		request.setAttribute("dealerInfo", dealerInfo);
 		request.setAttribute("reservation", reservation);
 		request.setAttribute("mySaleCarList", mySaleCarList);
+		request.setAttribute("orderList", orderList);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("allCode", allCode);
 		

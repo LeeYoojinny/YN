@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>   
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
@@ -27,8 +27,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <body>
 	<div class="container">
 	<h2 class="mt-4">게시글 수정</h2>
-		<form action="qna_boardUpdateAction.bo" method="post" name="f" enctype="multipart/form-data">
-			<input type="hidden" name="qna_num" value="${board.review_num}">
+		<form action="review_boardUpdateAction.bo" method="post" name="f" enctype="multipart/form-data">
+			<input type="hidden" name="list_num" value="${param.list_num}">
+			<input type="hidden" name="review_num" value="${board.review_num}">
 			<input type="hidden" name="car_id" value="${board.car_id}">
 			<div class="mb-3 mt-3">
 				<label class="form-label">작성자</label>

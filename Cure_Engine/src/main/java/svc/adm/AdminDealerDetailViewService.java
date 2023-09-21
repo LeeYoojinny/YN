@@ -7,9 +7,11 @@ import java.util.ArrayList;
 
 import dao.CarDAO;
 import dao.CodeDAO;
+import dao.OrderDAO;
 import dao.UserDAO;
 import vo.Car;
 import vo.Code;
+import vo.Order;
 import vo.Reservation;
 import vo.User;
 
@@ -68,5 +70,17 @@ public class AdminDealerDetailViewService {
 		close(con);
 		
 		return reservation;
+	}
+
+	public ArrayList<Order> getOrderList(String user_id, int page, int limit) {
+		Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		ArrayList<Order> orderList = null;		
+		orderList = orderDAO.getOrderList(user_id,page,limit);			
+		
+		close(con);
+		return orderList;
 	}
 }

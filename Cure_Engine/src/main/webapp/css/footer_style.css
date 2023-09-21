@@ -2,45 +2,107 @@
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-/* footer --------------------------------------------------------------*/
-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 0.21rem 0;
-  text-align: center;
+/* 전체 푸터 스타일 */
+.container-fluid.footer { 
+    background-color: #ffffff; /* 배경색을 원하는 색상으로 변경하세요 (예: #000은 검은색) */
+    color: #000000; /* 텍스트 색상을 원하는 색상으로 변경하세요 (예: #fff는 흰색) */
+    padding: 0; /* 푸터의 위쪽 및 아래쪽 여백을 설정합니다. */
 }
 
-footer div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  padding: 0 1rem;
+/* 푸터 내용 스타일 */
+.container-fluid.footer h4 {
+    font-size: 24px; /* 푸터 내의 제목(상호 및 대표자 성명)의 글꼴 크기를 설정합니다. */
+    font-weight: bold; /* 굵은 글꼴 설정 */
+    margin-bottom: 40px; /* 제목 아래 여백을 추가합니다. */
+    color: #000000;
+}
+.container-fluid.footer h5 {
+    font-size: 20px; /* 푸터 내의 제목(상호 및 대표자 성명)의 글꼴 크기를 설정합니다. */
+    font-weight: bold; /* 굵은 글꼴 설정 */
+    margin-bottom: 40px; /* 제목 아래 여백을 추가합니다. */
+    color: #000000;
+    margin-left: 30%; /* 오른쪽으로 이동 */
 }
 
-footer p {
-  margin-bottom: 0.5rem;
-  font-family:'Ubuntu';
+.container-fluid.footer p {
+    font-size: 16px; /* 푸터 내의 텍스트의 글꼴 크기를 설정합니다. */
+    margin-bottom: 10px; /* 텍스트 아래 여백을 추가합니다. */
 }
 
-footer ul {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
+.container-fluid.footer a {
+    color: #000000; /* 링크 텍스트 색상을 원하는 색상으로 변경하세요 (예: #fff는 흰색) */
+    text-decoration: none; /* 링크 텍스트의 밑줄을 제거합니다. */
 }
 
-footer ul li a {
-  text-decoration: none;
-  color: #fff;
-  transition: color 0.3s;
-  font-family:'Gowun Dodum', sans-serif;
+.container-fluid.footer a:hover {
+    text-decoration: underline; /* 링크에 마우스를 올렸을 때 밑줄을 표시합니다. */
 }
 
-footer ul li a:hover {
-  color: #00aaff;
+/* 아이콘 버튼 스타일 */
+.container-fluid.footer .btn.btn-square {
+    font-size: 20px; /* 아이콘 버튼의 글꼴 크기를 설정합니다. */
+    width: 50px; /* 아이콘 버튼의 가로 크기를 설정합니다. */
+    height: 50px; /* 아이콘 버튼의 세로 크기를 설정합니다. */
+    line-height: 40px; /* 아이콘 버튼 내 텍스트의 세로 중앙 정렬을 설정합니다. */
+}
+
+.container-fluid.footer .btn.btn-square i {
+    font-size: 20px; /* 아이콘의 크기를 설정합니다. */
+}
+
+/* 대표이사 정보 스타일 */
+.container-fluid.footer span {
+    font-size: 16px; /* 대표이사 정보의 글꼴 크기를 설정합니다. */
+    display: block; /* 대표이사 정보를 블록 요소로 표시하여 줄 바꿈을 설정합니다. */
+    margin-top: 20px; /* 대표이사 정보 위쪽 여백을 추가합니다. */
+}
+
+/* 링크 버튼 스타일 */
+.container-fluid.footer .btn.btn-link {
+    font-size: 15px; /* 링크 버튼의 글꼴 크기를 설정합니다. */
+    color: #000000; /* 링크 텍스트 색상을 원하는 색상으로 변경하세요 (예: #fff는 흰색) */
+    display: block; /* 링크 버튼을 블록 요소로 표시하여 한 줄씩 나열합니다. */
+    margin-bottom: 2px; /* 링크 버튼 간격을 조절합니다. */
+	transition: color 0.3s; /* 색상 변화에 트랜지션 효과를 추가합니다. */
+}
+
+/* 링크 버튼를 호버 상태일 때 색상 변경 */
+.container-fluid.footer .btn.btn-link:hover {
+    color: #0000ff; /* 호버 상태일 때 링크 텍스트 색상을 변경하세요. 예: #00ff00은 녹색입니다. */
+}
+
+.container-fluid.footer .btn.btn-link:hover {
+    text-decoration: underline; /* 링크에 마우스를 올렸을 때 밑줄을 표시합니다. */
+}
+
+
+/* 저작권 정보 스타일 */
+.copyright {
+    background-color: #ffffff; /* 저작권 부분의 배경색을 원하는 색상으로 변경하세요 */
+    padding: 15px 0;
+    color: #000000; /* 텍스트 색상을 원하는 색상으로 변경하세요 */
+    font-size: 14px;
+}
+
+/* Back to Top 버튼 스타일 */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: none;
+    font-size: 24px;
+    background-color: #007bff; /* 버튼 배경색을 원하는 색상으로 변경하세요 */
+    color: #fff; /* 버튼 텍스트 색상을 원하는 색상으로 변경하세요 */
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.back-to-top:hover {
+    background-color: #0056b3; /* 호버 시 배경색을 원하는 색상으로 변경하세요 */
 }

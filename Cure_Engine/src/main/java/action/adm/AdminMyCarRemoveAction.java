@@ -14,10 +14,12 @@ public class AdminMyCarRemoveAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ActionForward forward = null;
+		ActionForward forward = null;		
 		
-		HttpSession session = request.getSession();
-		String user_id = (String)session.getAttribute("user_id");
+		String display_num = request.getParameter("display_num");
+		System.out.println("display_num : "+display_num);
+		
+		String user_id = request.getParameter("dealer_id");
 		System.out.println("딜러아이디 : "+user_id);
 		
 		String car_id = request.getParameter("car_ids");
@@ -36,18 +38,34 @@ public class AdminMyCarRemoveAction implements Action {
 		}
 		
 		AdminMyCarRemoveService adminMyCarRemoveService = new AdminMyCarRemoveService();
-		int removeResult = adminMyCarRemoveService.removeMyCar(car_ids,user_id);
+		int removeResult = 0;
+		
+		if(display_num.equals("1")) {
+			removeResult = adminMyCarRemoveService.removeMyCar(car_ids,user_id);
+		}else if(display_num.equals("2")) {
+			removeResult = adminMyCarRemoveService.removeCarByAdmin(car_ids);
+		}
+			
 				
 		if(removeResult > 0 ) {
 			int removeResult_wish = adminMyCarRemoveService.removeMyCar_wish();
 			
 			if(removeResult_wish >= 0) {
-				response.setContentType("text/html; charset=utf-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script>");
-				out.println("alert('삭제 되었습니다.');");
-				out.println("location.href='mySaleCar.adm';");
-				out.println("</script>");
+				if(display_num.equals("1")) {				
+					response.setContentType("text/html; charset=utf-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("alert('삭제 되었습니다.');");
+					out.println("location.href='mySaleCar.adm';");
+					out.println("</script>");
+				}else if(display_num.equals("2")) {								
+					response.setContentType("text/html; charset=utf-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("alert('삭제 되었습니다.');");
+					out.println("location.href='allSaleCar.adm';");
+					out.println("</script>");
+				}
 			}else {
 				response.setContentType("text/html; charset=utf-8");
 				PrintWriter out = response.getWriter();
