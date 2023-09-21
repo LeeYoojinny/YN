@@ -289,9 +289,17 @@ String image5 = carDetail.getCar_image5();
 					</tr>
 					<tr>
 						<td colspan="2">
-						<button onclick="qnaRequest('${carDetail.car_id}')">
-							'${carDetail.car_id}' 상품 문의글 남기기
-						</button></td>
+						<c:if test="${user_category eq 'customer' }">
+							<button onclick="qnaRequest('${carDetail.car_id}')">
+								'${carDetail.car_id}' 상품 문의글 남기기
+							</button>
+						</c:if>
+						<c:if test="${user_category eq 'dealer' || user_category eq 'admin' }">
+							<button disabled>
+								'${carDetail.car_id}' 상품 문의글 남기기
+							</button>
+						</c:if>
+						</td>
 					</tr>
 					<tr>
 						<td colspan="2" id="anotherCar">

@@ -42,6 +42,18 @@ public class Notice_BoardWriteAction implements Action {
 		notice.setNotice_file_origin(multi.getOriginalFileName("notice_file"));
 		
 		Notice_BoardWriteService notice_BoardWriteService = new Notice_BoardWriteService();
+		//notice_num 생성하기
+		String notice_num = "";
+		String max_reserNum = notice_BoardWriteService.createNotice_num();
+		if(max_reserNum == null) {
+			notice_num = "NTC00001"; //첫 생성이면 해당 넘버로 지정
+		}else {
+			String numericPart = max_reserNum.substring(3);
+			int nextNumber = Integer.parseInt(numericPart) + 1;
+			notice_num = "NTC" + String.format("%05d", nextNumber);
+		}		
+		notice.setNotice_num(notice_num);
+			
 		boolean isWriteSuccess = notice_BoardWriteService.writeNoticeBoard(notice);
 		
 		if(!isWriteSuccess) {

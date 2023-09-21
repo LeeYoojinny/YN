@@ -564,6 +564,29 @@ public class QnABoardDAO {
 		return result;
 	}
 
+	public String createQna_num() {
+		String qna_num = "";
+		
+		String sql = "select max(qna_num) from tbl_qna";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) {
+				qna_num = rs.getString(1);
+			}		
+			
+		}catch(Exception e) {
+			System.out.println("BoardDAO의 createQna_num() 에러 : " + e);
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}				
+		return qna_num;
+	}
+
 	
 
 	

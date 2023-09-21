@@ -27,12 +27,13 @@ public class CustomerOrderService {
 		
 		int orderSuccess = orderDAO.insertOrder(order); //order 테이블 추가
 		System.out.println("orderSuccess  : "+orderSuccess);
-		String orderNum = orderDAO.getOrderNum(order.getCar_id());//orderNum 가져오기
-		System.out.println("orderNum : " + orderNum);
-		int paySuccess = orderDAO.insertPay(payment, orderNum);//payment테이블에 추가
+		
+		int paySuccess = orderDAO.insertPay(payment);//payment테이블에 추가
 		System.out.println("paySuccess : " + paySuccess);
+		
 		int saleChange = carDAO.saleChangeW(order.getCar_id());//자동차 sale 상태를 W로 바꿈
 		System.out.println("saleChange : " + saleChange);
+		
 		int couponChange = 0;
 		
 		if(order.getCoupon_id() != null && !order.getCoupon_id().isEmpty()) {//만약 쿠폰 적용을 했다면
@@ -55,6 +56,17 @@ public class CustomerOrderService {
 		
 		close(con);		
 		return allSuccess;
+	}
+
+	public String createOrdernum() {
+		Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		String ordernum = orderDAO.createOrdernum();
+		
+		close(con);	
+		return ordernum;
 	}
 
 }

@@ -30,4 +30,15 @@ public class Notice_BoardWriteService {
 		return isWriteSuccess;
 	}
 
+	public String createNotice_num() {
+		Connection con = getConnection();
+		NoticeBoardDAO noticeBoardDAO = NoticeBoardDAO.getInstance();
+		noticeBoardDAO.setConnection(con);
+		
+		String notice_num = noticeBoardDAO.createNoticeNum();
+		
+		close(con);
+		return notice_num;
+	}
+
 }

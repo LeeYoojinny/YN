@@ -36,7 +36,8 @@ public class ReviewBoardDAO {
 		
 		String sql = "insert into tbl_review(car_id,user_id,ordernum,review_title,review_content,"
 				+ "review_file1,review_file1_origin,review_file2,review_file2_origin,review_file3,"
-				+ "review_file3_origin) values(?,?,?,?,?,?,?,?,?,?,?)";
+				+ "review_file3_origin,review_num) values(?,?,?,?,?,?,?,?,?,?,?,"
+				+ "CONCAT('REV', LPAD(MAX(CAST(SUBSTRING(review_num, 4) AS UNSIGNED)) + 1, 5, '0')))";
 		
 		try {
 			pstmt = con.prepareStatement(sql);

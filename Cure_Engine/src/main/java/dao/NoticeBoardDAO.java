@@ -93,21 +93,23 @@ public class NoticeBoardDAO {
 		}
 		return boardList;
 	}
-
+	
+	/*-- 공지사항 등록하기 -------------------------------------------------*/
 	public int insertBoard(NoticeBoard notice) {
 		int insertCount = 0;
 		
-		String sql = "insert into tbl_notice(user_id,notice_title,notice_content,notice_file,notice_file_origin)"
-				+ " values(?,?,?,?,?)";
+		String sql = "insert into tbl_notice(notice_num,user_id,notice_title,notice_content,notice_file,notice_file_origin)"
+				+ " values(?,?,?,?,?,?)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setString(1, notice.getUser_id());
-			pstmt.setString(2, notice.getNotice_title());
-			pstmt.setString(3, notice.getNotice_content());
-			pstmt.setString(4, notice.getNotice_file());
-			pstmt.setString(5, notice.getNotice_file_origin());
+			pstmt.setString(1, notice.getNotice_num());
+			pstmt.setString(2, notice.getUser_id());
+			pstmt.setString(3, notice.getNotice_title());
+			pstmt.setString(4, notice.getNotice_content());
+			pstmt.setString(5, notice.getNotice_file());
+			pstmt.setString(6, notice.getNotice_file_origin());
 						
 			insertCount = pstmt.executeUpdate();
 		}catch(Exception e) {
@@ -117,7 +119,8 @@ public class NoticeBoardDAO {
 		}
 		return insertCount;
 	}
-
+	
+	/*-- 공지사항 내용 클릭 할 때 마다 조회수 up -------------------------------------------------*/
 	public int updateHit(String notice_num) {
 		int updateCount = 0;
 		
@@ -135,7 +138,8 @@ public class NoticeBoardDAO {
 		
 		return updateCount;
 	}
-
+	
+	/*-- 공지사항 리스트 출력위해 모든 정보 가져오기 -------------------------------------------------*/
 	public NoticeBoard selectBoardView(String notice_num) {
 		NoticeBoard notice = null;
 		
@@ -167,6 +171,7 @@ public class NoticeBoardDAO {
 		return notice;
 	}
 
+	/*-- 공지사항 삭제하기 -------------------------------------------------*/
 	public int deleteBoard(String notice_num) {
 		int deleteCount = 0;
 		
@@ -186,6 +191,7 @@ public class NoticeBoardDAO {
 		return deleteCount;
 	}
 
+	/*-- 공지사항 수정하기 -------------------------------------------------*/
 	public int updateBoard(NoticeBoard notice, String notice_num) {
 		int updateCount = 0;
 		
@@ -212,6 +218,30 @@ public class NoticeBoardDAO {
 		
 		
 		return updateCount;
+	}
+	
+	/*-- notice_num 생성을 위해 제일 최근 번호 받아오기 -------------------------------------------------*/
+	public String createNoticeNum() {
+		String notice_num = "";
+		
+		String sql = "select max(notice_num) from tbl_notice";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				notice_num = rs.getString(1);				
+			}
+
+		} catch (Exception e) {
+			System.out.println("NoticeBoardDAO 클래스의 createNoticeNum()에서 발생한 에러 : " + e);
+		} finally {
+			close(rs);
+			close(pstmt);
+		}	
+		
+		return notice_num;
 	}
 	
 	

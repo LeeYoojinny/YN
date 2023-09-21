@@ -170,7 +170,7 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 						<div class="col">
           					<div class="card shadow-sm" >
             					<a href="carDetailView.usr?car_id=${car.car_id}" class="image-link">
-								<img src="upload/carRegist_images/${car.car_image1}" width="100%" height="280">
+								<img src="upload/carRegist_images/${car.car_image1}" width="100%" height="280" />
 								  <c:if test="${car.sale_YN eq 'W'}">
 							          <div class="sold-out-overlay">
 							              <p class="sold-out-text">예약중</p>

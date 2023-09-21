@@ -22,7 +22,7 @@ public class AdminCarRegistAction implements Action {
 		ActionForward forward = null;
 		
 		ServletContext context = request.getServletContext();
-		String uploadPath = context.getRealPath("/upload/carRegist_images");
+		String uploadPath = context.getRealPath("upload/carRegist_images");
 		
 		System.out.println("서버상의 실제 경로(절대경로) : "+uploadPath);
 		

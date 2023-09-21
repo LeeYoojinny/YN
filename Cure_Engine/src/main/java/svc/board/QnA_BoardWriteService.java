@@ -27,4 +27,15 @@ public class QnA_BoardWriteService {
 		return isWriteSuccess;
 	}
 
+	public String createQna_num() {
+		Connection con= getConnection();
+		QnABoardDAO boardDAO = QnABoardDAO.getInstance();
+		boardDAO.setConnection(con);
+		
+		String qna_num = boardDAO.createQna_num();
+		
+		close(con);
+		return qna_num;
+	}
+
 }
