@@ -35,27 +35,28 @@ public class OrderDAO {
 	public int insertOrder(Order order) {
 		int result = 0;
 		
-		String sql = "insert into tbl_order(car_id,dealer_id,user_id,user_name,coupon_id,discount_price,car_price,"
+		String sql = "insert into tbl_order(ordernum,car_id,dealer_id,user_id,user_name,coupon_id,discount_price,car_price,"
 				+ "car_tax,region,deliveryfee,user_zipcode,user_address1,user_address2,user_phone,user_email,payment) "
-				+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, order.getCar_id());
-			pstmt.setString(2, order.getDealer_id());
-			pstmt.setString(3, order.getUser_id());
-			pstmt.setString(4, order.getUser_name());
-			pstmt.setString(5, order.getCoupon_id());
-			pstmt.setInt(6, order.getDiscount_price());
-			pstmt.setInt(7, order.getCar_price());
-			pstmt.setInt(8, order.getCar_tax());
-			pstmt.setString(9, order.getRegion());
-			pstmt.setInt(10, order.getDeliveryfee());
-			pstmt.setInt(11, order.getUser_zipcode());
-			pstmt.setString(12, order.getUser_address1());
-			pstmt.setString(13, order.getUser_address2());
-			pstmt.setString(14, order.getUser_phone());
-			pstmt.setString(15, order.getUser_email());
-			pstmt.setInt(16, order.getPayment());
+			pstmt.setString(1, order.getOrdernum());
+			pstmt.setString(2, order.getCar_id());
+			pstmt.setString(3, order.getDealer_id());
+			pstmt.setString(4, order.getUser_id());
+			pstmt.setString(5, order.getUser_name());
+			pstmt.setString(6, order.getCoupon_id());
+			pstmt.setInt(7, order.getDiscount_price());
+			pstmt.setInt(8, order.getCar_price());
+			pstmt.setInt(9, order.getCar_tax());
+			pstmt.setString(10, order.getRegion());
+			pstmt.setInt(11, order.getDeliveryfee());
+			pstmt.setInt(12, order.getUser_zipcode());
+			pstmt.setString(13, order.getUser_address1());
+			pstmt.setString(14, order.getUser_address2());
+			pstmt.setString(15, order.getUser_phone());
+			pstmt.setString(16, order.getUser_email());
+			pstmt.setInt(17, order.getPayment());
 			
 			result = pstmt.executeUpdate();
 			
@@ -94,14 +95,14 @@ public class OrderDAO {
 	}
 
 	/*---- 주문 시 payment 테이블 insert  ---------------------------------------------------------------------*/
-	public int insertPay(Payment payment, String orderNum) {
+	public int insertPay(Payment payment) {
 		int result = 0;
 		
 		String sql = "insert into tbl_payment values(?,?,?,?,?,?,?,?)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, orderNum);
+			pstmt.setString(1, payment.getOrdernum());
 			pstmt.setInt(2, payment.getPay_by());
 			pstmt.setInt(3, payment.getPay_price());
 			pstmt.setString(4, payment.getPay_depositor_name());
@@ -676,6 +677,7 @@ public class OrderDAO {
 		return carList;
 	}
 
+	/*-- 고객용 주문현황 리스트 가져오기 - Order객체 ----------------------------------------------------------*/	
 	public ArrayList<Order> getCustOrderList(String user_id, int page, int limit) {
 		ArrayList<Order> orderList = null;
 		
@@ -728,7 +730,8 @@ public class OrderDAO {
 		}	
 		return orderList;
 	}
-
+	
+	/*-- 고객 - 주문취소하기 --------------------------------------------------------------------*/
 	public int cancelOrder(String car_id) {
 		int result = 0;
 		
@@ -747,6 +750,29 @@ public class OrderDAO {
 		}
 		
 		return result;
+	}
+
+	/*-- ordernum 생성을 위해 제일 마지막 값 받아오기 -------------------------------------------------*/
+	public String createOrdernum() {
+		String ordernum = "";
+		
+		String sql = "select max(ordernum) from tbl_order";
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				ordernum = rs.getString(1);				
+			}
+
+		} catch (Exception e) {
+			System.out.println("UserDAO 클래스의 createResernum()에서 발생한 에러 : " + e);
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return ordernum;
+
 	}
 
 	

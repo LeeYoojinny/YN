@@ -43,6 +43,19 @@ public class CustomerReservationAction implements Action {
 		
 		
 		CustomerReservationService reservationFormService = new CustomerReservationService();
+		
+		//예약번호 생성
+		String resernum = "";
+		String max_reserNum = reservationFormService.createResernum();
+		if(max_reserNum == null) {
+			resernum = "RES00001";
+		}else {
+			String numericPart = max_reserNum.substring(3); // "RES" 부분을 제외한 숫자 부분 추출
+			int nextNumber = Integer.parseInt(numericPart) + 1; // 다음 번호 계산
+			resernum = "RES" + String.format("%05d", nextNumber);
+		}		
+		reservation.setResernum(resernum);
+		
 		boolean isReserveSuccess = reservationFormService.reserve(reservation);
 		
 		if(!isReserveSuccess) {

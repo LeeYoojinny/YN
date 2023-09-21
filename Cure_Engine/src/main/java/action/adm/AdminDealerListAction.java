@@ -50,7 +50,10 @@ public class AdminDealerListAction implements Action {
 		pageInfo.setStartPage(startPage);
 		
 		//모든 고객 정보 받아오기
-		ArrayList<User> dealerList = dealerListService.getAllDealer(page,limit);
+		ArrayList<User> dealerList = null;
+		if(listCount > 0) {
+			dealerList = dealerListService.getAllDealer(page,limit);
+		}
 		
 		request.setAttribute("dealerList", dealerList);
 		request.setAttribute("pageInfo", pageInfo);

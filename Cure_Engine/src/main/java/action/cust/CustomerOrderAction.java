@@ -122,6 +122,20 @@ public class CustomerOrderAction implements Action {
 		payment.setPay_creditcard_cvc(pay_creditcard_cvc);
 		
 		CustomerOrderService orderService = new CustomerOrderService();
+		//ordernum 생성하기
+		String ordernum = "";
+		String max_Num = orderService.createOrdernum();
+		if(max_Num == null) {
+			ordernum = "ORD00001";
+		}else {
+			String numericPart = max_Num.substring(3); // "RES" 부분을 제외한 숫자 부분 추출
+			int nextNumber = Integer.parseInt(numericPart) + 1; // 다음 번호 계산
+			ordernum = "ORD" + String.format("%05d", nextNumber);
+		}		
+		order.setOrdernum(ordernum);
+		payment.setOrdernum(ordernum);
+		
+		
 		boolean orderSuccess = orderService.insertOrder(order,payment);
 		
 		if(orderSuccess) {			

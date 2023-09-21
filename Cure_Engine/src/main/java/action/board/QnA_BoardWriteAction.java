@@ -60,6 +60,19 @@ public class QnA_BoardWriteAction implements Action {
 		
 	
 		QnA_BoardWriteService qna_BoardWriteService = new QnA_BoardWriteService();
+		
+		//qna_num 생성하기
+		String qna_num = "";
+		String max_reserNum = qna_BoardWriteService.createQna_num();
+		if(max_reserNum == null) {
+			qna_num = "QNA00001";
+		}else {
+			String numericPart = max_reserNum.substring(3); // "QNA" 부분을 제외한 숫자 부분 추출
+			int nextNumber = Integer.parseInt(numericPart) + 1; // 다음 번호 계산
+			qna_num = "QNA" + String.format("%05d", nextNumber);
+		}		
+		board.setQna_num(qna_num);	
+		
 		boolean isWriteSuccess = qna_BoardWriteService.writeQnABoard(board);
 		if(!isWriteSuccess) {
 			response.setContentType("text/html; charset=utf-8");

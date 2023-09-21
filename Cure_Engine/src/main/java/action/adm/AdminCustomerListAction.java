@@ -50,7 +50,10 @@ public class AdminCustomerListAction implements Action {
 		pageInfo.setStartPage(startPage);
 		
 		//모든 고객 정보 받아오기
-		ArrayList<User> customerList = customerListService.getAllCustomer(page,limit);
+		ArrayList<User> customerList = null;
+		if(listCount > 0) {
+			customerList = customerListService.getAllCustomer(page,limit);
+		}
 		
 		request.setAttribute("customerList", customerList);
 		request.setAttribute("pageInfo", pageInfo);

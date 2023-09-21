@@ -17,7 +17,7 @@ public class QnA_BoardWriteForm implements Action {
 		ActionForward forward = null;
 		
 		//제목 통일을 위해 코드 가져오기
-		QnA_BoardWriteFormService qna_BoardWriteFormService = new QnA_BoardWriteFormService();
+		QnA_BoardWriteFormService qna_BoardWriteFormService = new QnA_BoardWriteFormService();		
 		ArrayList<Code> allCode = qna_BoardWriteFormService.getAllCode();
 		
 		request.setAttribute("allCode", allCode);

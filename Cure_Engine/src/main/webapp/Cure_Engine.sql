@@ -240,7 +240,7 @@ where car_like > 0 and (w.car_id='123허6666' or w.car_id='71가9797')
 -- -----------------------------------------------------
 /*resernum 문자열+숫자 자동증가를 위한 임시 테이블*/
 create table tpm_resernum (
-	resernum int not null auto_increment primary key
+	resernum VARCHAR(8) NOT NULL 
 );
 
 CREATE TABLE tbl_reservation (
@@ -250,24 +250,39 @@ user_id VARCHAR(45) NOT NULL,
 dealer_id CHAR(7) NOT NULL,
 rev_date DATE NOT NULL,
 rev_time VARCHAR(45) NOT NULL,
-approve_YN CHAR(1) NOT NULL DEFAULT 'N' COMMENT '예약승인(Y)/거절(N)',
+approve_YN CHAR(1) NOT NULL DEFAULT 'W' COMMENT '예약대기(W)/예약승인(Y)/거절(N)',
 PRIMARY KEY (resernum),
 CONSTRAINT fk_rsv_car_id FOREIGN KEY (car_id) REFERENCES tbl_car (car_id),
 CONSTRAINT fk_rsv_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id));
 
+insert into tbl_reservation(resernum,car_id,user_id,dealer_id,rev_date,rev_time) values('RES00006','104오1000','d23002','2023-09-30','PM 01:30','W')
+select max(resernum) from tbl_reservation
+
+
+
 /* resernum 문자열+숫자 자동증가를 위한 trigger (trigger는 워크벤치로 생성) */
 DELIMITER $$
-CREATE TRIGGER testdb.tbl_reservation_resernum
-BEFORE INSERT ON testdb.tbl_reservation
+CREATE TRIGGER ipc23albk.tbl_reservation_resernum
+BEFORE INSERT ON ipc23albk.tbl_reservation
 FOR EACH ROW
 BEGIN
-  INSERT INTO testdb.tpm_resernum VALUES (NULL);
+  INSERT INTO ipc23albk.tpm_resernum VALUES (NULL);
   SET NEW.resernum = CONCAT('RES', LPAD(LAST_INSERT_ID(), 5, '0'));
 END$$
 DELIMITER ;
 
 alter table tbl_reservation modify column approve_YN CHAR(1) NOT NULL DEFAULT 'W';
 select * from tbl_reservation;
+
+ALTER TABLE tpm_resernum
+MODIFY COLUMN resernum VARCHAR(8) NOT NULL;
+insert into tbl_reservation(resernum) values(
+CONCAT('REV', LPAD((SELECT COALESCE(MAX(CAST(SUBSTRING(resernum, 4) AS UNSIGNED)), 0) + 1 FROM tbl_reservation), 5, '0'))
+)
+
+insert into tpm_resernum values(
+CONCAT('RES', LPAD((SELECT COALESCE(MAX(CAST(SUBSTRING(resernum, 4) AS UNSIGNED)), 0) + 1 FROM tbl_reservation), 5, '0')));
+
 
 -- -----------------------------------------------------
 -- tbl_deliveryfee : 탁송료
@@ -325,7 +340,7 @@ drop table tbl_order;
 
 /*ordernum 문자열+숫자 자동증가를 위한 임시 테이블*/
 create table tpm_ordernum (
-	ordernum int not null auto_increment primary key
+	ordernum VARCHAR(8) NOT NULL 
 );
 
 CREATE TABLE tbl_order (
@@ -379,6 +394,8 @@ alter table tbl_order modify order_approve_YN CHAR(1) NOT NULL DEFAULT 'W' ;
 select * from tbl_order;
 delete from tbl_order where car_id='66마8070'
 
+select max(ordernum) from tbl_order
+
 select *
 from tbl_car join tbl_order
 using(car_id)
@@ -403,7 +420,7 @@ WHERE o.user_id ='test11111' order by o.order_date desc limit ?,5;
 DROP TABLE tbl_qna;
 /* qna_num 문자열+숫자 자동증가를 위한 임시 테이블*/
 create table tpm_qnanum (
-	qna_num int not null auto_increment primary key
+	qna_num VARCHAR(8) NOT NULL
 );
 
 CREATE TABLE tbl_qna (
@@ -422,7 +439,7 @@ secret_YN CHAR(1) NOT NULL,
 reply_YN CHAR(1) NOT NULL DEFAULT 'N',
 qna_hit INT NOT NULL DEFAULT 0,
 PRIMARY KEY (qna_num),
-CONSTRAINT fk_qna_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id),
+CONSTRAINT fk_qna_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id));
 
 select * from tbl_qna;
 
@@ -457,7 +474,7 @@ select count(*), from tbl_qna where qna_title like '%문의%' or qna_content lik
 DROP TABLE tbl_notice;
 /* notice_num 문자열+숫자 자동증가를 위한 임시 테이블*/
 create table tpm_noticenum (
-	notice_num int not null auto_increment primary key
+	notice_num VARCHAR(8) NOT NULL
 );
 
 
@@ -494,7 +511,7 @@ select * from tbl_notice;
 -- -----------------------------------------------------
 /* review_num 문자열+숫자 자동증가를 위한 임시 테이블*/
 create table tpm_reviewnum (
-	review_num int not null auto_increment primary key
+	review_num VARCHAR(8) NOT NULL
 );
 
 CREATE TABLE tbl_review (
@@ -512,7 +529,7 @@ review_file3 VARCHAR(100) NULL,
 review_file3_origin VARCHAR(100) NULL,
 review_date DATETIME DEFAULT CURRENT_TIMESTAMP,
 review_hit INT NOT NULL DEFAULT 0,
-PRIMARY KEY (review_num);
+PRIMARY KEY (review_num));
 
 /* review_num 문자열+숫자 자동증가를 위한 trigger (trigger는 워크벤치로 생성) */
 DELIMITER $$
