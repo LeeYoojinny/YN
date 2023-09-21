@@ -37,7 +37,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 	}
 </script>
 <body>
-	<h2>${dealerInfo.user_id} 회원 정보</h2>
+	<h2>${dealerInfo.user_id} 딜러 정보</h2>
 	<div class="accordion" id="accordionPanelsStayOpenExample">
     <div class="accordion-item">
         <h2 class="accordion-header">
@@ -210,8 +210,63 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         </h2>
         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
             <div class="accordion-body">
-                <strong>This is the fourth item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-            </div>
+	           <c:if test="${orderList != null }">				
+				<table style="width:90%;">					
+					<tr id="firstLine">						
+						<th>No.</th>
+						<th>차량정보</th>
+						<th>주문내용</th>
+						<th>상태</th>						
+					</tr>					
+					<c:forEach var="order" items="${orderList}" varStatus="status">										
+						<tr class="contents">								
+							<td >${status.count}</td>
+							<td>
+								<a href="carDetailView.usr?car_id=${order.car_id}" class="image-link">
+									${order.car_id}												
+								</a>
+							</td>
+							<td>
+								<a href="orderDetail.adm?ordernum=${order.ordernum}&car_id=${order.car_id}&display=2">
+								<i class="fa-solid fa-magnifying-glass"></i>주문상세보기</a>
+							</td>							
+							<c:choose>
+		                   		<c:when test="${order.order_approve_YN eq 'W' && order.cancel_YN eq 'N'}">														
+									<td >승인대기</td>													
+								</c:when>								 
+								<c:when test="${order.order_approve_YN eq 'Y'}">
+										<td>주문승인</td>														
+								</c:when>
+								<c:when test="${order.order_approve_YN eq 'N'}">
+									<td>주문거절</td>																					
+								</c:when>
+								<c:when test="${order.order_approve_YN eq 'W' && order.cancel_YN eq 'Y'}">
+									<td>주문취소</td>																			
+								</c:when>						
+							</c:choose>							
+						</tr>																
+					</c:forEach>				
+				</table>	
+				<div class="pageNum">
+					<c:choose> 
+						<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>
+						<c:otherwise><a style="text-decoration:none" href="mySaleCar.adm?page=${pageInfo.page-1}">[이전]&nbsp;</a></c:otherwise>
+					</c:choose>
+					<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1" varStatus="loop">
+						<c:choose>
+							<c:when test="${i == pageInfo.page}">${i}&nbsp;</c:when>
+							<c:otherwise><a style="text-decoration:none" href="mySaleCar.adm?page=${i}">${i}</a>&nbsp;</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${pageInfo.page >= pageInfo.maxPage}">[다음]&nbsp;</c:when>
+						<c:otherwise><a style="text-decoration:none" href="mySaleCar.adm?page=${pageInfo.page+1}">[다음]&nbsp;</a></c:otherwise>
+					</c:choose>
+				</div>
+			</c:if>
+			<c:if test="${orderList == null }">
+				<div class="nothing">주문내역이 없습니다.</div>
+			</c:if>
         </div>
     </div>
 </div>

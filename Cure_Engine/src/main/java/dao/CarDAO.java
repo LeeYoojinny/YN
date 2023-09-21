@@ -546,6 +546,36 @@ public class CarDAO {
 			return result;
 		}
 		
+		/*--- 관리자가 등록한 차량 삭제 -------------------------------------------------------------------*/
+		public int removeCarByAdmin(String[] car_ids) {
+			int result = 0;
+			
+			String where_car_id = "";
+			for(int i=0; i<car_ids.length; i++) {
+				if(i == 0) {
+					where_car_id += " (car_id='"+car_ids[i]+"'";
+				}else {
+					where_car_id += " or car_id='"+car_ids[i]+"'";
+				}
+			}
+			where_car_id += ")";
+			
+			String sql = "update tbl_car set car_delete='Y' where"+where_car_id;
+			System.out.println("만들어진 sql문 : "+sql);
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				result = pstmt.executeUpdate();
+
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 removeCarByAdmin()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
+		
+		
 		/*--- 등록된 차량 수정위해 정보가져오기 -------------------------------------------------------------------*/
 		public Car getCarInfo(String car_id) {
 			Car carInfo = null;
@@ -951,6 +981,97 @@ public class CarDAO {
 			
 			return allCarList;
 		}
+
+		/*-- 삭제된 차량 리스트 페이징 처리를 위해 개수 가져오기 ---------------------------------------------------*/
+		public int getdeleteCarCount() {
+			int count = 0;
+			
+			String sql = "select count(*) from tbl_car where car_delete='Y'";
+			try {
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 getdeleteCarCount()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return count;
+		}
+
+
+		public ArrayList<Car> selectRemoveCar(int page, int limit) {			
+			ArrayList<Car> deleteCarList = null;
+			
+			String sql = "select * from tbl_car where car_delete='Y' limit ?,5";
+			int startrow = (page - 1) * 5;
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startrow);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					deleteCarList = new ArrayList<Car>();
+					do {
+						deleteCarList.add(new Car(
+								rs.getString("dealer_id"),
+								rs.getString("car_id"),
+								rs.getString("car_brand"),
+								rs.getString("car_name"),
+								rs.getInt("car_price"),
+								rs.getInt("car_year"),
+								rs.getString("car_image1"),
+								rs.getInt("car_like"),
+								rs.getString("sale_YN"),
+								rs.getString("car_delete")
+								));
+					}while(rs.next());
+				}
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 selectRemoveCar()에서 발생한 에러 : "+e);
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return deleteCarList;
+		}
+
+		/*-- 삭제된 차량 재등록 ------------------------------------------------------------------------*/
+		public int carReregist(String[] car_ids) {
+			int result = 0;
+			
+			String where_car_id = "";
+			for(int i=0; i<car_ids.length; i++) {
+				if(i == 0) {
+					where_car_id += " (car_id='"+car_ids[i]+"'";
+				}else {
+					where_car_id += " or car_id='"+car_ids[i]+"'";
+				}
+			}
+			where_car_id += ")";
+			
+			String sql = "update tbl_car set car_delete='N' where"+where_car_id;
+			System.out.println("만들어진 sql문 : "+sql);
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				result = pstmt.executeUpdate();
+
+			}catch(Exception e) {
+				System.out.println("CarDAO 클래스의 carReregist()에서 발생한 에러 : "+e);
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
+
+
 		
 		
 }

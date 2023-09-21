@@ -30,4 +30,15 @@ public class Review_BoardWriteService {
 		return isWriteSuccess;
 	}
 
+	public String createNotice_num() {
+		Connection con = getConnection();
+		ReviewBoardDAO revieweBoardDAO = ReviewBoardDAO.getInstance();
+		revieweBoardDAO.setConnection(con);
+		
+		String reviewNum = revieweBoardDAO.createReviewNum();
+		
+		close(con);
+		return reviewNum;
+	}
+
 }

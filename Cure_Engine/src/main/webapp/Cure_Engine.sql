@@ -257,20 +257,6 @@ CONSTRAINT fk_rsv_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id));
 
 insert into tbl_reservation(resernum,car_id,user_id,dealer_id,rev_date,rev_time) values('RES00006','104오1000','d23002','2023-09-30','PM 01:30','W')
 select max(resernum) from tbl_reservation
-
-
-
-/* resernum 문자열+숫자 자동증가를 위한 trigger (trigger는 워크벤치로 생성) */
-DELIMITER $$
-CREATE TRIGGER ipc23albk.tbl_reservation_resernum
-BEFORE INSERT ON ipc23albk.tbl_reservation
-FOR EACH ROW
-BEGIN
-  INSERT INTO ipc23albk.tpm_resernum VALUES (NULL);
-  SET NEW.resernum = CONCAT('RES', LPAD(LAST_INSERT_ID(), 5, '0'));
-END$$
-DELIMITER ;
-
 alter table tbl_reservation modify column approve_YN CHAR(1) NOT NULL DEFAULT 'W';
 select * from tbl_reservation;
 
@@ -283,6 +269,10 @@ CONCAT('REV', LPAD((SELECT COALESCE(MAX(CAST(SUBSTRING(resernum, 4) AS UNSIGNED)
 insert into tpm_resernum values(
 CONCAT('RES', LPAD((SELECT COALESCE(MAX(CAST(SUBSTRING(resernum, 4) AS UNSIGNED)), 0) + 1 FROM tbl_reservation), 5, '0')));
 
+SELECT r.*
+FROM tbl_reservation r
+INNER JOIN tbl_car c ON r.car_id = c.car_id
+WHERE c.car_delete = 'N';
 
 -- -----------------------------------------------------
 -- tbl_deliveryfee : 탁송료
@@ -370,17 +360,6 @@ PRIMARY KEY (ordernum),
 CONSTRAINT fk_od_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id),
 CONSTRAINT fk_od_coupon_id FOREIGN KEY (coupon_id) REFERENCES tbl_coupon (coupon_id));
 
-/* ordernum 문자열+숫자 자동증가를 위한 trigger (trigger는 워크벤치로 생성) */
-DELIMITER $$
-CREATE TRIGGER testdb.tbl_order_ordernum
-BEFORE INSERT ON testdb.tbl_order
-FOR EACH ROW
-BEGIN
-  INSERT INTO testdb.tpm_ordernum VALUES (NULL);
-  SET NEW.ordernum = CONCAT('ORD', LPAD(LAST_INSERT_ID(), 5, '0'));
-END$$
-DELIMITER ;
-
 alter table tbl_order add column user_zipcode INT NOT NULL after deliveryfee;
 alter table tbl_order add column car_tax INT NOT NULL after car_price;
 alter table tbl_order add column sale_expense INT NOT NULL after car_tax;
@@ -412,7 +391,13 @@ SELECT c.*, o.*, p.*
 FROM tbl_car c
 INNER JOIN tbl_order o ON c.car_id = o.car_id
 LEFT JOIN tbl_payment p ON o.ordernum = p.ordernum
-WHERE o.user_id ='test11111' order by o.order_date desc limit ?,5;
+WHERE o.user_id ='test11111' order by o.order_date desc limit 0,5;
+
+SELECT c.*, o.*, p.*
+FROM tbl_car c
+INNER JOIN tbl_order o ON c.car_id = o.car_id
+LEFT JOIN tbl_payment p ON o.ordernum = p.ordernum
+order by o.order_date desc
 
 -- -----------------------------------------------------
 -- tbl_qna : 질문게시판
@@ -449,17 +434,6 @@ alter table tbl_qna add column qna_viewNum int not NULL after qna_num;
 alter table tbl_qna add column qna_replyNum int not NULL DEFAULT 0 after qna_viewNum;
 alter table tbl_qna add column reply_YN CHAR(1) NOT NULL DEFAULT 'N' after secret_YN;
 
-/* qna_num 문자열+숫자 자동증가를 위한 trigger (trigger는 워크벤치로 생성) */
-DELIMITER $$
-CREATE TRIGGER testdb.tbl_qna_qnanum
-BEFORE INSERT ON testdb.tbl_qna
-FOR EACH ROW
-BEGIN
-  INSERT INTO testdb.tpm_qnanum VALUES (NULL);
-  SET NEW.qna_num = CONCAT('QNA', LPAD(LAST_INSERT_ID(), 5, '0'));
-END$$
-DELIMITER ;
-
 select * from tbl_qna;
 
 select count(*) from tbl_qna where qna_num='QNA00001' and qna_pw='1234';
@@ -489,17 +463,6 @@ notice_date DATETIME DEFAULT CURRENT_TIMESTAMP,
 notice_hit INT NOT NULL DEFAULT 0,
 PRIMARY KEY (notice_num),
 CONSTRAINT fk_ntc_user_id FOREIGN KEY (user_id) REFERENCES tbl_user (user_id));
-
-/* notice_num 문자열+숫자 자동증가를 위한 trigger (trigger는 워크벤치로 생성) */
-DELIMITER $$
-CREATE TRIGGER testdb.tbl_qna_noticenum
-BEFORE INSERT ON testdb.tbl_notice
-FOR EACH ROW
-BEGIN
-  INSERT INTO testdb.tpm_noticenum VALUES (NULL);
-  SET NEW.notice_num = CONCAT('NTC', LPAD(LAST_INSERT_ID(), 5, '0'));
-END$$
-DELIMITER ;
 
 alter table tbl_notice add column notice_file_origin VARCHAR(100) NULL after notice_file;
 
@@ -531,17 +494,6 @@ review_date DATETIME DEFAULT CURRENT_TIMESTAMP,
 review_hit INT NOT NULL DEFAULT 0,
 PRIMARY KEY (review_num));
 
-/* review_num 문자열+숫자 자동증가를 위한 trigger (trigger는 워크벤치로 생성) */
-DELIMITER $$
-CREATE TRIGGER testdb.tbl_review_reviewnum
-BEFORE INSERT ON testdb.tbl_review
-FOR EACH ROW
-BEGIN
-  INSERT INTO testdb.tpm_reviewnum VALUES (NULL);
-  SET NEW.review_num = CONCAT('REV', LPAD(LAST_INSERT_ID(), 5, '0'));
-END$$
-DELIMITER ;
-
 select * from tbl_review;
 alter table tbl_review add column review_file1_origin VARCHAR(100) NULL after review_file1;
 alter table tbl_review add column review_file2_origin VARCHAR(100) NULL after review_file2;
@@ -564,10 +516,6 @@ pay_creditcard_num VARCHAR(45) NULL COMMENT '카드결제시 카드번호 16자�
 pay_creditcard_cvc INT(3) NULL COMMENT '카드결제시 cvc 번호 3자리',
 pay_creditcard_date VARCHAR(45) NULL,
 CONSTRAINT fk_pay_ordernum FOREIGN KEY (ordernum) REFERENCES tbl_order (ordernum));
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 insert into tbl_payment(ordernum,pay_by,pay_price,pay_depositor_name,pay_creditcard_num,pay_creditcard_cvc) values ('ORD00009',1,160850000,'아무개','0',0);
 

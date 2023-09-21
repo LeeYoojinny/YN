@@ -117,8 +117,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 					                   		<c:when test="${order.order_approve_YN eq 'W' && order.cancel_YN eq 'N'}">														
 												<td rowspan="3" id="orderStatus">승인대기</td>
 												<td rowspan="3" id="bt">
-													<button onclick="approveCheck_2('${orderCar.car_id}'); return false;">승인</button>
-													<button onclick="refuseCheck('${orderCar.car_id}');return false;">거절</button>
+													<button onclick="approveCheck_2('${car.car_id}'); return false;">승인</button>
+													<button onclick="refuseCheck('${car.car_id}');return false;">거절</button>
 												</td>
 											</c:when>								 
 											<c:when test="${order.order_approve_YN eq 'Y'}">
@@ -154,7 +154,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 										</tr>
 					
 										<tr id="space"><td colspan="6"></td></tr>
-									</c:if>
+									</c:if>									
 									<c:set var="foundCar" value="true" />
 								</c:if>
 						</c:forEach>

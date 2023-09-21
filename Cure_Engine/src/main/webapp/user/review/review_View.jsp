@@ -81,7 +81,7 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 	</table>
 	<a class="btn btn-outline-secondary" href="review_boardList.bo">목록</a>
 	<c:if test="${board.user_id eq sessionScope.user_id or user_category eq 'admin'}">
-		<a class="btn btn-outline-secondary" onclick="location.href='review_boardUpdateForm.bo?review_num=+${board.review_num}'; return false;">수정</a>
+		<a class="btn btn-outline-secondary" onclick="location.href='review_boardUpdateForm.bo?review_num=${board.review_num}&list_num=${param.list_num}'; return false;">수정</a>
 	</c:if>
 	<c:if test="${board.user_id eq sessionScope.user_id or user_category eq 'admin'}">
 	<a class="btn btn-outline-secondary" onclick="delete_Check('${board.review_num}'); return false;">삭제</a> 

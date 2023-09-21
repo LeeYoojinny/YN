@@ -8,10 +8,13 @@ import java.util.ArrayList;
 
 import vo.ReviewBoard;
 import dao.CodeDAO;
+import dao.OrderDAO;
 import dao.QnABoardDAO;
 import dao.ReviewBoardDAO;
 import dao.UserDAO;
+import vo.Car;
 import vo.Code;
+import vo.Order;
 import vo.QnABoard;
 import vo.Reservation;
 import vo.User;
@@ -69,7 +72,20 @@ public class AdminCustDetailViewService {
 		
 		ArrayList<Reservation> myRev = userDAO.selectMyReservation(user_id);
 		
+		close(con);
 		return myRev;
+	}
+
+	public ArrayList<Order> getOrderList(String user_id) {
+		Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		ArrayList<Order> orderList = null;		
+		orderList = orderDAO.getCustOrderList(user_id,1,1);			
+		
+		close(con);
+		return orderList;
 	}
 
 }

@@ -65,19 +65,10 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 		            </tr>
 		        </c:if>
 			</tbody>
-		</table>
-		
-		<%-- <form action="noticeSearchAction.bo" method="post">
-			<select name="option">
-				<option value="notice_title" selected>제목</option>
-				<option value="user_id">작성자</option>
-			</select>
-			<input type="text" name="keyword" placeholder="검색어를 입력하세요">
-			<button onclick="searchCheck()">검색</button>
-			<c:if test="${user_category eq 'admin'}">
-				<a class="btn btn-default float-end" style="border:1px solid #ccc;" href="notice_boardWrite.bo">글쓰기</a>
-			</c:if>
-		</form> --%>
+		</table>		
+		<c:if test="${user_category eq 'admin'}">
+			<a class="btn btn-default float-end" style="border:1px solid #ccc;" href="notice_boardWrite.bo">글쓰기</a>
+		</c:if>
 		<div class="pageNum">
 		<c:choose> 
 				<c:when test="${pageInfo.page <= 1}">[이전]&nbsp;</c:when>
