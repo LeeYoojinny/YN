@@ -8,6 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Cure Engine</title>
+
+
 <link rel="stylesheet" href="css/main_style.css">
 </head>
 <body>

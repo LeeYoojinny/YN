@@ -80,14 +80,14 @@ public class UserLoginAction implements Action {
 			ArrayList<Wishlist> userWish = userLoginService.getWishInfo(user_id);
 			
 			System.out.println("user의 카테고리 : " + userInfo.getUser_category());
-			
+						
 			HttpSession session = request.getSession();
+
 			session.setAttribute("user_category", userInfo.getUser_category());
 			session.setAttribute("user_id", user_id);
 			session.setAttribute("user_name", userInfo.getUser_name());
 			session.setAttribute("user_email", userInfo.getUser_email());
 			session.setAttribute("user_phone", userInfo.getUser_phone());
-			
 			
 			if(userWish != null) {
 				session.setAttribute("wishlist", userWish);

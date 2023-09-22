@@ -182,7 +182,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 			</div>
 		</c:if>
 		<c:if test="${orderList == null }">
-			<div class="nothing">${user_id}님 판매차량은 주문내역이 없습니다.</div>
+			<div class="nothing">주문내역이 없습니다.</div>
 		</c:if>
 	</div>
 </body>

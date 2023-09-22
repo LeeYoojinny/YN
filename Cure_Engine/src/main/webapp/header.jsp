@@ -6,14 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <!-- Font Awesome 아이콘 라이브러리 추가 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
 	integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- 추가된 부트스트랩 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/header_style.css">
     <title>Cure Engine</title>
 </head>
@@ -37,7 +36,7 @@
 					<%-- 로그인 하기 전 --%>
 					<c:when test="${sessionScope.user_id eq null}">
 				    	<li class="nav-item">
-		                   <a class="nav-link" href="<%=request.getContextPath()%>/allCarListView.usr">Cars</a>
+		                   <a class="nav-link" href="allCarListView.usr">Cars</a>
 		                </li>
 					    <li class="nav-item dropdown">
 	                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -45,8 +44,8 @@
 	                            Board
 	                        </a>
 	                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/qna_boardList.bo">문의게시판</a></li>
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/review_boardList.bo">리뷰게시판</a></li>
+	                            <li><a class="dropdown-item" href="qna_boardList.bo">문의게시판</a></li>
+	                            <li><a class="dropdown-item" href="review_boardList.bo">리뷰게시판</a></li>
 	                        </ul>
 	                    </li>
 					    <li class="nav-item dropdown">
@@ -55,14 +54,14 @@
 	                            Contact
 	                        </a>
 	                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/notice_boardList.bo">공지사항</a></li>
+	                            <li><a class="dropdown-item" href="notice_boardList.bo">공지사항</a></li>
 	                        </ul>
 	                    </li>
 	                </c:when>  
 					<%-- 고객이 로그인을 했을 떄 --%>
 					<c:when test="${sessionScope.user_category eq 'customer'}">
 				    	<li class="nav-item">
-	                        <a class="nav-link" href="<%=request.getContextPath()%>/allCarListView.usr">Cars</a>
+	                        <a class="nav-link" href="allCarListView.usr">Cars</a>
 	                    </li>
 	                    <li class="nav-item dropdown">
 	                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -70,8 +69,8 @@
 	                            Board
 	                        </a>
 	                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/qna_boardList.bo">문의게시판</a></li>
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/review_boardList.bo">리뷰게시판</a></li>
+	                            <li><a class="dropdown-item" href="qna_boardList.bo">문의게시판</a></li>
+	                            <li><a class="dropdown-item" href="review_boardList.bo">리뷰게시판</a></li>
 	                        </ul>
 	                    </li>
 	                    <li class="nav-item dropdown">
@@ -80,14 +79,14 @@
 	                            Contact
 	                        </a>
 	                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/notice_boardList.bo">공지사항</a></li>
+	                            <li><a class="dropdown-item" href="notice_boardList.bo">공지사항</a></li>
 	                        </ul>
 	                    </li>
 	                </c:when>
 					<%-- 딜러가 로그인 했을 때 --%>
 					<c:when test="${sessionScope.user_category eq 'dealer'}">
 	                    <li class="nav-item dropdown">
-	                        <a class="nav-link dropdown-toggle" href="<%=request.getContextPath()%>/allCarListView.usr" id="navbarDropdownMenuLink" role="button"
+	                        <a class="nav-link dropdown-toggle" href="allCarListView.usr" id="navbarDropdownMenuLink" role="button"
 	                            data-bs-toggle="dropdown" aria-expanded="false">
 	                            Cars
 	                        </a>
@@ -112,9 +111,9 @@
 	                            Board
 	                        </a>
 	                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/notice_boardList.bo">공지사항</a></li>
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/qna_boardList.bo">문의게시판관리</a></li>
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/review_boardList.bo">리뷰게시판관리</a></li>
+	                            <li><a class="dropdown-item" href="notice_boardList.bo">공지사항</a></li>
+	                            <li><a class="dropdown-item" href="qna_boardList.bo">문의게시판관리</a></li>
+	                            <li><a class="dropdown-item" href="review_boardList.bo">리뷰게시판관리</a></li>
 	                        </ul>		    
 	                    </li>    
 	                </c:when>
@@ -126,8 +125,8 @@
 	                            Cars
 	                        </a>
 	                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/carRegistForm.adm">상품등록</a></li>
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/allSaleCar.adm">전체상품관리</a></li>
+	                            <li><a class="dropdown-item" href="carRegistForm.adm">상품등록</a></li>
+	                            <li><a class="dropdown-item" href="allSaleCar.adm">전체상품관리</a></li>
 	                        </ul>		    
 	                    </li>
 	                    <li class="nav-item dropdown">
@@ -136,8 +135,8 @@
 	                            Status
 	                        </a>
 	                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/reservationView.adm">예약현황</a></li>
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/orderListView.adm">주문현황</a></li>
+	                            <li><a class="dropdown-item" href="reservationView.adm">예약현황</a></li>
+	                            <li><a class="dropdown-item" href="orderListView.adm">주문현황</a></li>
 	                        </ul>
 	                    </li>
 	                    <li class="nav-item dropdown">
@@ -146,9 +145,9 @@
 	                            Board
 	                        </a>
 	                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/notice_boardList.bo">공지사항</a></li>
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/qna_boardList.bo">문의게시판관리</a></li>
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/review_boardList.bo">리뷰게시판관리</a></li>
+	                            <li><a class="dropdown-item" href="notice_boardList.bo">공지사항</a></li>
+	                            <li><a class="dropdown-item" href="qna_boardList.bo">문의게시판관리</a></li>
+	                            <li><a class="dropdown-item" href="review_boardList.bo">리뷰게시판관리</a></li>
 	                        </ul>		    
 	                    </li>    
 	                </c:otherwise>
@@ -157,50 +156,50 @@
 		  	<ul class="navbar-nav ms-auto">
 	            <c:choose>
 	                <c:when test="${sessionScope.user_id eq null}">
-		  				<li><a href="<%=request.getContextPath()%>/userLogin.usr">LogIn</a></li>
-						<li><a href="<%=request.getContextPath()%>/userJoinChoice.usr">Join</a></li>
+		  				<li><a href="userLogin.usr">LogIn</a></li>
+						<li><a href="userJoinChoice.usr">Join</a></li>
 		  			</c:when>
 			  		<c:when test="${sessionScope.user_category eq 'customer'}">
 	                    <li class="wish">
-	                        <a href="<%=request.getContextPath()%>/myWishlist.cust">
+	                        <a href="myWishlist.cust">
 			  					<i class="fa-duotone fa-heart-circle-plus" style="--fa-primary-opacity: 0.5; --fa-secondary-color: #e10935; --fa-secondary-opacity: 1;"></i>
 				  			</a>
 			  			</li>                   
 	                    <li class="nav-item">
 	                        <a class="nav-link" href="#">My Info</a>
 	                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/myReservation.cust">나의예약내역</a></li>
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/myOrderList.cust">나의주문내역</a></li>
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/myInfoView.cust">회원정보수정</a></li>
+	                            <li><a class="dropdown-item" href="myReservation.cust">나의예약내역</a></li>
+	                            <li><a class="dropdown-item" href="myOrderList.cust">나의주문내역</a></li>
+	                            <li><a class="dropdown-item" href="myInfoView.cust">회원정보수정</a></li>
 	                        </ul>
 	                    </li>
 	                    <li class="nav-item">
-	                        <a class="nav-link" href="<%=request.getContextPath()%>/userLogout.usr">LogOut</a>
+	                        <a class="nav-link" href="userLogout.usr">LogOut</a>
 	                    </li>
 	                </c:when>
 					<c:when test="${sessionScope.user_category eq 'dealer'}">	                    
 	                    <li class="nav-item">
 	                        <a class="nav-link" href="#">My Info</a>
 	                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	                            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/dealerInfoView.adm">딜러정보수정</a></li>
+	                            <li><a class="dropdown-item" href="dealerInfoView.adm">딜러정보수정</a></li>
 	                        </ul>
 	                    </li>
 	                    <li class="nav-item">
-	                        <a class="nav-link" href="<%=request.getContextPath()%>/userLogout.usr">LogOut</a>
+	                        <a class="nav-link" href="userLogout.usr">LogOut</a>
 	                    </li>
 	                </c:when>
 					<c:otherwise>					
 						<li class="nav-item">
 		                   <a class="nav-link" href="#">Manage</a>
 		                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	                         	<li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerList.adm">회원관리</a></li>
-	                         	<li><a class="dropdown-item" href="<%=request.getContextPath()%>/dealerApproveList.adm">딜러등록</a></li>
-	                         	<li><a class="dropdown-item" href="<%=request.getContextPath()%>/dealerList.adm">딜러관리</a></li>
-						  	 	<li><a class="dropdown-item" href="<%=request.getContextPath()%>/pwChangeForm.usr?user_id=${user_id}">비밀번호변경</a></li>
+	                         	<li><a class="dropdown-item" href="customerList.adm">회원관리</a></li>
+	                         	<li><a class="dropdown-item" href="dealerApproveList.adm">딜러등록</a></li>
+	                         	<li><a class="dropdown-item" href="dealerList.adm">딜러관리</a></li>
+						  	 	<li><a class="dropdown-item" href="pwChangeForm.usr?user_id=${user_id}">비밀번호변경</a></li>
 		                     </ul>
 		                 </li>
 		                 <li class="nav-item">
-		                     <a class="nav-link" href="<%=request.getContextPath()%>/userLogout.usr">LogOut</a>
+		                     <a class="nav-link" href="userLogout.usr">LogOut</a>
 		                 </li>
 					</c:otherwise>
 				</c:choose>
@@ -214,6 +213,7 @@
     <!-- Bootstrap JS 및 Popper.js 추가 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
     
+
      <!-- 스피너 -->
 	<script src="js/spinner.js"></script>
 </body>

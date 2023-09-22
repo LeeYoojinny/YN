@@ -10,8 +10,17 @@
 </head>
 <%
 	//아이디 일부분만 보여주기
-	String user_id = (String)request.getAttribute("user_id");
-	user_id = user_id.substring(0,4)+("*".repeat(user_id.length()-4));
+	String user_id = (String) request.getAttribute("user_id");
+	int length = user_id.length();
+	int repeatCount = length - 4;
+	if (repeatCount > 0) {
+	    StringBuilder maskedUserId = new StringBuilder(user_id.substring(0, 4));
+	    for (int i = 0; i < repeatCount; i++) {
+	        maskedUserId.append("*");
+	    }
+	    user_id = maskedUserId.toString();
+	}
+
 
 %>
 

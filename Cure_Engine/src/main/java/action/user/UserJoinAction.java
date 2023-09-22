@@ -61,7 +61,7 @@ public class UserJoinAction implements Action {
 			String couponNum = SHA256.getRandomPassword(10);
 			Coupon joinCoupon = new Coupon();
 			joinCoupon.setCoupon_id(couponNum);
-			joinCoupon.setCoupon_name("Welcome Coupon");
+			joinCoupon.setCoupon_name("Welcome Coupon_탁송료반값");
 			joinCoupon.setUser_id(user_id);
 			joinCoupon.setDiscount_rate(50);
 			
