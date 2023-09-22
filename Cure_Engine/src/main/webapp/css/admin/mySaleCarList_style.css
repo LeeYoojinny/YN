@@ -149,6 +149,21 @@ input::placeholder {
 	text-align: center;
 }
 
+#return_bt {
+	width: 7rem;
+    padding: 0.5rem;
+	color:#fff;
+	font-family: 'Gowun Dodum', sans-serif;
+	background-color: #486AAE;
+	border: 1px solid #dadada;
+	cursor: pointer;
+	float: right;
+	margin-bottom: 5rem;
+}
+#return_bt:hover {
+	background-color: #36589C;
+	color:#fff;
+}	
 /* 상품 리스트 부분 ---------------------------------------------------*/
 table {
 	margin-top: 0.2rem;

@@ -129,7 +129,8 @@
 			</div>
 		</c:if>
 		<c:if test="${removeCarList == null }">
-			<div class="nothing">${user_id}님의 판매차량이 없습니다.</div>
+			<button id="return_bt" onclick="location.href='allSaleCar.adm'; return false;">판매차량목록</button>
+			<div class="nothing" style="clear:both;">삭제된 상품이 없습니다.</div>
 		</c:if>
 	</div>
 </body>

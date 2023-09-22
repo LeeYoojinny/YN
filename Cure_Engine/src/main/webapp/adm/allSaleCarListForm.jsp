@@ -192,7 +192,12 @@
 				<c:set var="startNo" value="${(pageInfo.page - 1) * 5 + 1}" />
 				<c:forEach var="allCar" items="${allSaleCarList}" varStatus="status">
 					<tr class="contents">
-						<td rowspan="3" id="check_remove"><input type="checkbox" name="remove" value="${allCar.car_id}"></td>
+						<c:if test="${allCar.sale_YN eq 'Y'}">
+							<td rowspan="3" id="check_remove"><input type="checkbox" name="remove" value="${allCar.car_id}"></td>
+						</c:if>
+						<c:if test="${allCar.sale_YN eq 'W' or allCar.sale_YN eq 'N'}">
+							<td rowspan="3" id="check_remove"><input type="checkbox" disabled></td>
+						</c:if>
 						<td rowspan="3" id="item_no">${startNo + status.count-1}</td>
 						<td rowspan="3">${allCar.dealer_id}&nbsp;&nbsp;</td>
 						<td rowspan="3" id="main_img">
@@ -221,7 +226,7 @@
 						<td rowspan="3" id="bt">							
 							<c:if test="${allCar.sale_YN eq 'Y'}">
 								<button onclick="location.href='carUpdateForm.adm?car_id=${allCar.car_id}'; return false;">수정하기</button>
-							<button onclick="removeCheck_2('${allCar.car_id}','${allCar.dealer_id}');return false;">삭제하기</button>
+								<button onclick="removeCheck_2('${allCar.car_id}','${allCar.dealer_id}');return false;" style="float: right;">삭제하기</button>
 							</c:if>
 							<c:if test="${allCar.sale_YN eq 'W' || allCar.sale_YN eq 'N'}">
 								<button disabled>수정하기</button>

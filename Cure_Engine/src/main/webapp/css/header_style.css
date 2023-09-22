@@ -1,239 +1,246 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Ubuntu&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Ubuntu&display=swap')
+	;
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap')
+	;
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap')
+	;
 
 /* 스피너 -------------------------------------------------------*/
-.loading-spinner{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
+.loading-spinner {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 2;
 }
 
 /*-------------------------------------------------------------*/
 /* 네비게이션 바 스타일 */
 nav {
-    display: flex; /* 플렉스 박스로 내부 아이템을 가로 정렬합니다. */
-    background-color: #ffffff; /* 배경색을 설정합니다. */
-    justify-content: space-between; /* 내부 아이템 사이에 공간을 균등하게 분배합니다. */
-    padding: 0.6rem 0; /* 위아래로 0.6rem, 좌우로 0의 여백을 추가합니다. */
-    font-family: 'Ubuntu', sans-serif; /* 글꼴을 Ubuntu로 설정합니다. */
-    /* 여기에 추가적인 메뉴 바 스타일을 적용할 수 있습니다. */
+	display: flex; /* 플렉스 박스로 내부 아이템을 가로 정렬합니다. */
+	background-color: #ffffff; /* 배경색을 설정합니다. */
+	justify-content: space-between; /* 내부 아이템 사이에 공간을 균등하게 분배합니다. */
+	padding: 0.6rem 0; /* 위아래로 0.6rem, 좌우로 0의 여백을 추가합니다. */
+	/* font-family: 'Ubuntu', sans-serif; */ /* 글꼴을 Ubuntu로 설정합니다. */
+	/* 여기에 추가적인 메뉴 바 스타일을 적용할 수 있습니다. */ 
 }
 
 nav ul {
-    list-style: none; /* 목록 표시 스타일을 없앱니다. */
-    display: flex; /* 플렉스 박스로 내부 아이템을 가로 정렬합니다. */
-    margin: 0; /* 바깥쪽 여백을 없앱니다. */
-    padding: 0; /* 안쪽 여백을 없앱니다. */
+	list-style: none; /* 목록 표시 스타일을 없앱니다. */
+	display: flex; /* 플렉스 박스로 내부 아이템을 가로 정렬합니다. */
+	margin: 0; /* 바깥쪽 여백을 없앱니다. */
+	padding: 0; /* 안쪽 여백을 없앱니다. */
 }
 
 /* 기본 메뉴 항목 스타일 */
 nav ul li {
-    position: relative; /* 상대 위치 설정 */
-    font-family: 'Ubuntu', sans-serif; /* 글꼴을 Ubuntu로 설정합니다. */
-    margin: 0 1.5rem; /* 좌우 여백을 조절합니다. */
-    text-align: center; /* 텍스트를 가운데 정렬합니다. */
+	position: relative; /* 상대 위치 설정 */
+	font-family: 'Ubuntu', sans-serif; /* 글꼴을 Ubuntu로 설정합니다. */
+	margin: 0 1.5rem; /* 좌우 여백을 조절합니다. */
+	text-align: center; /* 텍스트를 가운데 정렬합니다. */
 }
 
 /* 기본 메뉴 항목의 링크 스타일 */
 nav ul li a {
-    display: block; /* 블록 레벨 요소로 설정하여 가로 폭 100% 설정 */
-    padding: 0.55rem 1rem; /* 안쪽 여백을 설정합니다. */
-    text-decoration: none; /* 텍스트에 밑줄을 없앱니다. */
-    color: #000000; /* 글자 색상을 검정으로 설정합니다. */
-    font-weight: 600; /* 글자 굵기를 설정합니다. */
-    transition: color 0.3s; /* 글자 색상에 호버 효과를 추가합니다. */
-    position: relative; /* 상대 위치 설정 */
+	display: block; /* 블록 레벨 요소로 설정하여 가로 폭 100% 설정 */
+	padding: 0.55rem 1rem; /* 안쪽 여백을 설정합니다. */
+	text-decoration: none; /* 텍스트에 밑줄을 없앱니다. */
+	color: #000000; /* 글자 색상을 검정으로 설정합니다. */
+	font-weight: 600; /* 글자 굵기를 설정합니다. */
+	transition: color 0.3s; /* 글자 색상에 호버 효과를 추가합니다. */
+	position: relative; /* 상대 위치 설정 */
 }
 
 /* 메뉴 항목에 마우스 호버 시 스타일 변경 */
 nav ul li a:hover {
-    color: #00aaff; /* 호버 시 글자 색상을 파란색으로 변경합니다. */
+	color: #00aaff; /* 호버 시 글자 색상을 파란색으로 변경합니다. */
 }
 
 /* 홈 버튼 스타일 */
 .gotoMain {
-    justify-content: flex-start; /* 왼쪽 정렬합니다. */
-    margin-left: 0.5rem; /* 왼쪽 여백을 조절합니다. */
+	justify-content: flex-start; /* 왼쪽 정렬합니다. */
+	margin-left: 0.5rem; /* 왼쪽 여백을 조절합니다. */
 }
 
 /* 쇼핑 관련 메뉴 스타일 */
 .shoppingMenu {
-    justify-content: center; /* 가운데 정렬합니다. */
-    margin-left: 2rem; /* 왼쪽 여백을 조절합니다. */
+	justify-content: center; /* 가운데 정렬합니다. */
+	margin-left: 2rem; /* 왼쪽 여백을 조절합니다. */
 }
 
 /* 나의 정보 및 로그아웃 메뉴 스타일 */
 .myInfoMenu {
-    justify-content: flex-end; /* 오른쪽 정렬합니다. */
-    margin-right: 0.5rem; /* 오른쪽 여백을 조절합니다. */
+	justify-content: flex-end; /* 오른쪽 정렬합니다. */
+	margin-right: 0.5rem; /* 오른쪽 여백을 조절합니다. */
 }
 
 .myInfoMenu li {
-    width: 5.45rem; /* 고정된 폭 설정 */
-    margin: 0 0.5rem; /* 좌우 여백을 조절합니다. */
+	width: 5.45rem; /* 고정된 폭 설정 */
+	margin: 0 0.5rem; /* 좌우 여백을 조절합니다. */
 }
 
 li.wish {
-    width: 2rem; /* 고정된 폭 설정 */
+	width: 2rem; /* 고정된 폭 설정 */
 }
 
 .wish img {
-    vertical-align: middle; /* 이미지를 세로 중앙 정렬합니다. */
-    width: 1.2rem; /* 이미지 폭 설정 */
+	vertical-align: middle; /* 이미지를 세로 중앙 정렬합니다. */
+	width: 1.2rem; /* 이미지 폭 설정 */
 }
-
 
 /* 드롭다운 메뉴 스타일 */
 
 /* 드롭다운 메뉴의 기본 스타일 설정 */
 nav ul ul {
-    display: none; /* 드롭다운 메뉴를 기본적으로 화면에서 숨깁니다. */
-    position: absolute; /* 절대 위치 설정 */
-    background-color: #ffffff; /* 배경색을 어두운 회색으로 지정 */
-    border-top: 2px solid #00aaff; /* 윗 부분에 파란색 상단 테두리 추가 */
-    z-index: 1; /* 다른 요소 위에 표시될 수 있도록 z-index 설정 */
-    width: auto; /* 자동 폭 */
-    top: 100%; /* 드롭다운 메뉴가 기본 메뉴 아래에 나타나도록 설정 */
-    left: 0; /* 왼쪽 정렬 */
+	display: none; /* 드롭다운 메뉴를 기본적으로 화면에서 숨깁니다. */
+	position: absolute; /* 절대 위치 설정 */
+	background-color: #ffffff; /* 배경색을 어두운 회색으로 지정 */
+	border-top: 2px solid #00aaff; /* 윗 부분에 파란색 상단 테두리 추가 */
+	z-index: 1; /* 다른 요소 위에 표시될 수 있도록 z-index 설정 */
+	width: auto; /* 자동 폭 */
+	top: 100%; /* 드롭다운 메뉴가 기본 메뉴 아래에 나타나도록 설정 */
+	left: 0; /* 왼쪽 정렬 */
 }
 
 /* 메뉴 항목에 마우스를 올렸을 때 드롭다운 메뉴를 표시 */
-nav ul li:hover > ul {
-    display: block; /* 메뉴 항목에 마우스를 올렸을 때 드롭다운 메뉴를 보이도록 설정 */
+nav ul li:hover>ul {
+	display: block; /* 메뉴 항목에 마우스를 올렸을 때 드롭다운 메뉴를 보이도록 설정 */
 }
 
 /* 드롭다운 메뉴의 기본 설정 */
 nav ul ul li {
-    width: 100%; /* 100% 폭 설정 */
-    text-align: center; /* 텍스트를 가로 중앙 정렬 */
-    margin: 0; /* 마진 없음 */
-    position: relative; /* 상대 위치 설정 */
-    font-family: 'GowunDodum', sans-serif !important; /* 글꼴 설정 */
-    
+	width: 100%; /* 100% 폭 설정 */
+	text-align: center; /* 텍스트를 가로 중앙 정렬 */
+	margin: 0; /* 마진 없음 */
+	position: relative; /* 상대 위치 설정 */
+	font-family: 'GowunDodum', sans-serif !important; /* 글꼴 설정 */
 }
 
 /* 드롭다운 메뉴 항목 링크 스타일 설정 */
 nav ul ul li a {
-    padding: 0.75rem 1rem; /* 안쪽 여백 설정 */
-    display: block; /* 블록 레벨 요소로 설정하여 가로 폭 100% 설정 */
-    white-space: nowrap; /* 텍스트가 넘치면 줄 바꿈 금지 */
-    border-bottom: 1px solid #444; /* 하단에 얇은 테두리 추가 */
-    text-align: center; /* 텍스트를 가로 중앙 정렬 */
+	padding: 0.75rem 1rem; /* 안쪽 여백 설정 */
+	display: block; /* 블록 레벨 요소로 설정하여 가로 폭 100% 설정 */
+	white-space: nowrap; /* 텍스트가 넘치면 줄 바꿈 금지 */
+	border-bottom: 1px solid #444; /* 하단에 얇은 테두리 추가 */
+	text-align: center; /* 텍스트를 가로 중앙 정렬 */
 }
 
 /* 긴 글자에 대한 스타일 조정 */
 #inside_menu2 li a {
-    padding: 0.75rem 0.2rem; /* 안쪽 여백 설정 */
-    font-size: 0.9rem; /* 글꼴 크기 설정 */
-    text-align: center; /* 텍스트를 가로 중앙 정렬 */
+	padding: 0.75rem 0.2rem; /* 안쪽 여백 설정 */
+	font-size: 0.9rem; /* 글꼴 크기 설정 */
+	text-align: center; /* 텍스트를 가로 중앙 정렬 */
 }
 
 /* 드롭다운 메뉴 항목에 마우스를 올렸을 때의 스타일 설정 */
 nav ul ul li a:hover {
-    background-color: #00aaff; /* 파란색 배경색 설정 */
-    color: #ffffff; /* 글자 색상을 흰색으로 설정 */
+	background-color: #00aaff; /* 파란색 배경색 설정 */
+	color: #ffffff; /* 글자 색상을 흰색으로 설정 */
 }
 
 /* 더 큰 화면에 대한 조정 (예: 태블릿 및 데스크탑 화면) */
 @media screen and (min-width: 48rem) {
-    nav ul li {
-        margin: 0 2rem; /* 메뉴 항목 간격을 조정합니다. */
-    }
-    nav ul ul {
-        left: 0; /* 드롭다운 메뉴가 왼쪽 정렬되도록 설정합니다. */
-    }
+	nav ul li {
+		margin: 0 2rem; /* 메뉴 항목 간격을 조정합니다. */
+	}
+	nav ul ul {
+		left: 0; /* 드롭다운 메뉴가 왼쪽 정렬되도록 설정합니다. */
+	}
 }
-
-
 
 /* 스타일링 내비게이션 바 배경색과 텍스트 스타일 */
 .navbar {
-    background-color: #ffffff; /* 내비게이션 바의 배경색을 변경합니다. */
-    color: #000000; /* 텍스트 색상을 흰색으로 설정합니다. */
+	background-color: #ffffff; /* 내비게이션 바의 배경색을 변경합니다. */
+	color: #000000; /* 텍스트 색상을 흰색으로 설정합니다. */
 }
 
 .navbar-brand {
-    font-size: 28px; /* 로고 텍스트의 글꼴 크기를 변경합니다. */
-    margin-left: 55px !important; /* 좌측 여백을 5px로 설정합니다. */
+	font-size: 28px; /* 로고 텍스트의 글꼴 크기를 변경합니다. */
+	margin-left: 55px !important; /* 좌측 여백을 5px로 설정합니다. */
 }
 
 .navbar-nav .nav-item .nav-link {
-    color: #000000; /* 내비게이션 메뉴 항목의 텍스트 색상을 흰색으로 설정합니다. */
+	color: #000000; /* 내비게이션 메뉴 항목의 텍스트 색상을 흰색으로 설정합니다. */
 }
 
 /* 드롭다운 메뉴 스타일 */
 .dropdown-menu {
-    background-color: #ffffff; /* 드롭다운 메뉴의 배경색을 변경합니다. */
-    color: #000000; /* 드롭다운 메뉴의 텍스트 색상을 흰색으로 설정합니다. */
+	background-color: #ffffff; /* 드롭다운 메뉴의 배경색을 변경합니다. */
+	color: #000000; /* 드롭다운 메뉴의 텍스트 색상을 흰색으로 설정합니다. */
 }
 
 .dropdown-item {
-    color: #000000; /* 드롭다운 메뉴 항목의 텍스트 색상을 흰색으로 설정합니다. */
+	color: #000000; /* 드롭다운 메뉴 항목의 텍스트 색상을 흰색으로 설정합니다. */
+	
 }
 
 /* 로그인 및 가입 링크 스타일 */
-.navbar-nav .nav-item .nav-link[href*="Login"],
-.navbar-nav .nav-item .nav-link[href*="Join"] {
-    border: 1px solid #ffffff; /* 로그인 및 가입 링크 주위에 흰색 테두리를 추가합니다. */
-    border-radius: 5px; /* 테두리의 모서리를 둥글게 만듭니다. */
-    padding: 5px 15px; /* 링크 주위의 여백을 조정합니다. */
-    margin-left: 10px; /* 링크 사이의 간격을 조정합니다. */
-    color: #000000; /* 링크 텍스트의 색상을 흰색으로 설정합니다. */
-    text-decoration: none; /* 링크 밑줄을 제거합니다. */
-    transition: background-color 0.3s, color 0.3s; /* 링크에 호버 효과를 추가합니다. */
+.navbar-nav .nav-item .nav-link[href*="Login"], .navbar-nav .nav-item .nav-link[href*="Join"]
+	{
+	border: 1px solid #ffffff; /* 로그인 및 가입 링크 주위에 흰색 테두리를 추가합니다. */
+	border-radius: 5px; /* 테두리의 모서리를 둥글게 만듭니다. */
+	padding: 5px 15px; /* 링크 주위의 여백을 조정합니다. */
+	margin-left: 10px; /* 링크 사이의 간격을 조정합니다. */
+	color: #000000; /* 링크 텍스트의 색상을 흰색으로 설정합니다. */
+	text-decoration: none; /* 링크 밑줄을 제거합니다. */
+	transition: background-color 0.3s, color 0.3s; /* 링크에 호버 효과를 추가합니다. */
 }
 
-.navbar-nav .nav-item .nav-link[href*="Login"]:hover,
-.navbar-nav .nav-item .nav-link[href*="Join"]:hover {
-    background-color: #ffffff; /* 호버 시 배경색을 흰색으로 변경합니다. */
-    color: #3498db; /* 호버 시 텍스트 색상을 기본색으로 변경합니다. */
+.navbar-nav .nav-item .nav-link[href*="Login"]:hover, .navbar-nav .nav-item .nav-link[href*="Join"]:hover
+	{
+	background-color: #ffffff; /* 호버 시 배경색을 흰색으로 변경합니다. */
+	color: #3498db; /* 호버 시 텍스트 색상을 기본색으로 변경합니다. */
 }
 
 /* 추가된 CSS 스타일 */
 
 /* 아이콘 메뉴 버튼 스타일 */
 .menu-icon {
-    display: block;
-    cursor: pointer;
-    font-size: 30px;
-    margin-right: 20px;
-    /* 아이콘 색상과 기타 스타일 조정 */
-    color: #000000; /* 아이콘 색상을 검정색으로 설정합니다. */
+	display: block;
+	cursor: pointer;
+	font-size: 30px;
+	margin-right: 20px;
+	/* 아이콘 색상과 기타 스타일 조정 */
+	color: #000000; /* 아이콘 색상을 검정색으로 설정합니다. */
 }
 
 /* 메뉴 펼치기 버튼 활성화 시 스타일 조정 */
 .menu.active {
-    display: flex;
-    flex-direction: column;
-    /* 메뉴 활성화 시 배경색과 다른 스타일 조정 */
-    background-color: #ffffff; /* 메뉴 배경색을 흰색으로 변경합니다. */
-    position: absolute;
-    top: 100%; /* 메뉴가 네비게이션 바 아래에 표시되도록 설정합니다. */
-    left: 0;
-    width: 100%;
-    z-index: 1;
+	display: flex;
+	flex-direction: column;
+	/* 메뉴 활성화 시 배경색과 다른 스타일 조정 */
+	background-color: #ffffff; /* 메뉴 배경색을 흰색으로 변경합니다. */
+	position: absolute;
+	top: 100%; /* 메뉴가 네비게이션 바 아래에 표시되도록 설정합니다. */
+	left: 0;
+	width: 100%;
+	z-index: 1;
 }
 
 /* 작은 화면에서 메뉴 항목 스타일 조정 */
 .menu a {
-    color: #000000; /* 메뉴 항목 텍스트 색상을 검정색으로 설정합니다. */
-    text-decoration: none;
-    padding: 10px;
-    font-size: 20px;
+	color: #000000; /* 메뉴 항목 텍스트 색상을 검정색으로 설정합니다. */
+	text-decoration: none;
+	padding: 10px;
+	font-size: 20px;
+}
+
+.navbar-toggler{
+	margin-right: 0.5rem;
 }
 
 /* 화면 폭이 768px 이하일 때 아이콘으로 변경 */
-@media (max-width: 768px) {
-    /* 네비게이션 아이템들을 아이콘으로 변경합니다. */
+@media ( max-width : 768px) { /* 네비게이션 아이템들을 아이콘으로 변경합니다. */
 }
 
 /* 화면 폭이 768px 초과일 때 기본 스타일을 유지합니다. */
-@media (min-width: 769px) {
-    /* 추가적인 반응형 스타일을 여기에 추가할 수 있습니다. */
+@media ( min-width : 769px) { /* 추가적인 반응형 스타일을 여기에 추가할 수 있습니다. */
 }
 /*----------------------------------------------------------------------*/
