@@ -203,7 +203,7 @@ public class UserDAO {
 	public String findId(User findIdInfo) {
 		String getId = null;
 
-		String sql = "select user_id from tbl_user where user_name=? and user_birth=? and user_email=?";
+		String sql = "select user_id from tbl_user where use_YN='Y' and user_name=? and user_birth=? and user_email=?";
 
 		try {
 			pstmt = con.prepareStatement(sql);

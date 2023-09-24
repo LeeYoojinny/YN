@@ -516,37 +516,8 @@ public class CarDAO {
 			return mySaleCar;
 		}
 		
-		/*--- 딜러가 자신이 등록한 차량 삭제 -------------------------------------------------------------------*/
-		public int removeMyCar(String[] car_ids, String user_id) {
-			int result = 0;
-			
-			String where_car_id = "";
-			for(int i=0; i<car_ids.length; i++) {
-				if(i == 0) {
-					where_car_id += " (car_id='"+car_ids[i]+"'";
-				}else {
-					where_car_id += " or car_id='"+car_ids[i]+"'";
-				}
-			}
-			where_car_id += ")";
-			
-			String sql = "update tbl_car set car_delete='Y' where dealer_id=? and"+where_car_id;
-			System.out.println("만들어진 sql문 : "+sql);
-			
-			try {
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, user_id);
-				result = pstmt.executeUpdate();
-
-			}catch(Exception e) {
-				System.out.println("CarDAO 클래스의 removeMyCar()에서 발생한 에러 : "+e);
-			}finally {
-				close(pstmt);
-			}
-			return result;
-		}
-		
-		/*--- 관리자가 등록한 차량 삭제 -------------------------------------------------------------------*/
+				
+		/*--- 딜러,관리자 - 등록한 차량 삭제 -------------------------------------------------------------------*/
 		public int removeCarByAdmin(String[] car_ids) {
 			int result = 0;
 			

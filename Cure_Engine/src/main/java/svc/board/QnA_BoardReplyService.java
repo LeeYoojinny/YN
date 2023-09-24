@@ -15,8 +15,7 @@ public class QnA_BoardReplyService {
 	public boolean insertReply(QnABoard board,String parent_qna_num) {
 		Connection con= getConnection();
 		QnABoardDAO boardDAO = QnABoardDAO.getInstance();
-		boardDAO.setConnection(con);
-		
+		boardDAO.setConnection(con);		
 		
 		int replyCount = boardDAO.insertReply(board);
 		int parent_replyY = boardDAO.parentReplyYN(parent_qna_num);
@@ -31,6 +30,17 @@ public class QnA_BoardReplyService {
 		close(con);
 		return replySuccess;
 
+	}
+
+	public String createQna_num() {
+		Connection con= getConnection();
+		QnABoardDAO boardDAO = QnABoardDAO.getInstance();
+		boardDAO.setConnection(con);
+		
+		String qna_num = boardDAO.createQna_num();
+		
+		close(con);
+		return qna_num;
 	}
 
 }

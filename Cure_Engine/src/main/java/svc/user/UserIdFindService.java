@@ -1,5 +1,6 @@
 package svc.user;
 
+import static db.JdbcUtil.close;
 import static db.JdbcUtil.getConnection;
 
 import java.sql.Connection;
@@ -16,6 +17,7 @@ public class UserIdFindService {
 		
 		String getId = userDAO.findId(findIdInfo);
 		
+		close(con);
 		return getId;
 	}
 

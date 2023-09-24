@@ -23,8 +23,10 @@ public class UserFindIdAction implements Action {
 		String user_birth_d = request.getParameter("user_birth_d");
 		
 		String user_birth = user_birth_y+"-"+user_birth_m+"-"+user_birth_d;
+		System.out.println(user_birth);
 		
 		String user_email = request.getParameter("user_email");
+		
 		
 		User findIdInfo = new User();
 		findIdInfo.setUser_name(user_name);

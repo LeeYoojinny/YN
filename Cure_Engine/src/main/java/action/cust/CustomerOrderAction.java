@@ -18,8 +18,7 @@ public class CustomerOrderAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		//주문처리 : 주문정보 DB저장 (Order, Payment),  쿠폰 사용했다면 쿠폰 테이블 update, Car 테이블의 sale_YN 값 W(대기)로 update
-		
+		//주문처리 : 주문정보 DB저장 (Order, Payment),  쿠폰 사용했다면 쿠폰 테이블 update, Car 테이블의 sale_YN 값 W(대기)로 update		
 		
 		//Order 객체 생성
 		String car_id = request.getParameter("car_id");
@@ -39,7 +38,8 @@ public class CustomerOrderAction implements Action {
 		
 		valueCheck = request.getParameter("discount_price");
 		if(valueCheck != null && !valueCheck.isEmpty()) {
-			discount_price = Integer.parseInt(valueCheck);
+			double discountDouble = Double.parseDouble(valueCheck);
+			discount_price = (int) discountDouble;
 		}
 		System.out.println("discount_price : "+discount_price);
 

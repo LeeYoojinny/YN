@@ -28,16 +28,18 @@ body{
 }
 
 .field.show{
-	margin-bottom: 0.5rem;	
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1rem;	
 }
 
 .field.show input {
-	width: 100%;
+	width: 80%;
 	height: 1.8rem;
 }
 
 .field.show button {
-	width: 100%;
+	width: 25%;
 	line-height: 2rem;
 	background-color: #486AAE;
 	border: 1px solid #dadada;

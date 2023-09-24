@@ -67,7 +67,7 @@
 		}		
 	}
 	
-	function removeCheck_1(dealer_id) {
+	function removeCheck_1() {
 		var checkboxes = document.getElementsByName('remove');
 	    var selectedCount = 0;
 	    var selectedCarIds = [];
@@ -89,7 +89,7 @@
 
 	        if (confirm(confirmMessage)) {
 	            // 사용자가 확인을 누르면 선택된 항목 삭제
-	            var param = 'car_ids=' + selectedCarIds.join(',') + '&dealer_id=' + dealer_id + '&display_num=1';
+	            var param = 'car_ids=' + selectedCarIds.join(',') + '&display_num=1';
 	            location.href = 'myCarRemove.adm?' + param;
 	        }
 	    }
@@ -99,7 +99,7 @@
 		 var confirmMessage = car_id+ ' 차량을 삭제하시겠습니까?';
 		 
 		 if(confirm(confirmMessage)) {
-			 var param = 'car_ids=' + car_id + '&dealer_id=' + dealer_id + + '&display_num=1';
+			 var param = 'car_ids=' + car_id + '&display_num=1';
 			 location.href = 'myCarRemove.adm?' + param;
 		 }
 	}
@@ -177,7 +177,7 @@
 			<form method="post">
 			<table>
 				<tr id="allRemove">
-					<td colspan="2"><button onclick="removeCheck_1('${myCar.dealer_id}'); return false;">선택삭제</button></td>
+					<td colspan="2"><button onclick="removeCheck_1(); return false;">선택삭제</button></td>
 					<td colspan="3"></td>
 				</tr>
 				<tr id="firstLine">
@@ -224,7 +224,7 @@
 						<c:if test="${myCar.sale_YN eq 'Y'}">
 							<td rowspan="3" id="bt">
 								<button onclick="location.href='carUpdateForm.adm?car_id=${myCar.car_id}'; return false;">수정하기</button>
-								<button onclick="removeCheck_2('${myCar.car_id}','${myCar.car_id}');return false;">삭제하기</button>
+								<button onclick="removeCheck_2('${myCar.car_id}');return false;">삭제하기</button>
 							</td>
 						</c:if>
 						<c:if test="${myCar.sale_YN eq 'W' || myCar.sale_YN eq 'N'}">

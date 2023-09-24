@@ -198,7 +198,7 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}
 
-		/*------- '나의판매차량 삭제하기' → 처리 (보류) ---------------------------------------------------------*/
+		/*------- '나의판매차량 삭제하기' ---------------------------------------------------------*/
 		else if(command.equals("/myCarRemove.adm")) {//'나의판매차량 삭제' 요청이면
 			action = new AdminMyCarRemoveAction();
 			try {

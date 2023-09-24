@@ -19,9 +19,6 @@ public class AdminMyCarRemoveAction implements Action {
 		String display_num = request.getParameter("display_num");
 		System.out.println("display_num : "+display_num);
 		
-		String user_id = request.getParameter("dealer_id");
-		System.out.println("딜러아이디 : "+user_id);
-		
 		String car_id = request.getParameter("car_ids");
 		System.out.println("삭제차량 아이디 : "+car_id);
 		
@@ -37,14 +34,9 @@ public class AdminMyCarRemoveAction implements Action {
 			System.out.println("파라미터 값으로 넘어온 car_ids : " + id);
 		}
 		
-		AdminMyCarRemoveService adminMyCarRemoveService = new AdminMyCarRemoveService();
-		int removeResult = 0;
-		
-		if(display_num.equals("1")) {
-			removeResult = adminMyCarRemoveService.removeMyCar(car_ids,user_id);
-		}else if(display_num.equals("2")) {
-			removeResult = adminMyCarRemoveService.removeCarByAdmin(car_ids);
-		}
+		AdminMyCarRemoveService adminMyCarRemoveService = new AdminMyCarRemoveService();			
+		int removeResult = adminMyCarRemoveService.removeCarByAdmin(car_ids);
+
 			
 				
 		if(removeResult > 0 ) {

@@ -18,6 +18,7 @@ public class QnA_BoardReplyFormAction implements Action {
 		ActionForward forward = null;
 		
 		String qna_num = request.getParameter("qna_num");
+		System.out.println("기존글번호 : " + qna_num);
 		
 		QnA_BoardReplyFormService qna_BoardReplyFormService = new QnA_BoardReplyFormService();
 		QnABoard board = qna_BoardReplyFormService.getboardInfo(qna_num);

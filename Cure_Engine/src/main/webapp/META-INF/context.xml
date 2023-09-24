@@ -15,7 +15,7 @@
 	   maxWait="1000"/> -->
 	   
 	    <!-- MySQL용 -->
- 		<Resource name="jdbc/MySQLDB" 
+ 		<!--<Resource name="jdbc/MySQLDB" 
 	   auth="Container"
 	   type="javax.sql.DataSource" 
 	   
@@ -28,10 +28,10 @@
 	  
 	   maxActive="500" 
 	   maxWait="1000"
-	   maxIdle="100"/>
+	   maxIdle="100"/>-->
 
 	     <!-- 영남서버용 -->
- 		<!-- <Resource name="jdbc/MySQLDB" 
+ 		<Resource name="jdbc/MySQLDB" 
 	   auth="Container"
 	   type="javax.sql.DataSource" 
 	   
@@ -44,5 +44,5 @@
 	  
 	   maxActive="500" 
 	   maxWait="1000"
-	   maxIdle="100"/>  -->
+	   maxIdle="100"/>
 </Context>
