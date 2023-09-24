@@ -22,7 +22,7 @@ public class QnA_BoardReplyAction implements Action {
 		ActionForward forward = null;
 		
 		ServletContext context = request.getServletContext();
-		String uploadPath = context.getRealPath("/upload/qna_file");//컨텍스트 루트(/)의 절대경로를 기준
+		String uploadPath = context.getRealPath("upload/qna_file");//컨텍스트 루트(/)의 절대경로를 기준
 		System.out.println("서버상의 실제 경로(절대경로) : " + uploadPath);
 		
 		File dir = new File(uploadPath);
@@ -56,6 +56,19 @@ public class QnA_BoardReplyAction implements Action {
 		String parent_qna_num = multi.getParameter("parentNum");
 		
 		QnA_BoardReplyService qna_BoardReplyService = new QnA_BoardReplyService();
+		
+		//qna_num 생성하기
+		String qna_num = "";
+		String max_reserNum = qna_BoardReplyService.createQna_num();
+		if(max_reserNum == null) {
+			qna_num = "QNA00001";
+		}else {
+			String numericPart = max_reserNum.substring(3); // "QNA" 부분을 제외한 숫자 부분 추출
+			int nextNumber = Integer.parseInt(numericPart) + 1; // 다음 번호 계산
+			qna_num = "QNA" + String.format("%05d", nextNumber);
+		}		
+		board.setQna_num(qna_num);
+		
 		boolean replySuccess = qna_BoardReplyService.insertReply(board,parent_qna_num);
 
 		if(!replySuccess) {

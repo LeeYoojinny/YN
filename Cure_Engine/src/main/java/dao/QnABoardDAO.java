@@ -105,9 +105,9 @@ public class QnABoardDAO {
 		int insertCount = 0;
 		int num=0;
 		
-		String sql = "insert into tbl_qna(user_id,car_id,qna_pw,qna_title,qna_content,qna_file,"
+		String sql = "insert into tbl_qna(qna_num,user_id,car_id,qna_pw,qna_title,qna_content,qna_file,"
 				+ "qna_file_origin,secret_YN,qna_viewNum)"
-				+ " values(?,?,?,?,?,?,?,?,?)";
+				+ " values(?,?,?,?,?,?,?,?,?,?)";
 		try {
 			pstmt = con.prepareStatement("select max(qna_viewNum) from tbl_qna");
 			rs = pstmt.executeQuery();
@@ -120,15 +120,16 @@ public class QnABoardDAO {
 						
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setString(1, board.getUser_id());
-			pstmt.setString(2, board.getCar_id());
-			pstmt.setString(3, board.getQna_pw());
-			pstmt.setString(4, board.getQna_title());
-			pstmt.setString(5, board.getQna_content());
-			pstmt.setString(6, board.getQna_file());
-			pstmt.setString(7, board.getQna_file_origin());
-			pstmt.setString(8, board.getSecret_YN());
-			pstmt.setInt(9, num);
+			pstmt.setString(1, board.getQna_num());
+			pstmt.setString(2, board.getUser_id());
+			pstmt.setString(3, board.getCar_id());
+			pstmt.setString(4, board.getQna_pw());
+			pstmt.setString(5, board.getQna_title());
+			pstmt.setString(6, board.getQna_content());
+			pstmt.setString(7, board.getQna_file());
+			pstmt.setString(8, board.getQna_file_origin());
+			pstmt.setString(9, board.getSecret_YN());
+			pstmt.setInt(10, num);
 						
 			insertCount = pstmt.executeUpdate();
 		}catch(Exception e) {
@@ -389,9 +390,9 @@ public class QnABoardDAO {
 		int replyCount = 0;
 		int num=0;
 		
-		String sql = "insert into tbl_qna(user_id,car_id,qna_pw,qna_title,qna_content,qna_file,"
+		String sql = "insert into tbl_qna(qna_num,user_id,car_id,qna_pw,qna_title,qna_content,qna_file,"
 				+ "qna_file_origin,secret_YN,reply_YN,qna_viewNum,qna_replyNum)"
-				+ " values(?,?,?,?,?,?,?,?,?,?,?)";
+				+ " values(?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			pstmt = con.prepareStatement("select max(qna_replyNum) from tbl_qna where qna_viewNum=?");
 			pstmt.setInt(1, board.getQna_viewNum());
@@ -403,17 +404,18 @@ public class QnABoardDAO {
 						
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setString(1, board.getUser_id());
-			pstmt.setString(2, board.getCar_id());
-			pstmt.setString(3, board.getQna_pw());
-			pstmt.setString(4, board.getQna_title());
-			pstmt.setString(5, board.getQna_content());
-			pstmt.setString(6, board.getQna_file());
-			pstmt.setString(7, board.getQna_file_origin());
-			pstmt.setString(8, board.getSecret_YN());
-			pstmt.setString(9, board.getReply_YN());
-			pstmt.setInt(10, board.getQna_viewNum());
-			pstmt.setInt(11, num);
+			pstmt.setString(1, board.getQna_num());
+			pstmt.setString(2, board.getUser_id());
+			pstmt.setString(3, board.getCar_id());
+			pstmt.setString(4, board.getQna_pw());
+			pstmt.setString(5, board.getQna_title());
+			pstmt.setString(6, board.getQna_content());
+			pstmt.setString(7, board.getQna_file());
+			pstmt.setString(8, board.getQna_file_origin());
+			pstmt.setString(9, board.getSecret_YN());
+			pstmt.setString(10, board.getReply_YN());
+			pstmt.setInt(11, board.getQna_viewNum());
+			pstmt.setInt(12, num);
 						
 			replyCount = pstmt.executeUpdate();
 		}catch(Exception e) {

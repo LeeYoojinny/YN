@@ -165,8 +165,8 @@ function orderCheck() {
 								<c:if test="${fee_region == user_region}">
 									<c:set var="user_fee" value="${fee.fee}" />
 									<div>
-										<h6 class="my-0">탁송료(출발지역:대구)</h6>
-										<small class="text-body-secondary"> 차량 받으실 지역 : ${fee.region} </small>
+										<h6 class="my-0">탁송료 - 탁송지역 : ${fee.region}</h6>
+										<small class="text-body-secondary"> 출발지역:대구</small>
 										<c:set var="region" value="${fee.region}" />
 									</div>
 									<span class="text-body-secondary"> 

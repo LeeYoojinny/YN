@@ -27,7 +27,7 @@ public class Notice_BoardUpdateAction implements Action {
 		ActionForward forward = null;
 		
 		ServletContext context = request.getServletContext();
-		String uploadPath = context.getRealPath("/upload/notice_file");//컨텍스트 루트(/)의 절대경로를 기준
+		String uploadPath = context.getRealPath("upload/notice_file");//컨텍스트 루트(/)의 절대경로를 기준
 		System.out.println("서버상의 실제 경로(절대경로) : " + uploadPath);
 		
 		File dir = new File(uploadPath);

@@ -28,6 +28,7 @@
 	        <input type="password" name="input_pw">
 	    </div>
 	    <div class="field show">
+	        <button onclick="history.back();return false;">뒤로</button>
 	        <button onclick="pwCheck(); return false;">확인</button>
 	    </div>   
 	</div>

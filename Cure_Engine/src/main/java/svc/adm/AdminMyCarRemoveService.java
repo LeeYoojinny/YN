@@ -12,23 +12,6 @@ import dao.WishlistDAO;
 
 public class AdminMyCarRemoveService {
 
-	public int removeMyCar(String[] car_ids, String user_id) {
-		Connection con = getConnection();
-		CarDAO carDAO = CarDAO.getInstance();
-		carDAO.setConnection(con);
-		
-		int removeResult = carDAO.removeMyCar(car_ids, user_id);
-		
-		if(removeResult > 0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		
-		close(con);
-		return removeResult;
-	}
-	
 	public int removeCarByAdmin(String[] car_ids) {
 		Connection con = getConnection();
 		CarDAO carDAO = CarDAO.getInstance();
