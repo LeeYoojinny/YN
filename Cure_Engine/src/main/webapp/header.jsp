@@ -160,11 +160,7 @@
 						<li><a href="userJoinChoice.usr">Join</a></li>
 		  			</c:when>
 			  		<c:when test="${sessionScope.user_category eq 'customer'}">
-	                    <li class="wish">
-	                        <a href="myWishlist.cust">
-			  					<i class="fa-duotone fa-heart-circle-plus" style="--fa-primary-opacity: 0.5; --fa-secondary-color: #e10935; --fa-secondary-opacity: 1;"></i>
-				  			</a>
-			  			</li>                   
+	                    <li class="wish"><a href="myWishlist.cust">Wishlist</a></li>                   
 	                    <li class="nav-item">
 	                        <a class="nav-link" href="#">My Info</a>
 	                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

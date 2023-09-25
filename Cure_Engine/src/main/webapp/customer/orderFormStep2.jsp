@@ -281,7 +281,7 @@ function orderCheck() {
 							</div>
 							<div class="col-md-6" id="accountInfo2">
 								<div class="form-group">
-									<label for="cc-number" class="form-label">예금주명</label>
+									<label for="cc-number" class="form-label">입금자명</label>
 									<input type="text" class="form-control" id="pay_depositor_name" name="pay_depositor_name" placeholder="">
 								</div>
 								<small class="text-body-secondary">입금자명을 정확히 입력해주세요.</small>
