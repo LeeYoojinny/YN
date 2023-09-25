@@ -91,7 +91,7 @@ String image5 = carDetail.getCar_image5();
 	
 </script>
 <body>
-<h2>${carDetail.car_id} 상세보기</h2>
+<h2>${carDetail.car_id} 상세정보</h2>
 	<div class="wrap_allCarList">
 	   	<div id="carouselExampleIndicators" class="carousel slide">
 		  <div class="carousel-indicators"  id="carouselButtons">
