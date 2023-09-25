@@ -219,8 +219,8 @@ integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQI
 	       	 							</div>
 	       	 						</div>
 	       	 					</div>
-	       	 				</div>
-	       	 			</c:forEach>
+	       	 				</div>	       	 				
+	       	 			</c:forEach>	       	 			
 	       	 		</div>	
 				</div>
 			</div>		
