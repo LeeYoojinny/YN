@@ -265,7 +265,7 @@ String image5 = carDetail.getCar_image5();
 								<img src="image/carDetailView/dealer_man.png">
 							</c:if>
 							<c:if test="${dealerInfo.user_gender eq 'F'}">
-								<img src="image/carDetailView/dealer_f.png">
+								<img src="image/carDetailView/dealer_female.png">
 							</c:if>
 						</td>
 						<td></td>
